@@ -1,0 +1,10 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "@planjs/fabric": "^0.0.4",
+    "lerna": "^3.20.2",
+    "standard-version": "^9.0.0",
+    "typescript": "^4.0.3"
+  }
+}
