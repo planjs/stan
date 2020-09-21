@@ -1,6 +1,9 @@
 {
   "name": "root",
   "private": true,
+  "workspaces": {
+    "packages": ["packages/*"]
+  },
   "devDependencies": {
     "@planjs/fabric": "^0.0.4",
     "lerna": "^3.20.2",
