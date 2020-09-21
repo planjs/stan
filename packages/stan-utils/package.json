@@ -1,11 +1,11 @@
 {
-  "name": "stan-lib-builder",
+  "name": "stan-utils",
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
   "license": "ISC",
-  "main": "lib/stan-lib-builder.js",
+  "main": "lib/stan-utils.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -24,15 +24,24 @@
     "url": "https://github.com/planjs/stan/issues"
   },
   "dependencies": {
-    "rollup": "^2.28.1",
-    "@rollup/plugin-node-resolve": "^9.0.0",
-    "@rollup/plugin-commonjs": "^15.1.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/pluginutils": "^4.0.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "@rollup/plugin-babel": "^5.2.1",
-    "@rollup/plugin-typescript": "^6.0.0",
-    "@rollup/plugin-replace": "^2.3.3",
-    "@rollup/plugin-alias": "^3.1.1"
+    "lodash": "^4.17.20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.161",
+    "rimraf": "^3.0.2",
+    "yargs": "^16.0.3",
+    "yargs-parser": "^20.2.0",
+    "glob": "^7.1.6",
+    "fs-extra": "^9.0.1",
+    "chalk": "^4.1.0",
+    "color": "^3.1.2",
+    "clipboardy": "^2.3.0",
+    "chokidar": "^3.4.2",
+    "cross-spawn": "^7.0.3",
+    "mkdirp": "^1.0.4",
+    "debug": "^4.2.0"
   }
 }
