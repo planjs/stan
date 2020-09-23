@@ -1,3 +1,10 @@
+import { Plugin } from 'rollup';
+import { FilterPattern } from '@rollup/pluginutils';
+import { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
+import { RollupReplaceOptions } from '@rollup/plugin-replace';
+import { RollupCommonJSOptions } from '@rollup/plugin-commonjs';
+import { RollupInjectOptions } from '@rollup/plugin-inject';
+
 export type BundleType = 'rollup' | 'babel';
 
 export interface BaseOutputOptions {
@@ -9,6 +16,10 @@ export interface BaseOutputOptions {
   bundler: BundleType;
   minify?: boolean;
   sourcemap?: boolean;
+  /**
+   * 配置 node 或者 browser 库
+   */
+  target?: 'node' | 'browser';
 }
 
 export interface UMDOptions extends BaseOutputOptions {
@@ -23,28 +34,51 @@ export interface BundleOptions extends BaseOutputOptions {
    */
   entry?: string;
   runtimeHelpers?: boolean;
-  esm?: ESMOptions;
-  cjs?: CJSOptions;
-  umd?: UMDOptions;
+  esm?: ESMOptions | BundleType | false;
+  cjs?: CJSOptions | BundleType | false;
+  umd?: UMDOptions | false;
+  include?: FilterPattern;
+  extraBabelPlugins?: any[];
+  extraBabelPresets?: string[];
   /**
    * css modules 配置
    */
   cssModules?: any;
   /**
-   * rollup 的 external
-   * @note 不推荐设置，默认以下配置
-   *  打包esm, cjs时 dependencies 和 peerDependencies 里的内容会被 external
-   *  打包umd时 peerDependencies 会被 external
-   */
-  external?: string[];
-  /**
    * rollup 的 external 保留内部默认处理，新增 external
+   * 打包esm, cjs时 dependencies 和 peerDependencies 里的内容会被 external
+   * 打包umd时 peerDependencies 会被 external
    */
   extraExternal?: string[];
+  /**
+   * 配置额外 postcss plugin
+   */
+  extraPostCSSPlugins?: any[];
+  /**
+   * 配置额外 rollup plugin
+   */
+  extraRollupPlugins?: Plugin[];
+  /**
+   * 配置 @rollup/plugin-node-resolve 参数
+   */
+  nodeResolveOpts?: RollupNodeResolveOptions;
+  /**
+   * 配置 @rollup/plugin-replace 参数
+   */
+  replaceOpts?: RollupReplaceOptions;
+  /**
+   * 配置 @rollup/plugin-commonjs 参数
+   */
+  commonjsOpts?: RollupCommonJSOptions;
+  /**
+   * 配置 @rollup/plugin-inject 参数
+   */
+  injectOpts?: RollupInjectOptions;
 }
 
 export interface BuildOptions {
   cwd: string;
   watch?: boolean;
+  rootPath?: string;
   args?: BundleOptions;
 }

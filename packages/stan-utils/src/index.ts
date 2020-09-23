@@ -7,6 +7,7 @@ import semver from 'semver';
 import chalk from 'chalk';
 import glob from 'glob';
 import joi from 'joi';
+import yParser from 'yargs-parser';
 
 export { lodash };
 export { mkdirp };
@@ -16,4 +17,5 @@ export { semver };
 export { chalk };
 export { glob };
 export { joi };
+export { yParser };
 export { createDebug, Debugger };
