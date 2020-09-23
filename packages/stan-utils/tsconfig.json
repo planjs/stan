@@ -1,25 +1,7 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "esnext",
-    "moduleResolution": "node",
-    "jsx": "preserve",
-    "skipLibCheck": true,
-    "allowJs": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "declaration": true
+    "outDir": "lib"
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "lib",
-    "**/*.spec.ts",
-    "**/*.test.ts",
-    "fixtures",
-    "examples"
-  ]
+  "include": ["src"]
 }

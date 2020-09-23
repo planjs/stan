@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "skipLibCheck": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "declaration": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "lib",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "fixtures",
+    "examples"
+  ]
+}

@@ -5,7 +5,7 @@
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
   "license": "ISC",
-  "main": "lib/stan-utils.js",
+  "main": "lib/index.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -18,18 +18,17 @@
     "url": "git+https://github.com/planjs/stan.git"
   },
   "scripts": {
+    "start": "tsc -w",
+    "prepare": "tsc",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
     "url": "https://github.com/planjs/stan/issues"
   },
-  "dependencies": {
-    "lodash": "^4.17.20"
-  },
   "publishConfig": {
     "access": "public"
   },
-  "devDependencies": {
+  "dependencies": {
     "@types/lodash": "^4.14.161",
     "@types/mkdirp": "^1.0.1",
     "@types/node": "^14.11.1",
@@ -39,6 +38,7 @@
     "@types/chalk": "^2.2.0",
     "@types/glob": "^7.1.3",
     "@types/debug": "^4.1.5",
+    "lodash": "^4.17.20",
     "rimraf": "^3.0.2",
     "yargs": "^16.0.3",
     "yargs-parser": "^20.2.0",
@@ -51,6 +51,7 @@
     "cross-spawn": "^7.0.3",
     "mkdirp": "^1.0.4",
     "debug": "^4.2.0",
-    "semver": "^7.3.2"
+    "semver": "^7.3.2",
+    "joi": "^17.2.1"
   }
 }

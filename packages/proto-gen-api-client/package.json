@@ -13,6 +13,9 @@
   "files": [
     "lib"
   ],
+  "bin": {
+    "gen-api": "./bin/gen-api.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/planjs/stan.git"
@@ -22,5 +25,9 @@
   },
   "bugs": {
     "url": "https://github.com/planjs/stan/issues"
+  },
+  "dependencies": {
+    "stan-utils": "*",
+    "google-proto-files": "^2.2.0"
   }
 }
