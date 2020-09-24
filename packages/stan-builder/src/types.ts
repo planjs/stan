@@ -38,8 +38,24 @@ export interface BundleOptions extends BaseOutputOptions {
   cjs?: CJSOptions | BundleType | false;
   umd?: UMDOptions | false;
   include?: FilterPattern;
+  /**
+   * babel plugin 配置
+   * @note 不推荐配置 会覆盖默认调优的配置
+   */
+  babelPlugins?: any[];
+  /**
+   * babel presets
+   * @note 不推荐配置 会覆盖默认调优的配置
+   */
+  babelPresets?: string[];
+  /**
+   * 新增 babel plugin
+   */
   extraBabelPlugins?: any[];
-  extraBabelPresets?: string[];
+  /**
+   * 新增 babel presets
+   */
+  extraBabelPresets?: any[];
   /**
    * css modules 配置
    */
@@ -50,6 +66,10 @@ export interface BundleOptions extends BaseOutputOptions {
    * 打包umd时 peerDependencies 会被 external
    */
   extraExternal?: string[];
+  /**
+   * 配置依赖不 external
+   */
+  externalsExclude?: string[];
   /**
    * 配置额外 postcss plugin
    */

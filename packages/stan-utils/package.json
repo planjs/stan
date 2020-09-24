@@ -18,8 +18,9 @@
     "url": "git+https://github.com/planjs/stan.git"
   },
   "scripts": {
-    "start": "tsc -w",
-    "prepare": "tsc",
+    "build": "babel src -d lib -x .ts,.js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "prepare": "yarn build && yarn build:types",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
