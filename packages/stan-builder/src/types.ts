@@ -13,7 +13,7 @@ export interface BaseOutputOptions {
    * 开启压缩
    * @default false
    */
-  bundler: BundleType;
+  bundler?: BundleType;
   minify?: boolean;
   sourcemap?: boolean;
   /**
@@ -25,9 +25,17 @@ export interface BaseOutputOptions {
 export interface UMDOptions extends BaseOutputOptions {
   name?: string;
 }
-export interface ESMOptions extends BaseOutputOptions {}
+
+export interface ESMOptions extends BaseOutputOptions {
+  mjs?: boolean;
+  globals?: Record<string, string>;
+}
+
 export interface CJSOptions extends BaseOutputOptions {}
 
+/**
+ * build options
+ */
 export interface BundleOptions extends BaseOutputOptions {
   /**
    * 入口文件
