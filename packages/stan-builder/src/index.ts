@@ -1,3 +1,6 @@
-import { chalk } from 'stan-utils';
+import build from './build';
+import { BuildOptions } from './types';
 
-console.log(chalk);
+export default async function builder(opts: BuildOptions) {
+  console.log(opts);
+}

@@ -1,3 +1,3 @@
 import { BuildOptions } from './types';
 
-export async function build(opts: BuildOptions) {}
+export default async function builder(opts: BuildOptions) {}

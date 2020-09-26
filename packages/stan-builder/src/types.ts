@@ -4,6 +4,7 @@ import { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
 import { RollupReplaceOptions } from '@rollup/plugin-replace';
 import { RollupCommonJSOptions } from '@rollup/plugin-commonjs';
 import { RollupInjectOptions } from '@rollup/plugin-inject';
+import { CopyOptions as RollupCopyOptions } from 'rollup-plugin-copy';
 
 export type BundleType = 'rollup' | 'babel';
 
@@ -102,11 +103,16 @@ export interface BundleOptions extends BaseOutputOptions {
    * 配置 @rollup/plugin-inject 参数
    */
   injectOpts?: RollupInjectOptions;
+  /**
+   * 配置 rollup-plugin-copy 参数
+   */
+  copy?: RollupCopyOptions;
 }
 
 export interface BuildOptions {
   cwd: string;
+  root?: string;
   watch?: boolean;
-  rootPath?: string;
   args?: BundleOptions;
+  verbose?: boolean;
 }
