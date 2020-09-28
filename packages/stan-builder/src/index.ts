@@ -1,6 +1,5 @@
-import build from './build';
-import { BuildOptions } from './types';
+import builder from './builder';
 
-export default async function builder(opts: BuildOptions) {
-  console.log(opts);
-}
+export default builder;
+export * from './types';
+export { default as getStanConfig } from './get-stan-config';

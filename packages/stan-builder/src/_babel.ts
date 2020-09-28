@@ -7,6 +7,6 @@ export interface BabelOptions {
   bundleOptions: BundleOptions;
 }
 
-export async function babelBuild(entry: string, opts: BabelOptions) {
+export default async function babelBuild(entry: string, opts: BabelOptions) {
   console.log(entry, opts);
 }

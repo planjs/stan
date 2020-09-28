@@ -8,7 +8,7 @@ import { CopyOptions as RollupCopyOptions } from 'rollup-plugin-copy';
 
 export type BundleType = 'rollup' | 'babel';
 
-export interface BaseOutputOptions {
+export interface BaseBundleOptions {
   file?: string;
   /**
    * 开启压缩
@@ -23,21 +23,27 @@ export interface BaseOutputOptions {
   target?: 'node' | 'browser';
 }
 
-export interface UMDOptions extends BaseOutputOptions {
+export interface UMDOptions extends BaseBundleOptions {
   name?: string;
-}
-
-export interface ESMOptions extends BaseOutputOptions {
-  mjs?: boolean;
   globals?: Record<string, string>;
 }
 
-export interface CJSOptions extends BaseOutputOptions {}
+export interface ESMOptions extends BaseBundleOptions {
+  mjs?: boolean;
+}
+
+export interface CJSOptions extends BaseBundleOptions {
+  /**
+   * 导入模块的延迟初始化
+   * https://babeljs.io/docs/en/babel-plugin-transform-modules-commonjs
+   */
+  lazy?: boolean;
+}
 
 /**
  * build options
  */
-export interface BundleOptions extends BaseOutputOptions {
+export interface BundleOptions extends BaseBundleOptions {
   /**
    * 入口文件
    */
@@ -111,7 +117,7 @@ export interface BundleOptions extends BaseOutputOptions {
 
 export interface BuildOptions {
   cwd: string;
-  root?: string;
+  rootPath?: string;
   watch?: boolean;
   args?: BundleOptions;
   verbose?: boolean;
