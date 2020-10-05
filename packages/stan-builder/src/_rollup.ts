@@ -1,21 +1,42 @@
-import { lodash as _ } from 'stan-utils';
-import { BundleOptions } from './types';
+import { rollup, watch } from 'rollup';
+import { signale } from 'stan-utils';
+
+import { BundleOptions, OutputModule } from './types';
+import getRollupConfig from './get-rollup-config';
 
 export interface RollupOptions {
   cwd: string;
-  entry: string | string[];
   watch?: boolean;
-  bundleOptions: BundleOptions;
+  type: OutputModule;
+  target?: 'browser' | 'node';
+  bundleOpt: BundleOptions;
 }
 
-export async function rollupBuild(entry: string, opts: RollupOptions) {
-  console.log(entry, opts);
-}
-
-export default async function (opts: RollupOptions) {
-  const { entry } = opts;
-  const entries = _.uniq(_.flattenDeep([entry]));
-  for (const _entry of entries) {
-    await rollupBuild(_entry, opts);
+export default async function rollupBuild(opts: RollupOptions) {
+  const { cwd, type, bundleOpt, target } = opts;
+  const rollupConfigs = getRollupConfig({ cwd, bundleOpt, type, target });
+  for (const rollupConfig of rollupConfigs) {
+    if (opts.watch) {
+      const watcher = watch([
+        {
+          ...rollupConfig,
+          watch: {},
+        },
+      ]);
+      watcher.on('event', (event) => {
+        if (event.code === 'ERROR' && event?.error) {
+          signale.error(event.error);
+        } else if (event.code === 'START') {
+          console.log(`[${type}] Rebuild since file changed`);
+        }
+      });
+      process.once('SIGINT', () => {
+        watcher.close();
+      });
+    } else {
+      const { output, ...input } = rollupConfig;
+      const bundle = await rollup(input);
+      await bundle.write(output);
+    }
   }
 }

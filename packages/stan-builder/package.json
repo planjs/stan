@@ -1,6 +1,6 @@
 {
   "name": "stan-builder",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "build library",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -23,7 +23,7 @@
     "url": "git+https://github.com/planjs/stan.git"
   },
   "scripts": {
-    "dev": "chokidar \"src/*\" -c \"yarn prepare\"",
+    "dev": "chokidar \"src/**\" -c \"yarn prepare\"",
     "build": "babel src -d lib -x .ts,.js",
     "build:types": "tsc --emitDeclarationOnly",
     "prepare": "yarn build && yarn build:types",
@@ -36,19 +36,28 @@
   "dependencies": {
     "stan-utils": "*",
     "rollup": "^2.28.1",
+    "typescript": "^4.0.3",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-url": "^5.0.1",
     "@rollup/pluginutils": "^4.0.0",
-    "rollup-plugin-terser": "^7.0.2",
     "@rollup/plugin-babel": "^5.2.1",
     "@rollup/plugin-replace": "^2.3.3",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-inject": "^4.0.2",
-    "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-typescript2": "^0.27.2",
+    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-postcss": "^3.1.8",
+    "vinyl-fs": "^3.0.3",
+    "through2": "^4.0.2",
+    "gulp-if": "^3.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-terser": "^1.4.0",
+    "gulp-filter": "^6.0.0",
     "@babel/cli": "^7.11.6",
     "@babel/core": "^7.11.6",
     "@babel/register": "^7.11.5",
@@ -67,5 +76,16 @@
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4"
+  },
+  "devDependencies": {
+    "@types/babel__core": "^7.1.10",
+    "@types/vinyl-fs": "^2.4.11",
+    "@types/through2": "^2.0.36",
+    "@types/gulp-if": "^0.0.33",
+    "@types/gulp-plumber": "^0.0.32",
+    "@types/gulp-typescript": "^2.13.0",
+    "@types/gulp-sourcemaps": "^0.0.32",
+    "@types/gulp-terser": "^1.2.1",
+    "@types/gulp-filter": "^3.0.33"
   }
 }

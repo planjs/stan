@@ -19,7 +19,7 @@
     "url": "git+https://github.com/planjs/stan.git"
   },
   "scripts": {
-    "dev": "chokidar \"src/*\" -c \"yarn prepare\"",
+    "dev": "chokidar \"src/**\" -c \"yarn prepare\"",
     "build": "babel src -d lib -x .ts,.js",
     "build:types": "tsc --emitDeclarationOnly",
     "prepare": "yarn build && yarn build:types",
@@ -32,6 +32,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@planjs/utils": "^1.0.4",
     "@types/lodash": "^4.14.161",
     "@types/mkdirp": "^1.0.1",
     "@types/node": "^14.11.1",

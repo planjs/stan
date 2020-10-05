@@ -10,6 +10,7 @@ import joi from 'joi';
 import yParser from 'yargs-parser';
 import commander from 'commander';
 import signale from 'signale';
+import chokidar from 'chokidar';
 import updateNotifier from 'update-notifier';
 
 export { lodash };
@@ -24,4 +25,6 @@ export { yParser };
 export { signale };
 export { updateNotifier };
 export { commander };
+export { chokidar };
 export { createDebug, Debugger };
+export { default as slash } from './slash';

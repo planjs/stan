@@ -19,9 +19,7 @@ export default ({ cwd }: { cwd: string; rootPath?: string }): BundleOptions[] =>
 
   if (configFile) {
     const config = tryDefault(require(configFile));
-    const stanConfig = Array.isArray(config) ? config : [config];
-    // TODO 错误校验
-    return stanConfig;
+    return Array.isArray(config) ? config : [config];
   }
 
   return [];

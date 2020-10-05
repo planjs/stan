@@ -1,3 +1,4 @@
+import { PluginItem } from '@babel/core';
 import { ModuleFormat } from 'rollup';
 import { BundleOptions } from './types';
 
@@ -10,7 +11,12 @@ export type GetBabelConfigOptions = {
   lazy?: boolean;
 };
 
-export default function getBabelConfig(opts: GetBabelConfigOptions) {
+export default function getBabelConfig(
+  opts: GetBabelConfigOptions,
+): {
+  presets: PluginItem[];
+  plugins: PluginItem[];
+} {
   const { type, typescript, target, verbose, lazy, runtimeHelpers } = opts;
   const isBrowser = target === 'browser';
 
@@ -26,7 +32,7 @@ export default function getBabelConfig(opts: GetBabelConfigOptions) {
         },
       ],
       isBrowser && require.resolve('@babel/preset-react'),
-    ].filter(Boolean),
+    ].filter(Boolean) as PluginItem[],
     plugins: [
       type === 'cjs' &&
         lazy &&
@@ -47,14 +53,12 @@ export default function getBabelConfig(opts: GetBabelConfigOptions) {
       require.resolve('@babel/plugin-proposal-nullish-coalescing-operator'),
       require.resolve('@babel/plugin-proposal-optional-chaining'),
       runtimeHelpers && [
-        [
-          require.resolve('@babel/plugin-transform-runtime'),
-          {
-            useESModules: isBrowser && type === 'esm',
-            version: require('@babel/runtime/package.json').version,
-          },
-        ],
+        require.resolve('@babel/plugin-transform-runtime'),
+        {
+          useESModules: isBrowser && type === 'esm',
+          version: require('@babel/runtime/package.json').version,
+        },
       ],
-    ].filter(Boolean),
+    ].filter(Boolean) as PluginItem[],
   };
 }

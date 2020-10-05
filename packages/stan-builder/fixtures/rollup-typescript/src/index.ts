@@ -3,5 +3,7 @@ interface Args {
 }
 
 export default function (args: Args) {
+  const { name, ...o } = args;
+  console.log(o);
   return args?.name ?? 'stan';
 }

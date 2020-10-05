@@ -4,9 +4,11 @@ import { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
 import { RollupReplaceOptions } from '@rollup/plugin-replace';
 import { RollupCommonJSOptions } from '@rollup/plugin-commonjs';
 import { RollupInjectOptions } from '@rollup/plugin-inject';
-import { CopyOptions as RollupCopyOptions } from 'rollup-plugin-copy';
+import { Options as RollupTerserOptions } from 'rollup-plugin-terser';
 
 export type BundleType = 'rollup' | 'babel';
+
+export type OutputModule = 'cjs' | 'esm' | 'system' | 'umd';
 
 export interface BaseBundleOptions {
   file?: string;
@@ -15,6 +17,10 @@ export interface BaseBundleOptions {
    * @default false
    */
   bundler?: BundleType;
+  /**
+   * 压缩代码
+   * js terser
+   */
   minify?: boolean;
   sourcemap?: boolean;
   /**
@@ -40,6 +46,8 @@ export interface CJSOptions extends BaseBundleOptions {
   lazy?: boolean;
 }
 
+export interface SYSOptions extends BaseBundleOptions {}
+
 /**
  * build options
  */
@@ -49,10 +57,12 @@ export interface BundleOptions extends BaseBundleOptions {
    */
   entry?: string;
   runtimeHelpers?: boolean;
-  esm?: ESMOptions | BundleType | false;
-  cjs?: CJSOptions | BundleType | false;
-  umd?: UMDOptions | false;
+  esm?: ESMOptions | BundleType | boolean;
+  cjs?: CJSOptions | BundleType | boolean;
+  umd?: UMDOptions | boolean;
+  system?: SYSOptions | boolean;
   include?: FilterPattern;
+  disableTypeCheck?: boolean;
   /**
    * babel plugin 配置
    * @note 不推荐配置 会覆盖默认调优的配置
@@ -110,9 +120,9 @@ export interface BundleOptions extends BaseBundleOptions {
    */
   injectOpts?: RollupInjectOptions;
   /**
-   * 配置 rollup-plugin-copy 参数
+   * 配置 rollup-plugin-terser 参数
    */
-  copy?: RollupCopyOptions;
+  terserOpts?: RollupTerserOptions;
 }
 
 export interface BuildOptions {

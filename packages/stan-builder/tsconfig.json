@@ -4,7 +4,8 @@
     "outDir": "lib",
     "baseUrl": "src",
     "rootDir": "src",
-    "declarationDir": "typings"
+    "declarationDir": "typings",
+    "typeRoots": ["./types"]
   },
   "include": ["src"]
 }
