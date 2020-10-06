@@ -11,7 +11,7 @@ import gulpTs from 'gulp-typescript';
 import terser from 'gulp-terser';
 import filter from 'gulp-filter';
 import { readConfigFile } from 'typescript';
-import { signale, chalk, slash, rimraf, chokidar, lodash } from 'stan-utils';
+import { signale, chalk, slash, chokidar, lodash } from 'stan-utils';
 import getBabelConfig from './get-babel-config';
 
 import { BundleOptions, CJSOptions } from './types';
@@ -54,9 +54,6 @@ export default async function babelBuild(opts: BabelOptions) {
   const srcPath = path.parse(path.join(cwd, entry!)).dir;
   const targetDir = type === 'esm' ? 'es' : 'lib';
   const targetPath = path.join(cwd, targetDir);
-
-  console.log(chalk.gray(`Clean up the ${targetDir} directory`));
-  rimraf.sync(targetPath);
 
   function babelTransform(opts: TransformOpts) {
     const { file, type } = opts;

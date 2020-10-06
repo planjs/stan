@@ -1,9 +1,10 @@
-import { BuildOptions, BundleOptions, BaseBundleOptions } from './types';
+import path from 'path';
+import { chalk, lodash as _, rimraf } from 'stan-utils';
 import getStanConfig from './get-stan-config';
 import babel from './_babel';
 import rollup from './_rollup';
 import { getExistFile } from './utils';
-import { lodash as _ } from 'stan-utils';
+import { BuildOptions, BundleOptions, BaseBundleOptions } from './types';
 
 export function getBundleOpts(opts: BuildOptions): BundleOptions[] {
   const { cwd, args = {} } = opts;
@@ -28,6 +29,11 @@ export default async function builder(opts: BuildOptions) {
   const bundleOptions = getBundleOpts(opts);
   const { cwd, rootPath, watch } = opts;
 
+  console.log(chalk.gray(`Clean up the lib,es,dist directory.`));
+  rimraf.sync(path.join(cwd, 'dist'));
+  rimraf.sync(path.join(cwd, 'es'));
+  rimraf.sync(path.join(cwd, 'lib'));
+
   for (const bundleOpt of bundleOptions) {
     const { bundler = 'rollup', esm, umd, cjs, system } = bundleOpt;
 
@@ -37,6 +43,11 @@ export default async function builder(opts: BuildOptions) {
     // bundle umd
     if (umd) {
       await rollup({ cwd, watch, type: 'umd', bundleOpt });
+    }
+
+    // bundle system
+    if (system) {
+      await rollup({ cwd, watch, type: 'system', bundleOpt });
     }
 
     // bundle esm
@@ -57,4 +68,5 @@ export default async function builder(opts: BuildOptions) {
       }
     }
   }
+  console.log(chalk.cyan('Build complete.'));
 }

@@ -1,6 +1,8 @@
 import { PluginItem } from '@babel/core';
 import { ModuleFormat } from 'rollup';
+
 import { BundleOptions } from './types';
+const browserslist = require('../template/browserslist.js');
 
 export type GetBabelConfigOptions = {
   target: BundleOptions['target'];
@@ -26,7 +28,7 @@ export default function getBabelConfig(
       [
         require.resolve('@babel/preset-env'),
         {
-          targets: isBrowser ? { browsers: '>0.2%,not dead,not op_mini all' } : { node: 8 },
+          targets: isBrowser ? { browsers: browserslist } : { node: 8 },
           debug: verbose,
           modules: type === 'esm' ? false : 'auto',
         },

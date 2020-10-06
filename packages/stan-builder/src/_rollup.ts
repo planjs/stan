@@ -1,5 +1,5 @@
 import { rollup, watch } from 'rollup';
-import { signale } from 'stan-utils';
+import { chalk, signale, slash } from 'stan-utils';
 
 import { BundleOptions, OutputModule } from './types';
 import getRollupConfig from './get-rollup-config';
@@ -35,6 +35,11 @@ export default async function rollupBuild(opts: RollupOptions) {
       });
     } else {
       const { output, ...input } = rollupConfig;
+      console.log(
+        `Compile ${chalk.green(
+          slash((input.input! as string).replace(`${cwd}/`, '')),
+        )} to ${type} ${chalk.yellow(slash(output.file!.replace(`${cwd}/`, '')))}`,
+      );
       const bundle = await rollup(input);
       await bundle.write(output);
     }

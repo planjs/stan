@@ -13,7 +13,8 @@
   "files": [
     "lib",
     "bin",
-    "typings"
+    "typings",
+    "template"
   ],
   "bin": {
     "stan-builder": "./bin/stan-builder.js"
