@@ -1,6 +1,6 @@
 {
   "name": "stan-builder",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "build library",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
