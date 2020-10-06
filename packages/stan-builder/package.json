@@ -23,6 +23,9 @@
     "type": "git",
     "url": "git+https://github.com/planjs/stan.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "chokidar \"src/**\" -c \"yarn prepare\"",
     "build": "babel src -d lib -x .ts,.js",
