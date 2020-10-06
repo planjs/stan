@@ -3,6 +3,8 @@
     "target": "esnext",
     "moduleResolution": "node",
     "jsx": "preserve",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "declaration": true,
+    "declarationDir": "typings"
   }
 }

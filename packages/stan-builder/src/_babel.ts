@@ -11,7 +11,8 @@ import gulpTs from 'gulp-typescript';
 import terser from 'gulp-terser';
 import filter from 'gulp-filter';
 import { readConfigFile } from 'typescript';
-import { signale, chalk, slash, chokidar, lodash } from 'stan-utils';
+import { signale, chalk, slash, chokidar, rimraf, lodash } from 'stan-utils';
+import merge from 'merge2';
 import getBabelConfig from './get-babel-config';
 
 import { BundleOptions, CJSOptions } from './types';
@@ -101,9 +102,10 @@ export default async function babelBuild(opts: BabelOptions) {
     return getTsconfigCompilerOptions(templateTsconfigPath) || {};
   }
 
+  const tsConfig = getTSConfig();
+
   function createStream(globs: string[] | string) {
-    const tsConfig = getTSConfig();
-    const babelTransformRegexp = disableTypeCheck ? /\.(t|j)sx?$/ : /\.jsx?$/;
+    const babelTransformRegexp = /\.(t|j)sx?$/;
 
     function isTsFile(path: string) {
       return /\.tsx?$/.test(path) && !path.endsWith('.d.ts');
@@ -115,14 +117,13 @@ export default async function babelBuild(opts: BabelOptions) {
 
     const jsFilter = filter('**/*.js', { restore: true });
 
-    return vfs
+    const main = vfs
       .src(globs, {
         allowEmpty: true,
         base: srcPath,
       })
       .pipe(gulpIf(() => watch, plumber()))
       .pipe(sourcemap ? sourcemaps.init() : through.obj())
-      .pipe(gulpIf((f: File) => !disableTypeCheck && isTsFile(f.path), gulpTs(tsConfig)))
       .pipe(
         gulpIf(
           (f: File) => isTransform(f.path),
@@ -145,20 +146,49 @@ export default async function babelBuild(opts: BabelOptions) {
         ),
       )
       .pipe(sourcemap ? sourcemaps.write('.') : through.obj())
-      .pipe(vfs.dest(targetPath))
-      .pipe(gulpIf(() => minify, jsFilter))
-      .pipe(gulpIf(() => minify, terser()))
-      .pipe(
-        gulpIf(
-          () => minify,
+      .pipe(vfs.dest(targetPath));
+
+    if (minify) {
+      main
+        .pipe(jsFilter)
+        .pipe(terser())
+        .pipe(
           through.obj((file, enc, cb) => {
             file.path = file.path.replace(path.extname(file.path), '.min.js');
             cb(null, file);
           }),
+        )
+        .pipe(sourcemaps.write('.'))
+        .pipe(vfs.dest(targetPath));
+    }
+
+    const ts = vfs
+      .src(globs, {
+        allowEmpty: true,
+        base: srcPath,
+      })
+      .pipe(gulpIf(() => watch, plumber()))
+      .pipe(
+        gulpIf(
+          (f: File) => isTsFile(f.path),
+          gulpTs({
+            ...tsConfig,
+            emitDeclarationOnly: true,
+            noEmit: !tsConfig?.declaration,
+            noEmitOnError: disableTypeCheck,
+          }),
         ),
       )
-      .pipe(sourcemap && minify ? sourcemaps.write('.') : through.obj())
-      .pipe(gulpIf(() => minify, vfs.dest(targetPath)));
+      .pipe(
+        vfs.dest(tsConfig?.declarationDir ? path.join(cwd, tsConfig.declarationDir) : targetDir),
+      );
+
+    return merge(main, ts);
+  }
+
+  // clear typing dir
+  if (tsConfig?.declaration && tsConfig?.declarationDir) {
+    rimraf.sync(path.join(cwd, tsConfig?.declarationDir));
   }
 
   return new Promise((resolve) => {
@@ -170,7 +200,7 @@ export default async function babelBuild(opts: BabelOptions) {
       `!${path.join(srcPath, '**/*.md')}`,
       `!${path.join(srcPath, '**/*.+(test|e2e|spec).+(js|jsx|ts|tsx)')}`,
     ];
-    createStream(patterns).on('end', () => {
+    createStream(patterns).on('queueDrain', () => {
       if (watch) {
         // 后面改改，可以一个地方统一监听
         const watcher = chokidar.watch(patterns, {

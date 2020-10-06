@@ -2310,6 +2310,13 @@
   resolved "https://registry.npm.taobao.org/@types/long/download/@types/long-4.0.1.tgz#459c65fa1867dafe6a8f322c4c51695663cc55e9"
   integrity sha1-RZxl+hhn2v5qjzIsTFFpVmPMVek=
 
+"@types/merge2@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.npm.taobao.org/@types/merge2/download/@types/merge2-1.3.0.tgz#0152526e885184aead524698c42aeae5c85aa1e7"
+  integrity sha1-AVJSbohRhK6tUkaYxCrq5chaoec=
+  dependencies:
+    "@types/node" "*"
+
 "@types/minimatch@*", "@types/minimatch@^3.0.3":
   version "3.0.3"
   resolved "https://registry.npm.taobao.org/@types/minimatch/download/@types/minimatch-3.0.3.tgz?cache=0&sync_timestamp=1596839141589&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fminimatch%2Fdownload%2F%40types%2Fminimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
@@ -7228,7 +7235,7 @@ merge-stream@^2.0.0:
   resolved "https://registry.npm.taobao.org/merge-stream/download/merge-stream-2.0.0.tgz?cache=0&sync_timestamp=1589682763068&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmerge-stream%2Fdownload%2Fmerge-stream-2.0.0.tgz#52823629a14dd00c9770fb6ad47dc6310f2c1f60"
   integrity sha1-UoI2KaFN0AyXcPtq1H3GMQ8sH2A=
 
-merge2@^1.2.3:
+merge2@^1.2.3, merge2@^1.4.1:
   version "1.4.1"
   resolved "https://registry.npm.taobao.org/merge2/download/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
   integrity sha1-Q2iJL4hekHRVpv19xVwMnUBJkK4=

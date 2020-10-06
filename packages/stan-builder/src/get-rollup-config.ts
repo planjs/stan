@@ -9,6 +9,7 @@ import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
+import typescript2 from 'rollup-plugin-typescript2';
 import { lodash as _ } from 'stan-utils';
 
 import { BundleOptions, CJSOptions, ESMOptions, SYSOptions, UMDOptions } from './types';
@@ -44,6 +45,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     system,
     file,
     target = 'browser',
+    disableTypeCheck,
     minify,
     runtimeHelpers,
     sourcemap,
@@ -61,6 +63,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
 
   const input = path.join(cwd, entry!);
   const entryExt = path.extname(entry!);
+  const isTypeScript = entryExt === '.ts' || entryExt === '.tsx';
   const extensions = ['.js', '.jsx', '.ts', '.tsx', '.es6', '.es', '.mjs'];
 
   const moduleOpts: UMDOptions | ESMOptions | CJSOptions | SYSOptions | null = {
@@ -112,6 +115,21 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
       json(),
       injectOpts && inject(injectOpts),
       replace && replace(replaceOpts),
+      isTypeScript &&
+        typescript2({
+          cwd,
+          tsconfig: path.join(cwd, 'tsconfig.json'),
+          clean: true,
+          tsconfigDefaults: {
+            compilerOptions: {
+              declaration: true,
+              emitDeclarationOnly: true,
+            },
+          },
+          typescript: require('typescript'),
+          useTsconfigDeclarationDir: true,
+          check: !disableTypeCheck,
+        }),
       commonjs({ extensions, ...commonjsOpts }),
       resolve({
         mainFields: ['module', 'jsnext:main', 'main'],
