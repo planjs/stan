@@ -10,7 +10,6 @@ import sourcemaps from 'gulp-sourcemaps';
 import gulpTs from 'gulp-typescript';
 import terser from 'gulp-terser';
 import filter from 'gulp-filter';
-import { readConfigFile } from 'typescript';
 import { signale, chalk, slash, chokidar, rimraf, lodash } from 'stan-utils';
 import merge from 'merge2';
 import getBabelConfig from './get-babel-config';
@@ -78,7 +77,7 @@ export default async function babelBuild(opts: BabelOptions) {
   function getTSConfig() {
     function parseTsconfig(path: string) {
       const readFile = (path: string) => fs.readFileSync(path, 'utf-8');
-      const result = readConfigFile(path, readFile);
+      const result = require('typescript').readConfigFile(path, readFile);
       if (result.error) {
         return;
       }
