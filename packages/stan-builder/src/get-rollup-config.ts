@@ -81,20 +81,14 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   } catch (e) {}
 
   const browser = moduleOpts?.target === 'browser' || target === 'browser';
-  const babelHelpers =
-    (format === 'cjs' || format === 'umd') && !browser
-      ? 'bundled'
-      : runtimeHelpers
-      ? 'runtime'
-      : 'bundled';
-  const _runtimeHelpers = babelHelpers === 'runtime';
+  const babelHelpers = runtimeHelpers ? 'runtime' : 'bundled';
   const _sourcemap = moduleOpts?.sourcemap || sourcemap;
   const babelOptions = {
     ...getBabelConfig({
       type: format,
       typescript: true,
       target,
-      runtimeHelpers: _runtimeHelpers,
+      runtimeHelpers: runtimeHelpers,
     }),
     babelrc: false,
     exclude: /\/node_modules\//,
@@ -107,10 +101,6 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
 
   function getPlugins(): Plugin[] {
     return [
-      babel({
-        ...babelOptions,
-        babelHelpers,
-      }),
       alias(aliasOpts),
       url(),
       json(),
@@ -137,6 +127,10 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         extensions,
         ...nodeResolveOpts,
       }),
+      babel({
+        ...babelOptions,
+        babelHelpers,
+      }),
       ...extraRollupPlugins,
     ].filter(Boolean);
   }
@@ -146,7 +140,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
       return Object.keys(pkg?.peerDependencies! || {});
     }
     return [
-      _runtimeHelpers ? /@babel\/runtime/ : '',
+      runtimeHelpers ? /@babel\/runtime/ : '',
       ...Object.keys(pkg?.dependencies || {}),
       ...Object.keys(pkg?.peerDependencies || {}),
     ].filter(String);
