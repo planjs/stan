@@ -58,6 +58,8 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     replaceOpts,
     commonjsOpts,
     nodeResolveOpts,
+    typescript2Opts,
+    aliasOpts,
     extraRollupPlugins = [],
   } = bundleOpt;
 
@@ -79,7 +81,6 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   } catch (e) {}
 
   const browser = moduleOpts?.target === 'browser' || target === 'browser';
-
   const babelHelpers =
     (format === 'cjs' || format === 'umd') && !browser
       ? 'bundled'
@@ -110,7 +111,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         ...babelOptions,
         babelHelpers,
       }),
-      alias(),
+      alias(aliasOpts),
       url(),
       json(),
       injectOpts && inject(injectOpts),
@@ -118,17 +119,16 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
       isTypeScript &&
         typescript2({
           cwd,
-          tsconfig: path.join(cwd, 'tsconfig.json'),
           clean: true,
           tsconfigDefaults: {
             compilerOptions: {
               declaration: true,
-              emitDeclarationOnly: true,
             },
           },
           typescript: require('typescript'),
           useTsconfigDeclarationDir: true,
           check: !disableTypeCheck,
+          ...typescript2Opts,
         }),
       commonjs({ extensions, ...commonjsOpts }),
       resolve({

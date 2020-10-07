@@ -5,6 +5,8 @@ import { RollupReplaceOptions } from '@rollup/plugin-replace';
 import { RollupCommonJSOptions } from '@rollup/plugin-commonjs';
 import { RollupInjectOptions } from '@rollup/plugin-inject';
 import { Options as RollupTerserOptions } from 'rollup-plugin-terser';
+import { RPT2Options } from 'rollup-plugin-typescript2';
+import { RollupAliasOptions } from '@rollup/plugin-alias';
 
 export type BundleType = 'rollup' | 'babel';
 
@@ -123,6 +125,14 @@ export interface BundleOptions extends BaseBundleOptions {
    * 配置 rollup-plugin-terser 参数
    */
   terserOpts?: RollupTerserOptions;
+  /**
+   * 配置 rollup-plugin-typescript2 参数
+   */
+  typescript2Opts?: RPT2Options;
+  /**
+   * 配置 @rollup/plugin-alias 参数
+   */
+  aliasOpts?: RollupAliasOptions;
 }
 
 export interface BuildOptions {
