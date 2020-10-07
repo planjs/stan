@@ -29,6 +29,7 @@ export interface BaseBundleOptions {
    * 配置 node 或者 browser 库
    */
   target?: 'node' | 'browser';
+  runtimeHelpers?: boolean;
 }
 
 export interface UMDOptions extends BaseBundleOptions {
@@ -58,7 +59,6 @@ export interface BundleOptions extends BaseBundleOptions {
    * 入口文件
    */
   entry?: string;
-  runtimeHelpers?: boolean;
   esm?: ESMOptions | BundleType | boolean;
   cjs?: CJSOptions | BundleType | boolean;
   umd?: UMDOptions | boolean;
@@ -92,11 +92,15 @@ export interface BundleOptions extends BaseBundleOptions {
    * 打包esm, cjs时 dependencies 和 peerDependencies 里的内容会被 external
    * 打包umd时 peerDependencies 会被 external
    */
-  extraExternal?: string[];
+  extraExternal?: (string | RegExp)[];
   /**
    * 配置依赖不 external
    */
-  externalsExclude?: string[];
+  externalsExclude?: (string | RegExp)[];
+  /**
+   * 只external peerDependencies
+   */
+  externalPeerDependenciesOnly?: boolean;
   /**
    * 配置额外 postcss plugin
    */

@@ -8,4 +8,3 @@ export default function (args) {
   console.log(o);
   return (_args$name = args === null || args === void 0 ? void 0 : args.name) !== null && _args$name !== void 0 ? _args$name : 'stan';
 }
-//# sourceMappingURL=index.js.map

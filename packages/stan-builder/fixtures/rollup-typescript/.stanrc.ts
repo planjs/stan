@@ -5,7 +5,7 @@ export default {
   umd: {
     name: 'pkg'
   },
-  runtimeHelpers: false,
-  sourcemap: true,
+  runtimeHelpers: true,
+  sourcemap: false,
   minify: false
 }

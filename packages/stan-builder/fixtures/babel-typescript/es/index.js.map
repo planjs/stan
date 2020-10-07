@@ -1,1 +1,0 @@
-{"version":3,"names":[],"mappings":"","sources":["index.ts"],"sourcesContent":["interface Args {\n  name?: boolean;\n}\n\nexport default function (args: Args) {\n  const { name, ...o } = args;\n  console.log(o);\n  return args?.name ?? 'stan';\n}\n"],"file":"index.js"}

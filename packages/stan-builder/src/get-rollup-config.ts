@@ -47,7 +47,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     target = 'browser',
     disableTypeCheck,
     minify,
-    runtimeHelpers,
+    runtimeHelpers: _runtimeHelpers,
     sourcemap,
     babelPlugins = [],
     extraBabelPlugins = [],
@@ -60,7 +60,10 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     nodeResolveOpts,
     typescript2Opts,
     aliasOpts,
+    extraExternal = [],
+    externalsExclude = [],
     extraRollupPlugins = [],
+    externalPeerDependenciesOnly = false,
   } = bundleOpt;
 
   const input = path.join(cwd, entry!);
@@ -81,6 +84,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   } catch (e) {}
 
   const browser = moduleOpts?.target === 'browser' || target === 'browser';
+  const runtimeHelpers = moduleOpts?.runtimeHelpers ?? _runtimeHelpers;
   const babelHelpers = runtimeHelpers ? 'runtime' : 'bundled';
   const _sourcemap = moduleOpts?.sourcemap || sourcemap;
   const babelOptions = {
@@ -136,14 +140,17 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   }
 
   function getExternal(): ExternalOption {
-    if (format === 'umd') {
-      return Object.keys(pkg?.peerDependencies! || {});
+    let PKGs: ExternalOption = [...extraExternal];
+    PKGs.push(...Object.keys(pkg?.peerDependencies! || {}));
+    if (format !== 'umd') {
+      if (!externalPeerDependenciesOnly) {
+        PKGs.push(...Object.keys(pkg?.dependencies || {}));
+      }
+      if (runtimeHelpers) {
+        PKGs.push(/@babel\/runtime/);
+      }
     }
-    return [
-      runtimeHelpers ? /@babel\/runtime/ : '',
-      ...Object.keys(pkg?.dependencies || {}),
-      ...Object.keys(pkg?.peerDependencies || {}),
-    ].filter(String);
+    return PKGs.filter((v) => !externalsExclude.includes(v));
   }
 
   function getOutputFilePath(suffix = ''): string {
