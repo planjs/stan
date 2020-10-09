@@ -75,30 +75,45 @@ export default async function babelBuild(opts: BabelOptions) {
   }
 
   function getTSConfig() {
-    function parseTsconfig(path: string) {
-      const readFile = (path: string) => fs.readFileSync(path, 'utf-8');
-      const result = require('typescript').readConfigFile(path, readFile);
-      if (result.error) {
-        return;
+    try {
+      function parseTsconfig(path: string) {
+        const { readConfigFile, sys } = require('typescript');
+        const result = readConfigFile(path, sys.readFile);
+        if (result.error) {
+          return;
+        }
+        // TODO support extends
+        // const parsed = parseJsonConfigFileContent(
+        //   result.config,
+        //   {
+        //     useCaseSensitiveFileNames: false,
+        //     readDirectory: sys.readDirectory,
+        //     fileExists: sys.fileExists,
+        //     readFile: sys.readFile,
+        //   },
+        //   basename(path),
+        // );
+        return result.config;
       }
-      return result.config;
-    }
 
-    function getTsconfigCompilerOptions(path: string) {
-      const config = parseTsconfig(path);
-      return config ? config.compilerOptions : undefined;
-    }
+      function getTsconfigCompilerOptions(path: string) {
+        const config = parseTsconfig(path);
+        return config ? config.compilerOptions : undefined;
+      }
 
-    const tsconfigPath = path.join(cwd, 'tsconfig.json');
-    const templateTsconfigPath = path.join(__dirname, '../template/tsconfig.json');
+      const tsconfigPath = path.join(cwd, 'tsconfig.json');
+      const templateTsconfigPath = path.join(__dirname, '../template/tsconfig.json');
 
-    if (fs.existsSync(tsconfigPath)) {
-      return getTsconfigCompilerOptions(tsconfigPath) || {};
+      if (fs.existsSync(tsconfigPath)) {
+        return getTsconfigCompilerOptions(tsconfigPath) || {};
+      }
+      if (rootPath && fs.existsSync(path.join(rootPath, 'tsconfig.json'))) {
+        return getTsconfigCompilerOptions(path.join(rootPath, 'tsconfig.json')) || {};
+      }
+      return getTsconfigCompilerOptions(templateTsconfigPath) || {};
+    } catch (e) {
+      return {};
     }
-    if (rootPath && fs.existsSync(path.join(rootPath, 'tsconfig.json'))) {
-      return getTsconfigCompilerOptions(path.join(rootPath, 'tsconfig.json')) || {};
-    }
-    return getTsconfigCompilerOptions(templateTsconfigPath) || {};
   }
 
   const tsConfig = getTSConfig();
@@ -106,15 +121,13 @@ export default async function babelBuild(opts: BabelOptions) {
   function createStream(globs: string[] | string) {
     const babelTransformRegexp = /\.(t|j)sx?$/;
 
-    function isTsFile(path: string) {
-      return /\.tsx?$/.test(path) && !path.endsWith('.d.ts');
-    }
-
     function isTransform(path: string) {
       return babelTransformRegexp.test(path) && !path.endsWith('.d.ts');
     }
 
     const jsFilter = filter('**/*.js', { restore: true });
+    const tsFilter = filter('**/*.{ts,tsx}', { restore: true });
+    const dtsFilter = filter('**/*.d.ts', { restore: true });
 
     const main = vfs
       .src(globs, {
@@ -167,19 +180,22 @@ export default async function babelBuild(opts: BabelOptions) {
         base: srcPath,
       })
       .pipe(gulpIf(() => watch, plumber()))
+      .pipe(tsFilter)
       .pipe(
-        gulpIf(
-          (f: File) => isTsFile(f.path),
-          gulpTs({
-            ...tsConfig,
-            emitDeclarationOnly: true,
-            noEmit: !tsConfig?.declaration,
-            noEmitOnError: disableTypeCheck,
-          }),
-        ),
+        gulpTs({
+          // emit d.ts file
+          isolatedModules: false,
+          moduleResolution: 'node',
+          emitDeclarationOnly: true,
+          ...tsConfig,
+          typescript: require('typescript'),
+          noEmit: !(tsConfig?.declaration || tsConfig?.declarationDir),
+          noEmitOnError: disableTypeCheck,
+        }),
       )
+      .pipe(dtsFilter)
       .pipe(
-        vfs.dest(tsConfig?.declarationDir ? path.join(cwd, tsConfig.declarationDir) : targetDir),
+        vfs.dest(tsConfig?.declarationDir ? path.resolve(cwd, tsConfig.declarationDir) : targetDir),
       );
 
     return merge(main, ts);
