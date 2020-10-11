@@ -12,6 +12,7 @@ import commander from 'commander';
 import signale from 'signale';
 import chokidar from 'chokidar';
 import updateNotifier from 'update-notifier';
+import { slash } from '@planjs/utils';
 
 export { lodash };
 export { mkdirp };
@@ -26,5 +27,5 @@ export { signale };
 export { updateNotifier };
 export { commander };
 export { chokidar };
+export { slash };
 export { createDebug, Debugger };
-export { default as slash } from './slash';

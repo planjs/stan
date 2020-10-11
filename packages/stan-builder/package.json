@@ -21,7 +21,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/planjs/stan.git"
+    "url": "git+https://github.com/planjs/stan.git",
+    "directory": "packages/stan-builder"
   },
   "publishConfig": {
     "access": "public"

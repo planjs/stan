@@ -124,7 +124,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
           check: !disableTypeCheck,
           ...typescript2Opts,
         }),
-      commonjs({ extensions, ...commonjsOpts }),
+      commonjs(commonjsOpts),
       resolve({
         mainFields: ['module', 'jsnext:main', 'main'],
         browser,
@@ -201,12 +201,14 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         {
           input,
           output,
+          inlineDynamicImports: true,
           plugins: getPlugins(),
           external: getExternal(),
         },
         (moduleOpts as ESMOptions)?.mjs && {
           input,
           output,
+          inlineDynamicImports: true,
           plugins: getPlugins(),
           external: getExternal(),
         },
@@ -216,6 +218,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
             ...output,
             file: getOutputFilePath('min'),
           },
+          inlineDynamicImports: true,
           plugins: [...getPlugins(), ...minifyPlugin],
           external: getExternal(),
         },

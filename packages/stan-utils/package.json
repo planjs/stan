@@ -16,7 +16,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/planjs/stan.git"
+    "url": "git+https://github.com/planjs/stan.git",
+    "directory": "packages/stan-utils"
   },
   "scripts": {
     "dev": "chokidar \"src/**\" -c \"yarn prepare\"",
@@ -32,7 +33,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@planjs/utils": "^1.0.4",
+    "@planjs/utils": "^1.0.8",
     "@types/cross-spawn": "^6.0.2",
     "@types/debug": "^4.1.5",
     "@types/glob": "^7.1.3",

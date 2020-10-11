@@ -1985,10 +1985,10 @@
     stylelint-declaration-block-no-ignored-properties "^2.1.0"
     stylelint-order "^3.0.0"
 
-"@planjs/utils@^1.0.4":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@planjs/utils/-/utils-1.0.6.tgz#99ca60f8998eb238f6281be943179925f2663bcc"
-  integrity sha512-Cp/fo1V3dZtuxLgwegmV3XOZORxRW7yaZPCiHPx8RZcG+DRR+7gQaQqqaScJI7TbYbaMKnoApS00mOXeXVqmig==
+"@planjs/utils@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.npm.taobao.org/@planjs/utils/download/@planjs/utils-1.0.8.tgz?cache=0&sync_timestamp=1602401893379&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40planjs%2Futils%2Fdownload%2F%40planjs%2Futils-1.0.8.tgz#96883eea6399b63080bc495d8d6efeb3997c4a30"
+  integrity sha1-log+6mOZtjCAvEldjW7+s5l8SjA=
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
