@@ -10,6 +10,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript2 from 'rollup-plugin-typescript2';
+import visualizer from 'rollup-plugin-visualizer';
+import postcss from 'rollup-plugin-postcss';
 import { lodash as _ } from 'stan-utils';
 
 import { BundleOptions, CJSOptions, ESMOptions, SYSOptions, UMDOptions } from './types';
@@ -45,6 +47,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     system,
     file,
     target = 'browser',
+    analyze,
     disableTypeCheck,
     minify,
     runtimeHelpers: _runtimeHelpers,
@@ -60,6 +63,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     nodeResolveOpts,
     typescript2Opts,
     aliasOpts,
+    visualizerOpts,
     extraExternal = [],
     externalsExclude = [],
     extraRollupPlugins = [],
@@ -108,6 +112,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
       alias(aliasOpts),
       url(),
       json(),
+      postcss(),
       injectOpts && inject(injectOpts),
       replace && replace(replaceOpts),
       isTypeScript &&
@@ -135,6 +140,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         ...babelOptions,
         babelHelpers,
       }),
+      (analyze || !_.isEmpty(visualizerOpts)) && visualizer(visualizerOpts),
       ...extraRollupPlugins,
     ].filter(Boolean);
   }

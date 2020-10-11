@@ -7,6 +7,8 @@ import { RollupInjectOptions } from '@rollup/plugin-inject';
 import { Options as RollupTerserOptions } from 'rollup-plugin-terser';
 import { RPT2Options } from 'rollup-plugin-typescript2';
 import { RollupAliasOptions } from '@rollup/plugin-alias';
+import { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
+import { PostCSSPluginConf } from 'rollup-plugin-postcss';
 
 export type BundleType = 'rollup' | 'babel';
 
@@ -65,6 +67,11 @@ export interface BundleOptions extends BaseBundleOptions {
   system?: SYSOptions | boolean;
   include?: FilterPattern;
   disableTypeCheck?: boolean;
+  /**
+   * 打包的模块大小可视化展示
+   * 使用了 rollup-plugin-visualizer
+   */
+  analyze?: boolean;
   /**
    * babel plugin 配置
    * @note 不推荐配置 会覆盖默认调优的配置
@@ -137,6 +144,11 @@ export interface BundleOptions extends BaseBundleOptions {
    * 配置 @rollup/plugin-alias 参数
    */
   aliasOpts?: RollupAliasOptions;
+  /**
+   * 配置 rollup-plugin-visualizer
+   */
+  visualizerOpts?: PluginVisualizerOptions;
+  postcssOpts?: PostCSSPluginConf;
 }
 
 export interface BuildOptions {
