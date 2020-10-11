@@ -6,6 +6,16 @@
   "npmClientArgs": [
     "--ignore-engines"
   ],
+  "command": {
+    "publish": {
+      "allowBranch": "master"
+    }
+  },
+  "ignoreChanges": [
+    "**/__fixtures__/**",
+    "**/__tests__/**",
+    "**/*.md"
+  ],
   "useWorkspaces": true,
-  "version": "0.0.11"
+  "version": "independent"
 }

@@ -6,6 +6,9 @@
       "packages/*"
     ]
   },
+  "scripts": {
+    "publish": "lerna publish --amend"
+  },
   "devDependencies": {
     "@planjs/fabric": "^0.0.4",
     "chokidar-cli": "^2.1.0",
