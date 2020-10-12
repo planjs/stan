@@ -1,9 +1,8 @@
 import { rollup, watch, RollupError } from 'rollup';
-import { chalk, signale, slash, ora } from 'stan-utils';
+import { chalk, signale, ora, relativeNormalize } from 'stan-utils';
 
 import { BundleOptions, OutputModule } from './types';
 import getRollupConfig from './get-rollup-config';
-import relativeId from './utils';
 
 export interface RollupOptions {
   cwd: string;
@@ -36,8 +35,8 @@ export default async function rollupBuild(opts: RollupOptions): Promise<void> {
       const { output, ...input } = rollupConfig;
       const spinner = ora(
         `Compile ${chalk.green(
-          slash(relativeId(input.input! as string)),
-        )} to ${type} ${chalk.yellow(slash(relativeId(output.file!)))}`,
+          relativeNormalize(input.input! as string),
+        )} to ${type} ${chalk.yellow(relativeNormalize(output.file!))}`,
       ).start();
       try {
         const bundle = await rollup(input);

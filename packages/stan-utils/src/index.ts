@@ -31,3 +31,4 @@ export { commander };
 export { chokidar };
 export { slash };
 export { createDebug, Debugger };
+export * from './path';

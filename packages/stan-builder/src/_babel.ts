@@ -10,12 +10,11 @@ import sourcemaps from 'gulp-sourcemaps';
 import gulpTs from 'gulp-typescript';
 import terser from 'gulp-terser';
 import filter from 'gulp-filter';
-import { signale, chalk, slash, chokidar, rimraf, lodash, ora } from 'stan-utils';
+import { signale, chalk, chokidar, rimraf, lodash, ora, relativeNormalize } from 'stan-utils';
 import merge from 'merge2';
 import getBabelConfig from './get-babel-config';
 
 import { BundleOptions, CJSOptions } from './types';
-import relativeId from './utils';
 
 export interface BabelOptions {
   cwd: string;
@@ -68,7 +67,7 @@ export default async function babelBuild(opts: BabelOptions) {
     babelOpts.presets.push(...extraBabelPresets);
     babelOpts.plugins.push(...extraBabelPlugins);
     const spinner = ora(
-      `Transform ${chalk.green(slash(relativeId(file.path)))} to ${type}`,
+      `Transform ${chalk.green(relativeNormalize(file.path))} to ${type}`,
     ).start();
     const code = transformSync(file.contents, {
       ...babelOpts,
@@ -228,7 +227,7 @@ export default async function babelBuild(opts: BabelOptions) {
         });
         console.log(
           `${chalk.greenBright(`[${type}]`)} watch ${chalk.yellow(
-            slash(relativeId(srcPath)),
+            relativeNormalize(srcPath),
           )} change and recompile`,
         );
         const files: string[] = [];
@@ -241,7 +240,7 @@ export default async function babelBuild(opts: BabelOptions) {
 
         watcher.on('all', (event, fullPath) => {
           const relPath = fullPath.replace(srcPath, '');
-          console.log(`[${event}] ${slash(relativeId(path.join(srcPath, relPath)))}`);
+          console.log(`[${event}] ${relativeNormalize(path.join(srcPath, relPath))}`);
           if (!fs.existsSync(fullPath)) return;
           if (fs.statSync(fullPath).isFile()) {
             if (!files.includes(fullPath)) files.push(fullPath);
