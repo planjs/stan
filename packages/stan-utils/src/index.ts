@@ -11,6 +11,7 @@ import yParser from 'yargs-parser';
 import commander from 'commander';
 import signale from 'signale';
 import chokidar from 'chokidar';
+import ora from 'ora';
 import updateNotifier from 'update-notifier';
 import { slash } from '@planjs/utils';
 
@@ -22,6 +23,7 @@ export { semver };
 export { chalk };
 export { glob };
 export { joi };
+export { ora };
 export { yParser };
 export { signale };
 export { updateNotifier };

@@ -1,5 +1,5 @@
 import path from 'path';
-import { chalk, lodash as _, rimraf } from 'stan-utils';
+import { chalk, lodash as _, rimraf, signale } from 'stan-utils';
 import getStanConfig from './get-stan-config';
 import babel from './_babel';
 import rollup from './_rollup';
@@ -68,5 +68,8 @@ export default async function builder(opts: BuildOptions) {
       }
     }
   }
-  console.log(chalk.cyan('Build complete.'));
+
+  if (!watch) {
+    console.log(chalk.cyan('Build complete.'));
+  }
 }

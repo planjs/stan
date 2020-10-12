@@ -1,11 +1,11 @@
-# `stan-lib-builder`
+# `stan-builder`
 
 > TODO: description
 
 ## Usage
 
 ```
-const stanLibBuilder = require('stan-lib-builder');
+const stanLBuilder = require('stan-builder');
 
 // TODO: DEMONSTRATE API
 ```
