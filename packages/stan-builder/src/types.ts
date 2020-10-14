@@ -148,6 +148,9 @@ export interface BundleOptions extends BaseBundleOptions {
    * 配置 rollup-plugin-visualizer
    */
   visualizerOpts?: PluginVisualizerOptions;
+  /**
+   * 配置 rollup-plugin-postcss
+   */
   postcssOpts?: PostCSSPluginConf;
 }
 

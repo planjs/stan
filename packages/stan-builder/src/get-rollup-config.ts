@@ -62,6 +62,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     commonjsOpts,
     nodeResolveOpts,
     typescript2Opts,
+    postcssOpts,
     aliasOpts,
     visualizerOpts,
     extraExternal = [],
@@ -107,12 +108,12 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   babelOptions.presets.push(...extraBabelPresets);
   babelOptions.plugins.push(...extraBabelPlugins);
 
-  function getPlugins(): Plugin[] {
+  function getPlugins(isMin?: boolean): Plugin[] {
     return [
       alias(aliasOpts),
       url(),
       json(),
-      postcss(),
+      postcss({ extract: true, minimize: !!isMin, ...postcssOpts }),
       injectOpts && inject(injectOpts),
       replace && replace(replaceOpts),
       isTypeScript &&
@@ -140,6 +141,15 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         ...babelOptions,
         babelHelpers,
       }),
+      minify &&
+        terser({
+          compress: {
+            pure_getters: true,
+            unsafe: true,
+            unsafe_comps: true,
+          },
+          ...terserOpts,
+        }),
       (analyze || !_.isEmpty(visualizerOpts)) && visualizer(visualizerOpts),
       ...extraRollupPlugins,
     ].filter(Boolean);
@@ -169,17 +179,6 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         .join('.');
     return path.join(cwd, `dist/${fileName}`);
   }
-
-  const minifyPlugin = [
-    terser({
-      compress: {
-        pure_getters: true,
-        unsafe: true,
-        unsafe_comps: true,
-      },
-      ...terserOpts,
-    }),
-  ];
 
   const output: OutputOptions = {
     format,
@@ -225,7 +224,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
             file: getOutputFilePath('min'),
           },
           inlineDynamicImports: true,
-          plugins: [...getPlugins(), ...minifyPlugin],
+          plugins: getPlugins(true),
           external: getExternal(),
         },
       ].filter(Boolean) as IRollupOptions[];

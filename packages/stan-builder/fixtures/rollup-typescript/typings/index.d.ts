@@ -1,3 +1,4 @@
+import './index.css';
 interface Args {
     name?: boolean;
 }
