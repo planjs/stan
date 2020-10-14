@@ -32,3 +32,4 @@ export { chokidar };
 export { slash };
 export { createDebug, Debugger };
 export * from './path';
+export { default as copyFiles, CopyOptions, CopyTarget } from './copy-files';
