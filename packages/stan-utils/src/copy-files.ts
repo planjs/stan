@@ -6,15 +6,35 @@ import chalk from 'chalk';
 import isObject from './is-plain-object';
 
 export interface CopyTarget extends Omit<globby.GlobbyOptions, 'transform'> {
+  /**
+   * 文件 globby 匹配
+   */
   src: string | string[];
+  /**
+   * 输出目录
+   */
   dest: string | string[];
+  /**
+   * 更改输出文件名
+   */
   rename?: ((path: string, ext: string) => string) | string;
-  transform?: (content: string | ArrayBuffer) => string;
+  /**
+   * 更改输出文件内容
+   * @param content
+   */
+  transform?: (content: string | ArrayBuffer) => string | ArrayBuffer;
 }
 
 export type CopyOptions = {
-  targets?: CopyTarget[];
+  targets?: CopyTarget[] | CopyTarget;
+  /**
+   * 删除复制文件的目录结构
+   * @default true
+   */
   flatten?: boolean;
+  /**
+   * 日志
+   */
   verbose?: boolean;
 };
 
@@ -46,7 +66,7 @@ async function generateCopyTarget(
   {
     src: string;
     dest: string;
-    contents?: string;
+    contents?: string | ArrayBuffer;
   } & Pick<CopyTarget, 'transform' | 'rename'>
 > {
   if (transform && !(await isFile(src as string))) {
@@ -67,11 +87,16 @@ async function generateCopyTarget(
 }
 
 export default async function copyFiles(options: CopyOptions = {}) {
-  const { flatten = true, targets = [], verbose = false, ...opts } = options;
+  const { flatten = true, targets, verbose = false, ...opts } = options;
 
   const copyTargets = [];
-  if (Array.isArray(targets) && targets.length) {
-    for (const target of targets) {
+  const _targets: CopyTarget[] = Array.isArray(targets)
+    ? targets
+    : isObject(targets)
+    ? [targets!]
+    : [];
+  if (_targets.length) {
+    for (const target of _targets) {
       if (!isObject(target)) {
         throw new Error(`${stringify(target)} target must be an object`);
       }
@@ -112,10 +137,6 @@ export default async function copyFiles(options: CopyOptions = {}) {
   }
 
   if (copyTargets.length) {
-    if (verbose) {
-      console.log(chalk.green('copied:'));
-    }
-
     for (const copyTarget of copyTargets) {
       const { contents, dest, src } = copyTarget;
 
@@ -126,7 +147,7 @@ export default async function copyFiles(options: CopyOptions = {}) {
       }
 
       if (verbose) {
-        let message = chalk.green(`  ${chalk.bold(src)} → ${chalk.bold(dest)}`);
+        let message = chalk.green(`  copied: ${chalk.bold(src)} → ${chalk.bold(dest)}`);
         const flags = Object.entries(copyTarget)
           .filter(([key, value]) => ['rename', 'transform'].includes(key) && value)
           .map(([key]) => key.charAt(0).toUpperCase());
@@ -135,7 +156,7 @@ export default async function copyFiles(options: CopyOptions = {}) {
           message = `${message} ${chalk.yellow(`[${flags.join(', ')}]`)}`;
         }
 
-        console.log(message);
+        process.stdout.write(message);
       }
     }
   } else {

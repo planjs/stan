@@ -1,5 +1,5 @@
 import { rollup, watch, RollupError } from 'rollup';
-import { chalk, signale, ora, relativeNormalize, copyFiles } from 'stan-utils';
+import { chalk, signale, ora, relativeNormalize } from 'stan-utils';
 
 import { BundleOptions, OutputModule } from './types';
 import getRollupConfig from './get-rollup-config';

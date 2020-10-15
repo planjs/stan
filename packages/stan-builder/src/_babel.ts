@@ -10,7 +10,7 @@ import sourcemaps from 'gulp-sourcemaps';
 import gulpTs from 'gulp-typescript';
 import terser from 'gulp-terser';
 import filter from 'gulp-filter';
-import { signale, chalk, chokidar, rimraf, lodash, ora, relativeNormalize } from 'stan-utils';
+import { signale, chalk, chokidar, rimraf, lodash as _, ora, relativeNormalize } from 'stan-utils';
 import merge from 'merge2';
 import getBabelConfig from './get-babel-config';
 
@@ -236,7 +236,7 @@ export default async function babelBuild(opts: BabelOptions) {
             createStream(files.pop()!);
           }
         }
-        const debouncedCompileFiles = lodash.debounce(compileFiles, 1000);
+        const debouncedCompileFiles = _.debounce(compileFiles, 1000);
 
         watcher.on('all', (event, fullPath) => {
           const relPath = fullPath.replace(srcPath, '');

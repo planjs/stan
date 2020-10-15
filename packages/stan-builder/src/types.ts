@@ -9,6 +9,7 @@ import { RPT2Options } from 'rollup-plugin-typescript2';
 import { RollupAliasOptions } from '@rollup/plugin-alias';
 import { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
 import { PostCSSPluginConf } from 'rollup-plugin-postcss';
+import { CopyOptions } from 'stan-utils';
 
 export type BundleType = 'rollup' | 'babel';
 
@@ -152,6 +153,11 @@ export interface BundleOptions extends BaseBundleOptions {
    * 配置 rollup-plugin-postcss
    */
   postcssOpts?: PostCSSPluginConf;
+  /**
+   * copy 文件
+   * 如果是watch模式，这些复制的文件也会被watch
+   */
+  copy?: CopyOptions;
 }
 
 export interface BuildOptions {
