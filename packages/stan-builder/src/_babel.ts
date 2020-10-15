@@ -10,6 +10,8 @@ import sourcemaps from 'gulp-sourcemaps';
 import gulpTs from 'gulp-typescript';
 import terser from 'gulp-terser';
 import filter from 'gulp-filter';
+import postcss from 'gulp-postcss';
+import postcssrc from 'postcss-load-config';
 import { signale, chalk, chokidar, rimraf, lodash as _, ora, relativeNormalize } from 'stan-utils';
 import merge from 'merge2';
 import getBabelConfig from './get-babel-config';
@@ -120,13 +122,26 @@ export default async function babelBuild(opts: BabelOptions) {
     }
   }
 
+  function getPossCSSConfig(): { plugins?: any[]; [key: string]: any } {
+    try {
+      return postcssrc.sync({});
+    } catch (e) {
+      return {};
+    }
+  }
+
   const tsConfig = getTSConfig();
+  const { plugins: postcssPlugin = [], ...postcssConfig } = getPossCSSConfig();
 
   function createStream(globs: string[] | string) {
     const babelTransformRegexp = /\.(t|j)sx?$/;
 
     function isTransform(path: string) {
       return babelTransformRegexp.test(path) && !path.endsWith('.d.ts');
+    }
+
+    function isPostcssTransform(path: string) {
+      return /\.(less|scss|sass|styl|css)$/.test(path);
     }
 
     const jsFilter = filter('**/*.js', { restore: true });
@@ -158,6 +173,18 @@ export default async function babelBuild(opts: BabelOptions) {
               console.log(e);
               cb(null);
             }
+          }),
+        ),
+      )
+      .pipe(
+        gulpIf(
+          (f: File) => isPostcssTransform(f.path),
+          postcss((f) => {
+            // TODO default 处理
+            return {
+              plugins: postcssPlugin,
+              options: postcssConfig,
+            };
           }),
         ),
       )
