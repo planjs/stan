@@ -1,6 +1,6 @@
 {
   "name": "stan-utils",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "stan utils",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -57,10 +57,10 @@
     "joi": "^17.2.1",
     "lodash": "^4.17.20",
     "mkdirp": "^1.0.4",
+    "ora": "^5.1.0",
     "rimraf": "^3.0.2",
     "semver": "^7.3.2",
     "signale": "^1.4.0",
-    "ora": "^5.1.0",
     "update-notifier": "^4.1.1",
     "yargs": "^16.0.3",
     "yargs-parser": "^20.2.0"

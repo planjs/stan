@@ -1,6 +1,6 @@
 {
   "name": "stan-deploy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "deploy statis file",
   "keywords": [
     "rsync"
