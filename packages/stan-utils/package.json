@@ -60,6 +60,7 @@
     "rimraf": "^3.0.2",
     "semver": "^7.3.2",
     "signale": "^1.4.0",
+    "ora": "^5.1.0",
     "update-notifier": "^4.1.1",
     "yargs": "^16.0.3",
     "yargs-parser": "^20.2.0"

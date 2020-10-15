@@ -1,5 +1,5 @@
-import { rollup, watch } from 'rollup';
-import { chalk, signale, slash } from 'stan-utils';
+import { rollup, watch, RollupError } from 'rollup';
+import { chalk, signale, ora, relativeNormalize } from 'stan-utils';
 
 import { BundleOptions, OutputModule } from './types';
 import getRollupConfig from './get-rollup-config';
@@ -12,7 +12,7 @@ export interface RollupOptions {
   bundleOpt: BundleOptions;
 }
 
-export default async function rollupBuild(opts: RollupOptions) {
+export default async function rollupBuild(opts: RollupOptions): Promise<void> {
   const { cwd, type, bundleOpt, target } = opts;
   const rollupConfigs = getRollupConfig({ cwd, bundleOpt, type, target });
   for (const rollupConfig of rollupConfigs) {
@@ -27,21 +27,26 @@ export default async function rollupBuild(opts: RollupOptions) {
         if (event.code === 'ERROR' && event?.error) {
           signale.error(event.error);
         } else if (event.code === 'START') {
-          console.log(`[${type}] Rebuild since file changed`);
+          console.log(`${chalk.greenBright(`[${type}]`)} Rebuild since file changed`);
         }
       });
-      process.once('SIGINT', () => {
-        watcher.close();
-      });
+      process.once('SIGINT', watcher.close);
     } else {
       const { output, ...input } = rollupConfig;
-      console.log(
+      const spinner = ora(
         `Compile ${chalk.green(
-          slash((input.input! as string).replace(`${cwd}/`, '')),
-        )} to ${type} ${chalk.yellow(slash(output.file!.replace(`${cwd}/`, '')))}`,
-      );
-      const bundle = await rollup(input);
-      await bundle.write(output);
+          relativeNormalize(input.input! as string),
+        )} to ${type} ${chalk.yellow(relativeNormalize(output.file!))}`,
+      ).start();
+      try {
+        const bundle = await rollup(input);
+        await bundle.write(output);
+        spinner.succeed();
+      } catch (e) {
+        const err = e as RollupError;
+        spinner.fail();
+        return Promise.reject(err);
+      }
     }
   }
 }

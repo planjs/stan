@@ -10,7 +10,7 @@ import sourcemaps from 'gulp-sourcemaps';
 import gulpTs from 'gulp-typescript';
 import terser from 'gulp-terser';
 import filter from 'gulp-filter';
-import { signale, chalk, slash, chokidar, rimraf, lodash } from 'stan-utils';
+import { signale, chalk, chokidar, rimraf, lodash as _, ora, relativeNormalize } from 'stan-utils';
 import merge from 'merge2';
 import getBabelConfig from './get-babel-config';
 
@@ -66,12 +66,16 @@ export default async function babelBuild(opts: BabelOptions) {
     });
     babelOpts.presets.push(...extraBabelPresets);
     babelOpts.plugins.push(...extraBabelPlugins);
-    console.log(`Transform ${chalk.green(slash(file.path).replace(`${cwd}/`, ''))} to ${type}`);
-    return transformSync(file.contents, {
+    const spinner = ora(
+      `Transform ${chalk.green(relativeNormalize(file.path))} to ${type}`,
+    ).start();
+    const code = transformSync(file.contents, {
       ...babelOpts,
       filename: file.path,
       configFile: false,
     })?.code;
+    spinner.succeed();
+    return code;
   }
 
   function getTSConfig() {
@@ -221,18 +225,22 @@ export default async function babelBuild(opts: BabelOptions) {
         const watcher = chokidar.watch(patterns, {
           ignoreInitial: true,
         });
-
+        console.log(
+          `${chalk.greenBright(`[${type}]`)} watch ${chalk.yellow(
+            relativeNormalize(srcPath),
+          )} change and recompile`,
+        );
         const files: string[] = [];
         function compileFiles() {
           while (files.length) {
             createStream(files.pop()!);
           }
         }
-        const debouncedCompileFiles = lodash.debounce(compileFiles, 1000);
+        const debouncedCompileFiles = _.debounce(compileFiles, 1000);
 
         watcher.on('all', (event, fullPath) => {
           const relPath = fullPath.replace(srcPath, '');
-          console.log(`[${event}] ${slash(path.join(srcPath, relPath)).replace(`${cwd}/`, '')}`);
+          console.log(`[${event}] ${relativeNormalize(path.join(srcPath, relPath))}`);
           if (!fs.existsSync(fullPath)) return;
           if (fs.statSync(fullPath).isFile()) {
             if (!files.includes(fullPath)) files.push(fullPath);

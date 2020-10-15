@@ -10,6 +10,7 @@ commander.option('-w, --watch', 'Recompile files on changes');
 commander.option('-t, --target [node|browser]', 'Node or Browser lib', 'browser');
 commander.option('-min, --minify', 'Minify code');
 commander.option('--sourcemap', 'Generate sourcemap');
+commander.option('--analyze', 'Analyze bundle');
 commander.option('--verbose', 'Output verbose messages on internal operations');
 commander.option('--umd [filename]', 'Output as umd specification', false);
 commander.option('--system [filename]', 'Output as systemjs specification', false);
@@ -47,6 +48,7 @@ export default function parseArgv(args: string[]): BuildOptions | void {
       target: opts.target,
       babelPlugins: opts.plugins,
       babelPresets: opts.presets,
+      analyze: !!opts.analyze,
       umd: opts.umd,
       cjs: opts.cjs,
       esm: opts.esm,

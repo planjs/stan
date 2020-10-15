@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "baseUrl": "src",
+    "rootDir": "src",
+    "declaration": true,
+    "esModuleInterop": true,
+    "declarationDir": "typings"
+  },
+  "include": ["src"]
+}

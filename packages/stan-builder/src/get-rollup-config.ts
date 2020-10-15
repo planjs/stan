@@ -10,6 +10,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript2 from 'rollup-plugin-typescript2';
+import visualizer from 'rollup-plugin-visualizer';
+import postcss from 'rollup-plugin-postcss';
 import { lodash as _ } from 'stan-utils';
 
 import { BundleOptions, CJSOptions, ESMOptions, SYSOptions, UMDOptions } from './types';
@@ -45,6 +47,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     system,
     file,
     target = 'browser',
+    analyze,
     disableTypeCheck,
     minify,
     runtimeHelpers: _runtimeHelpers,
@@ -59,7 +62,9 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     commonjsOpts,
     nodeResolveOpts,
     typescript2Opts,
+    postcssOpts,
     aliasOpts,
+    visualizerOpts,
     extraExternal = [],
     externalsExclude = [],
     extraRollupPlugins = [],
@@ -103,11 +108,12 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   babelOptions.presets.push(...extraBabelPresets);
   babelOptions.plugins.push(...extraBabelPlugins);
 
-  function getPlugins(): Plugin[] {
+  function getPlugins(isMin?: boolean): Plugin[] {
     return [
       alias(aliasOpts),
       url(),
       json(),
+      postcss({ extract: true, minimize: !!isMin, ...postcssOpts }),
       injectOpts && inject(injectOpts),
       replace && replace(replaceOpts),
       isTypeScript &&
@@ -135,6 +141,16 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         ...babelOptions,
         babelHelpers,
       }),
+      minify &&
+        terser({
+          compress: {
+            pure_getters: true,
+            unsafe: true,
+            unsafe_comps: true,
+          },
+          ...terserOpts,
+        }),
+      (analyze || !_.isEmpty(visualizerOpts)) && visualizer(visualizerOpts),
       ...extraRollupPlugins,
     ].filter(Boolean);
   }
@@ -163,17 +179,6 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         .join('.');
     return path.join(cwd, `dist/${fileName}`);
   }
-
-  const minifyPlugin = [
-    terser({
-      compress: {
-        pure_getters: true,
-        unsafe: true,
-        unsafe_comps: true,
-      },
-      ...terserOpts,
-    }),
-  ];
 
   const output: OutputOptions = {
     format,
@@ -219,7 +224,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
             file: getOutputFilePath('min'),
           },
           inlineDynamicImports: true,
-          plugins: [...getPlugins(), ...minifyPlugin],
+          plugins: getPlugins(true),
           external: getExternal(),
         },
       ].filter(Boolean) as IRollupOptions[];

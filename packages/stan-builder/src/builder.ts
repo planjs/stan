@@ -1,10 +1,11 @@
 import path from 'path';
-import { chalk, lodash as _, rimraf } from 'stan-utils';
+import { chalk, chokidar, copyFiles, lodash as _, relativeNormalize, rimraf } from 'stan-utils';
 import getStanConfig from './get-stan-config';
 import babel from './_babel';
 import rollup from './_rollup';
 import { getExistFile } from './utils';
 import { BuildOptions, BundleOptions, BaseBundleOptions } from './types';
+import fs from 'fs';
 
 export function getBundleOpts(opts: BuildOptions): BundleOptions[] {
   const { cwd, args = {} } = opts;
@@ -27,7 +28,7 @@ export function getBundleOpts(opts: BuildOptions): BundleOptions[] {
 
 export default async function builder(opts: BuildOptions) {
   const bundleOptions = getBundleOpts(opts);
-  const { cwd, rootPath, watch } = opts;
+  const { cwd, rootPath, watch, verbose } = opts;
 
   console.log(chalk.gray(`Clean up the lib,es,dist directory.`));
   rimraf.sync(path.join(cwd, 'dist'));
@@ -35,7 +36,7 @@ export default async function builder(opts: BuildOptions) {
   rimraf.sync(path.join(cwd, 'lib'));
 
   for (const bundleOpt of bundleOptions) {
-    const { bundler = 'rollup', esm, umd, cjs, system } = bundleOpt;
+    const { bundler = 'rollup', entry, esm, umd, cjs, system, copy } = bundleOpt;
 
     const isBabel = (b: BundleOptions['esm'] | BundleOptions['cjs']) =>
       b === 'babel' || (b as BaseBundleOptions)?.bundler === 'babel' || bundler === 'babel';
@@ -67,6 +68,49 @@ export default async function builder(opts: BuildOptions) {
         await rollup({ cwd, watch, type: 'cjs', bundleOpt });
       }
     }
+
+    // copy file
+    if (copy) {
+      if (!_.has(copy, 'verbose')) {
+        copy.verbose = verbose;
+      }
+      await copyFiles(copy);
+      if (watch && copy.targets) {
+        const targets = Array.isArray(copy.targets) ? copy.targets : [copy.targets];
+        const watcher = chokidar.watch(targets.map((v) => v.src).flat(), {
+          ignoreInitial: true,
+        });
+
+        const files: string[] = [];
+
+        const debouncedCopyFiles = _.debounce(
+          () =>
+            copyFiles({
+              ...opts,
+              targets: targets.map(({ src, ...o }) => ({ src: files, ...o })),
+            }),
+          1000,
+        );
+
+        watcher.on('all', (event, fullPath) => {
+          const srcPath = path.parse(path.join(cwd, entry!)).dir;
+          const relPath = fullPath.replace(srcPath, '');
+          console.log(`[${event}] ${relativeNormalize(relPath)}`);
+          if (!fs.existsSync(fullPath)) return;
+          if (fs.statSync(fullPath).isFile()) {
+            if (!files.includes(fullPath)) files.push(fullPath);
+            debouncedCopyFiles();
+          }
+        });
+
+        process.once('SIGINT', () => {
+          watcher.close();
+        });
+      }
+    }
   }
-  console.log(chalk.cyan('Build complete.'));
+
+  if (!watch) {
+    console.log(chalk.cyan('Build complete.'));
+  }
 }
