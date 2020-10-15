@@ -14,9 +14,10 @@ import postcss from 'gulp-postcss';
 import postcssrc from 'postcss-load-config';
 import { signale, chalk, chokidar, rimraf, lodash as _, ora, relativeNormalize } from 'stan-utils';
 import merge from 'merge2';
-import getBabelConfig from './get-babel-config';
+import GulpPostCss from 'gulp-postcss';
 
 import { BundleOptions, CJSOptions } from './types';
+import getBabelConfig from './get-babel-config';
 
 export interface BabelOptions {
   cwd: string;
@@ -180,10 +181,22 @@ export default async function babelBuild(opts: BabelOptions) {
         gulpIf(
           (f: File) => isPostcssTransform(f.path),
           postcss((f) => {
-            // TODO default 处理
+            let syntax: any;
+            try {
+              if (/\.less$/.test(f.path)) {
+                syntax = require('postcss-less');
+              } else if (/\.(scss|sass)$/.test(f.path)) {
+                syntax = require('postcss-scss');
+              } else if (/\.styl$/.test(f.path)) {
+                syntax = require('postcss-styl');
+              }
+            } catch (e) {}
             return {
               plugins: postcssPlugin,
-              options: postcssConfig,
+              options: {
+                syntax,
+                ...postcssConfig,
+              } as GulpPostCss.Options,
             };
           }),
         ),

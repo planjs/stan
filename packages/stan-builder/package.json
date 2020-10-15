@@ -101,7 +101,10 @@
     "@types/vinyl-fs": "^2.4.11",
     "@types/postcss-load-config": "^2.0.1",
     "@types/rollup-plugin-visualizer": "^2.6.0",
-    "node-sass": "4.14.1"
+    "node-sass": "4.14.1",
+    "postcss-scss": "^3.0.2",
+    "postcss-less": "^3.1.4",
+    "postcss-styl": "^0.7.2"
   },
   "peerDependencies": {
     "typescript": "^4.0.3"
