@@ -30,10 +30,12 @@ export default async function builder(opts: BuildOptions) {
   const bundleOptions = getBundleOpts(opts);
   const { cwd, rootPath, watch, verbose } = opts;
 
-  console.log(chalk.gray(`Clean up the lib,es,dist directory.`));
-  rimraf.sync(path.join(cwd, 'dist'));
-  rimraf.sync(path.join(cwd, 'es'));
-  rimraf.sync(path.join(cwd, 'lib'));
+  try {
+    console.log(chalk.gray(`Clean up the lib,es,dist directory.`));
+    rimraf.sync(path.join(cwd, 'dist'));
+    rimraf.sync(path.join(cwd, 'es'));
+    rimraf.sync(path.join(cwd, 'lib'));
+  } catch (e) {}
 
   for (const bundleOpt of bundleOptions) {
     const { bundler = 'rollup', entry, esm, umd, cjs, system, copy } = bundleOpt;

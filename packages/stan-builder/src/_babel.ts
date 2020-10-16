@@ -247,7 +247,9 @@ export default async function babelBuild(opts: BabelOptions) {
 
   // clear typing dir
   if (tsConfig?.declaration && tsConfig?.declarationDir) {
-    rimraf.sync(path.join(cwd, tsConfig?.declarationDir));
+    try {
+      rimraf.sync(path.join(cwd, tsConfig?.declarationDir));
+    } catch (e) {}
   }
 
   return new Promise((resolve) => {
