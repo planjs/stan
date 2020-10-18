@@ -1,4 +1,6 @@
 import _objectWithoutProperties from "@babel/runtime/helpers/esm/objectWithoutProperties";
+import './index.css';
+import './sass.scss';
 export default function (args) {
   var _args$name;
 
