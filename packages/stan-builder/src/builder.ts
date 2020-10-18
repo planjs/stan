@@ -1,11 +1,13 @@
 import path from 'path';
+import fs from 'fs';
 import { chalk, chokidar, copyFiles, lodash as _, relativeNormalize, rimraf } from 'stan-utils';
+
 import getStanConfig from './get-stan-config';
 import babel from './_babel';
 import rollup from './_rollup';
 import { getExistFile } from './utils';
 import { BuildOptions, BundleOptions, BaseBundleOptions } from './types';
-import fs from 'fs';
+import validOptions from './valid-options';
 
 export function getBundleOpts(opts: BuildOptions): BundleOptions[] {
   const { cwd, args = {} } = opts;
@@ -39,6 +41,8 @@ export default async function builder(opts: BuildOptions) {
 
   for (const bundleOpt of bundleOptions) {
     const { bundler = 'rollup', entry, esm, umd, cjs, system, copy } = bundleOpt;
+
+    await validOptions.validateAsync(bundleOpt);
 
     const isBabel = (b: BundleOptions['esm'] | BundleOptions['cjs']) =>
       b === 'babel' || (b as BaseBundleOptions)?.bundler === 'babel' || bundler === 'babel';

@@ -1,6 +1,6 @@
 {
   "name": "stan-utils",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "stan utils",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -12,7 +12,8 @@
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "lib",
+    "typings"
   ],
   "repository": {
     "type": "git",
@@ -45,6 +46,7 @@
     "@types/signale": "^1.4.1",
     "@types/update-notifier": "^4.1.1",
     "@types/yargs-parser": "^15.0.0",
+    "ajv": "^6.12.6",
     "chalk": "^4.1.0",
     "chokidar": "^3.4.2",
     "clipboardy": "^2.3.0",

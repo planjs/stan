@@ -60,6 +60,7 @@ export interface SYSOptions extends BaseBundleOptions {}
 export interface BundleOptions extends BaseBundleOptions {
   /**
    * 入口文件
+   * @default src/index.js, src/index.ts, src/index.tsx, src/index.jsx
    */
   entry?: string;
   esm?: ESMOptions | BundleType | boolean;
@@ -91,10 +92,6 @@ export interface BundleOptions extends BaseBundleOptions {
    * 新增 babel presets
    */
   extraBabelPresets?: any[];
-  /**
-   * css modules 配置
-   */
-  cssModules?: any;
   /**
    * rollup 的 external 保留内部默认处理，新增 external
    * 打包esm, cjs时 dependencies 和 peerDependencies 里的内容会被 external
