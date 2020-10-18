@@ -14,7 +14,6 @@ import postcss from 'gulp-postcss';
 import postcssrc from 'postcss-load-config';
 import { signale, chalk, chokidar, rimraf, lodash as _, ora, relativeNormalize } from 'stan-utils';
 import merge from 'merge2';
-import GulpPostCss from 'gulp-postcss';
 
 import { BundleOptions, CJSOptions } from './types';
 import getBabelConfig from './get-babel-config';
@@ -194,9 +193,9 @@ export default async function babelBuild(opts: BabelOptions) {
             return {
               plugins: postcssPlugin,
               options: {
-                parser: syntax,
+                syntax,
                 ...postcssConfig,
-              } as GulpPostCss.Options,
+              } as postcss.Options,
             };
           }),
         ),
