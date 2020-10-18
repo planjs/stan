@@ -194,7 +194,7 @@ export default async function babelBuild(opts: BabelOptions) {
             return {
               plugins: postcssPlugin,
               options: {
-                syntax,
+                parser: syntax,
                 ...postcssConfig,
               } as GulpPostCss.Options,
             };

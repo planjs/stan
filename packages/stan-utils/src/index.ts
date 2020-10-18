@@ -14,6 +14,7 @@ import chokidar from 'chokidar';
 import ora from 'ora';
 import updateNotifier from 'update-notifier';
 import { slash } from '@planjs/utils';
+import pms from 'pretty-ms';
 
 export { lodash };
 export { mkdirp };
@@ -24,6 +25,7 @@ export { chalk };
 export { glob };
 export { joi };
 export { ora };
+export { pms };
 export { yParser };
 export { signale };
 export { updateNotifier };

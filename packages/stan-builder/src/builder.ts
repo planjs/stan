@@ -103,7 +103,7 @@ export default async function builder(opts: BuildOptions) {
           }
         });
 
-        process.once('SIGINT', () => {
+        process.on('SIGINT', () => {
           watcher.close();
         });
       }
