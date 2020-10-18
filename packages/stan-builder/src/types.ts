@@ -93,10 +93,6 @@ export interface BundleOptions extends BaseBundleOptions {
    */
   extraBabelPresets?: any[];
   /**
-   * css modules 配置
-   */
-  cssModules?: any;
-  /**
    * rollup 的 external 保留内部默认处理，新增 external
    * 打包esm, cjs时 dependencies 和 peerDependencies 里的内容会被 external
    * 打包umd时 peerDependencies 会被 external
