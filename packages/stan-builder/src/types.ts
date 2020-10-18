@@ -60,6 +60,7 @@ export interface SYSOptions extends BaseBundleOptions {}
 export interface BundleOptions extends BaseBundleOptions {
   /**
    * 入口文件
+   * @default src/index.js, src/index.ts, src/index.tsx, src/index.jsx
    */
   entry?: string;
   esm?: ESMOptions | BundleType | boolean;
