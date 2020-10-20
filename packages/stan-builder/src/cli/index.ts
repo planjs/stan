@@ -5,7 +5,10 @@ import builder from '../builder';
 
 const pkg = require('../../package.json');
 
-updateNotifier({ pkg }).notify({ defer: true });
+updateNotifier({
+  pkg,
+  updateCheckInterval: 0,
+}).notify({ defer: true });
 
 const opts = parseArgv(process.argv);
 

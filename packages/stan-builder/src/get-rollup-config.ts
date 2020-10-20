@@ -97,15 +97,23 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     pkg = require(path.join(cwd, 'package.json'));
   } catch (e) {}
 
-  const browser = moduleOpts?.target === 'browser' || target === 'browser';
+  const _target = moduleOpts?.target ?? target;
+  const _sourcemap = moduleOpts?.sourcemap ?? sourcemap;
+  const _minify = moduleOpts?.minify ?? minify;
+  const _file = moduleOpts?.file ?? file;
+
+  let browser = _target === 'browser';
+  if (['.tsx', '.jsx'].includes(path.extname(entry!))) {
+    browser = true;
+  }
   const runtimeHelpers = moduleOpts?.runtimeHelpers ?? _runtimeHelpers;
   const babelHelpers = runtimeHelpers ? 'runtime' : 'bundled';
-  const _sourcemap = moduleOpts?.sourcemap || sourcemap;
+
   const babelOptions = {
     ...getBabelConfig({
       type: format,
       typescript: true,
-      target,
+      target: _target,
       runtimeHelpers: runtimeHelpers,
     }),
     babelrc: false,
@@ -182,13 +190,11 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     return PKGs.filter((v) => !externalsExclude.includes(v));
   }
 
-  function getOutputFilePath(suffix = ''): string {
-    const mjs = !!(moduleOpts as ESMOptions)?.mjs;
+  function getOutputFilePath(isMin = false, isMJS = false): string {
     const fileName =
-      moduleOpts?.file ||
-      file ||
-      [path.basename(entry!, entryExt), format, suffix, mjs ? 'mjs' : 'js']
-        .filter(String)
+      _file ||
+      [path.basename(entry!, entryExt), format, isMin && 'min', isMJS ? 'mjs' : 'js']
+        .filter((v) => v)
         .join('.');
     return path.join(cwd, `dist/${fileName}`);
   }
@@ -200,12 +206,14 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   };
 
   const external = getExternal();
+  const plugins = getPlugins();
 
   if (format === 'cjs') {
     output.esModule = false;
     output.exports = 'auto';
   }
 
+  // process globals and name
   if (format === 'umd') {
     const _umd = umd as UMDOptions;
     const global: GlobalsOption = external.reduce((globals, name) => {
@@ -234,21 +242,24 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
           input,
           output,
           inlineDynamicImports: true,
-          plugins: getPlugins(),
+          plugins,
           external,
         },
         (moduleOpts as ESMOptions)?.mjs && {
           input,
-          output,
+          output: {
+            ...output,
+            file: getOutputFilePath(false, true),
+          },
           inlineDynamicImports: true,
-          plugins: getPlugins(),
+          plugins,
           external,
         },
-        (moduleOpts?.minify ?? minify) && {
+        _minify && {
           input,
           output: {
             ...output,
-            file: getOutputFilePath('min'),
+            file: getOutputFilePath(true),
           },
           inlineDynamicImports: true,
           plugins: getPlugins(true),
