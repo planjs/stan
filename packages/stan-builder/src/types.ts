@@ -37,7 +37,10 @@ export interface BaseBundleOptions {
 
 export interface UMDOptions extends BaseBundleOptions {
   name?: string;
-  globals?: Record<string, string>;
+  /**
+   * 可以支持 $=jquery,React=react
+   */
+  globals?: Record<string, string> | string;
 }
 
 export interface ESMOptions extends BaseBundleOptions {

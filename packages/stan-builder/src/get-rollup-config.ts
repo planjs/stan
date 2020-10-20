@@ -1,5 +1,12 @@
 import path from 'path';
-import { ExternalOption, InputOptions, ModuleFormat, Plugin, OutputOptions } from 'rollup';
+import {
+  ExternalOption,
+  InputOptions,
+  ModuleFormat,
+  Plugin,
+  OutputOptions,
+  GlobalsOption,
+} from 'rollup';
 import { terser } from 'rollup-plugin-terser';
 import url from '@rollup/plugin-url';
 import alias from '@rollup/plugin-alias';
@@ -9,6 +16,7 @@ import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
+import builtinModules from 'builtin-modules';
 import typescript2 from 'rollup-plugin-typescript2';
 import visualizer from 'rollup-plugin-visualizer';
 import postcss from 'rollup-plugin-postcss';
@@ -17,6 +25,7 @@ import { lodash as _ } from 'stan-utils';
 import { BundleOptions, CJSOptions, ESMOptions, SYSOptions, UMDOptions } from './types';
 import getBabelConfig from './get-babel-config';
 import { PackageJson } from './pkg';
+import { parseMappingArgument } from './utils';
 
 export type IRollupOptions = InputOptions & { output: OutputOptions };
 
@@ -155,7 +164,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     ].filter(Boolean);
   }
 
-  function getExternal(): ExternalOption {
+  function getExternal(): (string | RegExp)[] {
     let PKGs: ExternalOption = [...extraExternal];
     PKGs.push(...Object.keys(pkg?.peerDependencies! || {}));
     if (format !== 'umd') {
@@ -165,6 +174,10 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
       if (runtimeHelpers) {
         PKGs.push(/@babel\/runtime/);
       }
+    }
+    // @see https://github.com/rollup/plugins/tree/master/packages/node-resolve/#resolving-built-ins-like-fs
+    if (!browser) {
+      PKGs.concat(builtinModules);
     }
     return PKGs.filter((v) => !externalsExclude.includes(v));
   }
@@ -186,6 +199,8 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     file: getOutputFilePath(),
   };
 
+  const external = getExternal();
+
   if (format === 'cjs') {
     output.esModule = false;
     output.exports = 'auto';
@@ -193,7 +208,19 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
 
   if (format === 'umd') {
     const _umd = umd as UMDOptions;
-    output.globals = _umd?.globals;
+    const global: GlobalsOption = external.reduce((globals, name) => {
+      if (name instanceof RegExp) name = name.source;
+      if (name.match(/^[a-z_$][a-z0-9_\-$]*$/)) {
+        globals[name] = _.camelCase(name);
+      }
+      return globals;
+    }, {});
+    if (typeof _umd?.globals === 'string') {
+      Object.assign(global, parseMappingArgument(_umd?.globals));
+    } else {
+      Object.assign(global, _umd?.globals || {});
+    }
+    output.globals = global;
     output.name = _umd?.name || (pkg.name && _.camelCase(path.basename(pkg.name)));
   }
 
@@ -208,14 +235,14 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
           output,
           inlineDynamicImports: true,
           plugins: getPlugins(),
-          external: getExternal(),
+          external,
         },
         (moduleOpts as ESMOptions)?.mjs && {
           input,
           output,
           inlineDynamicImports: true,
           plugins: getPlugins(),
-          external: getExternal(),
+          external,
         },
         (moduleOpts?.minify ?? minify) && {
           input,
@@ -225,7 +252,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
           },
           inlineDynamicImports: true,
           plugins: getPlugins(true),
-          external: getExternal(),
+          external,
         },
       ].filter(Boolean) as IRollupOptions[];
     default:

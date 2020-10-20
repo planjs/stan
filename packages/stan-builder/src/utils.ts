@@ -21,3 +21,28 @@ export function getExistFile({
 export function tryDefault(obj: any) {
   return obj.default || obj;
 }
+
+/**
+ * Parses values of the form "$=jQuery,React=react" into key-value object.
+ */
+export function parseMappingArgument(
+  globalStrings: string,
+  processValue?: (v: string, k: string) => string[] | string | void,
+) {
+  const globals = {};
+  globalStrings.split(',').forEach((globalString) => {
+    let [key, value] = globalString.split('=');
+    if (processValue) {
+      const r = processValue(value, key);
+      if (r !== undefined) {
+        if (Array.isArray(r)) {
+          [value, key] = r;
+        } else {
+          value = r;
+        }
+      }
+    }
+    globals[key] = value;
+  });
+  return globals;
+}

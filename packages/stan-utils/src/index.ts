@@ -13,8 +13,8 @@ import signale from 'signale';
 import chokidar from 'chokidar';
 import ora from 'ora';
 import updateNotifier from 'update-notifier';
-import { slash } from '@planjs/utils';
 import pms from 'pretty-ms';
+import { slash } from '@planjs/utils';
 
 export { lodash };
 export { mkdirp };

@@ -84,7 +84,8 @@
     "rollup-plugin-visualizer": "^4.1.1",
     "stan-utils": "^0.0.14",
     "through2": "^4.0.2",
-    "vinyl-fs": "^3.0.3"
+    "vinyl-fs": "^3.0.3",
+    "builtin-modules": "^3.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.11.6",

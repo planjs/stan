@@ -10,8 +10,13 @@ updateNotifier({ pkg }).notify({ defer: true });
 const opts = parseArgv(process.argv);
 
 if (opts) {
-  builder(opts).catch((e) => {
-    signale.error(e);
-    process.exit(1);
-  });
+  builder(opts)
+    .then(() => {
+      if (!opts.watch) process.exit(0);
+    })
+    .catch((e) => {
+      signale.error(e);
+      process.exitCode = (typeof e?.code === 'number' && e.code) || 1;
+      process.exit();
+    });
 }
