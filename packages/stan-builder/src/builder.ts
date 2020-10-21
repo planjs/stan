@@ -89,14 +89,13 @@ export default async function builder(opts: BuildOptions) {
 
         const files: string[] = [];
 
-        const debouncedCopyFiles = _.debounce(
-          () =>
-            copyFiles({
-              ...opts,
-              targets: targets.map(({ src, ...o }) => ({ src: files, ...o })),
-            }),
-          1000,
-        );
+        const copyChangeFile = () =>
+          copyFiles({
+            ...opts,
+            targets: targets.map(({ src, ...o }) => ({ src: files, ...o })),
+          });
+
+        const debouncedCopyFiles = _.debounce(_.throttle(copyChangeFile, 500), 1000);
 
         watcher.on('all', (event, fullPath) => {
           const srcPath = path.parse(path.join(cwd, entry!)).dir;
@@ -107,6 +106,11 @@ export default async function builder(opts: BuildOptions) {
             if (!files.includes(fullPath)) files.push(fullPath);
             debouncedCopyFiles();
           }
+        });
+
+        watcher.on('error', (error) => {
+          console.error('Error:', error);
+          console.error(error.stack);
         });
 
         process.on('SIGINT', () => {

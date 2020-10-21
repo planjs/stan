@@ -277,7 +277,7 @@ export default async function babelBuild(opts: BabelOptions) {
             createStream(files.pop()!);
           }
         }
-        const debouncedCompileFiles = _.debounce(compileFiles, 1000);
+        const debouncedCompileFiles = _.debounce(_.throttle(compileFiles, 500), 1000);
 
         watcher.on('all', (event, fullPath) => {
           const relPath = fullPath.replace(srcPath, '');
@@ -287,6 +287,11 @@ export default async function babelBuild(opts: BabelOptions) {
             if (!files.includes(fullPath)) files.push(fullPath);
             debouncedCompileFiles();
           }
+        });
+
+        watcher.on('error', (error) => {
+          console.error('Error:', error);
+          console.error(error.stack);
         });
 
         process.once('SIGINT', () => {
