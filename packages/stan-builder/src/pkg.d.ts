@@ -21,8 +21,8 @@ export interface PackageJson {
   homepage?: string;
   bugs?: IPackageJsonAddress;
   license?: string;
-  author?: string | IPackageJsonPerson;
-  contributors?: string[] | IPackageJsonPerson[];
+  author?: string | PackageJsonPerson;
+  contributors?: string[] | PackageJsonPerson[];
   files?: string[];
   main?: string;
   browser?: string;
