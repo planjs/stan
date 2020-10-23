@@ -30,7 +30,7 @@ npm install stan-builder --save-dev
 
 ```shell script
 # Bundle library
-stan-builder 
+stan-builder --esm --cjs --minify 
 
 # Bundle dev
 stan-builder -w
