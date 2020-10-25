@@ -28,7 +28,7 @@ export function getBundleOpts(opts: BuildOptions): BundleOptions[] {
   });
 }
 
-export default async function builder(opts: BuildOptions) {
+async function builder(opts: BuildOptions) {
   const bundleOptions = getBundleOpts(opts);
   const { cwd, rootPath, watch, verbose } = opts;
 
@@ -124,3 +124,5 @@ export default async function builder(opts: BuildOptions) {
     console.log(chalk.cyan('Build complete.'));
   }
 }
+
+export default builder;

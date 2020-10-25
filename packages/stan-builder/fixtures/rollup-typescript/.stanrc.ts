@@ -1,9 +1,12 @@
 export default {
   bundler: 'rollup',
-  esm: true,
+  esm: {
+    mjs: true
+  },
   cjs: true,
   umd: {
     name: 'pkg',
+    minify: true
   },
   runtimeHelpers: true,
   sourcemap: false,

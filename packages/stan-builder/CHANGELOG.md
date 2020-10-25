@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/planjs/stan/compare/stan-builder@0.1.1...stan-builder@0.2.0) (2020-10-25)
+
+
+### Features
+
+* add cssnano autoprefix ([1d2b392](https://github.com/planjs/stan/commit/1d2b3926d7af90d329298795b9cc6bb8a70972a2))
+
+
+
+
+
 ## [0.1.1](https://github.com/planjs/stan/compare/stan-builder@0.1.0...stan-builder@0.1.1) (2020-10-23)
 
 **Note:** Version bump only for package stan-builder

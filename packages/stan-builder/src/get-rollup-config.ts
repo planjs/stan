@@ -20,6 +20,8 @@ import builtinModules from 'builtin-modules';
 import typescript2 from 'rollup-plugin-typescript2';
 import visualizer from 'rollup-plugin-visualizer';
 import postcss from 'rollup-plugin-postcss';
+import cssnano from 'cssnano';
+import autoprefixer from 'autoprefixer';
 import { lodash as _ } from 'stan-utils';
 
 import { BundleOptions, CJSOptions, ESMOptions, SYSOptions, UMDOptions } from './types';
@@ -56,6 +58,8 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     system,
     file,
     target = 'browser',
+    extractCSS = false,
+    injectCSS = true,
     analyze,
     disableTypeCheck,
     minify,
@@ -74,7 +78,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     postcssOpts,
     aliasOpts,
     visualizerOpts,
-    extraExternal = [],
+    extraExternals = [],
     externalsExclude = [],
     extraRollupPlugins = [],
     externalPeerDependenciesOnly = false,
@@ -130,7 +134,20 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
       alias(aliasOpts),
       url(),
       json(),
-      postcss({ extract: true, minimize: !!isMin, ...postcssOpts }),
+      postcss({
+        extract: extractCSS,
+        inject: injectCSS,
+        minimize: !!isMin,
+        ...postcssOpts,
+        plugins: [
+          ...(postcssOpts?.plugins || []),
+          isMin &&
+            cssnano({
+              preset: 'default',
+            }),
+          autoprefixer(),
+        ].filter(Boolean),
+      }),
       injectOpts && inject(injectOpts),
       replace && replace(replaceOpts),
       isTypeScript &&
@@ -140,8 +157,11 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
           tsconfigDefaults: {
             compilerOptions: {
               declaration: true,
+              sourceMap: _sourcemap,
+              jsx: 'preserve',
             },
           },
+          cacheRoot: `./node_modules/.cache/.ts2_cache_${format}`,
           typescript: require('typescript'),
           useTsconfigDeclarationDir: true,
           check: !disableTypeCheck,
@@ -152,6 +172,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         mainFields: ['module', 'jsnext:main', 'main'],
         browser,
         extensions,
+        preferBuiltins: target === 'node',
         ...nodeResolveOpts,
       }),
       babel({
@@ -173,7 +194,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   }
 
   function getExternal(): (string | RegExp)[] {
-    let PKGs: ExternalOption = [...extraExternal];
+    let PKGs: ExternalOption = [...extraExternals];
     PKGs.push(...Object.keys(pkg?.peerDependencies! || {}));
     if (format !== 'umd') {
       if (!externalPeerDependenciesOnly) {
@@ -203,6 +224,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     format,
     sourcemap: _sourcemap,
     file: getOutputFilePath(),
+    freeze: false,
   };
 
   const external = getExternal();
@@ -229,7 +251,10 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
       Object.assign(global, _umd?.globals || {});
     }
     output.globals = global;
-    output.name = _umd?.name || (pkg.name && _.camelCase(path.basename(pkg.name)));
+    output.name = (_umd?.name || (pkg.name && _.camelCase(path.basename(pkg.name)))).replace(
+      /^global\./,
+      '',
+    );
   }
 
   switch (format) {

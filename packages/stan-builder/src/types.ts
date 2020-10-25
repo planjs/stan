@@ -73,6 +73,14 @@ export interface BundleOptions extends BaseBundleOptions {
   include?: FilterPattern;
   disableTypeCheck?: boolean;
   /**
+   * 配置是否提取 css 为单独文件。
+   */
+  extractCSS?: boolean;
+  /**
+   * 是否在 <head>里注入css, 如果extractCSS: true，则为false
+   */
+  injectCSS?: boolean;
+  /**
    * 打包的模块大小可视化展示
    * 使用了 rollup-plugin-visualizer
    */
@@ -100,7 +108,7 @@ export interface BundleOptions extends BaseBundleOptions {
    * 打包esm, cjs时 dependencies 和 peerDependencies 里的内容会被 external
    * 打包umd时 peerDependencies 会被 external
    */
-  extraExternal?: (string | RegExp)[];
+  extraExternals?: (string | RegExp)[];
   /**
    * 配置依赖不 external
    */

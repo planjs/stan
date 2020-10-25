@@ -93,6 +93,20 @@ export default {
 > - `css` 使用 `postcss`，`js` 使用 `terser`。
 > - `[esm|cjs|umd].minify` 优先级比这个高，没有配置则默认这个。
  
+#### extractCSS
+
+配置是否提取 css 为单独文件。
+
+* Type: `boolean`
+* Default: `false`
+ 
+#### injectCSS
+
+是否在 `<head>` 里注入css。
+
+* Type: `boolean`
+* Default: `true`
+
 #### sourcemap
  
 是否同步输出sourcemap。
@@ -151,6 +165,58 @@ export default {
 
 > - 如果 `entry` 后缀为 `.jsx|.tsx` 默认为 `browser`。 
 
+#### extraBabelPlugins
+
+配置额外的 babel plugins。
+
+* Type: `array`
+* Default: `[]`
+
+#### extraBabelPresets
+
+配置额外的 babel preset。
+
+* Type: `array`
+* Default: `[]`
+
+#### extraExternals
+
+配置一些依赖走 externals。
+
+* Type: `array<string | RegExp>`
+* Default: []
+
+> * rollup 的 external 保留内部默认处理，新增 external   
+> * 打包esm, cjs时 dependencies 和 peerDependencies 里的内容会被 external   
+> * 打包umd时 peerDependencies 会被 external
+
+#### externalsExclude
+
+配置一些依赖不走 externals。
+
+* Type: `array<string | RegExp>`
+* Default: `[]`
+
+#### externalPeerDependenciesOnly
+
+只 externals `peerDependencies` 中的依赖。
+
+* Type: `string[]`
+* Default: `[]`
+
+#### extraPostCSSPlugins
+
+配置额外 postcss plugin
+
+* Type: `string[]`
+* Default: `[]`
+
+#### extraRollupPlugins
+
+配置额外 rollup plugin
+
+* Type: `array`
+* Default: `[]`
 
 #### analyze
 

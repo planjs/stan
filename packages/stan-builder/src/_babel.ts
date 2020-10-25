@@ -14,6 +14,8 @@ import postcss from 'gulp-postcss';
 import postcssrc from 'postcss-load-config';
 import { signale, chalk, chokidar, rimraf, lodash as _, ora, relativeNormalize } from 'stan-utils';
 import merge from 'merge2';
+import cssnano from 'cssnano';
+import autoprefixer from 'autoprefixer';
 
 import { BundleOptions, CJSOptions } from './types';
 import getBabelConfig from './get-babel-config';
@@ -191,7 +193,14 @@ export default async function babelBuild(opts: BabelOptions) {
               }
             } catch (e) {}
             return {
-              plugins: postcssPlugin,
+              plugins: [
+                ...postcssPlugin,
+                minify &&
+                  cssnano({
+                    preset: 'default',
+                  }),
+                autoprefixer(),
+              ].filter(Boolean),
               options: {
                 syntax,
                 ...postcssConfig,
@@ -266,17 +275,20 @@ export default async function babelBuild(opts: BabelOptions) {
         const watcher = chokidar.watch(patterns, {
           ignoreInitial: true,
         });
+
         console.log(
           `${chalk.greenBright(`[${type}]`)} watch ${chalk.yellow(
             relativeNormalize(srcPath),
           )} change and recompile`,
         );
+
         const files: string[] = [];
         function compileFiles() {
           while (files.length) {
             createStream(files.pop()!);
           }
         }
+
         const debouncedCompileFiles = _.debounce(_.throttle(compileFiles, 500), 1000);
 
         watcher.on('all', (event, fullPath) => {
