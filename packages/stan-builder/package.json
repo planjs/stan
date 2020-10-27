@@ -2,13 +2,29 @@
   "name": "stan-builder",
   "version": "0.2.0",
   "description": "build library",
-  "author": "fupeng <fupenglxy@gmail.com>",
-  "homepage": "https://github.com/planjs/stan#readme",
+  "author": "fupeng <fupenglxy@gmail.com> (https://github.com/fupengl)",
+  "homepage": "https://github.com/planjs/stan/blob/master/packages/stan-builder/README.md",
   "license": "ISC",
   "main": "lib/index.js",
+  "keywords": [
+    "stan",
+    "@planjs",
+    "builder",
+    "react",
+    "react-compoments",
+    "node",
+    "node-library",
+    "lib",
+    "library",
+    "babel",
+    "rollup",
+    "stan-builder"
+  ],
   "directories": {
     "lib": "lib",
-    "test": "__tests__"
+    "test": "__tests__",
+    "example": "fixtures",
+    "doc": "README.md"
   },
   "files": [
     "lib",
