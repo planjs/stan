@@ -1,4 +1,4 @@
-import path from 'path';
+import path, { dirname } from 'path';
 import fs from 'fs';
 import { transformSync } from '@babel/core';
 import vfs from 'vinyl-fs';
@@ -19,6 +19,7 @@ import autoprefixer from 'autoprefixer';
 
 import { BundleOptions, CJSOptions } from './types';
 import getBabelConfig from './get-babel-config';
+import { getParsedTSConfig, getTsConfigPath } from './utils';
 
 export interface BabelOptions {
   cwd: string;
@@ -82,48 +83,6 @@ export default async function babelBuild(opts: BabelOptions) {
     return code;
   }
 
-  function getTSConfig() {
-    try {
-      function parseTsconfig(path: string) {
-        const { readConfigFile, sys } = require('typescript');
-        const result = readConfigFile(path, sys.readFile);
-        if (result.error) {
-          return;
-        }
-        // TODO support extends
-        // const parsed = parseJsonConfigFileContent(
-        //   result.config,
-        //   {
-        //     useCaseSensitiveFileNames: false,
-        //     readDirectory: sys.readDirectory,
-        //     fileExists: sys.fileExists,
-        //     readFile: sys.readFile,
-        //   },
-        //   basename(path),
-        // );
-        return result.config;
-      }
-
-      function getTsconfigCompilerOptions(path: string) {
-        const config = parseTsconfig(path);
-        return config ? config.compilerOptions : undefined;
-      }
-
-      const tsconfigPath = path.join(cwd, 'tsconfig.json');
-      const templateTsconfigPath = path.join(__dirname, '../template/tsconfig.json');
-
-      if (fs.existsSync(tsconfigPath)) {
-        return getTsconfigCompilerOptions(tsconfigPath) || {};
-      }
-      if (rootPath && fs.existsSync(path.join(rootPath, 'tsconfig.json'))) {
-        return getTsconfigCompilerOptions(path.join(rootPath, 'tsconfig.json')) || {};
-      }
-      return getTsconfigCompilerOptions(templateTsconfigPath) || {};
-    } catch (e) {
-      return {};
-    }
-  }
-
   function getPossCSSConfig(): { plugins?: any[]; [key: string]: any } {
     try {
       return postcssrc.sync({});
@@ -132,7 +91,7 @@ export default async function babelBuild(opts: BabelOptions) {
     }
   }
 
-  const tsConfig = getTSConfig();
+  const tsConfig = getParsedTSConfig(cwd, rootPath);
   const { plugins: postcssPlugin = [], ...postcssConfig } = getPossCSSConfig();
 
   function createStream(globs: string[] | string) {
@@ -226,6 +185,10 @@ export default async function babelBuild(opts: BabelOptions) {
         .pipe(vfs.dest(targetPath));
     }
 
+    if (!(tsConfig?.declaration || tsConfig?.declarationDir)) {
+      return merge(main);
+    }
+
     const ts = vfs
       .src(globs, {
         allowEmpty: true,
@@ -234,16 +197,13 @@ export default async function babelBuild(opts: BabelOptions) {
       .pipe(gulpIf(() => watch, plumber()))
       .pipe(tsFilter)
       .pipe(
-        gulpTs({
-          // emit d.ts file
+        gulpTs.createProject(getTsConfigPath(cwd, rootPath), {
           isolatedModules: false,
           moduleResolution: 'node',
           emitDeclarationOnly: true,
-          ...tsConfig,
-          typescript: require('typescript'),
-          noEmit: !(tsConfig?.declaration || tsConfig?.declarationDir),
           noEmitOnError: disableTypeCheck,
-        }),
+          typescript: require('typescript'),
+        })(),
       )
       .pipe(dtsFilter)
       .pipe(
