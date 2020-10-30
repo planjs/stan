@@ -8,6 +8,7 @@
   },
   "scripts": {
     "publish": "lerna publish --amend",
+    "prepare": "lerna run prepare",
     "test": "jest"
   },
   "devDependencies": {
