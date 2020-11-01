@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/planjs/stan/compare/stan-builder@0.2.0...stan-builder@0.2.1) (2020-11-01)
+
+
+### Bug Fixes
+
+* travis ci error ([13f4be2](https://github.com/planjs/stan/commit/13f4be2ec6c7a8686ece4a1b6f4290eb5988bcbc))
+
+
+
+
+
 ## [0.2.2](https://github.com/planjs/stan/compare/stan-builder@0.2.1...stan-builder@0.2.2) (2020-11-01)
 
 **Note:** Version bump only for package stan-builder
