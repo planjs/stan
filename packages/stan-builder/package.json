@@ -1,6 +1,6 @@
 {
   "name": "stan-builder",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "build library",
   "author": "fupeng <fupenglxy@gmail.com> (https://github.com/fupengl)",
   "homepage": "https://github.com/planjs/stan/blob/master/packages/stan-builder/README.md",
@@ -41,7 +41,8 @@
     "directory": "packages/stan-builder"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "dev": "chokidar \"src/**\" -c \"yarn prepare\"",
@@ -101,7 +102,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.27.2",
     "rollup-plugin-visualizer": "^4.1.1",
-    "stan-utils": "^0.1.3",
+    "stan-utils": "^0.1.4",
     "through2": "^4.0.2",
     "vinyl-fs": "^3.0.3"
   },
