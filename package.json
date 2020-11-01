@@ -9,7 +9,7 @@
   "scripts": {
     "publish": "lerna publish --amend",
     "prepare": "lerna run prepare",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",

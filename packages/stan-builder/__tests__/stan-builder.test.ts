@@ -10,14 +10,14 @@ const dirs = (p: string, isFullPath = false) =>
     .map((v) => (isFullPath ? path.join(p, v) : v));
 
 jest.useFakeTimers();
-jest.setTimeout(10000);
 
 it('stan-builder build', async () => {
+  const fixtures = dirs(path.join(__dirname, '../fixtures'), true);
   try {
-    for (let cwd of dirs(path.join(__dirname, '../fixtures'), true)) {
+    for (let cwd of fixtures) {
       await stanLibBuilder({ cwd });
     }
   } catch (e) {
     expect(e).toBeInstanceOf(Error);
   }
-});
+}, 30000);

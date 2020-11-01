@@ -160,6 +160,6 @@ export default async function copyFiles(options: CopyOptions = {}) {
       }
     }
   } else {
-    console.log(chalk.yellow('no items to copy'));
+    console.log(chalk.yellow('No items to copy'));
   }
 }
