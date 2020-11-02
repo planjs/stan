@@ -12,7 +12,7 @@ const IIFE_ENUM = '__ENUM_IIFE__';
 
 export default () => {
   return {
-    name: 'typescript-enum-iife',
+    name: 'ts-enum-iife',
     inherits: require('@babel/plugin-syntax-typescript').default,
     visitor: {
       TSEnumDeclaration(path: NodePath<types.TSEnumDeclaration>) {
