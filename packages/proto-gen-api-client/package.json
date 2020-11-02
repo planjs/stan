@@ -1,6 +1,6 @@
 {
   "name": "proto-gen-api-client",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "> TODO: description",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -21,7 +21,8 @@
     "url": "git+https://github.com/planjs/stan.git"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"

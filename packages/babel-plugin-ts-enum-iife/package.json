@@ -28,6 +28,10 @@
   "devDependencies": {
     "@types/babel__core": "^7.1.10"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "peerDependencies": {
     "@babel/core": "7.x",
     "@babel/plugin-syntax-typescript": "7.x",

@@ -11,6 +11,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+## 0.0.2 (2020-11-02)
+
+**Note:** Version bump only for package babel-plugin-ts-enum-iife
+
+
+
+
+
 # 0.1.0 (2020-11-02)
 
 
