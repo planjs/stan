@@ -83,7 +83,7 @@ async function builder(opts: BuildOptions) {
       await copyFiles(copy);
       if (watch && copy.targets) {
         const targets = Array.isArray(copy.targets) ? copy.targets : [copy.targets];
-        const watcher = chokidar.watch(targets.map((v) => v.src).flat(), {
+        const watcher = chokidar.watch(_.flatten(targets.map((v) => v.src)), {
           ignoreInitial: true,
         });
 

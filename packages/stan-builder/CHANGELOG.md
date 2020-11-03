@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/planjs/stan/compare/stan-builder@0.2.2...stan-builder@0.4.0) (2020-11-03)
+
+
+### Bug Fixes
+
+* node 10 flat error ([e3835d9](https://github.com/planjs/stan/commit/e3835d932e83f24d8b1e4de0f12fd4497ac2818b))
+
+
+### Features
+
+* add babel plugin ([3e9bd04](https://github.com/planjs/stan/commit/3e9bd04889cd286a59ef0a98a6039a9c131dcab2))
+
+
+
+
+
 # [0.3.0](https://github.com/planjs/stan/compare/stan-builder@0.2.2...stan-builder@0.3.0) (2020-11-02)
 
 
