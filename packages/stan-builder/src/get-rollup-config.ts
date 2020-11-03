@@ -48,7 +48,7 @@ export type GetRollupConfigOptions = {
 };
 
 export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOptions[] {
-  const { type: format, cwd, bundleOpt } = opts;
+  const { type: format, cwd, bundleOpt, verbose } = opts;
 
   const {
     entry,
@@ -161,6 +161,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
               jsx: 'preserve',
             },
           },
+          verbosity: verbose ? 3 : 1,
           cacheRoot: `./node_modules/.cache/.ts2_cache_${format}`,
           typescript: require('typescript'),
           useTsconfigDeclarationDir: true,
