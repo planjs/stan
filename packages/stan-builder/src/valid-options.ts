@@ -8,6 +8,7 @@ const schema = joi.object({
   esm: [joi.bool(), joi.object()],
   cjs: [joi.bool(), joi.object()],
   umd: [joi.bool(), joi.object()],
+  system: [joi.bool(), joi.object()],
   disableTypeCheck: joi.bool(),
   analyze: joi.bool(),
   minify: joi.bool(),

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.2](https://github.com/planjs/stan/compare/stan-builder@0.4.1...stan-builder@0.4.2) (2020-11-20)
+
+
+### Bug Fixes
+
+* **stan-builder:** fix cli options ([0c43aaa](https://github.com/planjs/stan/commit/0c43aaa627a2e2dca9067048b6788a6f08beb96a))
+
+
+
+
+
 ## [0.4.1](https://github.com/planjs/stan/compare/stan-builder@0.4.0...stan-builder@0.4.1) (2020-11-20)
 
 

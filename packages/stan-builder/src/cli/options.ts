@@ -12,10 +12,10 @@ commander.option('-min, --minify', 'Minify code');
 commander.option('--sourcemap', 'Generate sourcemap');
 commander.option('--analyze', 'Analyze bundle');
 commander.option('--verbose', 'Output verbose messages on internal operations');
-commander.option('--umd [filename]', 'Output as umd specification', false);
-commander.option('--system [filename]', 'Output as systemjs specification', false);
-commander.option('--cjs [filename]', 'Output as cjs specification', false);
-commander.option('--esm [filename]', 'Output as esm specification', true);
+commander.option('--umd [filename]', 'Output as umd specification');
+commander.option('--system [filename]', 'Output as systemjs specification');
+commander.option('--cjs [filename]', 'Output as cjs specification');
+commander.option('--esm [filename]', 'Output as esm specification');
 commander.option('--plugins [list]', 'Babel plugin', collect);
 commander.option('--presets [list]', 'Babel presets', collect);
 
@@ -49,9 +49,38 @@ export default function parseArgv(args: string[]): BuildOptions | void {
       babelPlugins: opts.plugins,
       babelPresets: opts.presets,
       analyze: !!opts.analyze,
-      umd: opts.umd,
-      cjs: opts.cjs,
-      esm: opts.esm,
+      umd:
+        typeof booleanify(opts.umd) === 'boolean'
+          ? opts.umd
+          : opts.umd
+          ? {
+              file: opts.umd,
+            }
+          : false,
+      system:
+        typeof booleanify(opts.system) === 'boolean'
+          ? opts.system
+          : opts.system
+          ? {
+              file: opts.system,
+            }
+          : false,
+      cjs:
+        typeof booleanify(opts.cjs) === 'boolean'
+          ? opts.cjs
+          : opts.cjs
+          ? {
+              file: opts.cjs,
+            }
+          : false,
+      esm:
+        typeof booleanify(opts.esm) === 'boolean'
+          ? opts.esm
+          : opts.esm
+          ? {
+              file: opts.esm,
+            }
+          : false,
       sourcemap: opts.sourcemap,
     },
   };
@@ -63,4 +92,16 @@ function collect(value: string | any, previousValue: Array<string>): Array<strin
   const values = value.split(',');
 
   return previousValue ? previousValue.concat(values) : values;
+}
+
+function booleanify(val: any): boolean | any {
+  if (val === 'true' || val == 1) {
+    return true;
+  }
+
+  if (val === 'false' || val == 0 || !val) {
+    return false;
+  }
+
+  return val;
 }
