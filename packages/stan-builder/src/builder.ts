@@ -16,7 +16,11 @@ export function getBundleOpts(opts: BuildOptions): BundleOptions[] {
     files: ['src/index.tsx', 'src/index.ts', 'src/index.jsx', 'src/index.js'],
     returnRelative: true,
   });
-  return getStanConfig({ cwd }).map((stanConfig) => {
+  const bundleOpts = getStanConfig({ cwd });
+  if (!bundleOpts.length) {
+    return [_.merge({ entry }, args)];
+  }
+  return bundleOpts.map((stanConfig) => {
     const bundleOpts: BundleOptions = _.merge(
       {
         entry,
