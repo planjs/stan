@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.2](https://github.com/planjs/stan/compare/stan-builder@0.3.0...stan-builder@0.4.2) (2020-12-20)
+
+
+### Bug Fixes
+
+* rollup error ([710192c](https://github.com/planjs/stan/commit/710192c836f12a148ec06c284a40e307576de451))
+* **stan-builder:** cmd build opt error ([8d7ce3d](https://github.com/planjs/stan/commit/8d7ce3d03dea7acfbd7322cc4894fd3eea1bda2f))
+* node 10 flat error ([f4534c0](https://github.com/planjs/stan/commit/f4534c0cf077c7b8e83093316c0d71d148667783))
+
+
+
+
+
 ## [0.4.1](https://github.com/planjs/stan/compare/stan-builder@0.4.0...stan-builder@0.4.1) (2020-11-20)
 
 

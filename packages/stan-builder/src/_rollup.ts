@@ -24,9 +24,7 @@ export default async function rollupBuild(opts: RollupOptions): Promise<void> {
         },
       ]);
       watcher.on('event', (event) => {
-        if (event.code === 'ERROR' && event?.error) {
-          signale.error(event.error);
-        } else if (event.code === 'START') {
+        if (event.code === 'START') {
           console.log(chalk.cyan(`${chalk.greenBright(`[${type}]`)} waiting for changes..`));
         } else if (event.code === 'BUNDLE_START') {
           console.log(
