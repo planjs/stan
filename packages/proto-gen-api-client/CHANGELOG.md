@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.26](https://github.com/planjs/stan/compare/proto-gen-api-client@0.0.23...proto-gen-api-client@0.0.26) (2020-12-21)
+
+
+### Bug Fixes
+
+* rollup error ([3c9a901](https://github.com/planjs/stan/commit/3c9a90127d9c499b4057fb576e3fbdeafb8898d8))
+
+
+
+
+
+## [0.0.25](https://github.com/planjs/stan/compare/proto-gen-api-client@0.0.24...proto-gen-api-client@0.0.25) (2020-12-20)
+
+**Note:** Version bump only for package proto-gen-api-client
+
+
+
+
+
+## [0.0.24](https://github.com/planjs/stan/compare/proto-gen-api-client@0.0.22...proto-gen-api-client@0.0.24) (2020-12-20)
+
+
+### Bug Fixes
+
+* node 10 flat error ([f4534c0](https://github.com/planjs/stan/commit/f4534c0cf077c7b8e83093316c0d71d148667783))
+
+
+
+
+
 ## [0.0.23](https://github.com/planjs/stan/compare/proto-gen-api-client@0.0.21...proto-gen-api-client@0.0.23) (2020-11-03)
 
 **Note:** Version bump only for package proto-gen-api-client
