@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.5](https://github.com/planjs/stan/compare/babel-plugin-ts-enum-iife@0.0.4...babel-plugin-ts-enum-iife@0.0.5) (2020-12-20)
+
+**Note:** Version bump only for package babel-plugin-ts-enum-iife
+
+
+
+
+
+## [0.0.4](https://github.com/planjs/stan/compare/babel-plugin-ts-enum-iife@0.0.2...babel-plugin-ts-enum-iife@0.0.4) (2020-12-20)
+
+
+### Bug Fixes
+
+* node 10 flat error ([f4534c0](https://github.com/planjs/stan/commit/f4534c0cf077c7b8e83093316c0d71d148667783))
+
+
+
+
+
 ## 0.0.3 (2020-11-03)
 
 **Note:** Version bump only for package babel-plugin-ts-enum-iife
