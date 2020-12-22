@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.5](https://github.com/planjs/stan/compare/stan-builder@0.4.4...stan-builder@0.4.5) (2020-12-22)
+
+
+### Bug Fixes
+
+* babel ts build error exit ([076ad1c](https://github.com/planjs/stan/commit/076ad1c357e4b7531c34cfbf8ef41d6f79551951))
+
+
+
+
+
 ## [0.4.4](https://github.com/planjs/stan/compare/stan-builder@0.4.2...stan-builder@0.4.4) (2020-12-21)
 
 

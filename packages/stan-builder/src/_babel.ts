@@ -1,5 +1,6 @@
-import path, { dirname } from 'path';
+import path from 'path';
 import fs from 'fs';
+import os from 'os';
 import { transformSync } from '@babel/core';
 import vfs from 'vinyl-fs';
 import File from 'vinyl';
@@ -205,6 +206,9 @@ export default async function babelBuild(opts: BabelOptions) {
           typescript: require('typescript'),
         })(),
       )
+      .on('error', (err) => {
+        console.log(err);
+      })
       .pipe(dtsFilter)
       .pipe(
         vfs.dest(tsConfig?.declarationDir ? path.resolve(cwd, tsConfig.declarationDir) : targetDir),

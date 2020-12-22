@@ -1,8 +1,7 @@
-export default [
-  {
-    bundler: 'babel',
-    runtimeHelpers: true,
-    sourcemap: false,
-    minify: false
-  }
-]
+export default {
+  bundler: 'babel',
+  cjs: true,
+  runtimeHelpers: true,
+  sourcemap: false,
+  minify: false
+}
