@@ -1006,6 +1006,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.12.5":
+  version "7.12.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
+  integrity sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/template@^7.10.4", "@babel/template@^7.3.3":
   version "7.10.4"
   resolved "https://registry.npm.taobao.org/@babel/template/download/@babel/template-7.10.4.tgz#3251996c4200ebc71d1a8fc405fba940f36ba278"
@@ -2346,10 +2353,12 @@
     stylelint-declaration-block-no-ignored-properties "^2.1.0"
     stylelint-order "^3.0.0"
 
-"@planjs/utils@^1.0.8":
-  version "1.0.8"
-  resolved "https://registry.npm.taobao.org/@planjs/utils/download/@planjs/utils-1.0.8.tgz?cache=0&sync_timestamp=1602401893379&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40planjs%2Futils%2Fdownload%2F%40planjs%2Futils-1.0.8.tgz#96883eea6399b63080bc495d8d6efeb3997c4a30"
-  integrity sha1-log+6mOZtjCAvEldjW7+s5l8SjA=
+"@planjs/utils@^1.0.25":
+  version "1.0.25"
+  resolved "https://registry.yarnpkg.com/@planjs/utils/-/utils-1.0.25.tgz#06fa33ed89ca42f2385ae37119e7c0a249bb5db4"
+  integrity sha512-VQju3FqmGas4CEEhPBebW8+FWLEhT49k4iebYch1Fzst+vaPPqfkNFNCTn4aHE/r5/oQ9/NkXqXiOiNxiDAkfA==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"

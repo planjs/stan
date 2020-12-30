@@ -1,6 +1,5 @@
 import path from 'path';
 import fs from 'fs';
-import os from 'os';
 import { transformSync } from '@babel/core';
 import vfs from 'vinyl-fs';
 import File from 'vinyl';
@@ -207,7 +206,11 @@ export default async function babelBuild(opts: BabelOptions) {
         })(),
       )
       .on('error', (err) => {
-        console.log(err);
+        if (watch) {
+          console.error(err);
+        } else {
+          throw err;
+        }
       })
       .pipe(dtsFilter)
       .pipe(

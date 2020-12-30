@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.6](https://github.com/planjs/stan/compare/stan-utils@0.1.5...stan-utils@0.1.6) (2020-12-30)
+
+
+### Bug Fixes
+
+* babel build ts error output ([f3ef0ee](https://github.com/planjs/stan/commit/f3ef0eeb5afcc776982377f8d09e4b525d88a855))
+
+
+
+
+
 ## [0.1.5](https://github.com/planjs/stan/compare/stan-utils@0.1.4...stan-utils@0.1.5) (2020-11-01)
 
 **Note:** Version bump only for package stan-utils

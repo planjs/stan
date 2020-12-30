@@ -3,7 +3,7 @@ import util from 'util';
 import globby from 'globby';
 import fs from 'fs-extra';
 import chalk from 'chalk';
-import isObject from './is-plain-object';
+import { isPlanObject } from '@planjs/utils';
 
 export interface CopyTarget extends Omit<globby.GlobbyOptions, 'transform'> {
   /**
@@ -92,12 +92,12 @@ export default async function copyFiles(options: CopyOptions = {}) {
   const copyTargets = [];
   const _targets: CopyTarget[] = Array.isArray(targets)
     ? targets
-    : isObject(targets)
+    : isPlanObject(targets)
     ? [targets!]
     : [];
   if (_targets.length) {
     for (const target of _targets) {
-      if (!isObject(target)) {
+      if (!isPlanObject(target)) {
         throw new Error(`${stringify(target)} target must be an object`);
       }
 
