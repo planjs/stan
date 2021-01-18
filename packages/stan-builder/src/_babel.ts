@@ -38,7 +38,7 @@ interface TransformOpts {
   type: 'esm' | 'cjs';
 }
 
-export default async function babelBuild(opts: BabelOptions) {
+async function babelBuild(opts: BabelOptions) {
   const {
     cwd,
     rootPath,
@@ -74,13 +74,18 @@ export default async function babelBuild(opts: BabelOptions) {
     const spinner = ora(
       `Transform ${chalk.green(relativeNormalize(file.path))} to ${type}`,
     ).start();
-    const code = transformSync(file.contents, {
-      ...babelOpts,
-      filename: file.path,
-      configFile: false,
-    })?.code;
-    spinner.succeed();
-    return code;
+    try {
+      const code = transformSync(file.contents, {
+        ...babelOpts,
+        filename: file.path,
+        configFile: false,
+      })?.code;
+      spinner.succeed();
+      return code;
+    } catch (e) {
+      spinner.fail();
+      throw e;
+    }
   }
 
   function getPossCSSConfig(): { plugins?: any[]; [key: string]: any } {
@@ -281,3 +286,5 @@ export default async function babelBuild(opts: BabelOptions) {
     });
   });
 }
+
+export default babelBuild;
