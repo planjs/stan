@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.8](https://github.com/planjs/stan/compare/stan-builder@0.4.3...stan-builder@0.4.8) (2021-01-31)
+
+
+### Bug Fixes
+
+* babel build ts error output ([ab821c0](https://github.com/planjs/stan/commit/ab821c08f88b6f644b9179ba56c89db1711ca62a))
+* babel ts build error exit ([232afcd](https://github.com/planjs/stan/commit/232afcdecc669643f6f57338a4bd2f0a4f3d037e))
+* **stan-builder:** fix cli options ([1dab08c](https://github.com/planjs/stan/commit/1dab08c9c40bf2a3f5316660581301875e36fd12))
+
+
+
+
+
 ## [0.4.7](https://github.com/planjs/stan/compare/stan-builder@0.4.6...stan-builder@0.4.7) (2021-01-18)
 
 **Note:** Version bump only for package stan-builder

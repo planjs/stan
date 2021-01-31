@@ -14,6 +14,8 @@ import chokidar from 'chokidar';
 import ora from 'ora';
 import updateNotifier from 'update-notifier';
 import pms from 'pretty-ms';
+import prettier from 'prettier';
+import fs from 'fs-extra';
 import { slash } from '@planjs/utils';
 
 export { lodash };
@@ -32,6 +34,8 @@ export { updateNotifier };
 export { commander };
 export { chokidar };
 export { slash };
+export { prettier };
+export { fs };
 export { createDebug, Debugger };
 export * from './path';
 export { default as copyFiles, CopyOptions, CopyTarget } from './copy-files';

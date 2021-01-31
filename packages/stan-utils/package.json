@@ -1,6 +1,6 @@
 {
   "name": "stan-utils",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "stan utils",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -60,6 +60,7 @@
     "lodash": "^4.17.20",
     "mkdirp": "^1.0.4",
     "ora": "^5.1.0",
+    "prettier": "2.1.2",
     "pretty-ms": "^7.0.1",
     "rimraf": "^3.0.2",
     "semver": "^7.3.2",
