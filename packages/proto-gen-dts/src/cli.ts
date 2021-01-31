@@ -23,7 +23,7 @@ try {
       const { name, dir } = path.parse(file);
       return {
         file,
-        output: path.join(outputDir || dir, name + '.ts'),
+        output: path.join(outputDir || dir, name + '.d.ts'),
       };
     }),
   });
