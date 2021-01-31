@@ -1,0 +1,48 @@
+{
+  "name": "proto-gen-dts",
+  "version": "0.0.1",
+  "description": "proto generate typescript dictionary type file",
+  "keywords": [
+    "proto",
+    "protobuffer",
+    "proto-gen-ts",
+    "typescript"
+  ],
+  "author": "fupeng <fupenglxy@gmail.com>",
+  "homepage": "https://github.com/planjs/stan#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "typings": "./typings/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "bin": {
+    "proto-gen-dts": "./bin/proto-gen-dts.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "typings"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/planjs/stan.git"
+  },
+  "scripts": {
+    "prepare": "stan-builder --cjs --bundler babel",
+    "start": "yarn prepare -- -w",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/planjs/stan/issues"
+  },
+  "dependencies": {
+    "google-proto-files": "^2.2.0",
+    "protobufjs": "^6.8.0",
+    "stan-utils": "^0.1.7"
+  },
+  "devDependencies": {
+    "stan-builder": "^0.4.7"
+  }
+}

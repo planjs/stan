@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package hello;
+
+service Hello {
+  rpc SayName (SayNameReq) returns (SayNameRsp) {};
+}
+
+message Core {
+  string firstName = 1;
+}
+
+enum Direct {
+  Nil = 0;
+  Up = 1;
+  Down = 2;
+}
+
+// 测试评论
+message SayNameReq {
+  // 用户模型
+  message User {
+    // 用户名
+    string name = 1;
+    string avatar = 2;
+  }
+  string full_name = 1;
+  Core core = 2;
+  repeated User user = 3;
+  Direct direct = 4;
+}
+
+message SayNameRsp {
+  string realName = 1;
+}

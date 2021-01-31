@@ -66,6 +66,7 @@
     "signale": "^1.4.0",
     "update-notifier": "^4.1.1",
     "yargs": "^16.0.3",
+    "prettier": "2.1.2",
     "yargs-parser": "^20.2.0"
   }
 }
