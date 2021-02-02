@@ -1,3 +1,4 @@
+import path from 'path';
 import { loadSync } from 'google-proto-files';
 import { Namespace, Type, Service, Enum, ReflectionObject } from 'protobufjs';
 import { lodash, fs, prettier } from 'stan-utils';
@@ -37,11 +38,13 @@ function protoTypeToJSType(input: string): string {
       return type;
     }
   }
-  console.log(`${input} 为转换的类型，提交issu${bugs.url}`);
+  console.log(`Type ${input} not supported, report issue ${bugs.url}`);
   return input;
 }
 
-function writeDTS(proto: GenProtoFile) {
+function parseNameSpace(namespace: Namespace) {
+  const moduleName = namespace.name;
+
   const dtsExecutor = lodash.template(dtsTemplate);
   const interfaceExecutor = lodash.template(interfaceTemplate);
   const enumExecutor = lodash.template(enumTemplate);
@@ -56,11 +59,6 @@ function writeDTS(proto: GenProtoFile) {
     services: new Set<string>(),
     interfaces: new Set<string>(),
   };
-
-  const root = loadSync(proto.file);
-  const schema = root.toJSON().nested;
-
-  let moduleName: string;
 
   function replaceNamespacePrefix(name: string, parentName?: string) {
     if (parentName && !name.includes('.')) {
@@ -102,6 +100,7 @@ function writeDTS(proto: GenProtoFile) {
     );
   }
 
+  // process enum
   function processEnum(nested: Enum) {
     const enumName = replaceNamespacePrefix(nested.name, nested.parent?.name);
     if (hasGenMap.enums.has(enumName)) {
@@ -121,6 +120,7 @@ function writeDTS(proto: GenProtoFile) {
     );
   }
 
+  // process service
   function processService(nested: Service) {
     const serverName = replaceNamespacePrefix(nested.name, nested.parent?.name);
     if (hasGenMap.enums.has(serverName)) {
@@ -150,28 +150,46 @@ function writeDTS(proto: GenProtoFile) {
     }
   }
 
-  for (moduleName in schema) {
+  namespace.nestedArray.map(processNested);
+
+  return prettier.format(
+    dtsExecutor({
+      namespace: moduleName!,
+      interfaces: interfaces.join('\n\n'),
+      enums: enums.join('\n'),
+      services: services.join('\n'),
+    }),
+    {
+      parser: 'typescript',
+    },
+  );
+}
+
+function writeDTS(proto: GenProtoFile) {
+  const root = loadSync(proto.file);
+  const schema = root.toJSON().nested;
+
+  const files: string[] = [];
+
+  const moduleNames = Object.keys(schema!);
+  for (const [index, moduleName] of moduleNames.entries()) {
     const reflection = root.lookup(moduleName);
+    const file = root.files[index];
     if (reflection instanceof Namespace) {
-      reflection.nestedArray.map(processNested);
+      const parsed = parseNameSpace(reflection);
+      // 根据 files 的下标判断当前文件就按照输出，不是当前输出模块就按照源码相对位置，输出到输出的文件夹
+      let outPath = path.resolve(proto.output!);
+      if (proto.file !== file) {
+        const { dir } = path.parse(proto.output!);
+        const sourceRelative = path.relative(path.parse(file).dir, path.parse(proto.file!).dir);
+        outPath = path.resolve(dir, sourceRelative, `${reflection.name}.d.ts`);
+      }
+      files.push(outPath);
+      fs.outputFileSync(outPath, parsed);
     }
     // TODO ...
   }
-
-  fs.outputFileSync(
-    proto.output!,
-    prettier.format(
-      dtsExecutor({
-        namespace: moduleName!,
-        interfaces: interfaces.join('\n\n'),
-        enums: enums.join('\n'),
-        services: services.join('\n'),
-      }),
-      {
-        parser: 'typescript',
-      },
-    ),
-  );
+  return files;
 }
 
 export default writeDTS;
