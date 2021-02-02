@@ -1,6 +1,6 @@
 # `proto-gen-dts`
 
-> 根据`proto`文件生成`d.ts`类型声明
+> Convert `proto` file to `typescript` type definition file
 
 ## Install
 

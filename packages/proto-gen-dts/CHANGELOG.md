@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.2](https://github.com/planjs/stan/compare/proto-gen-dts@0.1.1...proto-gen-dts@0.1.2) (2021-02-02)
+
+
+### Bug Fixes
+
+* console and some doc ([fece116](https://github.com/planjs/stan/commit/fece11685952a8fa76d7a539f11062b21aecc52e))
+
+
+
+
+
 ## [0.1.1](https://github.com/planjs/stan/compare/proto-gen-dts@0.1.0...proto-gen-dts@0.1.1) (2021-02-02)
 
 

@@ -13,10 +13,12 @@ function protoGenDTS(opts: ProtoGenDTSOptions) {
     try {
       const dts = writeDTS(file);
       spinner.succeed();
-      console.log(
-        `  > ${chalk.yellow(readablyFile)} Related modules: ` +
-          chalk.greenBright(dts.slice(1).map(relativeNormalize).join(' ')),
-      );
+      if (dts.length > 1) {
+        console.log(
+          `  > ${chalk.yellow(readablyFile)} Related modules: ` +
+            chalk.greenBright(dts.slice(1).map(relativeNormalize).join(' ')),
+        );
+      }
     } catch (e) {
       spinner.fail(e?.message || e);
       throw e;
