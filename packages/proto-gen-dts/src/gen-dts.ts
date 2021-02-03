@@ -1,8 +1,10 @@
 import { chalk, ora, relativeNormalize } from 'stan-utils';
 import type { ProtoGenDTSOptions } from './type';
 import writeDTS from './write-dts';
+import writeReference from './write-reference';
 
 function protoGenDTS(opts: ProtoGenDTSOptions) {
+  const generateFiles: string[] = [];
   for (let file of opts.files) {
     const readablyFile = relativeNormalize(file.file);
     const spinner = ora(
@@ -13,6 +15,7 @@ function protoGenDTS(opts: ProtoGenDTSOptions) {
     try {
       const dts = writeDTS(file);
       spinner.succeed();
+      generateFiles.push(...dts);
       if (dts.length > 1) {
         console.log(
           `  > ${chalk.yellow(readablyFile)} Related modules: ` +
@@ -23,6 +26,9 @@ function protoGenDTS(opts: ProtoGenDTSOptions) {
       spinner.fail(e?.message || e);
       throw e;
     }
+  }
+  if (opts.referenceEntryFile !== false) {
+    writeReference(generateFiles, opts.referenceEntryFile || 'index.d.ts');
   }
 }
 

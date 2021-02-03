@@ -26,6 +26,7 @@ try {
         output: path.join(outputDir || dir, name + '.d.ts'),
       };
     }),
+    referenceEntryFile: outputDir ? outputDir + 'index.d.ts' : false,
   });
   console.log(chalk.greenBright('Generate dictionary file successfully'));
 } catch (e) {

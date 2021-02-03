@@ -12,4 +12,9 @@ export interface GenProtoFile {
 
 export interface ProtoGenDTSOptions {
   files: GenProtoFile[];
+  /**
+   * 输出生成 dts 的 reference 导入
+   * @default index.d.ts
+   */
+  referenceEntryFile?: string | false;
 }
