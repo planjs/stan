@@ -175,6 +175,13 @@ function parseNameSpace(namespace: Namespace, filename: string) {
   );
 }
 
+// 防止重复解析proto
+const generatedFiles: string[] = [];
+
+/**
+ * 生成dts
+ * @param proto
+ */
 function writeDTS(proto: GenProtoFile) {
   const root = loadSync(proto.file);
   const schema = root.toJSON().nested;
@@ -186,7 +193,6 @@ function writeDTS(proto: GenProtoFile) {
     const reflection = root.lookup(moduleName);
     const file = root.files[index];
     if (reflection instanceof Namespace) {
-      const parsed = parseNameSpace(reflection, file);
       // 根据 files 的下标判断当前文件就按照输出，不是当前输出模块就按照源码相对位置，输出到输出的文件夹
       let outPath = path.resolve(proto.output!);
       if (proto.file !== file) {
@@ -195,7 +201,12 @@ function writeDTS(proto: GenProtoFile) {
         outPath = path.resolve(dir, sourceRelative, `${reflection.name}.d.ts`);
       }
       files.push(outPath);
-      fs.outputFileSync(outPath, parsed);
+      // 提高编译速度，减少重复的解析 如果已经生成则不生成
+      if (!generatedFiles.includes(outPath)) {
+        const parsed = parseNameSpace(reflection, file);
+        fs.outputFileSync(outPath, parsed);
+        generatedFiles.push(outPath);
+      }
     }
     // TODO ...
   }

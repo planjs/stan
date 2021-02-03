@@ -4,7 +4,7 @@ import writeDTS from './write-dts';
 import writeReference from './write-reference';
 
 function protoGenDTS(opts: ProtoGenDTSOptions) {
-  const generateFiles: string[] = [];
+  const generatedFiles: string[] = [];
   for (let file of opts.files) {
     const readablyFile = relativeNormalize(file.file);
     const spinner = ora(
@@ -15,7 +15,7 @@ function protoGenDTS(opts: ProtoGenDTSOptions) {
     try {
       const dts = writeDTS(file);
       spinner.succeed();
-      generateFiles.push(...dts);
+      generatedFiles.push(...dts);
       if (dts.length > 1) {
         console.log(
           `  > ${chalk.yellow(readablyFile)} Related modules: ` +
@@ -28,7 +28,11 @@ function protoGenDTS(opts: ProtoGenDTSOptions) {
     }
   }
   if (opts.referenceEntryFile !== false) {
-    writeReference(generateFiles, opts.referenceEntryFile || 'index.d.ts');
+    const referenceEntryFile = opts.referenceEntryFile || 'index.d.ts';
+    writeReference(generatedFiles, referenceEntryFile);
+    console.log(
+      `Generate reference entry file: ${chalk.greenBright(relativeNormalize(referenceEntryFile))}`,
+    );
   }
 }
 
