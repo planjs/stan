@@ -42,7 +42,7 @@ function protoTypeToJSType(input: string): string {
   return input;
 }
 
-function parseNameSpace(namespace: Namespace) {
+function parseNameSpace(namespace: Namespace, filename: string) {
   const moduleName = namespace.name;
 
   const dtsExecutor = lodash.template(dtsTemplate);
@@ -60,7 +60,13 @@ function parseNameSpace(namespace: Namespace) {
     interfaces: new Set<string>(),
   };
 
+  // construct the name of the message embedded in the message
   function replaceNamespacePrefix(name: string, parentName?: string) {
+    // 不是当前文件内容不处理
+    // TODO 需要检查内嵌message的引用
+    if (namespace.lookup(name)?.filename !== filename) {
+      return name;
+    }
     if (parentName && !name.includes('.')) {
       name = `${parentName}_${name}`;
     }
@@ -141,6 +147,10 @@ function parseNameSpace(namespace: Namespace) {
   }
 
   function processNested(nested: ReflectionObject) {
+    // 不是当前文件内的内容不生成，因为相关依赖的模块会生成单独的文件
+    if (nested.filename !== filename) {
+      return;
+    }
     if (nested instanceof Type) {
       processType(nested);
     } else if (nested instanceof Enum) {
@@ -176,7 +186,7 @@ function writeDTS(proto: GenProtoFile) {
     const reflection = root.lookup(moduleName);
     const file = root.files[index];
     if (reflection instanceof Namespace) {
-      const parsed = parseNameSpace(reflection);
+      const parsed = parseNameSpace(reflection, file);
       // 根据 files 的下标判断当前文件就按照输出，不是当前输出模块就按照源码相对位置，输出到输出的文件夹
       let outPath = path.resolve(proto.output!);
       if (proto.file !== file) {

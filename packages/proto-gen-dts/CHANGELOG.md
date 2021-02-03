@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://github.com/planjs/stan/compare/proto-gen-dts@0.1.2...proto-gen-dts@0.1.3) (2021-02-03)
+
+
+### Bug Fixes
+
+* gendts generate import module dts ([1ff3e6a](https://github.com/planjs/stan/commit/1ff3e6af63ac6fee89db0de32fb728fef51409a8))
+
+
+
+
+
 ## [0.1.2](https://github.com/planjs/stan/compare/proto-gen-dts@0.1.1...proto-gen-dts@0.1.2) (2021-02-02)
 
 
