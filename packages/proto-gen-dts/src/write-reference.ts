@@ -1,11 +1,13 @@
 import path from 'path';
-import { fs, prettier } from 'stan-utils';
+import { fs, prettier, slash } from 'stan-utils';
 
 function writeReference(dts: string[], entryFilepath: string) {
   entryFilepath = path.resolve(entryFilepath);
   const content = [...new Set(dts)]
     .sort()
-    .map((d) => `/// <reference path="${path.relative(path.parse(entryFilepath).dir, d)}" />`)
+    .map(
+      (d) => `/// <reference path="${slash(path.relative(path.parse(entryFilepath).dir, d))}" />`,
+    )
     .join('\n');
   fs.outputFileSync(
     entryFilepath,
