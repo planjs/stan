@@ -11,6 +11,7 @@ commander.option('-t, --target [node|browser]', 'Node or Browser lib', 'browser'
 commander.option('-min, --minify', 'Minify code');
 commander.option('--sourcemap', 'Generate sourcemap');
 commander.option('--analyze', 'Analyze bundle');
+commander.option('--runtime', 'Babel runtime');
 commander.option('--verbose', 'Output verbose messages on internal operations');
 commander.option('--umd [filename]', 'Output as umd specification');
 commander.option('--system [filename]', 'Output as systemjs specification');
@@ -49,6 +50,7 @@ export default function parseArgv(args: string[]): BuildOptions | void {
       babelPlugins: opts.plugins,
       babelPresets: opts.presets,
       analyze: !!opts.analyze,
+      runtimeHelpers: !!opts.runtime,
       umd:
         typeof booleanify(opts.umd) === 'boolean'
           ? opts.umd
