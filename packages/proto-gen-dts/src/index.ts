@@ -1,2 +1,4 @@
-export * from './type';
-export { default as protoGenDTS } from './gen-dts';
+import protoGenDTS from './gen-dts';
+export * from './type.d';
+
+export default protoGenDTS;

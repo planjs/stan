@@ -1,3 +1,4 @@
+import path from 'path';
 import { chalk, ora, relativeNormalize } from 'stan-utils';
 import type { ProtoGenDTSOptions } from './type';
 import writeDTS from './write-dts';
@@ -7,13 +8,20 @@ function protoGenDTS(opts: ProtoGenDTSOptions) {
   const generatedFiles: string[] = [];
   for (let file of opts.files) {
     const readablyFile = relativeNormalize(file.file);
+    const _file = {
+      ...file,
+    };
+    if (!_file.output) {
+      const { dir, name } = path.parse(file.file);
+      _file.output = path.join(dir, name + '.d.ts');
+    }
     const spinner = ora(
       `Generate ${chalk.yellow(readablyFile)} to ${chalk.greenBright(
-        relativeNormalize(file.output!),
+        relativeNormalize(_file.output!),
       )}`,
     ).start();
     try {
-      const dts = writeDTS(file, opts.protoParseOptions);
+      const dts = writeDTS(_file, opts.protoParseOptions);
       spinner.succeed();
       generatedFiles.push(...dts);
       if (dts.length > 1) {
@@ -34,6 +42,8 @@ function protoGenDTS(opts: ProtoGenDTSOptions) {
       `Generate reference entry file: ${chalk.greenBright(relativeNormalize(referenceEntryFile))}`,
     );
   }
+
+  return generatedFiles;
 }
 
 export default protoGenDTS;
