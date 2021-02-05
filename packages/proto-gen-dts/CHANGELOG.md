@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/planjs/stan/compare/proto-gen-dts@0.2.0...proto-gen-dts@0.3.0) (2021-02-05)
+
+
+### Bug Fixes
+
+* reference win path ([718e1d5](https://github.com/planjs/stan/commit/718e1d53e9b21efbb64a9c774f809a1c91e4b570))
+
+
+### Features
+
+* add comment and code sort ([abd7cbf](https://github.com/planjs/stan/commit/abd7cbf3095469cb317b191407c75bb04ff11003))
+
+
+
+
+
 # [0.2.0](https://github.com/planjs/stan/compare/proto-gen-dts@0.1.3...proto-gen-dts@0.2.0) (2021-02-03)
 
 

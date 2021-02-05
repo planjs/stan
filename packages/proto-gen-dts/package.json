@@ -1,11 +1,12 @@
 {
   "name": "proto-gen-dts",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "proto generate typescript dictionary type file",
   "keywords": [
     "proto",
     "protobuffer",
-    "proto-gen-ts",
+    "proto-gen-dts",
+    "protoc-gen-ts",
     "typescript"
   ],
   "author": "fupeng <fupenglxy@gmail.com>",
