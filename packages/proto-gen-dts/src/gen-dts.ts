@@ -13,7 +13,7 @@ function protoGenDTS(opts: ProtoGenDTSOptions) {
       )}`,
     ).start();
     try {
-      const dts = writeDTS(file);
+      const dts = writeDTS(file, opts.protoParseOptions);
       spinner.succeed();
       generatedFiles.push(...dts);
       if (dts.length > 1) {

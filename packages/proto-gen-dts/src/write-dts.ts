@@ -1,31 +1,32 @@
 import path from 'path';
 import { loadSync } from 'google-proto-files';
-import { Namespace, Type, Service, Enum, ReflectionObject } from 'protobufjs';
+import { Namespace, Type, Service, Enum, ReflectionObject, IParseOptions } from 'protobufjs';
 import { lodash, fs, prettier } from 'stan-utils';
 import type { GenProtoFile } from './type';
 const { bugs } = require('../package.json');
 
 const dtsTemplate = `/** code generate by proto-gen-dts don't edit */
+<%= comment %>
 declare namespace <%= namespace %> {
-<%= enums %>
-
-<%= interfaces %>
-
-<%= services %>
-}`;
-
-const interfaceTemplate = `export interface <%= name %> {
 <%= content %>
 }`;
 
-const enumTemplate = `export const enum <%= name %> {
+const interfaceTemplate = `<%= comment %>
+export interface <%= name %> {
 <%= content %>
 }`;
 
-const serviceTemplate = `export interface <%= name %>Service {
+const enumTemplate = `<%= comment %>
+export const enum <%= name %> {
 <%= content %>
 }`;
-const serviceFNTemplate = `<%= name %><R extends <%= requestType %>, O>(r: R, o?: O): Promise<<%= responseType %>>,`;
+
+const serviceTemplate = `<%= comment %>
+export interface <%= name %>Service {
+<%= content %>
+}`;
+const serviceFNTemplate = `<%= comment %>
+<%= name %><R extends <%= requestType %>, O>(r: R, o?: O): Promise<<%= responseType %>>,`;
 
 function protoTypeToJSType(input: string): string {
   const types = {
@@ -51,9 +52,7 @@ function parseNameSpace(namespace: Namespace, filename: string) {
   const serviceExecutor = lodash.template(serviceTemplate);
   const serviceFNExecutor = lodash.template(serviceFNTemplate);
 
-  const interfaces: string[] = [];
-  const enums: string[] = [];
-  const services: string[] = [];
+  const parsedNestedList: string[] = [];
   const hasGenMap = {
     enums: new Set<string>(),
     services: new Set<string>(),
@@ -63,7 +62,6 @@ function parseNameSpace(namespace: Namespace, filename: string) {
   // construct the name of the message embedded in the message
   function replaceNamespacePrefix(name: string, parentName?: string) {
     // 不是当前文件内容不处理
-    // TODO 需要检查内嵌message的引用
     if (namespace.lookup(name)?.filename !== filename) {
       return name;
     }
@@ -73,6 +71,11 @@ function parseNameSpace(namespace: Namespace, filename: string) {
     return name.replace(`${moduleName}_`, '').replace('.', '_');
   }
 
+  function genComment(str?: string | null) {
+    if (!str) return '';
+    return `/** ${str} */`;
+  }
+
   // process interface
   function processType(nested: Type) {
     const interfaceName = replaceNamespacePrefix(nested.name, nested.parent?.name);
@@ -80,12 +83,16 @@ function parseNameSpace(namespace: Namespace, filename: string) {
       return;
     }
     hasGenMap.interfaces.add(interfaceName);
-    interfaces.push(
+    parsedNestedList.push(
       interfaceExecutor({
         name: interfaceName,
+        comment: genComment(nested.comment!),
         content: nested.fieldsArray
           .reduce<string[]>((acc, field) => {
             const childrenNested = field.parent?.lookup(field.type);
+            if (field.comment) {
+              acc.push(genComment(field.comment));
+            }
             if (childrenNested) {
               processNested(childrenNested);
               acc.push(
@@ -113,9 +120,10 @@ function parseNameSpace(namespace: Namespace, filename: string) {
       return;
     }
     hasGenMap.enums.add(enumName);
-    enums.push(
+    parsedNestedList.push(
       enumExecutor({
         name: enumName,
+        comment: genComment(nested.comment!),
         content: Object.keys(nested.values)
           .reduce<string[]>((acc, field) => {
             acc.push(`${field} = ${nested.values[field]},`);
@@ -133,12 +141,13 @@ function parseNameSpace(namespace: Namespace, filename: string) {
       return;
     }
     hasGenMap.enums.add(serverName);
-    services.push(
+    parsedNestedList.push(
       serviceExecutor({
         name: serverName,
+        comment: genComment(nested.comment!),
         content: nested.methodsArray
           .reduce<string[]>((acc, field) => {
-            acc.push(serviceFNExecutor(field));
+            acc.push(serviceFNExecutor({ ...field, comment: genComment(field.comment) }));
             return acc;
           }, [])
           .join('\n'),
@@ -165,9 +174,8 @@ function parseNameSpace(namespace: Namespace, filename: string) {
   return prettier.format(
     dtsExecutor({
       namespace: moduleName!,
-      interfaces: interfaces.join('\n\n'),
-      enums: enums.join('\n'),
-      services: services.join('\n'),
+      comment: genComment(namespace.comment),
+      content: parsedNestedList.join('\n\n'),
     }),
     {
       parser: 'typescript',
@@ -181,9 +189,13 @@ const generatedFiles: string[] = [];
 /**
  * 生成dts
  * @param proto
+ * @param opts
  */
-function writeDTS(proto: GenProtoFile) {
-  const root = loadSync(proto.file);
+function writeDTS(proto: GenProtoFile, opts?: IParseOptions) {
+  const root = loadSync(proto.file, {
+    alternateCommentMode: true,
+    ...opts,
+  });
   const schema = root.toJSON().nested;
 
   const files: string[] = [];

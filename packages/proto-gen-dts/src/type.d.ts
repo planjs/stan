@@ -1,3 +1,5 @@
+import type { IParseOptions } from 'protobufjs';
+
 export interface GenProtoFile {
   /**
    * proto 路径
@@ -17,4 +19,9 @@ export interface ProtoGenDTSOptions {
    * @default index.d.ts
    */
   referenceEntryFile?: string | false;
+  /**
+   * protobuf parse options
+   * @default { alternateCommentMode: true }
+   */
+  protoParseOptions?: IParseOptions;
 }
