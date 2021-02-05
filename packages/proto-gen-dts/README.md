@@ -31,13 +31,16 @@ npx proto-gen-dts -d protos/ -o typings/
 ```
 
 ## Example
-
+`hello.proto`
 ```proto
 syntax = "proto3";
 
 package hello;
 
 service Hello {
+  /**
+  hello
+   */
   rpc SayName (SayNameReq) returns (SayNameRsp) {};
 }
 
@@ -51,8 +54,11 @@ enum Direct {
   Down = 2;
 }
 
+// 测试评论
 message SayNameReq {
+  // 用户模型
   message User {
+    // 用户名
     string name = 1;
     string avatar = 2;
   }
@@ -66,38 +72,43 @@ message SayNameRsp {
   string realName = 1;
 }
 ```
-output
+output `hello.d.ts`
 ```typescript
 /** code generate by proto-gen-dts don't edit */
+
 declare namespace hello {
-  export const enum Direct {
-    Nil = 0,
-    Up = 1,
-    Down = 2,
+  export interface HelloService {
+    /** hello */
+    SayName<R extends SayNameReq, O>(r: R, o?: O): Promise<SayNameRsp>;
   }
 
   export interface Core {
     firstName?: string;
   }
 
+  export const enum Direct {
+    Nil = 0,
+    Up = 1,
+    Down = 2,
+  }
+
+  /** 用户模型 */
   export interface SayNameReq_User {
+    /** 用户名 */
     name?: string;
     avatar?: string;
   }
 
+  /** 测试评论 */
   export interface SayNameReq {
     fullName?: string;
     core?: Core;
-    user?: SayNameReq_User;
+    user?: SayNameReq_User[];
     direct?: Direct;
   }
 
   export interface SayNameRsp {
     realName?: string;
-  }
-
-  export interface HelloService {
-    SayName<R extends SayNameReq, O>(r: R, o?: O): Promise<SayNameRsp>;
   }
 }
 ```
