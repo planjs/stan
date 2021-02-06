@@ -57,8 +57,10 @@ export default {
 * Type: `string`
 * Default：`src/index.js`
 
-默认会查找 `src/index.tsx`, `src/index.ts`, `src/index.jsx`, `src/index.js`，如果存在，则会作为默认的 entry。如果库文件为 `typescript`，则需要在根目录配置`tsconfig.json`，否则会编译错误。
+默认会查找 `src/index.tsx`, `src/index.ts`, `src/index.jsx`, `src/index.js`, `src/index.vue`，如果存在，则会作为默认的 entry。如果库文件为 `typescript`，则需要在根目录配置`tsconfig.json`，否则会编译错误。
 `babel` 模式下是编译 `entry` 所在文件夹的所有文件。
+
+> 如果是 `vue` 默认使用的是 `vue3` `rollup-plugin-vue@6.x`, 如果是 `vue2` 请项目内安装 `rollup-plugin-vue@5.x`
 
 #### file 
 

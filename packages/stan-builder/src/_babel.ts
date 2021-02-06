@@ -7,7 +7,6 @@ import through from 'through2';
 import gulpIf from 'gulp-if';
 import plumber from 'gulp-plumber';
 import sourcemaps from 'gulp-sourcemaps';
-import gulpTs from 'gulp-typescript';
 import terser from 'gulp-terser';
 import filter from 'gulp-filter';
 import postcss from 'gulp-postcss';
@@ -203,7 +202,7 @@ async function babelBuild(opts: BabelOptions) {
       .pipe(gulpIf(() => watch, plumber()))
       .pipe(tsFilter)
       .pipe(
-        gulpTs.createProject(getTsConfigPath(cwd, rootPath), {
+        require('gulp-typescript').createProject(getTsConfigPath(cwd, rootPath), {
           isolatedModules: false,
           moduleResolution: 'node',
           emitDeclarationOnly: true,
@@ -211,7 +210,7 @@ async function babelBuild(opts: BabelOptions) {
           typescript: require('typescript'),
         })(),
       )
-      .on('error', (err) => {
+      .on('error', (err: any) => {
         if (watch) {
           console.error(err);
         } else {

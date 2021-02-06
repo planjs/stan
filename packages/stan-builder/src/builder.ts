@@ -13,7 +13,7 @@ export function getBundleOpts(opts: BuildOptions): BundleOptions[] {
   const { cwd, args = {} } = opts;
   const entry = getExistFile({
     cwd,
-    files: ['src/index.tsx', 'src/index.ts', 'src/index.jsx', 'src/index.js'],
+    files: ['src/index.tsx', 'src/index.ts', 'src/index.jsx', 'src/index.js', 'src/index.vue'],
     returnRelative: true,
   });
   const bundleOpts = getStanConfig({ cwd });
@@ -39,6 +39,7 @@ async function builder(opts: BuildOptions) {
   const { cwd, rootPath, watch, verbose } = opts;
 
   if (bundleOptions.length) {
+    await Promise.all(bundleOptions.map((v) => validOptions.validateAsync(v)));
     try {
       console.log(chalk.gray(`Clean up the lib,es,dist directory.`));
       rimraf.sync(path.join(cwd, 'dist'));
@@ -48,8 +49,6 @@ async function builder(opts: BuildOptions) {
 
     for (const bundleOpt of bundleOptions) {
       const { bundler = 'rollup', entry, esm, umd, cjs, system, copy } = bundleOpt;
-
-      await validOptions.validateAsync(bundleOpt);
 
       const isBabel = (b: BundleOptions['esm'] | BundleOptions['cjs']) =>
         b === 'babel' || (b as BaseBundleOptions)?.bundler === 'babel' || bundler === 'babel';
@@ -86,6 +85,9 @@ async function builder(opts: BuildOptions) {
       if (copy) {
         if (!_.has(copy, 'verbose')) {
           copy.verbose = verbose;
+        }
+        if (!_.has(copy, 'cwd')) {
+          copy.cwd = cwd;
         }
         await copyFiles(copy);
         if (watch && copy.targets) {

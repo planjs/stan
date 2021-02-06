@@ -18,7 +18,7 @@ const schema = joi.object({
   babelPresets: joi.array().items(joi.string(), joi.array().items(joi.string(), joi.object())),
   extraBabelPlugins: joi.array().items(joi.string(), joi.array().items(joi.string(), joi.object())),
   extraBabelPresets: joi.array().items(joi.string(), joi.array().items(joi.string(), joi.object())),
-  extraExternal: joi.array().items(joi.string(), joi.object().regex()),
+  extraExternals: joi.array().items(joi.string(), joi.object().regex()),
   externalPeerDependenciesOnly: joi.bool(),
   extraPostCSSPlugins: joi.array().items(joi.any()),
   extraRollupPlugins: joi.array().items(joi.any()),
