@@ -3,7 +3,7 @@ import util from 'util';
 import globby from 'globby';
 import fs from 'fs-extra';
 import chalk from 'chalk';
-import { isPlanObject } from '@planjs/utils';
+import { isPlanObject, slash } from '@planjs/utils';
 
 export interface CopyTarget extends Omit<globby.GlobbyOptions, 'transform'> {
   /**
@@ -36,6 +36,10 @@ export type CopyOptions = {
    * 日志
    */
   verbose?: boolean;
+  /**
+   * 执行路径
+   */
+  cwd?: string;
 };
 
 function stringify(value: any) {
@@ -87,7 +91,7 @@ async function generateCopyTarget(
 }
 
 export default async function copyFiles(options: CopyOptions = {}) {
-  const { flatten = true, targets, verbose = false, ...opts } = options;
+  const { flatten = true, targets, verbose = false, cwd, ...opts } = options;
 
   const copyTargets = [];
   const _targets: CopyTarget[] = Array.isArray(targets)
@@ -116,6 +120,7 @@ export default async function copyFiles(options: CopyOptions = {}) {
       const matchedPaths = await globby(src, {
         expandDirectories: false,
         onlyFiles: false,
+        cwd,
         ...opts,
         ...tar,
       });
@@ -141,13 +146,15 @@ export default async function copyFiles(options: CopyOptions = {}) {
       const { contents, dest, src } = copyTarget;
 
       if (contents) {
-        await fs.outputFile(dest, contents, opts);
+        await fs.outputFile(path.join(cwd || '', dest as string), contents, opts);
       } else {
-        await fs.copy(src as string, dest, opts);
+        await fs.copy(path.join(cwd || '', src as string), path.join(cwd || '', dest), opts);
       }
 
       if (verbose) {
-        let message = chalk.green(`  copied: ${chalk.bold(src)} → ${chalk.bold(dest)}`);
+        let message = chalk.green(
+          `  copied: ${chalk.bold(slash(src))} → ${chalk.bold(slash(dest))}`,
+        );
         const flags = Object.entries(copyTarget)
           .filter(([key, value]) => ['rename', 'transform'].includes(key) && value)
           .map(([key]) => key.charAt(0).toUpperCase());
