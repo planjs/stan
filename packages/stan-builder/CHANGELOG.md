@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/planjs/stan/compare/stan-builder@0.5.0...stan-builder@0.5.1) (2021-02-06)
+
+
+### Bug Fixes
+
+* add vue support ([a1ef785](https://github.com/planjs/stan/commit/a1ef7858ce07933adad8acf277bfcb869d9b08ec))
+* stan-builder typings entry ([bedf67c](https://github.com/planjs/stan/commit/bedf67cac3af3e1480d88cf00fe0a77c9fbb097e))
+
+
+
+
+
 # [0.5.0](https://github.com/planjs/stan/compare/stan-builder@0.4.9...stan-builder@0.5.0) (2021-02-06)
 
 

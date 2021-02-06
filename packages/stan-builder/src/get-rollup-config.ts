@@ -6,6 +6,7 @@ import {
   Plugin,
   OutputOptions,
   GlobalsOption,
+  WarningHandlerWithDefault,
 } from 'rollup';
 import { terser } from 'rollup-plugin-terser';
 import url from '@rollup/plugin-url';
@@ -17,7 +18,6 @@ import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
 import builtinModules from 'builtin-modules';
-import typescript2 from 'rollup-plugin-typescript2';
 import visualizer from 'rollup-plugin-visualizer';
 import postcss from 'rollup-plugin-postcss';
 import cssnano from 'cssnano';
@@ -87,6 +87,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   const input = path.join(cwd, entry!);
   const entryExt = path.extname(entry!);
   const isTypeScript = entryExt === '.ts' || entryExt === '.tsx';
+  const isVue = entryExt === '.vue';
   const extensions = ['.js', '.jsx', '.ts', '.tsx', '.es6', '.es', '.mjs'];
 
   const moduleOpts: UMDOptions | ESMOptions | CJSOptions | SYSOptions | null = {
@@ -133,6 +134,11 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
 
   function getPlugins(isMin?: boolean): Plugin[] {
     return [
+      isVue &&
+        require('rollup-plugin-vue')({
+          css: true,
+          compileTemplate: true,
+        }),
       alias(aliasOpts),
       url(),
       json(),
@@ -153,7 +159,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
       injectOpts && inject(injectOpts),
       replace && replace(replaceOpts),
       isTypeScript &&
-        typescript2({
+        require('rollup-plugin-typescript2')({
           cwd,
           clean: true,
           tsconfigDefaults: {
@@ -179,7 +185,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         ...nodeResolveOpts,
       }),
       babel(babelOptions),
-      minify &&
+      isMin &&
         terser({
           compress: {
             pure_getters: true,
@@ -257,6 +263,10 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     );
   }
 
+  const onwarn: WarningHandlerWithDefault = (warning, next) => {
+    if (warning.code !== 'UNUSED_EXTERNAL_IMPORT') next(warning);
+  };
+
   switch (format) {
     case 'system':
     case 'umd':
@@ -269,6 +279,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
           inlineDynamicImports: true,
           plugins,
           external,
+          onwarn,
         },
         (moduleOpts as ESMOptions)?.mjs && {
           input,
@@ -278,7 +289,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
           },
           inlineDynamicImports: true,
           plugins,
-          external,
+          onwarn,
         },
         _minify && {
           input,
@@ -289,6 +300,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
           inlineDynamicImports: true,
           plugins: getPlugins(true),
           external,
+          onwarn,
         },
       ].filter(Boolean) as IRollupOptions[];
     default:

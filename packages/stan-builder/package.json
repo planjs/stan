@@ -1,6 +1,6 @@
 {
   "name": "stan-builder",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "build js library",
   "author": "fupeng <fupenglxy@gmail.com> (https://github.com/fupengl)",
   "homepage": "https://github.com/planjs/stan/blob/master/packages/stan-builder/README.md",
@@ -13,6 +13,8 @@
     "builder",
     "react",
     "react-compoments",
+    "vue",
+    "vue-compoments",
     "node",
     "node-library",
     "lib",
@@ -104,9 +106,10 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.27.2",
     "rollup-plugin-visualizer": "^4.1.1",
-    "stan-utils": "^0.3.0",
+    "stan-utils": "^0.3.1",
     "through2": "^4.0.2",
-    "vinyl-fs": "^3.0.3"
+    "vinyl-fs": "^3.0.3",
+    "vue-template-compiler": "^2.6.12"
   },
   "devDependencies": {
     "@babel/cli": "^7.11.6",
@@ -124,12 +127,18 @@
     "@types/postcss-load-config": "^2.0.1",
     "@types/through2": "^2.0.36",
     "@types/vinyl-fs": "^2.4.11",
+    "@vue/compiler-sfc": "^3.0.5",
     "node-sass": "4.14.1",
     "postcss-less": "^3.1.4",
     "postcss-scss": "^3.0.2",
-    "postcss-styl": "^0.7.2"
+    "postcss-styl": "^0.7.2",
+    "rollup-plugin-vue": "5.1.9",
+    "vue": "^2.6.12",
+    "vue-class-component": "^7.2.6"
   },
   "peerDependencies": {
+    "@vue/compiler-sfc": "*",
+    "rollup-plugin-vue": "^6.0.0 || ^5.1.9",
     "typescript": "^4.0.3"
   },
   "peerDependenciesMeta": {
