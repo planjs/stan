@@ -12,7 +12,7 @@ import url from '@rollup/plugin-url';
 import alias from '@rollup/plugin-alias';
 import json from '@rollup/plugin-json';
 import inject from '@rollup/plugin-inject';
-import babel from '@rollup/plugin-babel';
+import babel, { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import commonjs from '@rollup/plugin-commonjs';
@@ -113,7 +113,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   const runtimeHelpers = moduleOpts?.runtimeHelpers ?? _runtimeHelpers;
   const babelHelpers = runtimeHelpers ? 'runtime' : 'bundled';
 
-  const babelOptions = {
+  const babelOptions: RollupBabelInputPluginOptions = {
     ...getBabelConfig({
       type: format,
       typescript: true,
@@ -121,13 +121,15 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
       runtimeHelpers: runtimeHelpers,
     }),
     babelrc: false,
+    configFile: false,
     exclude: /\/node_modules\//,
+    babelHelpers,
     extensions,
   };
   if (babelPresets.length) babelOptions.presets = babelPresets;
   if (babelPlugins.length) babelOptions.plugins = babelPlugins;
-  babelOptions.presets.push(...extraBabelPresets);
-  babelOptions.plugins.push(...extraBabelPlugins);
+  babelOptions.presets!.push(...extraBabelPresets);
+  babelOptions.plugins!.push(...extraBabelPlugins);
 
   function getPlugins(isMin?: boolean): Plugin[] {
     return [
@@ -176,10 +178,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         preferBuiltins: target === 'node',
         ...nodeResolveOpts,
       }),
-      babel({
-        ...babelOptions,
-        babelHelpers,
-      }),
+      babel(babelOptions),
       minify &&
         terser({
           compress: {

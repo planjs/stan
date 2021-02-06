@@ -1,6 +1,6 @@
 {
   "name": "stan-builder",
-  "version": "0.4.9",
+  "version": "0.5.0",
   "description": "build library",
   "author": "fupeng <fupenglxy@gmail.com> (https://github.com/fupengl)",
   "homepage": "https://github.com/planjs/stan/blob/master/packages/stan-builder/README.md",
@@ -49,7 +49,8 @@
     "build": "babel src -d lib -x .ts,.js",
     "build:types": "tsc --emitDeclarationOnly",
     "prepare": "yarn build && yarn build:types",
-    "clear": "rimraf lib/ typings/"
+    "clear": "rimraf lib/ typings/",
+    "test": "jest --config ../../jest.config.ts --rootDir ."
   },
   "bugs": {
     "url": "https://github.com/planjs/stan/issues"
@@ -102,7 +103,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.27.2",
     "rollup-plugin-visualizer": "^4.1.1",
-    "stan-utils": "^0.2.0",
+    "stan-utils": "^0.3.0",
     "through2": "^4.0.2",
     "vinyl-fs": "^3.0.3"
   },

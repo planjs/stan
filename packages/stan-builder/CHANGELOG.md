@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/planjs/stan/compare/stan-builder@0.4.9...stan-builder@0.5.0) (2021-02-06)
+
+
+### Bug Fixes
+
+* **proto-gen-dts:** jest error ([959a70d](https://github.com/planjs/stan/commit/959a70dbd18d1ae4b6dc29565518ea2d57c7e499))
+
+
+### Features
+
+* jest config and rollup babel config ([db023ec](https://github.com/planjs/stan/commit/db023ece7dc568eb6f831da015662452c225cab8))
+
+
+
+
+
 ## [0.4.9](https://github.com/planjs/stan/compare/stan-builder@0.4.8...stan-builder@0.4.9) (2021-02-05)
 
 

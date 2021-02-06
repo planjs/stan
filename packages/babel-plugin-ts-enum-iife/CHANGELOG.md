@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/planjs/stan/compare/babel-plugin-ts-enum-iife@0.0.5...babel-plugin-ts-enum-iife@0.1.0) (2021-02-06)
+
+
+### Features
+
+* jest config and rollup babel config ([db023ec](https://github.com/planjs/stan/commit/db023ece7dc568eb6f831da015662452c225cab8))
+
+
+
+
+
 ## [0.0.7](https://github.com/planjs/stan/compare/babel-plugin-ts-enum-iife@0.0.5...babel-plugin-ts-enum-iife@0.0.7) (2021-01-31)
 
 **Note:** Version bump only for package babel-plugin-ts-enum-iife

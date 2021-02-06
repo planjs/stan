@@ -1,6 +1,6 @@
 {
   "name": "proto-gen-dts",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "proto generate typescript dictionary type file",
   "keywords": [
     "proto",
@@ -33,7 +33,7 @@
   "scripts": {
     "prepare": "stan-builder --cjs --bundler babel",
     "start": "yarn prepare -- -w",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "jest --config ../../jest.config.ts --rootDir ."
   },
   "bugs": {
     "url": "https://github.com/planjs/stan/issues"
@@ -41,9 +41,9 @@
   "dependencies": {
     "google-proto-files": "^2.2.0",
     "protobufjs": "^6.8.0",
-    "stan-utils": "^0.2.0"
+    "stan-utils": "^0.3.0"
   },
   "devDependencies": {
-    "stan-builder": "^0.4.9"
+    "stan-builder": "^0.5.0"
   }
 }

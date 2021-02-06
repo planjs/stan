@@ -79,6 +79,7 @@ async function babelBuild(opts: BabelOptions) {
         ...babelOpts,
         filename: file.path,
         configFile: false,
+        babelrc: false,
       })?.code;
       spinner.succeed();
       return code;

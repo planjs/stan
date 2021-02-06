@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/planjs/stan/compare/stan-utils@0.1.5...stan-utils@0.3.0) (2021-02-06)
+
+
+### Bug Fixes
+
+* babel build ts error output ([ab821c0](https://github.com/planjs/stan/commit/ab821c08f88b6f644b9179ba56c89db1711ca62a))
+
+
+### Features
+
+* add proto-gen-dts tools ([46e2dc0](https://github.com/planjs/stan/commit/46e2dc00a36972cea07e4e9a9b8d734b7ee3c51e))
+* jest config and rollup babel config ([db023ec](https://github.com/planjs/stan/commit/db023ece7dc568eb6f831da015662452c225cab8))
+
+
+
+
+
 # [0.2.0](https://github.com/planjs/stan/compare/stan-utils@0.1.5...stan-utils@0.2.0) (2021-01-31)
 
 

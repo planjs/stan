@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.30](https://github.com/planjs/stan/compare/proto-gen-api-client@0.0.25...proto-gen-api-client@0.0.30) (2021-02-06)
+
+
+### Bug Fixes
+
+* babel build ts error output ([ab821c0](https://github.com/planjs/stan/commit/ab821c08f88b6f644b9179ba56c89db1711ca62a))
+
+
+
+
+
 ## [0.0.29](https://github.com/planjs/stan/compare/proto-gen-api-client@0.0.25...proto-gen-api-client@0.0.29) (2021-01-31)
 
 

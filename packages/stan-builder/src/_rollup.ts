@@ -1,5 +1,5 @@
 import { rollup, watch, RollupError } from 'rollup';
-import { chalk, signale, ora, relativeNormalize, relativeId, pms } from 'stan-utils';
+import { chalk, ora, relativeNormalize, relativeId, pms } from 'stan-utils';
 
 import { BundleOptions, OutputModule } from './types';
 import getRollupConfig from './get-rollup-config';
@@ -65,7 +65,7 @@ export default async function rollupBuild(opts: RollupOptions): Promise<void> {
       } catch (e) {
         const err = e as RollupError;
         spinner.fail();
-        handleError(err);
+        handleError(err, true);
         return Promise.reject(err);
       }
     }

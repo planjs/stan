@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-ts-enum-iife",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "Transform typescript wrapper enum in IIFE",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -20,7 +20,7 @@
   },
   "scripts": {
     "prepare": "tsc",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "jest --config ../../jest.config.ts --rootDir ."
   },
   "bugs": {
     "url": "https://github.com/planjs/stan/issues"
