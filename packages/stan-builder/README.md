@@ -6,6 +6,7 @@
 
 [![npm][npm]][npm-url]
 [![size][size]][size-url]
+[![travis][travis]][travis]
 [![NPM downloads](http://img.shields.io/npm/dm/stan-builder.svg?style=flat)][npm-url]
 
 # `stan-builder`
