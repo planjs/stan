@@ -1,4 +1,5 @@
 [npm]: https://img.shields.io/npm/v/stan-builder
+[travis]: https://api.travis-ci.org/planjs/stan.svg?branch=master
 [npm-url]: https://www.npmjs.com/package/stan-builder
 [size]: https://packagephobia.now.sh/badge?p=stan-builder
 [size-url]: https://packagephobia.now.sh/result?p=stan-builder

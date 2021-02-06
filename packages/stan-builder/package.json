@@ -1,7 +1,7 @@
 {
   "name": "stan-builder",
   "version": "0.5.0",
-  "description": "build library",
+  "description": "build js library",
   "author": "fupeng <fupenglxy@gmail.com> (https://github.com/fupengl)",
   "homepage": "https://github.com/planjs/stan/blob/master/packages/stan-builder/README.md",
   "license": "ISC",
