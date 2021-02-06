@@ -9,6 +9,7 @@ import { RPT2Options } from 'rollup-plugin-typescript2';
 import { RollupAliasOptions } from '@rollup/plugin-alias';
 import { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
 import { PostCSSPluginConf } from 'rollup-plugin-postcss';
+import { VuePluginOptions } from 'rollup-plugin-vue';
 import { CopyOptions } from 'stan-utils';
 
 export type BundleType = 'rollup' | 'babel';
@@ -166,6 +167,11 @@ export interface BundleOptions extends BaseBundleOptions {
    * 如果是watch模式，这些复制的文件也会被watch
    */
   copy?: CopyOptions;
+  /**
+   * vue 插件配置
+   * https://www.npmjs.com/package/rollup-plugin-vue
+   */
+  vuePluginOpts?: VuePluginOptions;
 }
 
 export interface BuildOptions {

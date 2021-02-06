@@ -16,6 +16,7 @@ import inject from '@rollup/plugin-inject';
 import babel, { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
+import vue from 'rollup-plugin-vue';
 import commonjs from '@rollup/plugin-commonjs';
 import builtinModules from 'builtin-modules';
 import visualizer from 'rollup-plugin-visualizer';
@@ -82,6 +83,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     externalsExclude = [],
     extraRollupPlugins = [],
     externalPeerDependenciesOnly = false,
+    vuePluginOpts,
   } = bundleOpt;
 
   const input = path.join(cwd, entry!);
@@ -134,11 +136,12 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
 
   function getPlugins(isMin?: boolean): Plugin[] {
     return [
-      isVue &&
-        require('rollup-plugin-vue')({
-          css: true,
-          compileTemplate: true,
-        }),
+      vue({
+        css: true,
+        // @ts-ignore if vue3
+        compileTemplate: true,
+        ...vuePluginOpts,
+      }),
       alias(aliasOpts),
       url(),
       json(),
