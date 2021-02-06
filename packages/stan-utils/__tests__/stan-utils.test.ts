@@ -1,4 +1,4 @@
-import { slash } from '..';
+import { slash } from '../src';
 
 describe('stan-utils', () => {
   it('test slash', () => {
