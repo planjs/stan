@@ -16,19 +16,19 @@ import inject from '@rollup/plugin-inject';
 import babel, { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
-import vue from 'rollup-plugin-vue';
 import commonjs from '@rollup/plugin-commonjs';
 import builtinModules from 'builtin-modules';
 import visualizer from 'rollup-plugin-visualizer';
 import postcss from 'rollup-plugin-postcss';
 import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
+import type { default as vue } from 'rollup-plugin-vue';
 import { lodash as _ } from 'stan-utils';
 
 import { BundleOptions, CJSOptions, ESMOptions, SYSOptions, UMDOptions } from './types';
 import getBabelConfig from './get-babel-config';
 import { PackageJson } from './pkg';
-import { parseMappingArgument } from './utils';
+import { getNodeModulePKG, parseMappingArgument } from './utils';
 
 export type IRollupOptions = InputOptions & { output: OutputOptions };
 
@@ -134,11 +134,15 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   babelOptions.plugins!.push(...extraBabelPlugins);
 
   function getPlugins(isMin?: boolean): Plugin[] {
+    const RollupPluginVue = getNodeModulePKG<typeof vue>('rollup-plugin-vue');
     return [
-      vue({
+      RollupPluginVue.default?.({
         css: true,
-        // @ts-ignore if vue3
-        compileTemplate: true,
+        ...(RollupPluginVue?.version?.includes('6')
+          ? {
+              compileTemplate: true,
+            }
+          : {}),
         ...vuePluginOpts,
       }),
       alias(aliasOpts),

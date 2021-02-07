@@ -114,3 +114,19 @@ export function getParsedTSConfig(cwd: string, rootPath?: string): CompilerOptio
     return {};
   }
 }
+
+/**
+ * 获取包和版本号
+ */
+export function getNodeModulePKG<T = {}>(
+  moduleName: string,
+): { default: T | undefined; version?: string } {
+  try {
+    const pkg = require(path.join(require.resolve(moduleName), 'package.json'));
+    return { default: require(moduleName), version: pkg.version };
+  } catch (e) {
+    return {
+      default: undefined,
+    };
+  }
+}

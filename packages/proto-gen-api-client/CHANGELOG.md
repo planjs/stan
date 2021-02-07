@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/planjs/stan/compare/proto-gen-api-client@0.0.28...proto-gen-api-client@0.1.0) (2021-02-07)
+
+
+### Features
+
+* jest config and rollup babel config ([0e5f311](https://github.com/planjs/stan/commit/0e5f311fb92a619f6b34ace2733d947cb8725c7c))
+
+
+
+
+
 ## [0.0.31](https://github.com/planjs/stan/compare/proto-gen-api-client@0.0.30...proto-gen-api-client@0.0.31) (2021-02-06)
 
 **Note:** Version bump only for package proto-gen-api-client

@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.5.0 (2021-02-07)
+
+
+### Bug Fixes
+
+* **proto-gen-dts:** jest error ([959a70d](https://github.com/planjs/stan/commit/959a70dbd18d1ae4b6dc29565518ea2d57c7e499))
+* add cli options and catch entry empty error ([16f83de](https://github.com/planjs/stan/commit/16f83de189ea57fedddf99443318df7125196c70))
+* console and some doc ([25673eb](https://github.com/planjs/stan/commit/25673eb73db60551b4f98b88e97cc2177fa040ef))
+* reference win path ([718e1d5](https://github.com/planjs/stan/commit/718e1d53e9b21efbb64a9c774f809a1c91e4b570))
+* **proto-gen-ts:** reduce repeated parsing of proto ([fba635a](https://github.com/planjs/stan/commit/fba635ab46ca0288039b33016373762080721a01))
+* gendts generate import module dts ([56f9005](https://github.com/planjs/stan/commit/56f90059d95e147c2d634573d81b3bd4374abc2a))
+* **proto-gen-dts:** support multi namespace ([6bdb562](https://github.com/planjs/stan/commit/6bdb562dbf1979c3a9e7706e097394384a5667a6))
+
+
+### Features
+
+* add comment and code sort ([abd7cbf](https://github.com/planjs/stan/commit/abd7cbf3095469cb317b191407c75bb04ff11003))
+* add proto-gen-dts tools ([46e2dc0](https://github.com/planjs/stan/commit/46e2dc00a36972cea07e4e9a9b8d734b7ee3c51e))
+* jest config and rollup babel config ([0e5f311](https://github.com/planjs/stan/commit/0e5f311fb92a619f6b34ace2733d947cb8725c7c))
+* **proto-gen-dts:** add generate referenceEntryFile ([f650a44](https://github.com/planjs/stan/commit/f650a4415059e558ccc1affe9a495ec64408cf03))
+
+
+
+
+
 ## [0.4.2](https://github.com/planjs/stan/compare/proto-gen-dts@0.4.1...proto-gen-dts@0.4.2) (2021-02-06)
 
 **Note:** Version bump only for package proto-gen-dts

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/planjs/stan/compare/stan-utils@0.1.7...stan-utils@0.4.0) (2021-02-07)
+
+
+### Bug Fixes
+
+* add vue support ([a1ef785](https://github.com/planjs/stan/commit/a1ef7858ce07933adad8acf277bfcb869d9b08ec))
+* stan-builder typings entry ([bedf67c](https://github.com/planjs/stan/commit/bedf67cac3af3e1480d88cf00fe0a77c9fbb097e))
+
+
+### Features
+
+* add proto-gen-dts tools ([46e2dc0](https://github.com/planjs/stan/commit/46e2dc00a36972cea07e4e9a9b8d734b7ee3c51e))
+* jest config and rollup babel config ([0e5f311](https://github.com/planjs/stan/commit/0e5f311fb92a619f6b34ace2733d947cb8725c7c))
+
+
+
+
+
 ## [0.3.1](https://github.com/planjs/stan/compare/stan-utils@0.3.0...stan-utils@0.3.1) (2021-02-06)
 
 

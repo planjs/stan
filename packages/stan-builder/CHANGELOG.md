@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/planjs/stan/compare/stan-builder@0.4.7...stan-builder@0.7.0) (2021-02-07)
+
+
+### Bug Fixes
+
+* add cli options and catch entry empty error ([16f83de](https://github.com/planjs/stan/commit/16f83de189ea57fedddf99443318df7125196c70))
+* add module import check ([9d41fc1](https://github.com/planjs/stan/commit/9d41fc12cca34cfc05b90624ee6b54b293c76173))
+* add vue support ([a1ef785](https://github.com/planjs/stan/commit/a1ef7858ce07933adad8acf277bfcb869d9b08ec))
+* remove unused var ([9b200df](https://github.com/planjs/stan/commit/9b200dfcbc56f700b168eed6790d4265ccb98735))
+* stan-builder typings entry ([bedf67c](https://github.com/planjs/stan/commit/bedf67cac3af3e1480d88cf00fe0a77c9fbb097e))
+* **proto-gen-dts:** jest error ([959a70d](https://github.com/planjs/stan/commit/959a70dbd18d1ae4b6dc29565518ea2d57c7e499))
+
+
+### Features
+
+* add vue plugin options ([7facdfd](https://github.com/planjs/stan/commit/7facdfd49d11e59ab8ed604a209e0e75622a37d1))
+* jest config and rollup babel config ([0e5f311](https://github.com/planjs/stan/commit/0e5f311fb92a619f6b34ace2733d947cb8725c7c))
+
+
+
+
+
 # [0.6.0](https://github.com/planjs/stan/compare/stan-builder@0.5.1...stan-builder@0.6.0) (2021-02-06)
 
 
