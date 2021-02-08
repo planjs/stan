@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.1](https://github.com/planjs/stan/compare/stan-builder@0.6.0...stan-builder@0.7.1) (2021-02-08)
+
+
+### Bug Fixes
+
+* add module import check ([36b9a61](https://github.com/planjs/stan/commit/36b9a6182c1eb3dd85e0f8ae11d3a678eb8638e2))
+* remove unused var ([9b200df](https://github.com/planjs/stan/commit/9b200dfcbc56f700b168eed6790d4265ccb98735))
+* vue plugin import path error ([fca46d6](https://github.com/planjs/stan/commit/fca46d6908c2d77d301a33d45bcfb216e7e73ec7))
+
+
+
+
+
 # [0.7.0](https://github.com/planjs/stan/compare/stan-builder@0.4.7...stan-builder@0.7.0) (2021-02-07)
 
 

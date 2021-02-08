@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/planjs/stan/compare/proto-gen-dts@0.4.2...proto-gen-dts@0.5.1) (2021-02-08)
+
+
+### Bug Fixes
+
+* add module import check ([36b9a61](https://github.com/planjs/stan/commit/36b9a6182c1eb3dd85e0f8ae11d3a678eb8638e2))
+
+
+
+
+
 # 0.5.0 (2021-02-07)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/planjs/stan/compare/stan-utils@0.3.1...stan-utils@0.4.1) (2021-02-08)
+
+
+### Bug Fixes
+
+* add module import check ([36b9a61](https://github.com/planjs/stan/commit/36b9a6182c1eb3dd85e0f8ae11d3a678eb8638e2))
+
+
+
+
+
 # [0.4.0](https://github.com/planjs/stan/compare/stan-utils@0.1.7...stan-utils@0.4.0) (2021-02-07)
 
 

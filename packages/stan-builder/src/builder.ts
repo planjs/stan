@@ -6,7 +6,7 @@ import getStanConfig from './get-stan-config';
 import babel from './_babel';
 import rollup from './_rollup';
 import { getExistFile } from './utils';
-import { BuildOptions, BundleOptions, BaseBundleOptions } from './types';
+import type { BuildOptions, BundleOptions, BaseBundleOptions } from './types';
 import validOptions from './valid-options';
 
 export function getBundleOpts(opts: BuildOptions): BundleOptions[] {
@@ -41,10 +41,19 @@ async function builder(opts: BuildOptions) {
   if (bundleOptions.length) {
     await Promise.all(bundleOptions.map((v) => validOptions.validateAsync(v)));
     try {
-      console.log(chalk.gray(`Clean up the lib,es,dist directory.`));
-      rimraf.sync(path.join(cwd, 'dist'));
-      rimraf.sync(path.join(cwd, 'es'));
-      rimraf.sync(path.join(cwd, 'lib'));
+      const dirs = bundleOptions
+        .map((v) => {
+          if (v.bundler === 'rollup' || !v.bundler || v.umd) {
+            return 'dist';
+          } else {
+            return (v.esm && 'esm') || (v.cjs && 'cjs');
+          }
+        })
+        .filter((v) => !!v) as string[];
+      console.log(chalk.gray(`Clean up the ${dirs} directory.`));
+      for (const dir of dirs) {
+        rimraf.sync(path.join(cwd, dir));
+      }
     } catch (e) {}
 
     for (const bundleOpt of bundleOptions) {

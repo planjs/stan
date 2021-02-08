@@ -1,6 +1,6 @@
 {
   "name": "proto-gen-api-client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "> TODO: description",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "google-proto-files": "^2.2.0",
-    "stan-utils": "^0.4.0"
+    "stan-utils": "^0.4.1"
   },
   "gitHead": "3c9a90127d9c499b4057fb576e3fbdeafb8898d8"
 }
