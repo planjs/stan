@@ -1,7 +1,7 @@
 import { join, dirname } from 'path';
 import { existsSync } from 'fs';
 import os from 'os';
-import path from 'path';
+import escalade from 'escalade/sync';
 import type { CompilerOptions } from 'typescript';
 
 export function getExistFile({
@@ -51,14 +51,14 @@ export function parseMappingArgument(
 }
 
 export function getTsConfigPath(cwd: string, rootPath?: string): string {
-  const tsconfigPath = path.join(cwd, 'tsconfig.json');
-  const templateTsconfigPath = path.join(__dirname, '../template/tsconfig.json');
+  const tsconfigPath = join(cwd, 'tsconfig.json');
+  const templateTsconfigPath = join(__dirname, '../template/tsconfig.json');
   try {
     if (existsSync(tsconfigPath)) {
       return tsconfigPath;
     }
-    if (rootPath && existsSync(path.join(rootPath, 'tsconfig.json'))) {
-      return path.join(rootPath, 'tsconfig.json');
+    if (rootPath && existsSync(join(rootPath, 'tsconfig.json'))) {
+      return join(rootPath, 'tsconfig.json');
     }
   } catch (e) {}
   return templateTsconfigPath;
@@ -122,8 +122,16 @@ export function getNodeModulePKG<T = {}>(
   moduleName: string,
 ): { default: T | undefined; version?: string } {
   try {
-    const pkg = require(path.join(require.resolve(moduleName), 'package.json'));
-    return { default: require(moduleName), version: pkg.version };
+    const pkg = escalade(require.resolve(moduleName), (directory, names) => {
+      if (names.includes('package.json')) {
+        return 'package.json';
+      }
+      return undefined;
+    });
+    if (!pkg) {
+      throw new Error(`${moduleName} is not installed`);
+    }
+    return { default: require(moduleName), version: require(pkg).version };
   } catch (e) {
     return {
       default: undefined,
