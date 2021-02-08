@@ -135,7 +135,8 @@
     "postcss-styl": "^0.7.2",
     "rollup-plugin-vue": "5.1.9",
     "vue": "^2.6.12",
-    "vue-class-component": "^7.2.6"
+    "vue-class-component": "^7.2.6",
+    "escalade": "^3.1.1"
   },
   "peerDependencies": {
     "@vue/compiler-sfc": "*",
