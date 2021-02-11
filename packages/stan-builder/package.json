@@ -128,7 +128,6 @@
     "@types/through2": "^2.0.36",
     "@types/vinyl-fs": "^2.4.11",
     "@vue/compiler-sfc": "^3.0.5",
-    "escalade": "^3.1.1",
     "node-sass": "4.14.1",
     "postcss-less": "^3.1.4",
     "postcss-scss": "^3.0.2",
