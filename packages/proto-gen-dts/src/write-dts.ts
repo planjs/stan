@@ -30,8 +30,8 @@ const serviceFNTemplate = `<%= comment %>
 
 function protoTypeToJSType(input: string): string {
   const types = {
-    number: ['int32', 'uint32', 'float', 'double', 'fixed32'],
-    string: ['int64', 'uint64', 'string', 'bytes', 'fixed64'],
+    number: ['int32', 'uint32', 'sint32', 'sfixed32', 'float', 'double', 'fixed32'],
+    string: ['int64', 'uint64', 'sint64', 'sfixed64', 'string', 'bytes', 'fixed64'],
     boolean: ['bool'],
   };
   for (const type in types) {
@@ -63,7 +63,8 @@ function parseNameSpace(namespace: Namespace, filename: string) {
   function replaceNamespacePrefix(name: string, parentName?: string) {
     // 不是当前文件内容不处理
     if (namespace.lookup(name)?.filename !== filename) {
-      return name;
+      const arr = name.split('.');
+      return `${arr[0]}.${arr.slice(1).join('_')}`;
     }
     if (parentName && !name.includes('.')) {
       name = `${parentName}_${name}`;
@@ -71,9 +72,11 @@ function parseNameSpace(namespace: Namespace, filename: string) {
     return name.replace(`${moduleName}_`, '').replace('.', '_');
   }
 
+  // 生成备注，TODO 可以支持 单行 多行比较好
   function genComment(str?: string | null) {
     if (!str) return '';
-    return `/** ${str} */`;
+    const lines = str.replace(/\r\n/g, '/n').split('\n');
+    return lines.map((v) => `// ${v}`).join('\n');
   }
 
   // process interface
@@ -162,6 +165,8 @@ function parseNameSpace(namespace: Namespace, filename: string) {
     }
     if (nested instanceof Type) {
       processType(nested);
+      // 处理嵌套 message
+      if (nested.nestedArray?.length) nested.nestedArray.map(processNested);
     } else if (nested instanceof Enum) {
       processEnum(nested);
     } else if (nested instanceof Service) {
@@ -196,7 +201,7 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions) {
     alternateCommentMode: true,
     ...opts,
   });
-  const schema = root.toJSON().nested;
+  const schema = root.toJSON({ keepComments: true }).nested;
 
   const files: string[] = [];
 

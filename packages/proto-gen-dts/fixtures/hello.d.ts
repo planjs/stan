@@ -2,8 +2,14 @@
 
 declare namespace hello {
   export interface HelloService {
-    /** hello */
+    // hello
     SayName<R extends SayNameReq, O>(r: R, o?: O): Promise<SayNameRsp>;
+    // remark
+    // get user list
+    GetUserList<R extends GetUserListReq, O>(
+      r: R,
+      o?: O
+    ): Promise<GetUserListRsp>;
   }
 
   export interface Core {
@@ -16,14 +22,14 @@ declare namespace hello {
     Down = 2,
   }
 
-  /** 用户模型 */
+  // 用户模型
   export interface SayNameReq_User {
-    /** 用户名 */
+    // 用户名
     name?: string;
     avatar?: string;
   }
 
-  /** 测试评论 */
+  // 测试评论
   export interface SayNameReq {
     fullName?: string;
     core?: Core;
@@ -34,4 +40,10 @@ declare namespace hello {
   export interface SayNameRsp {
     realName?: string;
   }
+
+  export interface GetUserListReq {
+    option?: core.XXX;
+  }
+
+  export interface GetUserListRsp {}
 }

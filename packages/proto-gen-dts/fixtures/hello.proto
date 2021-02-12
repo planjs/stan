@@ -1,12 +1,17 @@
 syntax = "proto3";
 
+import "core.proto";
+
 package hello;
 
 service Hello {
   /**
-  hello
+   * hello
    */
   rpc SayName (SayNameReq) returns (SayNameRsp) {};
+  // remark
+  // get user list
+  rpc GetUserList (GetUserListReq) returns (GetUserListRsp) {};
 }
 
 message Core {
@@ -36,3 +41,8 @@ message SayNameReq {
 message SayNameRsp {
   string realName = 1;
 }
+
+message GetUserListReq {
+  core.XXX option = 1;
+}
+message GetUserListRsp {}

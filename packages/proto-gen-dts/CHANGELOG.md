@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.2](https://github.com/planjs/stan/compare/proto-gen-dts@0.5.1...proto-gen-dts@0.5.2) (2021-02-12)
+
+
+### Bug Fixes
+
+* **proto-gen-dts:** generate composite message ([ae78041](https://github.com/planjs/stan/commit/ae78041ec90bc5b592c57662330fd31744a9e20b))
+
+
+
+
+
 ## [0.5.1](https://github.com/planjs/stan/compare/proto-gen-dts@0.4.2...proto-gen-dts@0.5.1) (2021-02-08)
 
 
