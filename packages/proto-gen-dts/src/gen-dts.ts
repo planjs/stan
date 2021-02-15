@@ -1,10 +1,16 @@
 import path from 'path';
 import { chalk, ora, relativeNormalize } from 'stan-utils';
+
 import type { ProtoGenDTSOptions } from './type';
 import writeDTS from './write-dts';
 import writeReference from './write-reference';
 
-function protoGenDTS(opts: ProtoGenDTSOptions) {
+/**
+ * proto generate dts
+ * @param opts
+ * @returns parsedFiles path
+ */
+function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
   const parsedFiles: string[] = [];
   for (let file of opts.files) {
     const readablyFile = relativeNormalize(file.file);
