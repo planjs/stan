@@ -6,7 +6,7 @@ import { lodash, fs } from 'stan-utils';
 import type { GenProtoFile } from './type';
 import type { ReflectionObject, IParseOptions } from 'protobufjs';
 
-import { formatTS } from './util';
+import { formatTS, protoTypeToJSType } from './util';
 
 const { bugs } = require('../package.json');
 
@@ -35,30 +35,10 @@ const serviceFNTemplate = `<%= comment %>
 <%= name %><R extends <%= requestType %>, O>(r: R, o?: O): Promise<<%= responseType %>>,`;
 
 /**
- * process proto type convert js type
- * @param input proto type
- * @return ts type
- */
-export function protoTypeToJSType(input: string): string {
-  const types = {
-    number: ['int32', 'uint32', 'sint32', 'sfixed32', 'float', 'double', 'fixed32'],
-    string: ['int64', 'uint64', 'sint64', 'sfixed64', 'string', 'bytes', 'fixed64'],
-    boolean: ['bool'],
-  };
-  for (const type in types) {
-    if (types[type].includes(input)) {
-      return type;
-    }
-  }
-  console.log(`Type ${input} not supported, report issue ${bugs.url}`);
-  return input;
-}
-
-/**
  * parsed proto content to dts content
  * @param namespace
  * @param filename
- * @return dts content
+ * @returns dts content
  */
 export function parseNameSpace(namespace: Namespace, filename: string): string {
   const moduleName = namespace.name;
@@ -210,7 +190,7 @@ const parsedFiles: string[] = [];
  * generate dts file
  * @param proto
  * @param opts
- * @return generate files
+ * @returns generate files
  */
 function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
   const root = loadSync(proto.file, {
