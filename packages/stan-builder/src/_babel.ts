@@ -16,9 +16,9 @@ import merge from 'merge2';
 import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
 
-import { BundleOptions, CJSOptions } from './types';
 import getBabelConfig from './get-babel-config';
 import { getParsedTSConfig, getTsConfigPath } from './utils';
+import type { BundleOptions, CJSOptions } from './types';
 
 export interface BabelOptions {
   cwd: string;
@@ -226,7 +226,7 @@ async function babelBuild(opts: BabelOptions) {
   }
 
   // clear typing dir
-  if (tsConfig?.declaration && tsConfig?.declarationDir) {
+  if (tsConfig?.declarationDir) {
     try {
       rimraf.sync(path.join(cwd, tsConfig?.declarationDir));
     } catch (e) {}

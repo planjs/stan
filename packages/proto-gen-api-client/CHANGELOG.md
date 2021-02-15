@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.2](https://github.com/planjs/stan/compare/proto-gen-api-client@0.1.1...proto-gen-api-client@0.1.2) (2021-02-15)
+
+
+### Bug Fixes
+
+* **proto-gen-dts:** adjust the generated code ([002b4c1](https://github.com/planjs/stan/commit/002b4c1955918363598f899bd529a323de393ff0))
+
+
+
+
+
 ## [0.1.1](https://github.com/planjs/stan/compare/proto-gen-api-client@0.0.31...proto-gen-api-client@0.1.1) (2021-02-08)
 
 

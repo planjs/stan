@@ -25,7 +25,7 @@ import autoprefixer from 'autoprefixer';
 import type { default as vue } from 'rollup-plugin-vue';
 import { lodash as _ } from 'stan-utils';
 
-import { BundleOptions, CJSOptions, ESMOptions, SYSOptions, UMDOptions } from './types';
+import type { BundleOptions, CJSOptions, ESMOptions, SYSOptions, UMDOptions } from './types';
 import getBabelConfig from './get-babel-config';
 import { PackageJson } from './pkg';
 import { getNodeModulePKG, parseMappingArgument } from './utils';

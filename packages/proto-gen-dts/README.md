@@ -23,7 +23,7 @@ protoGenDts({
 
 ```shell
 # single file
-proto-gen-dts account.proto -o typings/account.proto 
+proto-gen-dts account.proto -o typings/account.d.ts
 # dir
 proto-gen-dts -d protos/ -o typings/
 # use npx

@@ -1,6 +1,13 @@
 import path from 'path';
-import { fs, prettier, slash } from 'stan-utils';
+import { fs, slash } from 'stan-utils';
 
+import { formatTS } from './util';
+
+/**
+ * generate reference
+ * @param dts
+ * @param entryFilepath
+ */
 function writeReference(dts: string[], entryFilepath: string) {
   entryFilepath = path.resolve(entryFilepath);
   const content = [...new Set(dts)]
@@ -11,9 +18,7 @@ function writeReference(dts: string[], entryFilepath: string) {
     .join('\n');
   fs.outputFileSync(
     entryFilepath,
-    prettier.format(`/** code generate by proto-gen-dts don't edit */\n\n${content}`, {
-      parser: 'typescript',
-    }),
+    formatTS(`/** code generate by proto-gen-dts don't edit */\n\n${content}`),
   );
 }
 

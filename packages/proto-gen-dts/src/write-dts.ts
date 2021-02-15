@@ -1,8 +1,13 @@
 import path from 'path';
 import { loadSync } from 'google-proto-files';
-import { Namespace, Type, Service, Enum, ReflectionObject, IParseOptions } from 'protobufjs';
-import { lodash, fs, prettier } from 'stan-utils';
+import { Namespace, Type, Service, Enum } from 'protobufjs';
+import { lodash, fs } from 'stan-utils';
+
 import type { GenProtoFile } from './type';
+import type { ReflectionObject, IParseOptions } from 'protobufjs';
+
+import { formatTS } from './util';
+
 const { bugs } = require('../package.json');
 
 const dtsTemplate = `/** code generate by proto-gen-dts don't edit */
@@ -25,10 +30,16 @@ const serviceTemplate = `<%= comment %>
 export interface <%= name %>Service {
 <%= content %>
 }`;
+
 const serviceFNTemplate = `<%= comment %>
 <%= name %><R extends <%= requestType %>, O>(r: R, o?: O): Promise<<%= responseType %>>,`;
 
-function protoTypeToJSType(input: string): string {
+/**
+ * process proto type convert js type
+ * @param input proto type
+ * @return ts type
+ */
+export function protoTypeToJSType(input: string): string {
   const types = {
     number: ['int32', 'uint32', 'sint32', 'sfixed32', 'float', 'double', 'fixed32'],
     string: ['int64', 'uint64', 'sint64', 'sfixed64', 'string', 'bytes', 'fixed64'],
@@ -43,7 +54,13 @@ function protoTypeToJSType(input: string): string {
   return input;
 }
 
-function parseNameSpace(namespace: Namespace, filename: string) {
+/**
+ * parsed proto content to dts content
+ * @param namespace
+ * @param filename
+ * @return dts content
+ */
+export function parseNameSpace(namespace: Namespace, filename: string): string {
   const moduleName = namespace.name;
 
   const dtsExecutor = lodash.template(dtsTemplate);
@@ -53,6 +70,7 @@ function parseNameSpace(namespace: Namespace, filename: string) {
   const serviceFNExecutor = lodash.template(serviceFNTemplate);
 
   const parsedNestedList: string[] = [];
+  // record generation history to prevent repeated generation
   const hasGenMap = {
     enums: new Set<string>(),
     services: new Set<string>(),
@@ -72,7 +90,7 @@ function parseNameSpace(namespace: Namespace, filename: string) {
     return name.replace(`${moduleName}_`, '').replace('.', '_');
   }
 
-  // 生成备注，TODO 可以支持 单行 多行比较好
+  // gen common
   function genComment(str?: string | null) {
     if (!str) return '';
     const lines = str.replace(/\r\n/g, '/n').split('\n');
@@ -80,15 +98,10 @@ function parseNameSpace(namespace: Namespace, filename: string) {
   }
 
   // process interface
-  function processType(nested: Type) {
-    const interfaceName = replaceNamespacePrefix(nested.name, nested.parent?.name);
-    if (hasGenMap.interfaces.has(interfaceName)) {
-      return;
-    }
-    hasGenMap.interfaces.add(interfaceName);
+  function processType(name: string, nested: Type) {
     parsedNestedList.push(
       interfaceExecutor({
-        name: interfaceName,
+        name,
         comment: genComment(nested.comment!),
         content: nested.fieldsArray
           .reduce<string[]>((acc, field) => {
@@ -117,15 +130,10 @@ function parseNameSpace(namespace: Namespace, filename: string) {
   }
 
   // process enum
-  function processEnum(nested: Enum) {
-    const enumName = replaceNamespacePrefix(nested.name, nested.parent?.name);
-    if (hasGenMap.enums.has(enumName)) {
-      return;
-    }
-    hasGenMap.enums.add(enumName);
+  function processEnum(name: string, nested: Enum) {
     parsedNestedList.push(
       enumExecutor({
-        name: enumName,
+        name,
         comment: genComment(nested.comment!),
         content: Object.keys(nested.values)
           .reduce<string[]>((acc, field) => {
@@ -138,19 +146,21 @@ function parseNameSpace(namespace: Namespace, filename: string) {
   }
 
   // process service
-  function processService(nested: Service) {
-    const serverName = replaceNamespacePrefix(nested.name, nested.parent?.name);
-    if (hasGenMap.enums.has(serverName)) {
-      return;
-    }
-    hasGenMap.enums.add(serverName);
+  function processService(name: string, nested: Service) {
     parsedNestedList.push(
       serviceExecutor({
-        name: serverName,
+        name,
         comment: genComment(nested.comment!),
         content: nested.methodsArray
           .reduce<string[]>((acc, field) => {
-            acc.push(serviceFNExecutor({ ...field, comment: genComment(field.comment) }));
+            acc.push(
+              serviceFNExecutor({
+                name: field.name,
+                requestType: replaceNamespacePrefix(field.requestType),
+                responseType: replaceNamespacePrefix(field.responseType),
+                comment: genComment(field.comment),
+              }),
+            );
             return acc;
           }, [])
           .join('\n'),
@@ -158,45 +168,51 @@ function parseNameSpace(namespace: Namespace, filename: string) {
     );
   }
 
+  // parse proto reflection obj
   function processNested(nested: ReflectionObject) {
     // 不是当前文件内的内容不生成，因为相关依赖的模块会生成单独的文件
-    if (nested.filename !== filename) {
-      return;
-    }
+    if (nested.filename !== filename) return;
+    const messageName = replaceNamespacePrefix(nested.name, nested.parent?.name);
     if (nested instanceof Type) {
-      processType(nested);
+      if (hasGenMap.interfaces.has(messageName)) return;
+      hasGenMap.interfaces.add(messageName);
+      processType(messageName, nested);
       // 处理嵌套 message
-      if (nested.nestedArray?.length) nested.nestedArray.map(processNested);
+      nested.nestedArray?.forEach(processNested);
     } else if (nested instanceof Enum) {
-      processEnum(nested);
+      if (hasGenMap.enums.has(messageName)) return;
+      hasGenMap.enums.add(messageName);
+      processEnum(messageName, nested);
     } else if (nested instanceof Service) {
-      processService(nested);
+      if (hasGenMap.services.has(messageName)) return;
+      hasGenMap.services.add(messageName);
+      processService(messageName, nested);
+      // 处理嵌套 message
+      nested.nestedArray?.forEach(processNested);
     }
   }
 
-  namespace.nestedArray.map(processNested);
+  namespace.nestedArray?.forEach(processNested);
 
-  return prettier.format(
+  return formatTS(
     dtsExecutor({
       namespace: moduleName!,
       comment: genComment(namespace.comment),
       content: parsedNestedList.join('\n\n'),
     }),
-    {
-      parser: 'typescript',
-    },
   );
 }
 
-// 防止重复解析proto
-const generatedFiles: string[] = [];
+// cache generated files, prevent duplicate analysis
+const parsedFiles: string[] = [];
 
 /**
- * 生成dts
+ * generate dts file
  * @param proto
  * @param opts
+ * @return generate files
  */
-function writeDTS(proto: GenProtoFile, opts?: IParseOptions) {
+function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
   const root = loadSync(proto.file, {
     alternateCommentMode: true,
     ...opts,
@@ -219,13 +235,15 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions) {
       }
       files.push(outPath);
       // 提高编译速度，减少重复的解析 如果已经生成则不生成
-      if (!generatedFiles.includes(outPath)) {
+      if (!parsedFiles.includes(outPath)) {
         const parsed = parseNameSpace(reflection, file);
         fs.outputFileSync(outPath, parsed);
-        generatedFiles.push(outPath);
+        parsedFiles.push(outPath);
       }
+    } else {
+      // TODO ...
+      console.log(`Type ${reflection?.name} not supported, report issue ${bugs.url}`);
     }
-    // TODO ...
   }
   return files;
 }

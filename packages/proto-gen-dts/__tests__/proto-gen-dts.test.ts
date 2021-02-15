@@ -16,10 +16,10 @@ describe('proto-gen-dts', () => {
     const fixtures = files(path.join(__dirname, '../fixtures'), true).filter((v) =>
       /\.proto$/.test(v),
     );
-    const generatedFiles = protoGenDTS({
+    const parsedFiles = protoGenDTS({
       files: fixtures.map((file) => ({ file })),
       referenceEntryFile: false,
     });
-    expect(generatedFiles.every((v) => fs.existsSync(v))).toBe(true);
+    expect(parsedFiles.every((v) => fs.existsSync(v))).toBe(true);
   });
 });

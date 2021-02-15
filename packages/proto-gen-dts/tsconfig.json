@@ -5,8 +5,7 @@
     "baseUrl": "src",
     "rootDir": "src",
     "declaration": true,
-    "esModuleInterop": true,
-    "declarationDir": "typings"
+    "esModuleInterop": true
   },
   "include": ["src"]
 }

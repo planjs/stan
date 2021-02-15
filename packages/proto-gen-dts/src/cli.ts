@@ -3,10 +3,19 @@ import { yParser, chalk, glob } from 'stan-utils';
 import protoGenDTS from './gen-dts';
 import type { GenProtoFile } from './type';
 
-const { _: files, o, output, d, dir } = yParser(process.argv.slice(2));
+const { _: files, o, output, d, dir, e, entryfile } = yParser(process.argv.slice(2));
 
-const outputDir = output || o || '';
-const protoDir = dir || d || '';
+const outputDir: string = output || o || '';
+const protoDir: string = dir || d || '';
+let entryDTS: string | boolean | void = entryfile || e;
+if (entryDTS) {
+  if (typeof entryDTS === 'boolean') {
+    entryDTS = 'index.d.ts';
+  } else if (!entryDTS.endsWith('.d.ts')) {
+    entryDTS = entryDTS + '.d.ts';
+  }
+}
+const genEntryFile = entryDTS ? entryDTS : outputDir ? outputDir + 'index.d.ts' : false;
 
 if (protoDir) {
   try {
@@ -23,10 +32,12 @@ try {
       const { name, dir } = path.parse(file);
       return {
         file,
-        output: path.join(outputDir || dir, name + '.d.ts'),
+        output: outputDir.endsWith('.d.ts')
+          ? outputDir
+          : path.join(outputDir || dir, name + '.d.ts'),
       };
     }),
-    referenceEntryFile: outputDir ? outputDir + 'index.d.ts' : false,
+    referenceEntryFile: genEntryFile,
   });
   console.log(chalk.greenBright('Generate dictionary file successfully'));
 } catch (e) {

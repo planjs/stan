@@ -1,7 +1,7 @@
 import { PluginItem } from '@babel/core';
 import { ModuleFormat } from 'rollup';
 
-import { BundleOptions } from './types';
+import type { BundleOptions } from './types';
 const browserslist = require('../template/browserslist.js');
 
 export type GetBabelConfigOptions = {

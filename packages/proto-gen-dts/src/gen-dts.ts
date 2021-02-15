@@ -5,7 +5,7 @@ import writeDTS from './write-dts';
 import writeReference from './write-reference';
 
 function protoGenDTS(opts: ProtoGenDTSOptions) {
-  const generatedFiles: string[] = [];
+  const parsedFiles: string[] = [];
   for (let file of opts.files) {
     const readablyFile = relativeNormalize(file.file);
     const _file = {
@@ -23,10 +23,10 @@ function protoGenDTS(opts: ProtoGenDTSOptions) {
     try {
       const dts = writeDTS(_file, opts.protoParseOptions);
       spinner.succeed();
-      generatedFiles.push(...dts);
+      parsedFiles.push(...dts);
       if (dts.length > 1) {
         console.log(
-          `  > ${chalk.yellow(readablyFile)} Related modules: ` +
+          `  > ${chalk.yellow(readablyFile)} dependent modules: ` +
             chalk.greenBright(dts.slice(1).map(relativeNormalize).join(' ')),
         );
       }
@@ -37,13 +37,13 @@ function protoGenDTS(opts: ProtoGenDTSOptions) {
   }
   if (opts.referenceEntryFile !== false) {
     const referenceEntryFile = opts.referenceEntryFile || 'index.d.ts';
-    writeReference(generatedFiles, referenceEntryFile);
+    writeReference(parsedFiles, referenceEntryFile);
     console.log(
       `Generate reference entry file: ${chalk.greenBright(relativeNormalize(referenceEntryFile))}`,
     );
   }
 
-  return generatedFiles;
+  return parsedFiles;
 }
 
 export default protoGenDTS;

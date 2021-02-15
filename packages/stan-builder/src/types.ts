@@ -1,16 +1,16 @@
-import { Plugin } from 'rollup';
-import { FilterPattern } from '@rollup/pluginutils';
-import { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
-import { RollupReplaceOptions } from '@rollup/plugin-replace';
-import { RollupCommonJSOptions } from '@rollup/plugin-commonjs';
-import { RollupInjectOptions } from '@rollup/plugin-inject';
-import { Options as RollupTerserOptions } from 'rollup-plugin-terser';
-import { RPT2Options } from 'rollup-plugin-typescript2';
-import { RollupAliasOptions } from '@rollup/plugin-alias';
-import { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
-import { PostCSSPluginConf } from 'rollup-plugin-postcss';
-import { VuePluginOptions } from 'rollup-plugin-vue';
-import { CopyOptions } from 'stan-utils';
+import type { Plugin } from 'rollup';
+import type { FilterPattern } from '@rollup/pluginutils';
+import type { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve';
+import type { RollupReplaceOptions } from '@rollup/plugin-replace';
+import type { RollupCommonJSOptions } from '@rollup/plugin-commonjs';
+import type { RollupInjectOptions } from '@rollup/plugin-inject';
+import type { Options as RollupTerserOptions } from 'rollup-plugin-terser';
+import type { RPT2Options } from 'rollup-plugin-typescript2';
+import type { RollupAliasOptions } from '@rollup/plugin-alias';
+import type { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
+import type { PostCSSPluginConf } from 'rollup-plugin-postcss';
+import type { VuePluginOptions } from 'rollup-plugin-vue';
+import type { CopyOptions } from 'stan-utils';
 
 export type BundleType = 'rollup' | 'babel';
 

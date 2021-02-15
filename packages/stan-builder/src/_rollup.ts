@@ -1,7 +1,7 @@
 import { rollup, watch, RollupError } from 'rollup';
 import { chalk, ora, relativeNormalize, relativeId, pms } from 'stan-utils';
 
-import { BundleOptions, OutputModule } from './types';
+import type { BundleOptions, OutputModule } from './types';
 import getRollupConfig from './get-rollup-config';
 
 export interface RollupOptions {
