@@ -1,6 +1,6 @@
 {
   "name": "proto-gen-dts",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "proto generate typescript dictionary type file",
   "keywords": [
     "proto",

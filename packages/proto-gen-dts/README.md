@@ -1,6 +1,7 @@
 # `proto-gen-dts`
 
-> Convert `proto` file to `typescript` type definition file
+> Convert `proto` file to `typescript` type definition file;   
+> All that is needed at present has been completed,  enjoy 😊
 
 ## Install
 
@@ -9,21 +10,31 @@
 npm i proto-gen-dts -g
 ```
 
+## Features
+* ✔︎ Support `proto2` `proto3`
+* ✔︎ Support generate `proto` dependent modules 
+* ✔︎ Support generate `dts` entry file
+* ✔︎ Support all `proto` `message type`
+* ✔︎ Support generate `service` to `interfaces`
+* ✔︎ Keep generating comments and order
+
 ## Usage
 
 ```js
 // use in nodejs
 const protoGenDts = require('proto-gen-dts');
 
-protoGenDts({
-  file: 'account.proto',
-  output: 'typings/account.proto'
+const dtsFiles = protoGenDts({
+  file: 'hello.proto',
+  output: 'typings/hello.d.ts',
+  referenceEntryFile: 'typings/index.d.ts'
 })
 ```
 
 ```shell
+# use in shell
 # single file
-proto-gen-dts account.proto -o typings/account.d.ts
+proto-gen-dts hello.proto -o typings/hello.d.ts -e typings/index.d.ts
 # dir
 proto-gen-dts -d protos/ -o typings/
 # use npx
@@ -72,7 +83,7 @@ message SayNameRsp {
   string realName = 1;
 }
 ```
-output `hello.d.ts`
+output `typings/hello.d.ts`
 ```typescript
 /** code generate by proto-gen-dts don't edit */
 
@@ -111,4 +122,11 @@ declare namespace hello {
     realName?: string;
   }
 }
+```
+
+`referenceEntryFile` output `typings/index.d.ts`
+```typescript
+/** code generate by proto-gen-dts don't edit */
+
+/// <reference path="hello.d.ts" />
 ```

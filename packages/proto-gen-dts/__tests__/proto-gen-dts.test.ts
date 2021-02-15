@@ -11,14 +11,14 @@ const files = (p: string, isFullPath = false) =>
 
 jest.useFakeTimers();
 
+const fixtureDir = path.join(__dirname, '../fixtures');
+
 describe('proto-gen-dts', () => {
   it('generate dts', () => {
-    const fixtures = files(path.join(__dirname, '../fixtures'), true).filter((v) =>
-      /\.proto$/.test(v),
-    );
+    const fixtures = files(fixtureDir, true).filter((v) => /\.proto$/.test(v));
     const parsedFiles = protoGenDTS({
       files: fixtures.map((file) => ({ file })),
-      referenceEntryFile: false,
+      referenceEntryFile: path.join(fixtureDir, 'index.d.ts'),
     });
     expect(parsedFiles.every((v) => fs.existsSync(v))).toBe(true);
   });

@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "core.proto";
+import "google/protobuf/any.proto";
 
 package hello;
 
@@ -39,7 +40,21 @@ message SayNameReq {
 }
 
 message SayNameRsp {
+  message Stock {
+    // Stock-specific data
+  }
+
+  message Currency {
+    // Currency-specific data
+  }
   string realName = 1;
+  map<uint32, SayNameReq.User> user_map = 2;
+  map<uint32, uint64> link_map = 3;
+  repeated google.protobuf.Any details = 4;
+  oneof instrument {
+    Stock stock = 5;
+    Currency currency = 6;
+  }
 }
 
 message GetUserListReq {

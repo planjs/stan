@@ -22,13 +22,6 @@ declare namespace hello {
     Down = 2,
   }
 
-  // 用户模型
-  export interface SayNameReq_User {
-    // 用户名
-    name?: string;
-    avatar?: string;
-  }
-
   // 测试评论
   export interface SayNameReq {
     fullName?: string;
@@ -37,9 +30,25 @@ declare namespace hello {
     direct?: Direct;
   }
 
+  // 用户模型
+  export interface SayNameReq_User {
+    // 用户名
+    name?: string;
+    avatar?: string;
+  }
+
   export interface SayNameRsp {
     realName?: string;
+    userMap?: Record<number, SayNameReq_User>;
+    linkMap?: Record<number, string>;
+    details?: google.protobuf.Any[];
+    stock?: SayNameRsp_Stock;
+    currency?: SayNameRsp_Currency;
   }
+
+  export interface SayNameRsp_Stock {}
+
+  export interface SayNameRsp_Currency {}
 
   export interface GetUserListReq {
     option?: core.XXX;

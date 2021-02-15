@@ -1,17 +1,16 @@
 import path from 'path';
 import { loadSync } from 'google-proto-files';
-import { Namespace, Type, Service, Enum } from 'protobufjs';
+import { Namespace, Type, Service, Enum, MapField } from 'protobufjs';
 import { lodash, fs } from 'stan-utils';
 
 import type { GenProtoFile } from './type';
 import type { ReflectionObject, IParseOptions } from 'protobufjs';
 
-import { formatTS, protoTypeToJSType } from './util';
+import { formatTS, protoTypeToTSType } from './util';
 
-const { bugs } = require('../package.json');
+const { bugs, name } = require('../package.json');
 
-const dtsTemplate = `/** code generate by proto-gen-dts don't edit */
-<%= comment %>
+const dtsTemplate = `<%= comment %>
 declare namespace <%= namespace %> {
 <%= content %>
 }`;
@@ -40,7 +39,7 @@ const serviceFNTemplate = `<%= comment %>
  * @param filename
  * @returns dts content
  */
-export function parseNameSpace(namespace: Namespace, filename: string): string {
+export function parseNameSpace(namespace: Namespace, filename?: string): string {
   const moduleName = namespace.name;
 
   const dtsExecutor = lodash.template(dtsTemplate);
@@ -59,8 +58,12 @@ export function parseNameSpace(namespace: Namespace, filename: string): string {
 
   // construct the name of the message embedded in the message
   function replaceNamespacePrefix(name: string, parentName?: string) {
+    const _filename = namespace.lookup(name)?.filename;
+    if (!_filename) {
+      return name;
+    }
     // 不是当前文件内容不处理
-    if (namespace.lookup(name)?.filename !== filename) {
+    if (_filename !== filename) {
       const arr = name.split('.');
       return `${arr[0]}.${arr.slice(1).join('_')}`;
     }
@@ -89,19 +92,22 @@ export function parseNameSpace(namespace: Namespace, filename: string): string {
             if (field.comment) {
               acc.push(genComment(field.comment));
             }
-            if (childrenNested) {
-              processNested(childrenNested);
-              acc.push(
-                `${field.name}?: ${replaceNamespacePrefix(
-                  field.type,
-                  childrenNested.parent!.name,
-                )}${field.repeated ? '[]' : ''};`,
-              );
+            const endPrefix = field.repeated ? '[]' : '';
+            let fieldContent = `${field.name}${field.required ? '' : '?'}: `;
+            if (field instanceof MapField) {
+              fieldContent += `Record<${protoTypeToTSType(field.keyType)}, ${
+                childrenNested
+                  ? replaceNamespacePrefix(field.type, childrenNested.parent!.name)
+                  : protoTypeToTSType(field.type)
+              }>;`;
             } else {
-              acc.push(
-                `${field.name}?: ${protoTypeToJSType(field.type)}${field.repeated ? '[]' : ''};`,
-              );
+              fieldContent += `${
+                childrenNested
+                  ? replaceNamespacePrefix(field.type, childrenNested.parent!.name)
+                  : protoTypeToTSType(field.type)
+              }${endPrefix};`;
             }
+            acc.push(fieldContent);
             return acc;
           }, [])
           .join('\n'),
@@ -151,7 +157,7 @@ export function parseNameSpace(namespace: Namespace, filename: string): string {
   // parse proto reflection obj
   function processNested(nested: ReflectionObject) {
     // 不是当前文件内的内容不生成，因为相关依赖的模块会生成单独的文件
-    if (nested.filename !== filename) return;
+    if (nested.filename && nested.filename !== filename) return;
     const messageName = replaceNamespacePrefix(nested.name, nested.parent?.name);
     if (nested instanceof Type) {
       if (hasGenMap.interfaces.has(messageName)) return;
@@ -169,6 +175,8 @@ export function parseNameSpace(namespace: Namespace, filename: string): string {
       processService(messageName, nested);
       // 处理嵌套 message
       nested.nestedArray?.forEach(processNested);
+    } else if (nested instanceof Namespace) {
+      parsedNestedList.push(parseNameSpace(nested));
     }
   }
 
@@ -181,6 +189,10 @@ export function parseNameSpace(namespace: Namespace, filename: string): string {
       content: parsedNestedList.join('\n\n'),
     }),
   );
+}
+
+function writeBanner(content: string) {
+  return `/** code generate by ${name} don't edit */\n\n${content}`;
 }
 
 // cache generated files, prevent duplicate analysis
@@ -210,14 +222,14 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
       let outPath = path.resolve(proto.output!);
       if (proto.file !== file) {
         const { dir } = path.parse(proto.output!);
-        const sourceRelative = path.relative(path.parse(file).dir, path.parse(proto.file!).dir);
-        outPath = path.resolve(dir, sourceRelative, `${reflection.name}.d.ts`);
+        const { dir: fileDir, name: fileName } = path.parse(file);
+        outPath = path.resolve(dir, fileDir, `${fileName}.d.ts`);
       }
       files.push(outPath);
       // 提高编译速度，减少重复的解析 如果已经生成则不生成
       if (!parsedFiles.includes(outPath)) {
         const parsed = parseNameSpace(reflection, file);
-        fs.outputFileSync(outPath, parsed);
+        fs.outputFileSync(outPath, writeBanner(parsed));
         parsedFiles.push(outPath);
       }
     } else {

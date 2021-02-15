@@ -11,7 +11,12 @@ import writeReference from './write-reference';
  * @returns parsedFiles path
  */
 function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
+  if (!opts.files.length) {
+    throw new Error('please enter the proto file');
+  }
+
   const parsedFiles: string[] = [];
+
   for (let file of opts.files) {
     const readablyFile = relativeNormalize(file.file);
     const _file = {
@@ -41,6 +46,7 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
       throw e;
     }
   }
+
   if (opts.referenceEntryFile !== false) {
     const referenceEntryFile = opts.referenceEntryFile || 'index.d.ts';
     writeReference(parsedFiles, referenceEntryFile);

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.5](https://github.com/planjs/stan/compare/proto-gen-dts@0.5.4...proto-gen-dts@0.5.5) (2021-02-15)
+
+
+### Bug Fixes
+
+* **proto-gen-dts:** support nested namespace ([503e664](https://github.com/planjs/stan/commit/503e664f07e69f98fb57378f816310ab9cf55214))
+
+
+
+
+
 ## [0.5.4](https://github.com/planjs/stan/compare/proto-gen-dts@0.5.3...proto-gen-dts@0.5.4) (2021-02-15)
 
 **Note:** Version bump only for package proto-gen-dts
