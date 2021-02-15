@@ -1,7 +1,7 @@
 import path from 'path';
 import { fs, slash } from 'stan-utils';
 
-import { formatTS } from './util';
+import { formatTS, writeBanner } from './util';
 
 /**
  * generate reference
@@ -16,10 +16,7 @@ function writeReference(dts: string[], entryFilepath: string) {
       (d) => `/// <reference path="${slash(path.relative(path.parse(entryFilepath).dir, d))}" />`,
     )
     .join('\n');
-  fs.outputFileSync(
-    entryFilepath,
-    formatTS(`/** code generate by proto-gen-dts don't edit */\n\n${content}`),
-  );
+  fs.outputFileSync(entryFilepath, formatTS(writeBanner(content)));
 }
 
 export default writeReference;

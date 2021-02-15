@@ -1,5 +1,7 @@
 import { prettier } from 'stan-utils';
 
+const { name, bugs } = require('../package.json');
+
 /**
  * prettier format ts content
  * @param content
@@ -40,5 +42,17 @@ export function protoTypeToTSType(input: string): keyof typeof Types {
       return type;
     }
   }
-  throw new Error(`Type "${input}" is not supported. please report issues`);
+  throw new Error(reportIssues({ title: `Type "${input}" is not supported.` }));
+}
+
+export function writeBanner(content: string) {
+  return `/** code generate by ${name} don't edit */\n\n${content}`;
+}
+
+export function reportIssues(opt: { labels?: string; title?: string; template?: string }) {
+  const { labels = 'bug', title, template = 'bug_report.md' } = opt;
+  const uri = `${bugs.url}/new?assignees=&labels=${labels}&template=${template}&title=${title}`;
+  const str = `please report issues ${uri}`;
+  console.log(str);
+  return str;
 }

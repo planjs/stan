@@ -6,9 +6,7 @@ import { lodash, fs } from 'stan-utils';
 import type { GenProtoFile } from './type';
 import type { ReflectionObject, IParseOptions } from 'protobufjs';
 
-import { formatTS, protoTypeToTSType } from './util';
-
-const { bugs, name } = require('../package.json');
+import { formatTS, protoTypeToTSType, writeBanner, reportIssues } from './util';
 
 const dtsTemplate = `<%= comment %>
 declare namespace <%= namespace %> {
@@ -191,10 +189,6 @@ export function parseNameSpace(namespace: Namespace, filename?: string): string 
   );
 }
 
-function writeBanner(content: string) {
-  return `/** code generate by ${name} don't edit */\n\n${content}`;
-}
-
 // cache generated files, prevent duplicate analysis
 const parsedFiles: string[] = [];
 
@@ -234,7 +228,7 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
       }
     } else {
       // TODO ...
-      console.log(`Type ${reflection?.name} not supported, report issue ${bugs.url}`);
+      reportIssues({ title: `Type ${reflection?.name} not supported. ` });
     }
   }
   return files;
