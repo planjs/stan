@@ -3,8 +3,8 @@ import { BuildOptions } from '../types';
 
 const pkg = require('../../package.json');
 
-commander.option('-e, --entry', 'Entry file');
-commander.option('-f, --file', 'Output filename');
+commander.option('-e, --entry <filename>', 'Entry file');
+commander.option('-f, --file <filename>', 'Output filename');
 commander.option('-b, --bundler [rollup|babel]', 'Use rollup or babel to package', 'rollup');
 commander.option('-w, --watch', 'Recompile files on changes');
 commander.option('-t, --target [node|browser]', 'Node or Browser lib', 'browser');
