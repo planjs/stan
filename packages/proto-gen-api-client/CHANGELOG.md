@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/planjs/stan/compare/proto-gen-api-client@0.1.4...proto-gen-api-client@0.2.0) (2021-02-17)
+
+
+### Features
+
+* add pkg ([7a35e4a](https://github.com/planjs/stan/commit/7a35e4afe1290d87c459c3954999f1732c1ca272))
+
+
+
+
+
 ## [0.1.4](https://github.com/planjs/stan/compare/proto-gen-api-client@0.1.3...proto-gen-api-client@0.1.4) (2021-02-15)
 
 **Note:** Version bump only for package proto-gen-api-client

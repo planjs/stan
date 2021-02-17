@@ -1,10 +1,10 @@
 {
   "name": "stan-utils",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "stan utils",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
-  "license": "ISC",
+  "license": "MIT",
   "main": "lib/index.js",
   "typings": "typings/index.d.ts",
   "directories": {

@@ -1,6 +1,6 @@
 {
   "name": "proto-gen-dts",
-  "version": "0.5.5",
+  "version": "0.6.0",
   "description": "proto generate typescript dictionary type file",
   "keywords": [
     "proto",
@@ -11,7 +11,7 @@
   ],
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
-  "license": "ISC",
+  "license": "MIT",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "directories": {
@@ -40,9 +40,9 @@
   "dependencies": {
     "google-proto-files": "^2.2.0",
     "protobufjs": "^6.8.0",
-    "stan-utils": "^0.4.1"
+    "stan-utils": "^0.5.0"
   },
   "devDependencies": {
-    "stan-builder": "^0.7.3"
+    "stan-builder": "^0.8.0"
   }
 }
