@@ -46,7 +46,7 @@ async function builder(opts: BuildOptions) {
           if (v.bundler === 'rollup' || !v.bundler || v.umd) {
             return 'dist';
           } else {
-            return (v.esm && 'esm') || (v.cjs && 'cjs');
+            return (v.esm && 'es') || (v.cjs && 'lib');
           }
         })
         .filter((v) => !!v) as string[];
@@ -143,6 +143,7 @@ async function builder(opts: BuildOptions) {
     }
     return;
   }
+
   return Promise.reject(new Error('No entry file'));
 }
 

@@ -1,7 +1,15 @@
 import path from 'path';
-import { yParser, chalk, glob } from 'stan-utils';
+import { yParser, chalk, glob, updateNotifier } from 'stan-utils';
 import protoGenDTS from './gen-dts';
 import type { GenProtoFile } from './type';
+
+const pkg = require('../../package.json');
+
+updateNotifier({
+  pkg,
+  updateCheckInterval: 0,
+  shouldNotifyInNpmScript: true,
+}).notify({ defer: true });
 
 const { _: files, o, output, d, dir, e, entryfile } = yParser(process.argv.slice(2));
 

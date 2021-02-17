@@ -8,6 +8,7 @@ const pkg = require('../../package.json');
 updateNotifier({
   pkg,
   updateCheckInterval: 0,
+  shouldNotifyInNpmScript: true,
 }).notify({ defer: true });
 
 const opts = parseArgv(process.argv);
