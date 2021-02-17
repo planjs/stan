@@ -3,7 +3,7 @@ import { yParser, chalk, glob, updateNotifier } from 'stan-utils';
 import protoGenDTS from './gen-dts';
 import type { GenProtoFile } from './type';
 
-const pkg = require('../../package.json');
+const pkg = require('../package.json');
 
 updateNotifier({
   pkg,
