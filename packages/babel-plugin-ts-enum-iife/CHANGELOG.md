@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/planjs/stan/compare/babel-plugin-ts-enum-iife@0.2.0...babel-plugin-ts-enum-iife@0.4.0) (2021-02-22)
+
+
+### Bug Fixes
+
+* vue plugin import path error ([e32f1e7](https://github.com/planjs/stan/commit/e32f1e713d00677d0073ac5af578d2f47f962431))
+
+
+### Features
+
+* add pkg ([7a35e4a](https://github.com/planjs/stan/commit/7a35e4afe1290d87c459c3954999f1732c1ca272))
+
+
+
+
+
 # [0.3.0](https://github.com/planjs/stan/compare/babel-plugin-ts-enum-iife@0.2.1...babel-plugin-ts-enum-iife@0.3.0) (2021-02-17)
 
 

@@ -232,7 +232,7 @@ async function babelBuild(opts: BabelOptions) {
     } catch (e) {}
   }
 
-  return new Promise((resolve) => {
+  return new Promise<void>((resolve) => {
     const patterns = [
       path.join(srcPath, '**/*'),
       `!${path.join(srcPath, '**/demos{,/**}')}`,

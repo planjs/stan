@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/planjs/stan/compare/proto-gen-dts@0.5.0...proto-gen-dts@0.7.0) (2021-02-22)
+
+
+### Bug Fixes
+
+* **proto-gen-dts:** adjust the generated code ([6307099](https://github.com/planjs/stan/commit/630709938052c54c7a7086c6fdfe69a61bb4f818))
+* **proto-gen-dts:** generate composite message ([a3170bc](https://github.com/planjs/stan/commit/a3170bcc67a21e713f6f3d6c2ba06841d1e6a50b))
+* **proto-gen-dts:** support nested namespace ([1cbb3c9](https://github.com/planjs/stan/commit/1cbb3c98416754ee123f019fb7d5c6dd9f84f6c6))
+* vue plugin import path error ([e32f1e7](https://github.com/planjs/stan/commit/e32f1e713d00677d0073ac5af578d2f47f962431))
+
+
+### Features
+
+* add pkg ([7a35e4a](https://github.com/planjs/stan/commit/7a35e4afe1290d87c459c3954999f1732c1ca272))
+
+
+
+
+
 # [0.6.0](https://github.com/planjs/stan/compare/proto-gen-dts@0.5.5...proto-gen-dts@0.6.0) (2021-02-17)
 
 

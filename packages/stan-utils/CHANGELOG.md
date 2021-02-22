@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/planjs/stan/compare/stan-utils@0.4.0...stan-utils@0.6.0) (2021-02-22)
+
+
+### Bug Fixes
+
+* deps ([915b1e0](https://github.com/planjs/stan/commit/915b1e00eb89cfc0494867ebf4ab9784c1e167fe))
+* vue plugin import path error ([e32f1e7](https://github.com/planjs/stan/commit/e32f1e713d00677d0073ac5af578d2f47f962431))
+
+
+### Features
+
+* add pkg ([7a35e4a](https://github.com/planjs/stan/commit/7a35e4afe1290d87c459c3954999f1732c1ca272))
+
+
+
+
+
 # [0.5.0](https://github.com/planjs/stan/compare/stan-utils@0.4.1...stan-utils@0.5.0) (2021-02-17)
 
 
