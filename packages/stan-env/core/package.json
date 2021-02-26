@@ -25,5 +25,8 @@
   },
   "bugs": {
     "url": "https://github.com/planjs/stan/issues"
+  },
+  "dependencies": {
+    "stan-builder": "^0.9.0"
   }
 }
