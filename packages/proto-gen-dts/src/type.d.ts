@@ -17,6 +17,11 @@ export interface Visitor {
    * enum processor
    */
   TSEnumDeclaration?: () => string;
+  /**
+   * interface processor
+   * @constructor
+   */
+  TSInterfaceDeclaration?: () => string;
 }
 
 export interface ProtoGenDTSOptions {

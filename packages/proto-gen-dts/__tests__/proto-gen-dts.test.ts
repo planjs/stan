@@ -1,5 +1,5 @@
-import * as path from 'path';
-import * as fs from 'fs';
+import path from 'path';
+import fs from 'fs';
 
 import protoGenDTS from '../src';
 
@@ -12,13 +12,17 @@ const files = (p: string, isFullPath = false) =>
 jest.useFakeTimers();
 
 const fixtureDir = path.join(__dirname, '../fixtures');
+const expectedDir = 'expected';
 
 describe('proto-gen-dts', () => {
   it('generate dts', () => {
     const fixtures = files(fixtureDir, true).filter((v) => /\.proto$/.test(v));
     const parsedFiles = protoGenDTS({
-      files: fixtures.map((file) => ({ file })),
-      referenceEntryFile: path.join(fixtureDir, 'index.d.ts'),
+      files: fixtures.map((file) => {
+        const { dir, name } = path.parse(file);
+        return { file, output: path.join(dir, expectedDir, name + '.d.ts') };
+      }),
+      referenceEntryFile: path.join(fixtureDir, expectedDir, 'index.d.ts'),
     });
     expect(parsedFiles.every((v) => fs.existsSync(v))).toBe(true);
   });
