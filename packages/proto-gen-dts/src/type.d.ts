@@ -1,4 +1,4 @@
-import type { IParseOptions } from 'protobufjs';
+import type { IParseOptions, Enum, Type, Service } from 'protobufjs';
 
 export interface GenProtoFile {
   /**
@@ -15,19 +15,31 @@ export interface GenProtoFile {
 export interface Visitor {
   /**
    * enum processor
-   */
-  TSEnumDeclaration?: () => string;
-  /**
-   * interface processor
+   * @param name
+   * @param reflection
    * @constructor
    */
-  TSInterfaceDeclaration?: () => string;
+  TSEnumDeclaration?: (name: string, reflection: Enum) => string;
+  /**
+   * message processor
+   * @param name
+   * @param reflection
+   * @constructor
+   */
+  TSMessageDeclaration?: (name: string, reflection: Type) => string;
+  /**
+   * service processor
+   * @param name
+   * @param reflection
+   * @constructor
+   */
+  TSServiceDeclaration?: (name: string, reflection: Service) => string;
 }
 
 export interface ProtoGenDTSOptions {
   files: GenProtoFile[];
   /**
-   * 代码转换过程中的一些 hook
+   * generate hook
    */
   visitor?: Visitor;
   /**
