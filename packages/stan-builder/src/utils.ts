@@ -21,6 +21,14 @@ export function getExistFile({
   }
 }
 
+/**
+ * 检查是否存在 tsconfig
+ * @param cwd
+ */
+export function checkTSConfigIsExist(cwd: string = process.cwd()) {
+  return existsSync(join(cwd, 'tsconfig.json'));
+}
+
 export function tryDefault(obj: any) {
   return obj.default || obj;
 }

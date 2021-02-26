@@ -1,18 +1,14 @@
 export default {
   bundler: 'rollup',
   esm: {
-    mjs: true
+    mjs: true,
   },
   umd: {
     name: 'pkg',
-    minify: true
+    minify: true,
   },
-  extraExternals: ['vue'],
+  extraExternals: ['vue', 'vue-class-component'],
   runtimeHelpers: true,
   sourcemap: false,
   minify: false,
-  copy: {
-    targets: [{ src: 'src/**/*.scss', dest: 'dist/scss' }],
-    flatten: false
-  },
 };

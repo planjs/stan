@@ -10,16 +10,17 @@
   //
   //
   //
-  var RollupVue = {
+
+  const RollupVue = {
     name: 'rollup-vue',
-    data: function data() {
+    data() {
       return {
         name: 'bob'
       };
-    }
+    },
   };
 
-  RollupVue.install = function (Vue) {
+  RollupVue.install = function(Vue) {
     Vue.component(RollupVue.name, RollupVue);
   };
 

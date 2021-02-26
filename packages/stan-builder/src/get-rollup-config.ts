@@ -28,7 +28,7 @@ import { lodash as _ } from 'stan-utils';
 import type { BundleOptions, CJSOptions, ESMOptions, SYSOptions, UMDOptions } from './types';
 import getBabelConfig from './get-babel-config';
 import { PackageJson } from './pkg';
-import { getNodeModulePKG, parseMappingArgument } from './utils';
+import { getNodeModulePKG, parseMappingArgument, checkTSConfigIsExist } from './utils';
 
 export type IRollupOptions = InputOptions & { output: OutputOptions };
 
@@ -88,7 +88,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
 
   const input = path.join(cwd, entry!);
   const entryExt = path.extname(entry!);
-  const isTypeScript = entryExt === '.ts' || entryExt === '.tsx';
+  const isTypeScript = entryExt === '.ts' || entryExt === '.tsx' || checkTSConfigIsExist(cwd);
   const extensions = ['.js', '.jsx', '.ts', '.tsx', '.es6', '.es', '.mjs'];
 
   const moduleOpts: UMDOptions | ESMOptions | CJSOptions | SYSOptions | null = {
@@ -138,14 +138,14 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     return [
       RollupPluginVue.default?.({
         css: true,
-        ...(RollupPluginVue?.version?.includes('6')
+        ...(RollupPluginVue.version!.includes('6')
           ? {
               compileTemplate: true,
             }
           : {}),
         ...vuePluginOpts,
       }),
-      alias(aliasOpts),
+      aliasOpts && alias(aliasOpts),
       url(),
       json(),
       postcss({
@@ -163,7 +163,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         ].filter(Boolean),
       }),
       injectOpts && inject(injectOpts),
-      replace && replace(replaceOpts),
+      replaceOpts && replace(replaceOpts),
       isTypeScript &&
         require('rollup-plugin-typescript2')({
           cwd,
@@ -269,9 +269,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     );
   }
 
-  const onwarn: WarningHandlerWithDefault = (warning, next) => {
-    if (warning.code !== 'UNUSED_EXTERNAL_IMPORT') next(warning);
-  };
+  const onwarn: WarningHandlerWithDefault = (warning, next) => {};
 
   switch (format) {
     case 'system':

@@ -1,3 +1,22 @@
+function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+function createCommonjsModule(fn, basedir, module) {
+	return module = {
+		path: basedir,
+		exports: {},
+		require: function (path, base) {
+			return commonjsRequire(path, (base === undefined || base === null) ? module.path : base);
+		}
+	}, fn(module, module.exports), module.exports;
+}
+
+function commonjsRequire () {
+	throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
+}
+
+var objectWithoutPropertiesLoose = createCommonjsModule(function (module) {
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
@@ -13,9 +32,15 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
+module.exports = _objectWithoutPropertiesLoose;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+});
+
+var objectWithoutPropertiesLoose$1 = /*@__PURE__*/getDefaultExportFromCjs(objectWithoutPropertiesLoose);
+
 function _objectWithoutProperties(source, excluded) {
   if (source == null) return {};
-  var target = _objectWithoutPropertiesLoose(source, excluded);
+  var target = objectWithoutPropertiesLoose$1(source, excluded);
   var key, i;
 
   if (Object.getOwnPropertySymbols) {
@@ -71,8 +96,8 @@ styleInject(css_248z$2);
 function index (args) {
   var _args$name;
 
-  var name = args.name,
-      o = _objectWithoutProperties(args, ["name"]);
+  args.name;
+      var o = _objectWithoutProperties(args, ["name"]);
 
   console.log(o);
   return (_args$name = args === null || args === void 0 ? void 0 : args.name) !== null && _args$name !== void 0 ? _args$name : 'stan';

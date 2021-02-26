@@ -9,5 +9,6 @@
     "importHelpers": true,
     "experimentalDecorators": true,
     "declarationDir": "typings"
-  }
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
 }
