@@ -12,8 +12,19 @@ export interface GenProtoFile {
   output?: string;
 }
 
+export interface Visitor {
+  /**
+   * enum processor
+   */
+  TSEnumDeclaration?: () => string;
+}
+
 export interface ProtoGenDTSOptions {
   files: GenProtoFile[];
+  /**
+   * 代码转换过程中的一些 hook
+   */
+  visitor?: Visitor;
   /**
    * 输出生成 dts 的 reference 导入
    * @default index.d.ts

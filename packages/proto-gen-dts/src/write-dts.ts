@@ -227,8 +227,7 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
         parsedFiles.push(outPath);
       }
     } else {
-      // TODO ...
-      reportIssues({ title: `Type ${reflection?.name} not supported. ` });
+      throw new Error(reportIssues({ title: `Type ${reflection?.name} not supported. ` }));
     }
   }
   return files;
