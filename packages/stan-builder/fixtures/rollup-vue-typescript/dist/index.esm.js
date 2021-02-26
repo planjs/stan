@@ -1,21 +1,53 @@
-//
-//
-//
-//
-//
-//
-var RollupVue = {
-  name: 'rollup-vue',
-  data: function data() {
-    return {
-      name: 'bob'
-    };
-  }
-};
+import _classCallCheck from '@babel/runtime/helpers/esm/classCallCheck';
+import _inherits from '@babel/runtime/helpers/esm/inherits';
+import _createSuper from '@babel/runtime/helpers/esm/createSuper';
+import Vue from 'vue';
+import Component from 'vue-class-component';
 
-RollupVue.install = function (Vue) {
-  Vue.component(RollupVue.name, RollupVue);
-};
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+var RollupVue = /*#__PURE__*/function (_Vue) {
+  _inherits(RollupVue, _Vue);
+
+  var _super = _createSuper(RollupVue);
+
+  function RollupVue() {
+    var _this;
+
+    _classCallCheck(this, RollupVue);
+
+    _this = _super.apply(this, arguments);
+    _this.name = 'bob';
+    return _this;
+  }
+
+  return RollupVue;
+}(Vue);
+
+RollupVue = __decorate([Component({
+  name: 'rollup-vue'
+})], RollupVue);
+var script = RollupVue;
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
     if (typeof shadowMode !== 'boolean') {
@@ -93,7 +125,7 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
 }
 
 /* script */
-const __vue_script__ = RollupVue;
+const __vue_script__ = script;
 
 /* template */
 var __vue_render__ = function() {
