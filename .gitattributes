@@ -1,0 +1,8 @@
+* text eol=lf
+*.scss linguist-vendored
+*.png binary
+*.jpeg binary
+*.jpg binary
+*.woff binary
+*.otf binary
+*.webp binary
