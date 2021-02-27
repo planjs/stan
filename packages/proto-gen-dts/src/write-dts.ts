@@ -6,7 +6,7 @@ import { lodash, fs } from 'stan-utils';
 import type { GenProtoFile } from './type';
 import type { ReflectionObject, IParseOptions } from 'protobufjs';
 
-import { formatTS, protoTypeToTSType, writeBanner, reportIssues } from './util';
+import { formatTS, protoTypeToTSType, writeBanner, reportIssues, getFieldRootType } from './util';
 
 const dtsTemplate = `<%= comment %>
 declare namespace <%= namespace %> {
@@ -86,7 +86,7 @@ export function parseNameSpace(namespace: Namespace, filename?: string): string 
         comment: genComment(nested.comment!),
         content: nested.fieldsArray
           .reduce<string[]>((acc, field) => {
-            const childrenNested = field.parent?.lookup(field.type);
+            const childrenNested = getFieldRootType(field)?.lookup(field.type);
             if (field.comment) {
               acc.push(genComment(field.comment));
             }
@@ -96,13 +96,13 @@ export function parseNameSpace(namespace: Namespace, filename?: string): string 
               fieldContent += `Record<${protoTypeToTSType(field.keyType)}, ${
                 childrenNested
                   ? replaceNamespacePrefix(field.type, childrenNested.parent!.name)
-                  : protoTypeToTSType(field.type)
+                  : protoTypeToTSType(field.type) || replaceNamespacePrefix(field.type)
               }>;`;
             } else {
               fieldContent += `${
                 childrenNested
                   ? replaceNamespacePrefix(field.type, childrenNested.parent!.name)
-                  : protoTypeToTSType(field.type)
+                  : protoTypeToTSType(field.type) || replaceNamespacePrefix(field.type)
               }${endPrefix};`;
             }
             acc.push(fieldContent);
@@ -174,7 +174,8 @@ export function parseNameSpace(namespace: Namespace, filename?: string): string 
       // 处理嵌套 message
       nested.nestedArray?.forEach(processNested);
     } else if (nested instanceof Namespace) {
-      parsedNestedList.push(parseNameSpace(nested));
+      const parsed = parseNameSpace(nested);
+      parsedNestedList.push(parsed.replace('declare namespace', 'namespace'));
     }
   }
 
@@ -211,17 +212,14 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
   for (const [index, moduleName] of moduleNames.entries()) {
     const reflection = root.lookup(moduleName);
     const file = root.files[index];
+    console.log(file);
     if (reflection instanceof Namespace) {
       // 根据 files 的下标判断当前文件就按照输出，不是当前输出模块就按照源码相对位置，输出到输出的文件夹
       let outPath = path.resolve(proto.output!);
       if (proto.file !== file) {
         const { dir } = path.parse(proto.output!);
-        const { dir: fileDir, name: fileName } = path.parse(file);
-        if (path.isAbsolute(fileDir)) {
-          outPath = path.resolve(dir, `${fileName}.d.ts`);
-        } else {
-          outPath = path.resolve(dir, fileDir, `${fileName}.d.ts`);
-        }
+        const { name: fileName } = path.parse(file);
+        outPath = path.resolve(dir, `${fileName}.d.ts`);
       }
       files.push(outPath);
       // 提高编译速度，减少重复的解析 如果已经生成则不生成

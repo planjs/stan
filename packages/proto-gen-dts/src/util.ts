@@ -1,4 +1,5 @@
 import { prettier } from 'stan-utils';
+import type { Field, Namespace } from 'protobufjs';
 
 const { name, bugs } = require('../package.json');
 
@@ -35,24 +36,44 @@ const Types = {
  * @param input proto type
  * @returns ts type
  */
-export function protoTypeToTSType(input: string): keyof typeof Types {
+export function protoTypeToTSType(input: string): keyof typeof Types | void {
   let type: keyof typeof Types;
   for (type in Types) {
     if (Types[type].includes(input)) {
       return type;
     }
   }
-  throw new Error(reportIssues({ title: `Type "${input}" is not supported.` }));
+  console.log(reportIssues({ title: `Type "${input}" is not supported.` }));
 }
 
+/**
+ * get field root type
+ * @param field
+ */
+export function getFieldRootType(field: Field): Namespace | null {
+  let parent = field.parent;
+  while (parent?.parent) {
+    parent = parent.parent;
+  }
+  return parent;
+}
+
+/**
+ * Document banner
+ * @param content file text content
+ */
 export function writeBanner(content: string) {
   return `/** code generate by ${name} don't edit */\n\n${content}`;
 }
 
+/**
+ * output issues uri
+ * @param opt
+ */
 export function reportIssues(opt: { labels?: string; title?: string; template?: string }) {
-  const { labels = 'bug', title, template = 'bug_report.md' } = opt;
-  const uri = `${bugs.url}/new?assignees=&labels=${labels}&template=${template}&title=${title}`;
-  const str = `please report issues ${uri}`;
-  console.log(str);
-  return str;
+  const { labels = 'bug', title = '', template = 'bug_report.md' } = opt;
+  const uri = `${
+    bugs.url
+  }/new?assignees=&labels=${labels}&template=${template}&title=${encodeURIComponent(title)}`;
+  return `${title}\nPlease report issues ${uri}`;
 }

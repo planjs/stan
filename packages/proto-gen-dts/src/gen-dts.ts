@@ -1,5 +1,5 @@
 import path from 'path';
-import { chalk, ora, relativeNormalize } from 'stan-utils';
+import { chalk, ora, relativeNormalize, pms } from 'stan-utils';
 
 import type { ProtoGenDTSOptions } from './type';
 import writeDTS from './write-dts';
@@ -26,14 +26,14 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
       const { dir, name } = path.parse(file.file);
       _file.output = path.join(dir, name + '.d.ts');
     }
-    const spinner = ora(
-      `Generate ${chalk.yellow(readablyFile)} to ${chalk.greenBright(
+    const startTime = Date.now();
+    console.log(
+      `Compile ${chalk.yellow(readablyFile)} → ${chalk.greenBright(
         relativeNormalize(_file.output!),
-      )}`,
-    ).start();
+      )} ...`,
+    );
     try {
       const dts = writeDTS(_file, opts.protoParseOptions);
-      spinner.succeed();
       parsedFiles.push(...dts);
       if (dts.length > 1) {
         console.log(
@@ -41,8 +41,12 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
             chalk.greenBright(dts.slice(1).map(relativeNormalize).join(' ')),
         );
       }
+      console.log(
+        `Created ${chalk.greenBright(relativeNormalize(_file.output!))} in ${chalk.bold(
+          pms(Date.now() - startTime),
+        )}`,
+      );
     } catch (e) {
-      spinner.fail(e?.message || e);
       throw e;
     }
   }
