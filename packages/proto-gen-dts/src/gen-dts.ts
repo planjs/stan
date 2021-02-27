@@ -12,7 +12,7 @@ import writeReference from './write-reference';
  */
 function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
   if (!opts.files.length) {
-    throw new Error('please enter the proto file');
+    throw new Error('Please enter the proto file');
   }
 
   const parsedFiles: string[] = [];

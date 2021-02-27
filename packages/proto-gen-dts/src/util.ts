@@ -1,3 +1,4 @@
+import path from 'path';
 import { prettier } from 'stan-utils';
 import type { Field, Namespace } from 'protobufjs';
 
@@ -59,7 +60,24 @@ export function getFieldRootType(field: Field): Namespace | null {
 }
 
 /**
- * Document banner
+ * replace same real path
+ * @param base
+ * @param file
+ */
+export function replaceSamePath(base: string, file: string) {
+  base = path.resolve(base);
+  file = path.resolve(file);
+  const a = base.split('');
+  const b = file.split('');
+  const index = a.findIndex((v, i) => b[i] !== v);
+  if (~index) {
+    return file.slice(index);
+  }
+  return file;
+}
+
+/**
+ * document banner
  * @param content file text content
  */
 export function writeBanner(content: string) {

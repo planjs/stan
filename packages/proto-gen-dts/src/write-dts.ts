@@ -6,7 +6,14 @@ import { lodash, fs } from 'stan-utils';
 import type { GenProtoFile } from './type';
 import type { ReflectionObject, IParseOptions } from 'protobufjs';
 
-import { formatTS, protoTypeToTSType, writeBanner, reportIssues, getFieldRootType } from './util';
+import {
+  formatTS,
+  protoTypeToTSType,
+  writeBanner,
+  reportIssues,
+  getFieldRootType,
+  replaceSamePath,
+} from './util';
 
 const dtsTemplate = `<%= comment %>
 declare namespace <%= namespace %> {
@@ -212,14 +219,13 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
   for (const [index, moduleName] of moduleNames.entries()) {
     const reflection = root.lookup(moduleName);
     const file = root.files[index];
-    console.log(file);
     if (reflection instanceof Namespace) {
       // 根据 files 的下标判断当前文件就按照输出，不是当前输出模块就按照源码相对位置，输出到输出的文件夹
       let outPath = path.resolve(proto.output!);
       if (proto.file !== file) {
         const { dir } = path.parse(proto.output!);
-        const { name: fileName } = path.parse(file);
-        outPath = path.resolve(dir, `${fileName}.d.ts`);
+        const { dir: importDir, name: fileName } = path.parse(replaceSamePath(proto.file, file));
+        outPath = path.resolve(dir, importDir, `${fileName}.d.ts`);
       }
       files.push(outPath);
       // 提高编译速度，减少重复的解析 如果已经生成则不生成

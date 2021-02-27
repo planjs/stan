@@ -3,4 +3,3 @@
 /// <reference path="core.d.ts" />
 /// <reference path="google/protobuf/any.d.ts" />
 /// <reference path="hello.d.ts" />
-/// <reference path="proto2.d.ts" />
