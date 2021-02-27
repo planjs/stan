@@ -217,7 +217,11 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
       if (proto.file !== file) {
         const { dir } = path.parse(proto.output!);
         const { dir: fileDir, name: fileName } = path.parse(file);
-        outPath = path.resolve(dir, fileDir, `${fileName}.d.ts`);
+        if (path.isAbsolute(fileDir)) {
+          outPath = path.resolve(dir, `${fileName}.d.ts`);
+        } else {
+          outPath = path.resolve(dir, fileDir, `${fileName}.d.ts`);
+        }
       }
       files.push(outPath);
       // 提高编译速度，减少重复的解析 如果已经生成则不生成
@@ -227,8 +231,7 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
         parsedFiles.push(outPath);
       }
     } else {
-      // TODO ...
-      reportIssues({ title: `Type ${reflection?.name} not supported. ` });
+      throw new Error(reportIssues({ title: `Type ${reflection?.name} not supported. ` }));
     }
   }
   return files;

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://github.com/planjs/stan/compare/stan-builder@0.9.0...stan-builder@0.9.1) (2021-02-27)
+
+
+### Bug Fixes
+
+* **stan-builder:** rollup vue typescript build error ([5cbb757](https://github.com/planjs/stan/commit/5cbb75746842cef72d4cda1f251bd4a9109ef611))
+
+
+
+
+
 # [0.9.0](https://github.com/planjs/stan/compare/stan-builder@0.7.0...stan-builder@0.9.0) (2021-02-22)
 
 

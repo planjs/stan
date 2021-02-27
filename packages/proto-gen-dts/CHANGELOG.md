@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.1](https://github.com/planjs/stan/compare/proto-gen-dts@0.7.0...proto-gen-dts@0.7.1) (2021-02-27)
+
+
+### Bug Fixes
+
+* **proto-gen-dts:** generate dependent modules output path error ([71493f2](https://github.com/planjs/stan/commit/71493f2360780755a5cdbac0760c0ce8ce4e490d))
+
+
+
+
+
 # [0.7.0](https://github.com/planjs/stan/compare/proto-gen-dts@0.5.0...proto-gen-dts@0.7.0) (2021-02-22)
 
 
