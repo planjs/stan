@@ -67,11 +67,11 @@ export function getFieldRootType(field: Field): Namespace | null {
 export function replaceSamePath(base: string, file: string) {
   base = path.resolve(base);
   file = path.resolve(file);
-  const a = base.split('');
-  const b = file.split('');
+  const a = base.split(path.sep);
+  const b = file.split(path.sep);
   const index = a.findIndex((v, i) => b[i] !== v);
   if (~index) {
-    return file.slice(index);
+    return path.join(...b.slice(index));
   }
   return file;
 }
