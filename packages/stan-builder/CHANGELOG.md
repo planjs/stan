@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.2](https://github.com/planjs/stan/compare/stan-builder@0.8.0...stan-builder@0.9.2) (2021-02-28)
+
+
+### Bug Fixes
+
+* rename fixtures ([8c97ca4](https://github.com/planjs/stan/commit/8c97ca4004ef057f49791bb1ee56d007c94c3216))
+* **stan-builder:** rollup vue typescript build error ([5cbb757](https://github.com/planjs/stan/commit/5cbb75746842cef72d4cda1f251bd4a9109ef611))
+* deps ([0a9442d](https://github.com/planjs/stan/commit/0a9442da1156886b299fe7b3c8234c61e7143066))
+
+
+
+
+
 ## [0.9.1](https://github.com/planjs/stan/compare/stan-builder@0.9.0...stan-builder@0.9.1) (2021-02-27)
 
 

@@ -1,12 +1,20 @@
 import path from 'path';
 import { loadSync } from 'google-proto-files';
 import { Namespace, Type, Service, Enum, MapField } from 'protobufjs';
-import { lodash, fs } from 'stan-utils';
+import { lodash, fs, chalk } from 'stan-utils';
 
 import type { GenProtoFile } from './type';
 import type { ReflectionObject, IParseOptions } from 'protobufjs';
 
-import { formatTS, protoTypeToTSType, writeBanner, reportIssues } from './util';
+import {
+  formatTS,
+  protoTypeToTSType,
+  writeBanner,
+  reportIssues,
+  replaceSamePath,
+  getReflectionParentName,
+  getParentLookup,
+} from './util';
 
 const dtsTemplate = `<%= comment %>
 declare namespace <%= namespace %> {
@@ -55,20 +63,23 @@ export function parseNameSpace(namespace: Namespace, filename?: string): string 
   };
 
   // construct the name of the message embedded in the message
-  function replaceNamespacePrefix(name: string, parentName?: string) {
+  function replaceNamespacePrefix(name: string, field?: ReflectionObject) {
     const _filename = namespace.lookup(name)?.filename;
+    // 没有文件标识不处理
     if (!_filename) {
       return name;
     }
-    // 不是当前文件内容不处理
+    // 不是当前文件不处理
     if (_filename !== filename) {
       const arr = name.split('.');
-      return `${arr[0]}.${arr.slice(1).join('_')}`;
+      if (arr.length > 1) {
+        return `${arr[0]}.${arr.slice(1).join('_')}`;
+      }
     }
-    if (parentName && !name.includes('.')) {
-      name = `${parentName}_${name}`;
+    if (field && !name.includes('.')) {
+      name = `${getReflectionParentName(field)}_${name}`;
     }
-    return name.replace(`${moduleName}_`, '').replace('.', '_');
+    return name.replace(new RegExp(`^${moduleName}_`), '').replace(/\./g, '_');
   }
 
   // gen common
@@ -86,7 +97,7 @@ export function parseNameSpace(namespace: Namespace, filename?: string): string 
         comment: genComment(nested.comment!),
         content: nested.fieldsArray
           .reduce<string[]>((acc, field) => {
-            const childrenNested = field.parent?.lookup(field.type);
+            const childrenNested = getParentLookup({ field, root: namespace, type: field.type });
             if (field.comment) {
               acc.push(genComment(field.comment));
             }
@@ -95,14 +106,14 @@ export function parseNameSpace(namespace: Namespace, filename?: string): string 
             if (field instanceof MapField) {
               fieldContent += `Record<${protoTypeToTSType(field.keyType)}, ${
                 childrenNested
-                  ? replaceNamespacePrefix(field.type, childrenNested.parent!.name)
-                  : protoTypeToTSType(field.type)
+                  ? replaceNamespacePrefix(field.type, childrenNested)
+                  : protoTypeToTSType(field.type) || replaceNamespacePrefix(field.type)
               }>;`;
             } else {
               fieldContent += `${
                 childrenNested
-                  ? replaceNamespacePrefix(field.type, childrenNested.parent!.name)
-                  : protoTypeToTSType(field.type)
+                  ? replaceNamespacePrefix(field.type, childrenNested)
+                  : protoTypeToTSType(field.type) || replaceNamespacePrefix(field.type)
               }${endPrefix};`;
             }
             acc.push(fieldContent);
@@ -156,7 +167,7 @@ export function parseNameSpace(namespace: Namespace, filename?: string): string 
   function processNested(nested: ReflectionObject) {
     // 不是当前文件内的内容不生成，因为相关依赖的模块会生成单独的文件
     if (nested.filename && nested.filename !== filename) return;
-    const messageName = replaceNamespacePrefix(nested.name, nested.parent?.name);
+    const messageName = replaceNamespacePrefix(nested.name, nested);
     if (nested instanceof Type) {
       if (hasGenMap.interfaces.has(messageName)) return;
       hasGenMap.interfaces.add(messageName);
@@ -174,7 +185,8 @@ export function parseNameSpace(namespace: Namespace, filename?: string): string 
       // 处理嵌套 message
       nested.nestedArray?.forEach(processNested);
     } else if (nested instanceof Namespace) {
-      parsedNestedList.push(parseNameSpace(nested));
+      const parsed = parseNameSpace(nested);
+      parsedNestedList.push(parsed.replace('declare namespace', 'namespace'));
     }
   }
 
@@ -203,6 +215,12 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
     alternateCommentMode: true,
     ...opts,
   });
+
+  if (!root.nested) {
+    console.log(chalk.cyan(`Warning "${proto.file}" is empty`));
+    return [];
+  }
+
   const schema = root.toJSON({ keepComments: true }).nested;
 
   const files: string[] = [];
@@ -216,12 +234,8 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
       let outPath = path.resolve(proto.output!);
       if (proto.file !== file) {
         const { dir } = path.parse(proto.output!);
-        const { dir: fileDir, name: fileName } = path.parse(file);
-        if (path.isAbsolute(fileDir)) {
-          outPath = path.resolve(dir, `${fileName}.d.ts`);
-        } else {
-          outPath = path.resolve(dir, fileDir, `${fileName}.d.ts`);
-        }
+        const { dir: importDir, name: fileName } = path.parse(replaceSamePath(proto.file, file));
+        outPath = path.resolve(dir, importDir, `${fileName}.d.ts`);
       }
       files.push(outPath);
       // 提高编译速度，减少重复的解析 如果已经生成则不生成

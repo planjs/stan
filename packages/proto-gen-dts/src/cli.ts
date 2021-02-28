@@ -1,5 +1,6 @@
 import path from 'path';
 import { yParser, chalk, glob, updateNotifier } from 'stan-utils';
+
 import protoGenDTS from './gen-dts';
 import type { GenProtoFile } from './type';
 
@@ -23,7 +24,7 @@ if (entryDTS) {
     entryDTS = entryDTS + '.d.ts';
   }
 }
-const genEntryFile = entryDTS ? entryDTS : outputDir ? outputDir + 'index.d.ts' : false;
+const genEntryFile = entryDTS ? entryDTS : outputDir ? path.join(outputDir, 'index.d.ts') : false;
 
 if (protoDir) {
   try {
@@ -49,6 +50,5 @@ try {
   });
   console.log(chalk.greenBright('Generate dictionary file successfully'));
 } catch (e) {
-  console.log(chalk.red('proto-gen-dts error'), e);
   process.exit(1);
 }

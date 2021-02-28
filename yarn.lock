@@ -6912,10 +6912,10 @@ gonzales-pe@^4.2.3:
   dependencies:
     minimist "^1.2.5"
 
-google-proto-files@^2.2.0:
+google-proto-files@^2.4.0:
   version "2.4.0"
-  resolved "https://registry.yarnpkg.com/google-proto-files/-/google-proto-files-2.4.0.tgz#c9760aa3f41a61b43be759d411535fc97c6c6c22"
-  integrity sha512-M5u56EsADOnplBUHTBzqBcCtPNPoGtBBXefjtA7mt3KDsOnlRM75fwrW2rsPS3Am2vrf9I0/NlI0E3nKWo/Ipg==
+  resolved "https://registry.npm.taobao.org/google-proto-files/download/google-proto-files-2.4.0.tgz#c9760aa3f41a61b43be759d411535fc97c6c6c22"
+  integrity sha1-yXYKo/QaYbQ751nUEVNfyXxsbCI=
   dependencies:
     protobufjs "^6.8.0"
     walkdir "^0.4.0"
@@ -11119,7 +11119,7 @@ proto-list@~1.2.1:
   resolved "https://registry.yarnpkg.com/proto-list/-/proto-list-1.2.4.tgz#212d5bfe1318306a420f6402b8e26ff39647a849"
   integrity sha1-IS1b/hMYMGpCD2QCuOJv85ZHqEk=
 
-protobufjs@^6.8.0:
+protobufjs@^6.10.2, protobufjs@^6.8.0:
   version "6.10.2"
   resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-6.10.2.tgz#b9cb6bd8ec8f87514592ba3fdfd28e93f33a469b"
   integrity sha512-27yj+04uF6ya9l+qfpH187aqEzfCF4+Uit0I9ZBQVqK09hk/SQzKa2MUqUpXaVa7LOFRg1TSSr3lVxGOk6c0SQ==

@@ -11,7 +11,7 @@ const files = (p: string, isFullPath = false) =>
 
 jest.useFakeTimers();
 
-const fixtureDir = path.join(__dirname, '../fixtures');
+const fixtureDir = path.join(__dirname, '../__fixtures__');
 const expectedDir = 'expected';
 
 describe('proto-gen-dts', () => {
