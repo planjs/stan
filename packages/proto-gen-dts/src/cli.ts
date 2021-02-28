@@ -50,6 +50,5 @@ try {
   });
   console.log(chalk.greenBright('Generate dictionary file successfully'));
 } catch (e) {
-  console.log(chalk.red(`${pkg.name} error`), e);
   process.exit(1);
 }

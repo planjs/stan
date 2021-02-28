@@ -41,12 +41,15 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
             chalk.greenBright(dts.slice(1).map(relativeNormalize).join(' ')),
         );
       }
-      console.log(
-        `Created ${chalk.greenBright(relativeNormalize(_file.output!))} in ${chalk.bold(
-          pms(Date.now() - startTime),
-        )}`,
-      );
+      if (dts.length) {
+        console.log(
+          `Created ${chalk.greenBright(relativeNormalize(_file.output!))} in ${chalk.bold(
+            pms(Date.now() - startTime),
+          )}`,
+        );
+      }
     } catch (e) {
+      console.log(`Build ${chalk.red(readablyFile)} error: `, e);
       throw e;
     }
   }

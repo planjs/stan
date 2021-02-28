@@ -1,6 +1,6 @@
 import path from 'path';
 import { prettier } from 'stan-utils';
-import type { Field, Namespace } from 'protobufjs';
+import type { Field, Namespace, ReflectionObject } from 'protobufjs';
 
 const { name, bugs } = require('../package.json');
 
@@ -44,7 +44,6 @@ export function protoTypeToTSType(input: string): keyof typeof Types | void {
       return type;
     }
   }
-  console.log(reportIssues({ title: `Type "${input}" is not supported.` }));
 }
 
 /**
@@ -57,6 +56,40 @@ export function getFieldRootType(field: Field): Namespace | null {
     parent = parent.parent;
   }
   return parent;
+}
+
+/**
+ * use parent lookup
+ * @param field
+ * @param root
+ * @param type
+ */
+export function getParentLookup({
+  field,
+  root,
+  type,
+}: {
+  field: Field;
+  root: Namespace;
+  type: string;
+}): ReflectionObject | null {
+  let parent = field.parent;
+  while (parent) {
+    const res = parent.lookup(type);
+    if (res) return res;
+    parent = parent.parent;
+  }
+  return root.lookup(type);
+}
+
+export function getReflectionParentName(field: ReflectionObject) {
+  let parent = field.parent;
+  let namePath = [parent?.name];
+  while (parent?.parent && parent?.name) {
+    parent = parent?.parent!;
+    namePath.unshift(parent.name);
+  }
+  return namePath.filter(Boolean).join('_');
 }
 
 /**

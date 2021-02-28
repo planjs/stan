@@ -37,9 +37,15 @@ declare namespace hello {
     avatar?: string;
   }
 
+  export const enum SayNameReq_User_Role {
+    RoleNil = 0,
+    RoleAdmin = 1,
+  }
+
   export interface SayNameRsp {
     realName?: string;
     userMap?: Record<number, SayNameReq_User>;
+    roleMap?: Record<number, SayNameReq_User_Role>;
     linkMap?: Record<number, string>;
     details?: google.protobuf.Any[];
     stock?: SayNameRsp_Stock;
@@ -51,7 +57,8 @@ declare namespace hello {
   export interface SayNameRsp_Currency {}
 
   export interface GetUserListReq {
-    option?: core.XXX;
+    xxx?: core.XXX;
+    option?: core.ListOptions_Option;
   }
 
   export interface GetUserListRsp {}

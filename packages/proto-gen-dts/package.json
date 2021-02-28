@@ -38,8 +38,8 @@
     "url": "https://github.com/planjs/stan/issues"
   },
   "dependencies": {
-    "google-proto-files": "^2.2.0",
-    "protobufjs": "^6.8.0",
+    "google-proto-files": "^2.4.0",
+    "protobufjs": "^6.10.2",
     "stan-utils": "^0.6.0"
   },
   "devDependencies": {
