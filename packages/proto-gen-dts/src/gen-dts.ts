@@ -28,24 +28,22 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
     }
     const startTime = Date.now();
     console.log(
-      `Compile ${chalk.yellow(readablyFile)} → ${chalk.greenBright(
-        relativeNormalize(_file.output!),
-      )} ...`,
+      `Compile ${chalk.yellow(readablyFile)} → ${chalk.cyan(relativeNormalize(_file.output!))}...`,
     );
     try {
       const dts = writeDTS(_file, opts.protoParseOptions);
       parsedFiles.push(...dts);
-      if (dts.length > 1) {
-        console.log(
-          `  > ${chalk.yellow(readablyFile)} dependent modules: ` +
-            chalk.greenBright(dts.slice(1).map(relativeNormalize).join(' ')),
-        );
-      }
       if (dts.length) {
         console.log(
-          `Created ${chalk.greenBright(relativeNormalize(_file.output!))} in ${chalk.bold(
+          `Created ${chalk.cyan(relativeNormalize(_file.output!))} in ${chalk.bold(
             pms(Date.now() - startTime),
           )}`,
+        );
+      }
+      if (dts.length > 1) {
+        console.log(
+          `  > ${chalk.cyan(relativeNormalize(_file.output!))} dependent modules: ` +
+            chalk.greenBright(dts.slice(1).map(relativeNormalize).join(' ')),
         );
       }
     } catch (e) {
@@ -58,7 +56,7 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
     const referenceEntryFile = opts.referenceEntryFile || 'index.d.ts';
     writeReference(parsedFiles, referenceEntryFile);
     console.log(
-      `Generate reference entry file: ${chalk.greenBright(relativeNormalize(referenceEntryFile))}`,
+      `Created reference entry file: ${chalk.greenBright(relativeNormalize(referenceEntryFile))}`,
     );
   }
 

@@ -201,9 +201,6 @@ export function parseNameSpace(namespace: Namespace, filename?: string): string 
   );
 }
 
-// cache generated files, prevent duplicate analysis
-const parsedFiles: string[] = [];
-
 /**
  * generate dts file
  * @param proto
@@ -238,12 +235,8 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
         outPath = path.resolve(dir, importDir, `${fileName}.d.ts`);
       }
       files.push(outPath);
-      // 提高编译速度，减少重复的解析 如果已经生成则不生成
-      if (!parsedFiles.includes(outPath)) {
-        const parsed = parseNameSpace(reflection, file);
-        fs.outputFileSync(outPath, writeBanner(parsed));
-        parsedFiles.push(outPath);
-      }
+      const parsed = parseNameSpace(reflection, file);
+      fs.outputFileSync(outPath, writeBanner(parsed));
     } else {
       throw new Error(reportIssues({ title: `Type ${reflection?.name} not supported. ` }));
     }
