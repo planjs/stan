@@ -218,13 +218,11 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
     return [];
   }
 
-  const schema = root.toJSON({ keepComments: true }).nested;
-
   const files: string[] = [];
 
-  const moduleNames = Object.keys(schema!);
+  const moduleNames = Object.keys(root.nested!);
   for (const [index, moduleName] of moduleNames.entries()) {
-    const reflection = root.lookup(moduleName);
+    const reflection = root.nested[moduleName];
     const file = root.files[index];
     if (reflection instanceof Namespace) {
       // 根据 files 的下标判断当前文件就按照输出，不是当前输出模块就按照源码相对位置，输出到输出的文件夹
