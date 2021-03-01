@@ -48,7 +48,7 @@ try {
     }),
     referenceEntryFile: genEntryFile,
   });
-  console.log(chalk.greenBright('Generate dictionary file successfully'));
+  console.log(chalk.cyanBright('Compile successfully.'));
 } catch (e) {
   process.exit(1);
 }

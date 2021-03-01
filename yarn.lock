@@ -6912,10 +6912,10 @@ gonzales-pe@^4.2.3:
   dependencies:
     minimist "^1.2.5"
 
-google-proto-files@^2.4.0:
+google-proto-files@2.4.0:
   version "2.4.0"
-  resolved "https://registry.npm.taobao.org/google-proto-files/download/google-proto-files-2.4.0.tgz#c9760aa3f41a61b43be759d411535fc97c6c6c22"
-  integrity sha1-yXYKo/QaYbQ751nUEVNfyXxsbCI=
+  resolved "https://registry.yarnpkg.com/google-proto-files/-/google-proto-files-2.4.0.tgz#c9760aa3f41a61b43be759d411535fc97c6c6c22"
+  integrity sha512-M5u56EsADOnplBUHTBzqBcCtPNPoGtBBXefjtA7mt3KDsOnlRM75fwrW2rsPS3Am2vrf9I0/NlI0E3nKWo/Ipg==
   dependencies:
     protobufjs "^6.8.0"
     walkdir "^0.4.0"
