@@ -213,16 +213,14 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
     ...opts,
   });
 
-  if (!root.nested) {
+  if (!root.nestedArray.length) {
     console.log(chalk.cyan(`Warning "${proto.file}" is empty`));
     return [];
   }
 
   const files: string[] = [];
 
-  const moduleNames = Object.keys(root.nested!);
-  for (const [index, moduleName] of moduleNames.entries()) {
-    const reflection = root.nested[moduleName];
+  for (const [index, reflection] of root.nestedArray.entries()) {
     const file = root.files[index];
     if (reflection instanceof Namespace) {
       // 根据 files 的下标判断当前文件就按照输出，不是当前输出模块就按照源码相对位置，输出到输出的文件夹
@@ -236,7 +234,7 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
       const parsed = parseNameSpace(reflection, file);
       fs.outputFileSync(outPath, writeBanner(parsed));
     } else {
-      throw new Error(reportIssues({ title: `Type ${reflection?.name} not supported. ` }));
+      throw new Error(reportIssues({ title: `Type ${reflection?.name} not supported.` }));
     }
   }
   return files;
