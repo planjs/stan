@@ -39,6 +39,7 @@ declare namespace hello {
 
   export const enum SayNameReq_User_Role {
     RoleNil = 0,
+    // admin
     RoleAdmin = 1,
   }
 
