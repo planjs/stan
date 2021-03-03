@@ -12,7 +12,7 @@ updateNotifier({
   shouldNotifyInNpmScript: true,
 }).notify({ defer: true });
 
-const { _: files, o, output, d, dir, e, entryfile } = yParser(process.argv.slice(2));
+const { _: files, o, output, d, dir, e, entryfile, keepcase } = yParser(process.argv.slice(2));
 
 const outputDir: string = output || o || '';
 const protoDir: string = dir || d || '';
@@ -47,8 +47,12 @@ try {
       };
     }),
     referenceEntryFile: genEntryFile,
+    protoParseOptions: {
+      keepCase: !!keepcase,
+    },
   });
   console.log(chalk.cyanBright('Compile successfully.'));
+  process.exit(0);
 } catch (e) {
   process.exit(1);
 }
