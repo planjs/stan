@@ -1,5 +1,5 @@
 import path from 'path';
-import { loadSync } from 'google-proto-files';
+import { loadSync, getProtoPath } from 'google-proto-files';
 import { Namespace, Type, Service, Enum, MapField } from 'protobufjs';
 import { lodash, fs, chalk } from 'stan-utils';
 
@@ -55,6 +55,7 @@ export function parseNameSpace(namespace: Namespace, filename?: string): string 
   const serviceFNExecutor = lodash.template(serviceFNTemplate);
 
   const parsedNestedList: string[] = [];
+
   // record generation history to prevent repeated generation
   const hasGenMap = {
     enums: new Set<string>(),
@@ -132,6 +133,9 @@ export function parseNameSpace(namespace: Namespace, filename?: string): string 
         comment: genComment(nested.comment!),
         content: Object.keys(nested.values)
           .reduce<string[]>((acc, field) => {
+            if (nested.comments?.[field]) {
+              acc.push(genComment(nested.comments[field]));
+            }
             acc.push(`${field} = ${nested.values[field]},`);
             return acc;
           }, [])
@@ -207,7 +211,7 @@ export function parseNameSpace(namespace: Namespace, filename?: string): string 
  * @param opts
  * @returns generate files
  */
-function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
+export default function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
   const root = loadSync(proto.file, {
     alternateCommentMode: true,
     ...opts,
@@ -221,12 +225,16 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
   const files: string[] = [];
 
   for (const [index, reflection] of root.nestedArray.entries()) {
-    const file = root.files[index];
+    let file = root.files[index];
     if (reflection instanceof Namespace) {
-      // 根据 files 的下标判断当前文件就按照输出，不是当前输出模块就按照源码相对位置，输出到输出的文件夹
       let outPath = path.resolve(proto.output!);
       if (proto.file !== file) {
         const { dir } = path.parse(proto.output!);
+        // internal proto file, beautify the generation path
+        if (file.startsWith(getProtoPath())) {
+          file = replaceSamePath(getProtoPath(), file);
+        }
+        // generate a file based on the relative position of the file
         const { dir: importDir, name: fileName } = path.parse(replaceSamePath(proto.file, file));
         outPath = path.resolve(dir, importDir, `${fileName}.d.ts`);
       }
@@ -239,5 +247,3 @@ function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
   }
   return files;
 }
-
-export default writeDTS;

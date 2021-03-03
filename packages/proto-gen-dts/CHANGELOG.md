@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.3](https://github.com/planjs/stan/compare/proto-gen-dts@0.7.1...proto-gen-dts@0.7.3) (2021-03-03)
+
+
+### Bug Fixes
+
+* bugs ([b64f36e](https://github.com/planjs/stan/commit/b64f36e093a105720ee3191e5de70f252df2b7c5))
+* module ([9c3dde2](https://github.com/planjs/stan/commit/9c3dde2903e3b5948aa36e5ee678903dd9e6a72c))
+* **proto-gen-dts:** replace same path ([6fce620](https://github.com/planjs/stan/commit/6fce6202e87156ef941534b76b87ef0c2ac97e92))
+* **proto-gen-dts:** some bugs ([31be19d](https://github.com/planjs/stan/commit/31be19d7d307daa573d4d84d8b3ef5830b50cb11))
+* dependent module path ([56f60b2](https://github.com/planjs/stan/commit/56f60b2efaab3fcdd39aa29be264b951f898e502))
+* import ([64b475d](https://github.com/planjs/stan/commit/64b475de27a3aa222c87e35cd7a0e234984ac0e3))
+* rename fixtures ([8c97ca4](https://github.com/planjs/stan/commit/8c97ca4004ef057f49791bb1ee56d007c94c3216))
+
+
+
+
+
 ## [0.7.2](https://github.com/planjs/stan/compare/proto-gen-dts@0.6.0...proto-gen-dts@0.7.2) (2021-02-28)
 
 

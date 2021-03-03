@@ -39,6 +39,8 @@ proto-gen-dts hello.proto -o typings/hello.d.ts -e typings/index.d.ts
 proto-gen-dts -d protos/ -o typings/
 # use npx
 npx proto-gen-dts -d protos/ -o typings/
+# --keepcase, Converted to camel case by default
+proto-gen-dts -d protos/ -o typings/ --keepcase
 ```
 
 ## Example
