@@ -206,12 +206,19 @@ export function parseNameSpace(namespace: Namespace, filename?: string): string 
 }
 
 /**
+ * record parsed files
+ */
+const parsedFiles: string[] = [];
+
+/**
  * generate dts file
  * @param proto
  * @param opts
  * @returns generate files
  */
 export default function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
+  const { generateDependentModules = true } = proto;
+
   const root = loadSync(proto.file, {
     alternateCommentMode: true,
     ...opts,
@@ -227,8 +234,15 @@ export default function writeDTS(proto: GenProtoFile, opts?: IParseOptions): str
   for (const [index, reflection] of root.nestedArray.entries()) {
     let file = root.files[index];
     if (reflection instanceof Namespace) {
+      // skip empty namespace
+      if (!reflection.nestedArray.length) {
+        console.log(chalk.yellowBright(`Warning "${file}" is empty`));
+        continue;
+      }
       let outPath = path.resolve(proto.output!);
       if (proto.file !== file) {
+        // skip dependent modules
+        if (!generateDependentModules) continue;
         const { dir } = path.parse(proto.output!);
         // internal proto file, beautify the generation path
         if (file.startsWith(getProtoPath())) {
@@ -237,11 +251,22 @@ export default function writeDTS(proto: GenProtoFile, opts?: IParseOptions): str
         // generate a file based on the relative position of the file
         const { dir: importDir, name: fileName } = path.parse(replaceSamePath(proto.file, file));
         outPath = path.resolve(dir, importDir, `${fileName}.d.ts`);
+      } else {
+        parsedFiles.push(outPath);
       }
       files.push(outPath);
+      // the dependent file contains a compiled file that is not parsed
+      if (parsedFiles.includes(outPath) && proto.file !== file) {
+        continue;
+      }
       const parsed = parseNameSpace(reflection, file);
       fs.outputFileSync(outPath, writeBanner(parsed));
     } else {
+      console.log(
+        chalk.yellowBright(
+          `Check whether the version of protobufjs that google-proto-files depends on is consistent with the version of protobufjs in the project.`,
+        ),
+      );
       throw new Error(reportIssues({ title: `Type ${reflection?.name} not supported.` }));
     }
   }

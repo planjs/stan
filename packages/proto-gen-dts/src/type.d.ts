@@ -10,6 +10,11 @@ export interface GenProtoFile {
    * @default 跟proto同目录
    */
   output?: string;
+  /**
+   * 生成proto依赖的模块
+   * @default true
+   */
+  generateDependentModules?: boolean;
 }
 
 export interface Visitor {
