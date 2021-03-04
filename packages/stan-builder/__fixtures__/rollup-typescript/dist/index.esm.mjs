@@ -1,22 +1,3 @@
-function getDefaultExportFromCjs (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-}
-
-function createCommonjsModule(fn, basedir, module) {
-	return module = {
-		path: basedir,
-		exports: {},
-		require: function (path, base) {
-			return commonjsRequire(path, (base === undefined || base === null) ? module.path : base);
-		}
-	}, fn(module, module.exports), module.exports;
-}
-
-function commonjsRequire () {
-	throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
-}
-
-var objectWithoutPropertiesLoose = createCommonjsModule(function (module) {
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
@@ -32,15 +13,9 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
-module.exports = _objectWithoutPropertiesLoose;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-});
-
-var objectWithoutPropertiesLoose$1 = /*@__PURE__*/getDefaultExportFromCjs(objectWithoutPropertiesLoose);
-
 function _objectWithoutProperties(source, excluded) {
   if (source == null) return {};
-  var target = objectWithoutPropertiesLoose$1(source, excluded);
+  var target = _objectWithoutPropertiesLoose(source, excluded);
   var key, i;
 
   if (Object.getOwnPropertySymbols) {
@@ -84,14 +59,14 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".body {\n  font-size: 0;\n}\n";
-styleInject(css_248z);
+var css_248z$2 = ".body {\n  font-size: 0;\n}\n";
+styleInject(css_248z$2);
 
 var css_248z$1 = ".scss {\n  font-size: 13px; }\n  .scss .scss-gray {\n    color: red; }\n";
 styleInject(css_248z$1);
 
-var css_248z$2 = ".index {\n  color: red;\n  font-size: 20px;\n  display: block; }\n";
-styleInject(css_248z$2);
+var css_248z = ".index {\n  color: red;\n  font-size: 20px;\n  display: block; }\n";
+styleInject(css_248z);
 
 function index (args) {
   var _args$name;

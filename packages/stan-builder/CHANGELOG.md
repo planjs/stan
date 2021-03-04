@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.3](https://github.com/planjs/stan/compare/stan-builder@0.9.1...stan-builder@0.9.3) (2021-03-03)
+
+
+### Bug Fixes
+
+* rename fixtures ([8c97ca4](https://github.com/planjs/stan/commit/8c97ca4004ef057f49791bb1ee56d007c94c3216))
+
+
+
+
+
 ## [0.9.2](https://github.com/planjs/stan/compare/stan-builder@0.8.0...stan-builder@0.9.2) (2021-02-28)
 
 
