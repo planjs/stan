@@ -95,14 +95,14 @@
 	  }
 	}
 
-	var css_248z = ".body {\n  font-size: 0;\n}\n";
-	styleInject(css_248z);
+	var css_248z$2 = ".body {\n  font-size: 0;\n}\n";
+	styleInject(css_248z$2);
 
 	var css_248z$1 = ".scss {\n  font-size: 13px; }\n  .scss .scss-gray {\n    color: red; }\n";
 	styleInject(css_248z$1);
 
-	var css_248z$2 = ".index {\n  color: red;\n  font-size: 20px;\n  display: block; }\n";
-	styleInject(css_248z$2);
+	var css_248z = ".index {\n  color: red;\n  font-size: 20px;\n  display: block; }\n";
+	styleInject(css_248z);
 
 	function index (args) {
 	  var _args$name;

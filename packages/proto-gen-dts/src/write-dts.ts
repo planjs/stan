@@ -218,7 +218,7 @@ export default function writeDTS(proto: GenProtoFile, opts?: IParseOptions): str
   });
 
   if (!root.nestedArray.length) {
-    console.log(chalk.cyan(`Warning "${proto.file}" is empty`));
+    console.log(chalk.yellowBright(`Warning "${proto.file}" is empty`));
     return [];
   }
 
