@@ -10,5 +10,5 @@
     "experimentalDecorators": true,
     "declarationDir": "typings"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
