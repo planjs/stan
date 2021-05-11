@@ -53,6 +53,7 @@
     "build:types": "tsc --emitDeclarationOnly",
     "prepare": "yarn clear && yarn build && yarn build:types",
     "clear": "rimraf lib/ typings/",
+    "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src",
     "test": "jest --config ../../jest.config.ts --rootDir ."
   },
   "bugs": {

@@ -97,10 +97,12 @@ function collect(value: string | any, previousValue: Array<string>): Array<strin
 }
 
 function booleanify(val: any): boolean | any {
+  // eslint-disable-next-line eqeqeq
   if (val === 'true' || val == 1) {
     return true;
   }
 
+  // eslint-disable-next-line eqeqeq
   if (val === 'false' || val == 0 || !val) {
     return false;
   }

@@ -1,5 +1,5 @@
 import path from 'path';
-import { chalk, ora, relativeNormalize, pms } from 'stan-utils';
+import { chalk, relativeNormalize, pms } from 'stan-utils';
 
 import type { ProtoGenDTSOptions } from './type';
 import writeDTS from './write-dts';

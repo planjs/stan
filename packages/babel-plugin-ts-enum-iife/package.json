@@ -20,6 +20,7 @@
   },
   "scripts": {
     "prepare": "tsc",
+    "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src",
     "test": "jest --config ../../jest.config.ts --rootDir ."
   },
   "bugs": {

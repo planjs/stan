@@ -25,6 +25,7 @@
     "build": "babel src -d lib -x .ts,.js",
     "build:types": "tsc --emitDeclarationOnly",
     "prepare": "yarn build && yarn build:types",
+    "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src",
     "test": "jest --config ../../jest.config.ts --rootDir ."
   },
   "bugs": {
