@@ -31,10 +31,19 @@
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     }
 
+    var services = {
+      hello: function hello(name) {
+        console.log("hello ".concat(name, "!"));
+      }
+    };
+
     let RollupVue = class RollupVue extends Vue__default['default'] {
         constructor() {
             super(...arguments);
             this.name = 'bob';
+        }
+        handleNameClick() {
+            services.hello(this.name);
         }
     };
     RollupVue = __decorate([
@@ -125,7 +134,9 @@
       var _vm = this;
       var _h = _vm.$createElement;
       var _c = _vm._self._c || _h;
-      return _c("div", [_vm._v("\n  hello " + _vm._s(_vm.name) + "}\n")])
+      return _c("div", { on: { click: _vm.handleNameClick } }, [
+        _vm._v("hello " + _vm._s(_vm.name) + "}")
+      ])
     };
     var __vue_staticRenderFns__ = [];
     __vue_render__._withStripped = true;

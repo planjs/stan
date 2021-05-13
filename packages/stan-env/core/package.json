@@ -1,6 +1,6 @@
 {
   "name": "stan-env-core",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "stan env",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -27,6 +27,6 @@
     "url": "https://github.com/planjs/stan/issues"
   },
   "dependencies": {
-    "stan-builder": "^0.9.5"
+    "stan-builder": "^0.9.6"
   }
 }

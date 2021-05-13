@@ -8759,10 +8759,19 @@ Component.registerHooks = function registerHooks(keys) {
   $internalHooks.push.apply($internalHooks, _toConsumableArray(keys));
 };
 
+var services = {
+  hello: function hello(name) {
+    console.log("hello ".concat(name, "!"));
+  }
+};
+
 let RollupVue = class RollupVue extends Vue {
     constructor() {
         super(...arguments);
         this.name = 'bob';
+    }
+    handleNameClick() {
+        services.hello(this.name);
     }
 };
 RollupVue = __decorate([
@@ -8853,7 +8862,9 @@ var __vue_render__ = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
-  return _c("div", [_vm._v("\n  hello " + _vm._s(_vm.name) + "}\n")])
+  return _c("div", { on: { click: _vm.handleNameClick } }, [
+    _vm._v("hello " + _vm._s(_vm.name) + "}")
+  ])
 };
 var __vue_staticRenderFns__ = [];
 __vue_render__._withStripped = true;

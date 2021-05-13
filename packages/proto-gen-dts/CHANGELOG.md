@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.6](https://github.com/planjs/stan/compare/proto-gen-dts@0.7.2...proto-gen-dts@0.7.6) (2021-05-18)
+
+
+### Bug Fixes
+
+* **proto-gen-dts:** generate adjustments ([bc4500d](https://github.com/planjs/stan/commit/bc4500df98453b7011692db4bbb2389176805bf0))
+* bugs ([e23c96d](https://github.com/planjs/stan/commit/e23c96dff8efd75940054eb6b826f4ee65030ac5))
+* module ([9c3dde2](https://github.com/planjs/stan/commit/9c3dde2903e3b5948aa36e5ee678903dd9e6a72c))
+
+
+
+
+
 ## [0.7.5](https://github.com/planjs/stan/compare/proto-gen-dts@0.7.4...proto-gen-dts@0.7.5) (2021-05-13)
 
 **Note:** Version bump only for package proto-gen-dts
