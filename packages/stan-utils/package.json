@@ -1,6 +1,6 @@
 {
   "name": "stan-utils",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "stan utils",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -47,7 +47,6 @@
     "@types/rimraf": "^3.0.0",
     "@types/semver": "^7.3.4",
     "@types/signale": "^1.4.1",
-    "@types/fs-extra": "^9.0.11",
     "@types/update-notifier": "^4.1.1",
     "@types/yargs-parser": "^15.0.0",
     "ajv": "^6.12.6",

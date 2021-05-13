@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.5](https://github.com/planjs/stan/compare/stan-env-core@0.2.4...stan-env-core@0.2.5) (2021-05-13)
+
+**Note:** Version bump only for package stan-env-core
+
+
+
+
+
 ## [0.2.4](https://github.com/planjs/stan/compare/stan-env-core@0.2.3...stan-env-core@0.2.4) (2021-05-11)
 
 **Note:** Version bump only for package stan-env-core

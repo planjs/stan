@@ -46,6 +46,8 @@ export default function getBabelConfig(
         ],
       [require.resolve('@babel/plugin-proposal-decorators'), { legacy: true }],
       [require.resolve('@babel/plugin-proposal-class-properties'), { loose: true }],
+      [require.resolve('@babel/plugin-proposal-private-methods'), { loose: true }],
+      [require.resolve('@babel/plugin-proposal-private-property-in-object'), { loose: true }],
       require.resolve('@babel/plugin-syntax-dynamic-import'),
       require.resolve('@babel/plugin-proposal-export-default-from'),
       require.resolve('@babel/plugin-proposal-export-namespace-from'),
