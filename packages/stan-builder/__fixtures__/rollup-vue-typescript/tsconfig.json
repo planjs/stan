@@ -8,7 +8,7 @@
     "strict": true,
     "importHelpers": true,
     "experimentalDecorators": true,
-    "declarationDir": "typings"
+    "declarationDir": "typings",
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["src/**/*.ts", "src/**/*.vue"]
 }
