@@ -10,7 +10,7 @@
     "typescript"
   ],
   "author": "fupeng <fupenglxy@gmail.com>",
-  "homepage": "https://github.com/planjs/stan#readme",
+  "homepage": "https://github.com/planjs/stan/blob/master/packages/proto-gen-dts/README.md",
   "license": "MIT",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
