@@ -17,7 +17,7 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@planjs/fabric": "^0.0.4",
+    "@planjs/fabric": "^0.0.76",
     "@types/jest": "^26.0.15",
     "@types/node": "^15.0.2",
     "chokidar-cli": "^2.1.0",
