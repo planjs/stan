@@ -1,6 +1,6 @@
 {
   "name": "stan-env-cli",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Command line tool for generating environment variable module.",
   "keywords": [
     "env",
@@ -35,7 +35,7 @@
     "url": "https://github.com/planjs/stan/issues"
   },
   "dependencies": {
-    "stan-builder": "^0.9.8",
-    "stan-utils": "^0.6.7"
+    "stan-builder": "^0.9.9",
+    "stan-utils": "^0.6.8"
   }
 }
