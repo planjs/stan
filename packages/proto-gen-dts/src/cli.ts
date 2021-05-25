@@ -1,5 +1,5 @@
 import path from 'path';
-import { yParser, chalk, glob, updateNotifier } from 'stan-utils';
+import { yParser, chalk, globby, updateNotifier } from 'stan-utils';
 
 import protoGenDTS from './gen-dts';
 import type { GenProtoFile } from './type';
@@ -28,7 +28,7 @@ const genEntryFile = entryDTS ? entryDTS : outputDir ? path.join(outputDir, 'ind
 
 if (protoDir) {
   try {
-    files.push(...glob.sync(path.join(protoDir, '**/*.proto')));
+    files.push(...globby.sync(path.join(protoDir, '**/*.proto')));
   } catch (e) {
     console.log(chalk.red('Matching proto file error'), e);
     process.exit(1);

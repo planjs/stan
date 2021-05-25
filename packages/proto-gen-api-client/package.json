@@ -1,6 +1,6 @@
 {
   "name": "proto-gen-api-client",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "> TODO: description",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -31,8 +31,8 @@
     "url": "https://github.com/planjs/stan/issues"
   },
   "dependencies": {
-    "proto-gen-dts": "^0.7.6",
-    "stan-utils": "^0.6.5"
+    "proto-gen-dts": "^0.7.7",
+    "stan-utils": "^0.6.6"
   },
   "gitHead": "3c9a90127d9c499b4057fb576e3fbdeafb8898d8"
 }

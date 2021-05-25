@@ -2981,7 +2981,7 @@ function FunctionalRenderContext (
   parent,
   Ctor
 ) {
-  var this$1 = this;
+  var this$1$1 = this;
 
   var options = Ctor.options;
   // ensure the createElement function in functional components
@@ -3009,13 +3009,13 @@ function FunctionalRenderContext (
   this.listeners = data.on || emptyObject;
   this.injections = resolveInject(options.inject, parent);
   this.slots = function () {
-    if (!this$1.$slots) {
+    if (!this$1$1.$slots) {
       normalizeScopedSlots(
         data.scopedSlots,
-        this$1.$slots = resolveSlots(children, parent)
+        this$1$1.$slots = resolveSlots(children, parent)
       );
     }
-    return this$1.$slots
+    return this$1$1.$slots
   };
 
   Object.defineProperty(this, 'scopedSlots', ({
@@ -5341,13 +5341,13 @@ var KeepAlive = {
   },
 
   mounted: function mounted () {
-    var this$1 = this;
+    var this$1$1 = this;
 
     this.$watch('include', function (val) {
-      pruneCache(this$1, function (name) { return matches(val, name); });
+      pruneCache(this$1$1, function (name) { return matches(val, name); });
     });
     this.$watch('exclude', function (val) {
-      pruneCache(this$1, function (name) { return !matches(val, name); });
+      pruneCache(this$1$1, function (name) { return !matches(val, name); });
     });
   },
 
@@ -8125,7 +8125,7 @@ var Transition = {
   abstract: true,
 
   render: function render (h) {
-    var this$1 = this;
+    var this$1$1 = this;
 
     var children = this.$slots.default;
     if (!children) {
@@ -8218,8 +8218,8 @@ var Transition = {
         // return placeholder node and queue update when leave finishes
         this._leaving = true;
         mergeVNodeHook(oldData, 'afterLeave', function () {
-          this$1._leaving = false;
-          this$1.$forceUpdate();
+          this$1$1._leaving = false;
+          this$1$1.$forceUpdate();
         });
         return placeholder(h, rawChild)
       } else if (mode === 'in-out') {
@@ -8251,21 +8251,21 @@ var TransitionGroup = {
   props: props,
 
   beforeMount: function beforeMount () {
-    var this$1 = this;
+    var this$1$1 = this;
 
     var update = this._update;
     this._update = function (vnode, hydrating) {
-      var restoreActiveInstance = setActiveInstance(this$1);
+      var restoreActiveInstance = setActiveInstance(this$1$1);
       // force removing pass
-      this$1.__patch__(
-        this$1._vnode,
-        this$1.kept,
+      this$1$1.__patch__(
+        this$1$1._vnode,
+        this$1$1.kept,
         false, // hydrating
         true // removeOnly (!important, avoids unnecessary moves)
       );
-      this$1._vnode = this$1.kept;
+      this$1$1._vnode = this$1$1.kept;
       restoreActiveInstance();
-      update.call(this$1, vnode, hydrating);
+      update.call(this$1$1, vnode, hydrating);
     };
   },
 
