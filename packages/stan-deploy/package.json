@@ -1,6 +1,6 @@
 {
   "name": "stan-deploy",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "deploy statis file",
   "keywords": [
     "rsync"
@@ -30,5 +30,5 @@
   "dependencies": {
     "rsync": "^0.6.1"
   },
-  "gitHead": "a6cd95fbeaf8db121d5526aa62c157e70c5f6369"
+  "gitHead": "7df4f17945b5dbe47183dc089748892266806586"
 }

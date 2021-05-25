@@ -1,6 +1,6 @@
 {
   "name": "proto-gen-dts",
-  "version": "0.7.10",
+  "version": "0.7.11",
   "description": "proto generate typescript dictionary type file",
   "keywords": [
     "proto",
@@ -40,10 +40,10 @@
   },
   "dependencies": {
     "google-proto-files": "2.4.0",
-    "stan-utils": "^0.6.9"
+    "stan-utils": "^0.6.10"
   },
   "devDependencies": {
-    "stan-builder": "^0.9.10"
+    "stan-builder": "^0.9.11"
   },
-  "gitHead": "a6cd95fbeaf8db121d5526aa62c157e70c5f6369"
+  "gitHead": "7df4f17945b5dbe47183dc089748892266806586"
 }

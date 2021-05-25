@@ -1,6 +1,6 @@
 {
   "name": "@planjs/stan",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "> TODO: description",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -29,5 +29,5 @@
   "bugs": {
     "url": "https://github.com/planjs/stan/issues"
   },
-  "gitHead": "a6cd95fbeaf8db121d5526aa62c157e70c5f6369"
+  "gitHead": "7df4f17945b5dbe47183dc089748892266806586"
 }
