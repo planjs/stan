@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.8](https://github.com/planjs/stan/compare/stan-builder@0.9.7...stan-builder@0.9.8) (2021-05-25)
+
+**Note:** Version bump only for package stan-builder
+
+
+
+
+
 ## [0.9.7](https://github.com/planjs/stan/compare/stan-builder@0.9.5...stan-builder@0.9.7) (2021-05-25)
 
 

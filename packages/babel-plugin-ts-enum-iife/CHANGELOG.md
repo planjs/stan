@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.5](https://github.com/planjs/stan/compare/babel-plugin-ts-enum-iife@0.4.4...babel-plugin-ts-enum-iife@0.4.5) (2021-05-25)
+
+**Note:** Version bump only for package babel-plugin-ts-enum-iife
+
+
+
+
+
 ## [0.4.4](https://github.com/planjs/stan/compare/babel-plugin-ts-enum-iife@0.4.1...babel-plugin-ts-enum-iife@0.4.4) (2021-05-18)
 
 
