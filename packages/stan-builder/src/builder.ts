@@ -43,11 +43,12 @@ async function builder(opts: BuildOptions) {
     try {
       const dirs = Array.from(
         bundleOptions.reduce<Set<string>>((acc, options) => {
-          if (options.bundler === 'rollup' || !options.bundler || !options.umd) {
+          if (options.bundler === 'rollup' || !options.bundler) {
             acc.add('dist');
+          } else {
+            options.esm && acc.add('es');
+            options.cjs && acc.add('lib');
           }
-          options.esm && acc.add('es');
-          options.cjs && acc.add('lib');
           return acc;
         }, new Set()),
       );
