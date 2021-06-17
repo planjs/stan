@@ -41,15 +41,17 @@ async function builder(opts: BuildOptions) {
   if (bundleOptions.length) {
     await Promise.all(bundleOptions.map((v) => validOptions.validateAsync(v)));
     try {
-      const dirs = bundleOptions.reduce<Set<string>>((acc, options) => {
-        if (options.bundler === 'rollup' || !options.bundler || !options.umd) {
-          acc.add('dist');
-        }
-        options.esm && acc.add('es');
-        options.cjs && acc.add('lib');
-        return acc;
-      }, new Set());
-      console.log(chalk.gray(`Clean up the ${[...dirs]} directory.`));
+      const dirs = Array.from(
+        bundleOptions.reduce<Set<string>>((acc, options) => {
+          if (options.bundler === 'rollup' || !options.bundler || !options.umd) {
+            acc.add('dist');
+          }
+          options.esm && acc.add('es');
+          options.cjs && acc.add('lib');
+          return acc;
+        }, new Set()),
+      );
+      console.log(chalk.gray(`Clean up the ${dirs} directory.`));
       for (const dir of dirs) {
         rimraf.sync(path.join(cwd, dir));
       }
