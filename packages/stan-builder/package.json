@@ -1,6 +1,6 @@
 {
   "name": "stan-builder",
-  "version": "0.9.11",
+  "version": "0.9.12",
   "description": "build js library",
   "author": "fupeng <fupenglxy@gmail.com> (https://github.com/fupengl)",
   "homepage": "https://github.com/planjs/stan/blob/master/packages/stan-builder/README.md",
@@ -106,7 +106,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "0.30.0",
     "rollup-plugin-visualizer": "^4.1.1",
-    "stan-utils": "^0.6.10",
+    "stan-utils": "^0.6.11",
     "through2": "^4.0.2",
     "vinyl-fs": "^3.0.3",
     "vue-template-compiler": "^2.6.12"

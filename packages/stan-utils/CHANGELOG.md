@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.11](https://github.com/planjs/stan/compare/stan-utils@0.6.10...stan-utils@0.6.11) (2021-06-17)
+
+
+### Bug Fixes
+
+* **stan-builder:** clear output dir ([b2a9fee](https://github.com/planjs/stan/commit/b2a9fee01df04c37cb46eb87646d320a4e46a95c))
+
+
+
+
+
 ## [0.6.10](https://github.com/planjs/stan/compare/stan-utils@0.6.9...stan-utils@0.6.10) (2021-05-25)
 
 **Note:** Version bump only for package stan-utils
