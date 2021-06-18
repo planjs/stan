@@ -19,15 +19,20 @@ export type OutputModule = 'cjs' | 'esm' | 'system' | 'umd';
 export interface BaseBundleOptions {
   file?: string;
   /**
-   * 开启压缩
-   * @default false
+   * 打包工具
+   * @default rollup
    */
   bundler?: BundleType;
   /**
    * 压缩代码
    * js terser
+   * @default false
    */
   minify?: boolean;
+  /**
+   * 输出sourcemap
+   * @default false
+   */
   sourcemap?: boolean;
   /**
    * 配置 node 或者 browser 库

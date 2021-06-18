@@ -1,6 +1,6 @@
 {
   "name": "stan-utils",
-  "version": "0.6.10",
+  "version": "0.6.11",
   "description": "stan utils",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -36,7 +36,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "@planjs/utils": "^1.0.40",
+    "@planjs/utils": "^1.7.3",
     "@types/cross-spawn": "^6.0.2",
     "@types/debug": "^4.1.5",
     "@types/fs-extra": "^9.0.11",
