@@ -1,4 +1,4 @@
-import { template, types } from '@babel/core';
+import { PluginObj, template, types } from '@babel/core';
 import { Node, NodePath } from '@babel/traverse';
 
 const buildEnumWrapper = template(`
@@ -10,7 +10,7 @@ const ID = (function () {
 
 const IIFE_ENUM = '__ENUM_IIFE__';
 
-export default () => {
+const plugin = (): PluginObj => {
   return {
     name: 'ts-enum-iife',
     inherits: require('@babel/plugin-syntax-typescript').default,
@@ -42,3 +42,5 @@ export default () => {
     },
   };
 };
+
+export default plugin;

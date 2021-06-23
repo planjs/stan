@@ -6,6 +6,14 @@
   "homepage": "https://github.com/planjs/stan#readme",
   "license": "MIT",
   "main": "lib/index.js",
+  "keywords": [
+    "babel",
+    "babel-plugin",
+    "enum",
+    "iife",
+    "typescript",
+    "ts-enum-iife"
+  ],
   "directories": {
     "lib": "lib",
     "test": "__tests__"

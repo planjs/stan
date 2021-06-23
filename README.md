@@ -13,6 +13,7 @@
 - [stan-builder](./packages/stan-builder/README.md) build js library
 - [proto-gen-dts](./packages/proto-gen-dts/README.md) protobuf generate typescript dictionary type file
 - [babel-plugin-ts-enum-iife](./packages/babel-plugin-ts-enum-iife/README.md) enum better `tree-shaking`
+- [babel-plugin-module-resolve](./packages/babel-plugin-module-resolve/README.md) support alias import
 
 ## License
 

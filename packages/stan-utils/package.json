@@ -1,7 +1,7 @@
 {
   "name": "stan-utils",
   "version": "0.6.11",
-  "description": "stan utils",
+  "description": "stan internal utils",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
   "license": "MIT",
