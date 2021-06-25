@@ -1,15 +1,22 @@
 import type { PluginObj } from '@babel/core';
+import * as babel from '@babel/core';
+import { moduleResolverVisited } from './cache';
 
-const plugin = ({ types: t }): PluginObj => {
+const plugin = ({ types: t }: typeof babel): PluginObj => {
   return {
     name: 'module-resolve',
+    pre(file) {},
     visitor: {
-      CallExpression(nodePath, state) {
-        console.log(nodePath.get('callee').type);
-        console.log(nodePath.get('source'));
+      ImportDeclaration(nodePath, state) {
+        if (!t.isImportDeclaration(nodePath)) {
+          return;
+        }
+        const { node } = nodePath.get('source');
+        console.log(node.value);
       },
-      ImportDeclaration(path) {},
-      ExportDeclaration(path) {},
+    },
+    post() {
+      moduleResolverVisited.clear();
     },
   };
 };
