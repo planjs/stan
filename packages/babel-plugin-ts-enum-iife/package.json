@@ -43,8 +43,7 @@
   },
   "peerDependencies": {
     "@babel/core": "7.x",
-    "@babel/plugin-syntax-typescript": "7.x",
-    "@babel/traverse": "7.x"
+    "@babel/plugin-syntax-typescript": "7.x"
   },
   "gitHead": "7df4f17945b5dbe47183dc089748892266806586"
 }

@@ -8,7 +8,7 @@ export function createResolve(resolveOptions: ResolveOptions) {
 
 function resolvePath(node: babel.types.StringLiteral) {
   try {
-    create({})('/some/path/to/folder', 'ts-module', (err, result) => {
+    create({})(__dirname, '@babel/types', (err, result) => {
       if (err) {
         console.log(err);
         return;
