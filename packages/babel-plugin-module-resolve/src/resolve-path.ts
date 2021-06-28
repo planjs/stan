@@ -2,9 +2,13 @@ import * as babel from '@babel/core';
 import { create } from 'enhanced-resolve';
 import type { ResolveOptions } from 'enhanced-resolve';
 
+export function createResolve(resolveOptions: ResolveOptions) {
+  return create(resolveOptions);
+}
+
 function resolvePath(node: babel.types.StringLiteral) {
   try {
-    create({} as ResolveOptions)('/some/path/to/folder', 'ts-module', (err, result) => {
+    create({})('/some/path/to/folder', 'ts-module', (err, result) => {
       if (err) {
         console.log(err);
         return;
