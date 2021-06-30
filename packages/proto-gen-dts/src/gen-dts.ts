@@ -17,7 +17,7 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
 
   const parsedFiles: string[] = [];
 
-  for (let file of opts.files) {
+  for (const file of opts.files) {
     const readablyFile = relativeNormalize(file.file);
     const _file = {
       ...file,

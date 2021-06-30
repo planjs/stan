@@ -25,8 +25,12 @@ npm i proto-gen-dts -g
 const protoGenDts = require('proto-gen-dts');
 
 const dtsFiles = protoGenDts({
-  file: 'hello.proto',
-  output: 'typings/hello.d.ts',
+  files: [
+    {
+      file: 'hello.proto',
+      output: 'typings/hello.d.ts',
+    }
+  ],
   referenceEntryFile: 'typings/index.d.ts'
 })
 ```
