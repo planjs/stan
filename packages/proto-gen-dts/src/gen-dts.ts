@@ -1,5 +1,5 @@
 import path from 'path';
-import { chalk, relativeNormalize, pms } from 'stan-utils';
+import { chalk, relativeNormalize, pms, slash } from 'stan-utils';
 
 import type { ProtoGenDTSOptions } from './type';
 import writeDTS from './write-dts';
@@ -22,9 +22,12 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
     const _file = {
       ...file,
     };
+    const { dir, name } = path.parse(file.file);
     if (!_file.output) {
-      const { dir, name } = path.parse(file.file);
       _file.output = path.join(dir, name + '.d.ts');
+    }
+    if (slash(_file.output).slice(-1) === '/') {
+      _file.output = path.join(_file.output, name + '.d.ts');
     }
     const startTime = Date.now();
     console.log(

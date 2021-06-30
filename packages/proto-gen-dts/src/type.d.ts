@@ -7,6 +7,7 @@ export interface GenProtoFile {
   file: string;
   /**
    * 输出地址，可以带文件名（后缀为dts）
+   * @description 如果是文件夹请以 / 结尾，则默认输出到文件夹，文件名为 {proto file name}.d.ts
    * @default 跟proto同目录
    */
   output?: string;
