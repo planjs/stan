@@ -1,7 +1,7 @@
 import { updateNotifier, signale } from 'stan-utils';
 
-import parseArgv from './options';
 import builder from '../builder';
+import parseArgv from './options';
 
 const pkg = require('../../package.json');
 

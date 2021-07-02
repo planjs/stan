@@ -1,5 +1,5 @@
 module.exports = processTip;
 
 function processTip(txt) {
-  return `You got ${txt}`;
+  return `You passed [${txt}]`;
 }

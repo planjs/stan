@@ -1,3 +1,3 @@
 const { processTip } = require('@/services');
 
-console.log(processTip('test'));
+module.exports = processTip('require');
