@@ -19,6 +19,7 @@
     "directory": "packages/babel-plugin-module-resolve"
   },
   "scripts": {
+    "dev": "tsc -w",
     "prepare": "tsc",
     "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src",
     "test": "jest --config ../../jest.config.ts --rootDir ."

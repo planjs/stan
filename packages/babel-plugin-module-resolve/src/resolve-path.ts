@@ -1,22 +1,18 @@
+import path from 'path';
 import * as babel from '@babel/core';
-import { create } from 'enhanced-resolve';
+import { ResolverFactory } from 'enhanced-resolve';
 import type { ResolveOptions } from 'enhanced-resolve';
+import type { PluginContext } from './state';
 
-export function createResolve(resolveOptions: ResolveOptions) {
-  return create(resolveOptions);
+export function createResolver(resolveOptions: ResolveOptions) {
+  return ResolverFactory.createResolver(resolveOptions);
 }
 
-function resolvePath(node: babel.types.StringLiteral) {
-  try {
-    create({})(__dirname, '@babel/types', (err, result) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      console.log(result);
-    });
-  } catch (e) {}
-  console.log(node.value);
+function resolvePath(this: PluginContext, node: babel.types.StringLiteral) {
+  this.resolver.resolve({}, path.join(this.dirName), node.value, {}, (err, result) => {
+    console.log(err);
+    console.log(result);
+  });
 }
 
 export default resolvePath;
