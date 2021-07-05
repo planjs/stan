@@ -1,18 +1,15 @@
-import { transform } from '@babel/core';
-import { stripIndent } from 'common-tags';
-const babelPluginModuleResolve = require('../src');
+import path from 'path';
+import fs from 'fs';
+import execa from 'execa';
 
 describe('babel-plugin-module-resolve', () => {
-  it('needs tests', () => {
-    const src = transform(`import test from '@/assets/a.png';`, {
-      plugins: [
-        babelPluginModuleResolve,
-        ['@babel/plugin-transform-modules-commonjs', { noInterop: true }],
-      ],
-    })?.code;
-    expect(stripIndent(src!)).toEqual(stripIndent`
-    "use strict";
-
-    var _a = require("@/assets/a.png");`);
+  const fixturesDir = path.join(__dirname, '../__fixtures__');
+  const fixtures = fs.readdirSync(fixturesDir);
+  fixtures.forEach((fixture) => {
+    it(`test ${fixture}`, () => {
+      const cwd = path.join(fixturesDir, fixture);
+      execa.sync('babel', ['src', '-d', 'lib'], { cwd });
+      expect(require(path.join(cwd, 'lib'))).toEqual(`You passed [${fixture}]`);
+    });
   });
 });

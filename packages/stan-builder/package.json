@@ -111,7 +111,6 @@
     "vue-template-compiler": "^2.6.12"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
     "@types/autoprefixer": "^9.7.2",
     "@types/babel__core": "^7.1.14",
     "@types/cssnano": "^4.0.0",
