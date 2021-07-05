@@ -1,33 +1,34 @@
 import type { PluginObj } from '@babel/core';
 import * as babel from '@babel/core';
-import { moduleResolverVisited } from './state';
-import resolvePath from './resolve-path';
+import { moduleResolverVisited, PluginContext } from './state';
+import resolvePath, { createResolver } from './resolve-path';
+import normalizeOptions from './normalize-options';
 
 const plugin = ({ types: t }: typeof babel): PluginObj => {
   return {
     name: 'module-resolve',
-    pre(file) {
-      console.log(file);
-      console.log(this.opts);
+    pre(this: PluginContext) {
+      this.dirName = this.file.opts.root;
+      this.resolver = createResolver(normalizeOptions.call(this));
     },
     visitor: {
       ImportDeclaration(nodePath) {
         if (!t.isStringLiteral(nodePath.node.source)) {
           return;
         }
-        resolvePath(nodePath.node.source);
+        resolvePath.call(this, nodePath.node.source);
       },
       ExportNamedDeclaration(nodePath) {
         if (!t.isStringLiteral(nodePath.node.source)) {
           return;
         }
-        resolvePath(nodePath.node.source);
+        resolvePath.call(this, nodePath.node.source);
       },
       ExportAllDeclaration(nodePath) {
         if (!t.isStringLiteral(nodePath.node.source)) {
           return;
         }
-        resolvePath(nodePath.node.source);
+        resolvePath.call(this, nodePath.node.source);
       },
       CallExpression(nodePath) {
         if (!t.isImport(nodePath.node.callee)) {
@@ -38,7 +39,7 @@ const plugin = ({ types: t }: typeof babel): PluginObj => {
           return;
         }
 
-        resolvePath(nodePath.node.arguments[0]);
+        resolvePath.call(this, nodePath.node.arguments[0]);
       },
     },
     post() {
