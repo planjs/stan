@@ -2423,10 +2423,10 @@
     stylelint-declaration-block-no-ignored-properties "^1.1.0"
     stylelint-order "^0.8.1"
 
-"@planjs/utils@^1.7.3":
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/@planjs/utils/-/utils-1.8.3.tgz#6494726491011dd08343e7e8490bbbc0cd025052"
-  integrity sha512-57ogVAjgV2oZQDq2jb9EIGKE9QJj306lZIwAP620fEP18xeyTVfhegaCzi2uYnvtgHskPXm4azFTMqqmoE8y2w==
+"@planjs/utils@^1.8.4":
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/@planjs/utils/-/utils-1.8.4.tgz#c0c81c43afa6e52367f5bcc3623386d2d7196324"
+  integrity sha512-+uA3V3UgrvHE12RMqV8B+dqKSXapXR0QDgSFR6MRYEH4Fd6UyYCk2YA3XMRiVtrTYDDeMz9sF2aO9/mng4g4ug==
   dependencies:
     "@babel/runtime" "^7.12.5"
     decimal.js "^10.2.1"
