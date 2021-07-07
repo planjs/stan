@@ -16,6 +16,12 @@ export interface GenProtoFile {
    * @default true
    */
   generateDependentModules?: boolean;
+  /**
+   * protobuf parse options
+   * priority is higher than {ProtoGenDTSOptions.protoParseOptions}
+   * @link {protobuf.IParseOptions}
+   */
+  protoParseOptions?: IParseOptions;
 }
 
 export interface Visitor {
@@ -56,6 +62,7 @@ export interface ProtoGenDTSOptions {
   referenceEntryFile?: string | false;
   /**
    * protobuf parse options
+   * @link {protobuf.IParseOptions}
    * @default { alternateCommentMode: true }
    */
   protoParseOptions?: IParseOptions;

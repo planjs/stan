@@ -219,10 +219,7 @@ const parsedFiles: string[] = [];
 export default function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
   const { generateDependentModules = true } = proto;
 
-  const root = loadSync(proto.file, {
-    alternateCommentMode: true,
-    ...opts,
-  });
+  const root = loadSync(proto.file, opts);
 
   if (!root.nestedArray.length) {
     console.log(chalk.yellowBright(`Warning "${proto.file}" is empty`));

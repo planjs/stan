@@ -34,7 +34,11 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
       `Compile ${chalk.yellow(readablyFile)} → ${chalk.cyan(relativeNormalize(_file.output!))}...`,
     );
     try {
-      const dts = writeDTS(_file, opts.protoParseOptions);
+      const dts = writeDTS(_file, {
+        alternateCommentMode: true,
+        ...opts.protoParseOptions,
+        ...file.protoParseOptions,
+      });
       parsedFiles.push(...dts);
       if (dts.length) {
         console.log(
