@@ -3,8 +3,8 @@ import { loadSync, getProtoPath } from 'google-proto-files';
 import { Namespace, Type, Service, Enum, MapField } from 'protobufjs';
 import { lodash, fs, chalk } from 'stan-utils';
 
-import type { GenProtoFile } from './type';
 import type { ReflectionObject, IParseOptions } from 'protobufjs';
+import type { GenProtoFile } from './type';
 
 import {
   formatTS,

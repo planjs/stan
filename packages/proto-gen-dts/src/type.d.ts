@@ -2,17 +2,17 @@ import type { IParseOptions, Enum, Type, Service } from 'protobufjs';
 
 export interface GenProtoFile {
   /**
-   * proto 路径
+   * proto path
    */
   file: string;
   /**
-   * 输出地址，可以带文件名（后缀为dts）
-   * @description 如果是文件夹请以 / 结尾，则默认输出到文件夹，文件名为 {proto file name}.d.ts
-   * @default 跟proto同目录
+   * dts output directory
+   * If it is / at the end, the directory will generate dts with the same name as proto
+   * @default Same directory as proto
    */
   output?: string;
   /**
-   * 生成proto依赖的模块
+   * generate proto dependent modules
    * @default true
    */
   generateDependentModules?: boolean;
@@ -49,7 +49,8 @@ export interface ProtoGenDTSOptions {
    */
   visitor?: Visitor;
   /**
-   * 输出生成 dts 的 reference 导入
+   * generate dts reference unified export
+   * If does not generate set false
    * @default index.d.ts
    */
   referenceEntryFile?: string | false;
