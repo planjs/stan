@@ -33,7 +33,8 @@
     "prepare": "stan-builder --cjs --bundler babel",
     "start": "yarn prepare -- -w",
     "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src",
-    "test": "jest --config ../../jest.config.ts --rootDir ."
+    "test": "jest --config ../../jest.config.ts --rootDir .",
+    "debug": "./bin/proto-gen-dts.js -d __fixtures__ -o __fixtures__/expected"
   },
   "bugs": {
     "url": "https://github.com/planjs/stan/issues"

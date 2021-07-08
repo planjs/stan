@@ -51,6 +51,7 @@ declare namespace hello {
     details?: google.protobuf.Any[];
     stock?: SayNameRsp_Stock;
     currency?: SayNameRsp_Currency;
+    fieldDescriptor?: google.protobuf_FieldDescriptorProto;
   }
 
   export interface SayNameRsp_Stock {}

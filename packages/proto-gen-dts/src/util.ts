@@ -84,7 +84,7 @@ export function getParentLookup({
 
 export function getReflectionParentName(field: ReflectionObject) {
   let parent = field.parent;
-  let namePath = [parent?.name];
+  const namePath = [parent?.name];
   while (parent?.parent && parent?.name) {
     parent = parent?.parent!;
     namePath.unshift(parent.name);

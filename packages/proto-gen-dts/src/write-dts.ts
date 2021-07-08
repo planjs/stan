@@ -39,6 +39,12 @@ export interface <%= name %>Service {
 const serviceFNTemplate = `<%= comment %>
 <%= name %><R extends <%= requestType %>, O>(r: R, o?: O): Promise<<%= responseType %>>,`;
 
+const dtsExecutor = lodash.template(dtsTemplate);
+const interfaceExecutor = lodash.template(interfaceTemplate);
+const enumExecutor = lodash.template(enumTemplate);
+const serviceExecutor = lodash.template(serviceTemplate);
+const serviceFNExecutor = lodash.template(serviceFNTemplate);
+
 /**
  * parsed proto content to dts content
  * @param namespace
@@ -47,12 +53,6 @@ const serviceFNTemplate = `<%= comment %>
  */
 export function parseNameSpace(namespace: Namespace, filename?: string): string {
   const moduleName = namespace.name;
-
-  const dtsExecutor = lodash.template(dtsTemplate);
-  const interfaceExecutor = lodash.template(interfaceTemplate);
-  const enumExecutor = lodash.template(enumTemplate);
-  const serviceExecutor = lodash.template(serviceTemplate);
-  const serviceFNExecutor = lodash.template(serviceFNTemplate);
 
   const parsedNestedList: string[] = [];
 
