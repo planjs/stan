@@ -14,6 +14,8 @@ service Hello {
   // remark
   // get user list
   rpc GetUserList (GetUserListReq) returns (GetUserListRsp) {};
+
+  rpc GetSayNameUser (SayNameReq.User) returns (SayNameReq.User) {}
 }
 
 message Core {

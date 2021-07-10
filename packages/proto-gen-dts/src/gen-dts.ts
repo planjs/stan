@@ -49,8 +49,14 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
       }
       if (dts.length > 1) {
         console.log(
-          `  > ${chalk.cyan(relativeNormalize(_file.output!))} dependent modules: ` +
-            chalk.greenBright(dts.slice(1).map(relativeNormalize).join(' ')),
+          `  Created dependent modules: \n` +
+            chalk.greenBright(
+              dts
+                .slice(1)
+                .map(relativeNormalize)
+                .map((v) => '  • ' + v)
+                .join('\n'),
+            ),
         );
       }
     } catch (e) {
@@ -63,7 +69,7 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
     const referenceEntryFile = opts.referenceEntryFile || 'index.d.ts';
     writeReference(parsedFiles, referenceEntryFile);
     console.log(
-      `Created reference entry file: ${chalk.greenBright(relativeNormalize(referenceEntryFile))}`,
+      `Created reference entry file: ${chalk.cyan(relativeNormalize(referenceEntryFile))}`,
     );
   }
 

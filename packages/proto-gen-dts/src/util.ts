@@ -5,6 +5,15 @@ import type { Field, Namespace, ReflectionObject } from 'protobufjs';
 const { name, bugs } = require('../package.json');
 
 /**
+ * check is protobufjs Namespace
+ * @param nested
+ */
+export function isNamespace(nested: ReflectionObject) {
+  // @ts-ignore
+  return nested?.__proto__?.constructor?.name === 'Namespace';
+}
+
+/**
  * prettier format ts content
  * @param content
  * @param opts
@@ -98,6 +107,9 @@ export function getReflectionParentName(field: ReflectionObject) {
  * @param file
  */
 export function replaceSamePath(base: string, file: string) {
+  if (file.startsWith(base)) {
+    return file.replace(base, '');
+  }
   base = path.resolve(base);
   file = path.resolve(file);
   const a = base.split(path.sep);
