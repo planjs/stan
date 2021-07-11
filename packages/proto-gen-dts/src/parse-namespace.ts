@@ -2,6 +2,7 @@ import { lodash } from 'stan-utils';
 import { Enum, MapField, Namespace, ReflectionObject, Service, Type } from 'protobufjs';
 import {
   formatTS,
+  getFieldIsRequired,
   getParentLookup,
   getReflectionParentName,
   isNamespace,
@@ -58,24 +59,27 @@ function parseNamespace(namespace: Namespace, filename?: string): string {
 
   // construct the name of the message embedded in the message
   function replaceNamespacePrefix(name: string, field?: ReflectionObject) {
-    if (field && isNamespace(field.parent!)) {
-      return name;
-    }
     const _filename = namespace.lookup(name)?.filename;
     // 不是当前文件不处理
     if (_filename !== filename) {
       const arr = name.split('.');
       const lastNamespaceIndex = arr.findIndex(
-        (_, index) => !isNamespace(namespace.lookup(arr.slice(0, index).join('.'))!),
+        (_, index) => !isNamespace(namespace.lookup(arr.slice(0, index + 1).join('.'))!),
       );
       if (!~lastNamespaceIndex) {
         return name;
       }
-      return `${arr.slice(0, lastNamespaceIndex).join('.')}.${arr
-        .slice(lastNamespaceIndex)
-        .join('_')}`;
+      return [
+        arr.slice(0, lastNamespaceIndex + 1).join('.'),
+        arr.slice(lastNamespaceIndex + 1).join('_'),
+      ]
+        .filter(String)
+        .join('.');
     }
     if (field && !name.includes('.')) {
+      if (isNamespace(field.parent!)) {
+        return name;
+      }
       name = `${getReflectionParentName(field)}_${name}`;
     }
     return name.replace(new RegExp(`^${moduleName}_`), '').replace(/\./g, '_');
@@ -101,7 +105,7 @@ function parseNamespace(namespace: Namespace, filename?: string): string {
               acc.push(genComment(field.comment));
             }
             const endPrefix = field.repeated ? '[]' : '';
-            let fieldContent = `${field.name}${field.required ? '' : '?'}: `;
+            let fieldContent = `${field.name}${getFieldIsRequired(field) ? '' : '?'}: `;
             if (field instanceof MapField) {
               fieldContent += `Record<${protoTypeToTSType(field.keyType)}, ${
                 childrenNested

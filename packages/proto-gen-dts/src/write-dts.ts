@@ -24,7 +24,7 @@ export default function writeDTS(proto: GenProtoFile, opts?: IParseOptions): str
   const { generateDependentModules = true } = proto;
 
   if (parsedFiles.includes(proto.file)) {
-    return [];
+    return [proto.file];
   }
 
   function loadFile(file: string) {

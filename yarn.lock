@@ -2715,6 +2715,11 @@
   dependencies:
     postcss "5 - 7"
 
+"@types/deasync@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.nlark.com/@types/deasync/download/@types/deasync-0.1.1.tgz#69ca6999a2e40e329599da9f093b67e3e6cc0833"
+  integrity sha1-acppmaLkDjKVmdqfCTtn4+bMCDM=
+
 "@types/debug@^4.1.5":
   version "4.1.6"
   resolved "https://registry.nlark.com/@types/debug/download/@types/debug-4.1.6.tgz?cache=0&sync_timestamp=1625128414423&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fdebug%2Fdownload%2F%40types%2Fdebug-4.1.6.tgz#0b7018723084918a865eff99249c490505df2163"
@@ -3890,6 +3895,13 @@ binary-extensions@^2.0.0:
   version "2.2.0"
   resolved "https://registry.nlark.com/binary-extensions/download/binary-extensions-2.2.0.tgz#75f502eeaf9ffde42fc98829645be4ea76bd9e2d"
   integrity sha1-dfUC7q+f/eQvyYgpZFvk6na9ni0=
+
+bindings@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.nlark.com/bindings/download/bindings-1.5.0.tgz#10353c9e945334bc0511a6d90b38fbc7c9c504df"
+  integrity sha1-EDU8npRTNLwFEabZCzj7x8nFBN8=
+  dependencies:
+    file-uri-to-path "1.0.0"
 
 bl@^4.1.0:
   version "4.1.0"
@@ -5363,6 +5375,14 @@ de-indent@^1.0.2:
   resolved "https://registry.nlark.com/de-indent/download/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
   integrity sha1-sgOOhG3DO6pXlhKNCAS0VbjB4h0=
 
+deasync@^0.1.21:
+  version "0.1.21"
+  resolved "https://registry.npm.taobao.org/deasync/download/deasync-0.1.21.tgz#bb11eabd4466c0d8776f0d82deb8a6126460d30f"
+  integrity sha1-uxHqvURmwNh3bw2C3rimEmRg0w8=
+  dependencies:
+    bindings "^1.5.0"
+    node-addon-api "^1.7.1"
+
 debug-fabulous@1.X:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/debug-fabulous/download/debug-fabulous-1.1.0.tgz#af8a08632465224ef4174a9f06308c3c2a1ebc8e"
@@ -6416,6 +6436,11 @@ file-entry-cache@^5.0.1:
   integrity sha1-yg9u+m3T1WEzP7FFFQZcL6/fQ5w=
   dependencies:
     flat-cache "^2.0.1"
+
+file-uri-to-path@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/file-uri-to-path/download/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"
+  integrity sha1-VTp7hEb/b2hDWcRF8eN6BdrMM90=
 
 fill-range@^4.0.0:
   version "4.0.0"
@@ -9774,6 +9799,11 @@ nice-try@^1.0.4:
   resolved "https://registry.npm.taobao.org/nice-try/download/nice-try-1.0.5.tgz?cache=0&sync_timestamp=1614510016909&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fnice-try%2Fdownload%2Fnice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha1-ozeKdpbOfSI+iPybdkvX7xCJ42Y=
 
+node-addon-api@^1.7.1:
+  version "1.7.2"
+  resolved "https://registry.nlark.com/node-addon-api/download/node-addon-api-1.7.2.tgz#3df30b95720b53c24e59948b49532b662444f54d"
+  integrity sha1-PfMLlXILU8JOWZSLSVMrZiRE9U0=
+
 node-fetch-npm@^2.0.2:
   version "2.0.4"
   resolved "https://registry.npm.taobao.org/node-fetch-npm/download/node-fetch-npm-2.0.4.tgz#6507d0e17a9ec0be3bec516958a497cec54bf5a4"
@@ -11329,7 +11359,7 @@ proto-list@~1.2.1:
   resolved "https://registry.nlark.com/proto-list/download/proto-list-1.2.4.tgz#212d5bfe1318306a420f6402b8e26ff39647a849"
   integrity sha1-IS1b/hMYMGpCD2QCuOJv85ZHqEk=
 
-protobufjs@6.8.5, protobufjs@^6.8.0:
+protobufjs@^6.8.0:
   version "6.8.5"
   resolved "https://registry.nlark.com/protobufjs/download/protobufjs-6.8.5.tgz?cache=0&sync_timestamp=1619804443465&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fprotobufjs%2Fdownload%2Fprotobufjs-6.8.5.tgz#ca064d0b1b52327b3ff9e3bb74de3624e08e5fe2"
   integrity sha1-ygZNCxtSMns/+eO7dN42JOCOX+I=

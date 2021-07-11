@@ -1,6 +1,6 @@
 import type { PluginObj } from '@babel/core';
 import * as babel from '@babel/core';
-import { moduleResolverVisited, PluginContext } from './state';
+import { PluginContext } from './ctx';
 import resolvePath, { createResolver } from './resolve-path';
 import normalizeOptions from './normalize-options';
 
@@ -8,7 +8,7 @@ const plugin = ({ types: t }: typeof babel): PluginObj => {
   return {
     name: 'module-resolve',
     pre(this: PluginContext) {
-      this.dirName = this.file.opts.root;
+      this.cwd = this.file.opts.root;
       this.resolver = createResolver(normalizeOptions.call(this));
     },
     visitor: {
@@ -41,9 +41,6 @@ const plugin = ({ types: t }: typeof babel): PluginObj => {
 
         resolvePath.call(this, nodePath.node.arguments[0]);
       },
-    },
-    post() {
-      moduleResolverVisited.clear();
     },
   };
 };

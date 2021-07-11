@@ -55,16 +55,13 @@ export function protoTypeToTSType(input: string): keyof typeof Types | void {
   }
 }
 
-/**
- * get field root type
- * @param field
- */
-export function getFieldRootType(field: Field): Namespace | null {
-  let parent = field.parent;
-  while (parent?.parent) {
-    parent = parent.parent;
+const requiredCommentKeyword = ['@v: required'];
+
+export function getFieldIsRequired(field: Field) {
+  if (!field.comment) {
+    return field.required;
   }
-  return parent;
+  return requiredCommentKeyword.some((v) => field.comment!.includes(v)) || field.required;
 }
 
 /**

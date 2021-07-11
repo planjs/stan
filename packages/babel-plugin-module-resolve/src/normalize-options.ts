@@ -1,18 +1,19 @@
 import fs from 'fs';
+import path from 'path';
 import { CachedInputFileSystem } from 'enhanced-resolve';
+
 import type { ModuleResolveOptions } from './types';
-import type { PluginContext } from './state';
+import type { PluginContext } from './ctx';
 
 function normalizeOptions(this: PluginContext): ModuleResolveOptions {
-  const opt: ModuleResolveOptions = {
+  return {
     fileSystem: new CachedInputFileSystem(fs, 4000),
     alias: {
-      '@/': ['./*'],
+      '@': path.join(this.cwd, 'src'),
     },
-    roots: [this.file.opts.root],
+    roots: [this.cwd],
     ...this.opts,
   };
-  return opt;
 }
 
 export default normalizeOptions;
