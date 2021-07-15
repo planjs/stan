@@ -13,7 +13,7 @@ jest.useFakeTimers();
 
 it('stan-builder build', async () => {
   const fixtures = dirs(path.join(__dirname, '../__fixtures__'), true);
-  for (let cwd of fixtures) {
+  for (const cwd of fixtures) {
     await stanLibBuilder({ cwd });
   }
 }, 30000);

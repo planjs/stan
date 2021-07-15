@@ -1,5 +1,4 @@
-import { template, types } from '@babel/core';
-import { Node, NodePath } from '@babel/traverse';
+import { PluginObj, template, types, Node } from '@babel/core';
 
 const buildEnumWrapper = template(`
 const ID = (function () {
@@ -10,12 +9,12 @@ const ID = (function () {
 
 const IIFE_ENUM = '__ENUM_IIFE__';
 
-export default () => {
+const plugin = (): PluginObj => {
   return {
     name: 'ts-enum-iife',
     inherits: require('@babel/plugin-syntax-typescript').default,
     visitor: {
-      TSEnumDeclaration(path: NodePath<types.TSEnumDeclaration>) {
+      TSEnumDeclaration(path) {
         if (
           path.node.leadingComments &&
           path.node.leadingComments.toString().indexOf(IIFE_ENUM) >= -1
@@ -28,7 +27,7 @@ export default () => {
           ENUM: {
             ...path.node,
             leadingComments: [
-              ...(path.node.leadingComments ? path.node.leadingComments : []),
+              ...(path.node?.leadingComments || []),
               {
                 type: 'LineComponent',
                 value: IIFE_ENUM,
@@ -42,3 +41,5 @@ export default () => {
     },
   };
 };
+
+export default plugin;

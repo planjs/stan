@@ -18,15 +18,23 @@ npm i proto-gen-dts -g
 * ✔︎ Support generate `service` to `interfaces`
 * ✔︎ Keep generating comments and order
 
+## Special comment support
+- `@v: required` interface field well required
+
 ## Usage
 
 ```js
 // use in nodejs
 const protoGenDts = require('proto-gen-dts');
 
-const dtsFiles = protoGenDts({
-  file: 'hello.proto',
-  output: 'typings/hello.d.ts',
+const dtsFiles = protoGenDts.default({
+  files: [
+    {
+      file: 'hello.proto',
+      output: 'typings/hello.d.ts',
+      generateDependentModules: true
+    }
+  ],
   referenceEntryFile: 'typings/index.d.ts'
 })
 ```
@@ -44,21 +52,30 @@ proto-gen-dts -d protos/ -o typings/ --keepcase
 ```
 
 ## Example
-`hello.proto`
+Source `hello.proto`
 ```proto
 syntax = "proto3";
+
+import "core.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/descriptor.proto";
 
 package hello;
 
 service Hello {
   /**
-  hello
+   * hello
    */
   rpc SayName (SayNameReq) returns (SayNameRsp) {};
+  // remark
+  // get user list
+  rpc GetUserList (GetUserListReq) returns (GetUserListRsp) {};
+
+  rpc GetSayNameUser (SayNameReq.User) returns (SayNameReq.User) {}
 }
 
 message Core {
-  string firstName = 1;
+  string first_name = 1;
 }
 
 enum Direct {
@@ -74,6 +91,12 @@ message SayNameReq {
     // 用户名
     string name = 1;
     string avatar = 2;
+
+    enum Role {
+      RoleNil = 0;
+      // admin
+      RoleAdmin = 1;
+    }
   }
   string full_name = 1;
   Core core = 2;
@@ -82,17 +105,50 @@ message SayNameReq {
 }
 
 message SayNameRsp {
+  message Stock {
+    // Stock-specific data
+  }
+
+  message Currency {
+    // Currency-specific data
+  }
   string realName = 1;
+  map<uint32, SayNameReq.User> user_map = 2;
+  map<uint32, SayNameReq.User.Role> role_map = 3;
+  map<uint32, uint64> link_map = 4;
+  repeated google.protobuf.Any details = 5;
+  oneof instrument {
+    Stock stock = 6;
+    Currency currency = 7;
+  }
+  google.protobuf.FieldDescriptorProto field_descriptor = 8;
 }
+
+message GetUserListReq {
+  core.XXX xxx = 1;
+  core.ListOptions.Option option = 2;
+}
+message GetUserListRsp {}
 ```
-output `typings/hello.d.ts`
+Output `typings/hello.d.ts`
 ```typescript
 /** code generate by proto-gen-dts don't edit */
 
 declare namespace hello {
   export interface HelloService {
-    /** hello */
+    // hello
     SayName<R extends SayNameReq, O>(r: R, o?: O): Promise<SayNameRsp>;
+    // remark
+    // get user list
+    GetUserList<R extends GetUserListReq, O>(
+      r: R,
+      o?: O
+    ): Promise<GetUserListRsp>;
+
+    GetSayNameUser<R extends SayNameReq_User, O>(
+      r: R,
+      o?: O
+    ): Promise<SayNameReq_User>;
   }
 
   export interface Core {
@@ -105,14 +161,7 @@ declare namespace hello {
     Down = 2,
   }
 
-  /** 用户模型 */
-  export interface SayNameReq_User {
-    /** 用户名 */
-    name?: string;
-    avatar?: string;
-  }
-
-  /** 测试评论 */
+  // 测试评论
   export interface SayNameReq {
     fullName?: string;
     core?: Core;
@@ -120,10 +169,42 @@ declare namespace hello {
     direct?: Direct;
   }
 
+  // 用户模型
+  export interface SayNameReq_User {
+    // 用户名
+    name?: string;
+    avatar?: string;
+  }
+
+  export const enum SayNameReq_User_Role {
+    RoleNil = 0,
+    // admin
+    RoleAdmin = 1,
+  }
+
   export interface SayNameRsp {
     realName?: string;
+    userMap?: Record<number, SayNameReq_User>;
+    roleMap?: Record<number, SayNameReq_User_Role>;
+    linkMap?: Record<number, string>;
+    details?: google.protobuf.Any[];
+    stock?: SayNameRsp_Stock;
+    currency?: SayNameRsp_Currency;
+    fieldDescriptor?: google.protobuf.FieldDescriptorProto;
   }
+
+  export interface SayNameRsp_Stock {}
+
+  export interface SayNameRsp_Currency {}
+
+  export interface GetUserListReq {
+    xxx?: core.XXX;
+    option?: core.ListOptions_Option;
+  }
+
+  export interface GetUserListRsp {}
 }
+
 ```
 
 `referenceEntryFile` output `typings/index.d.ts`
@@ -131,4 +212,12 @@ declare namespace hello {
 /** code generate by proto-gen-dts don't edit */
 
 /// <reference path="hello.d.ts" />
+/// <reference path="core.d.ts" />
+/// <reference path="google/protobuf/any.d.ts" />
+/// <reference path="google/protobuf/descriptor.d.ts" />
 ```
+
+`generateDependentModules` will generate dependent modules
+- `typings/core.d.ts`
+- `typings/google/protobuf/any.d.ts`
+- `typings/google/protobuf/descriptor.d.ts`

@@ -1,5 +1,5 @@
 import path from 'path';
-import { chalk, relativeNormalize, pms } from 'stan-utils';
+import { chalk, relativeNormalize, pms, slash } from 'stan-utils';
 
 import type { ProtoGenDTSOptions } from './type';
 import writeDTS from './write-dts';
@@ -17,21 +17,28 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
 
   const parsedFiles: string[] = [];
 
-  for (let file of opts.files) {
+  for (const file of opts.files) {
     const readablyFile = relativeNormalize(file.file);
     const _file = {
       ...file,
     };
+    const { dir, name } = path.parse(file.file);
     if (!_file.output) {
-      const { dir, name } = path.parse(file.file);
       _file.output = path.join(dir, name + '.d.ts');
+    }
+    if (slash(_file.output).slice(-1) === '/') {
+      _file.output = path.join(_file.output, name + '.d.ts');
     }
     const startTime = Date.now();
     console.log(
       `Compile ${chalk.yellow(readablyFile)} → ${chalk.cyan(relativeNormalize(_file.output!))}...`,
     );
     try {
-      const dts = writeDTS(_file, opts.protoParseOptions);
+      const dts = writeDTS(_file, {
+        alternateCommentMode: true,
+        ...opts.protoParseOptions,
+        ...file.protoParseOptions,
+      });
       parsedFiles.push(...dts);
       if (dts.length) {
         console.log(
@@ -42,8 +49,14 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
       }
       if (dts.length > 1) {
         console.log(
-          `  > ${chalk.cyan(relativeNormalize(_file.output!))} dependent modules: ` +
-            chalk.greenBright(dts.slice(1).map(relativeNormalize).join(' ')),
+          `  Created dependent modules: \n` +
+            chalk.greenBright(
+              dts
+                .slice(1)
+                .map(relativeNormalize)
+                .map((v) => '  • ' + v)
+                .join('\n'),
+            ),
         );
       }
     } catch (e) {
@@ -56,7 +69,7 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
     const referenceEntryFile = opts.referenceEntryFile || 'index.d.ts';
     writeReference(parsedFiles, referenceEntryFile);
     console.log(
-      `Created reference entry file: ${chalk.greenBright(relativeNormalize(referenceEntryFile))}`,
+      `Created reference entry file: ${chalk.cyan(relativeNormalize(referenceEntryFile))}`,
     );
   }
 

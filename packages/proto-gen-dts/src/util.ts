@@ -5,6 +5,15 @@ import type { Field, Namespace, ReflectionObject } from 'protobufjs';
 const { name, bugs } = require('../package.json');
 
 /**
+ * check is protobufjs Namespace
+ * @param nested
+ */
+export function isNamespace(nested: ReflectionObject) {
+  // @ts-ignore
+  return nested?.__proto__?.constructor?.name === 'Namespace';
+}
+
+/**
  * prettier format ts content
  * @param content
  * @param opts
@@ -46,16 +55,13 @@ export function protoTypeToTSType(input: string): keyof typeof Types | void {
   }
 }
 
-/**
- * get field root type
- * @param field
- */
-export function getFieldRootType(field: Field): Namespace | null {
-  let parent = field.parent;
-  while (parent?.parent) {
-    parent = parent.parent;
+const requiredCommentKeyword = ['@v: required'];
+
+export function getFieldIsRequired(field: Field) {
+  if (!field.comment) {
+    return field.required;
   }
-  return parent;
+  return requiredCommentKeyword.some((v) => field.comment!.includes(v)) || field.required;
 }
 
 /**
@@ -84,7 +90,7 @@ export function getParentLookup({
 
 export function getReflectionParentName(field: ReflectionObject) {
   let parent = field.parent;
-  let namePath = [parent?.name];
+  const namePath = [parent?.name];
   while (parent?.parent && parent?.name) {
     parent = parent?.parent!;
     namePath.unshift(parent.name);
@@ -98,6 +104,9 @@ export function getReflectionParentName(field: ReflectionObject) {
  * @param file
  */
 export function replaceSamePath(base: string, file: string) {
+  if (file.startsWith(base)) {
+    return file.replace(base, '');
+  }
   base = path.resolve(base);
   file = path.resolve(file);
   const a = base.split(path.sep);

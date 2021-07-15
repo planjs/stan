@@ -10,6 +10,11 @@ declare namespace hello {
       r: R,
       o?: O
     ): Promise<GetUserListRsp>;
+
+    GetSayNameUser<R extends SayNameReq_User, O>(
+      r: R,
+      o?: O
+    ): Promise<SayNameReq_User>;
   }
 
   export interface Core {
@@ -51,6 +56,7 @@ declare namespace hello {
     details?: google.protobuf.Any[];
     stock?: SayNameRsp_Stock;
     currency?: SayNameRsp_Currency;
+    fieldDescriptor?: google.protobuf.FieldDescriptorProto;
   }
 
   export interface SayNameRsp_Stock {}

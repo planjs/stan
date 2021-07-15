@@ -4,10 +4,18 @@ import { slash } from '@planjs/utils';
 const absolutePath = /^(?:\/|(?:[A-Za-z]:)?[\\|/])/;
 const relativePath = /^\.?\.\//;
 
+/**
+ * 判断是否绝对路径
+ * @param path
+ */
 export function isAbsolute(path: string) {
   return absolutePath.test(path);
 }
 
+/**
+ * 检查是否相对路径
+ * @param path
+ */
 export function isRelative(path: string) {
   return relativePath.test(path);
 }
@@ -17,6 +25,10 @@ export function relativeId(id: string) {
   return relative(process.cwd(), id);
 }
 
+/**
+ * 序列化成linux文件路径
+ * @param id
+ */
 export function relativeNormalize(id: string) {
   return slash(relativeId(id));
 }

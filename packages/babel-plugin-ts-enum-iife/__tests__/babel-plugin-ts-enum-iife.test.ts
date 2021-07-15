@@ -11,7 +11,7 @@ describe('babel-plugin-typescript-enum-iife', () => {
       {
         plugins: [babelPluginTypescriptEnumIife, '@babel/plugin-transform-typescript'],
       },
-    )!.code;
+    )?.code;
 
     expect(src).toEqual(
       `const Test = function () {

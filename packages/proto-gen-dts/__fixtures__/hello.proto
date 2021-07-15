@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "core.proto";
 import "google/protobuf/any.proto";
+import "google/protobuf/descriptor.proto";
 
 package hello;
 
@@ -13,6 +14,8 @@ service Hello {
   // remark
   // get user list
   rpc GetUserList (GetUserListReq) returns (GetUserListRsp) {};
+
+  rpc GetSayNameUser (SayNameReq.User) returns (SayNameReq.User) {}
 }
 
 message Core {
@@ -62,6 +65,7 @@ message SayNameRsp {
     Stock stock = 6;
     Currency currency = 7;
   }
+  google.protobuf.FieldDescriptorProto field_descriptor = 8;
 }
 
 message GetUserListReq {

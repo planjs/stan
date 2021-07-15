@@ -13,11 +13,13 @@ require("./index.css");
 
 require("./sass.scss");
 
+var _excluded = ["name"];
+
 function _default(args) {
   var _args$name;
 
   var name = args.name,
-      o = (0, _objectWithoutProperties2.default)(args, ["name"]);
+      o = (0, _objectWithoutProperties2.default)(args, _excluded);
   console.log(o);
   return (_args$name = args === null || args === void 0 ? void 0 : args.name) !== null && _args$name !== void 0 ? _args$name : 'stan';
 }
