@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.13](https://github.com/planjs/stan/compare/proto-gen-api-client@0.3.10...proto-gen-api-client@0.3.13) (2021-07-15)
+
+
+### Bug Fixes
+
+* **stan-builder:** clear output dir ([b52caf6](https://github.com/planjs/stan/commit/b52caf6d329078cd279e30888f1321ef6cb226b5))
+
+
+
+
+
 ## [0.3.12](https://github.com/planjs/stan/compare/proto-gen-api-client@0.3.11...proto-gen-api-client@0.3.12) (2021-06-17)
 
 **Note:** Version bump only for package proto-gen-api-client
