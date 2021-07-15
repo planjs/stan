@@ -7,7 +7,7 @@ import type { ResolveOptions } from 'enhanced-resolve';
 
 import { toPosixPath } from './utils';
 
-import type { PluginContext } from './state';
+import type { PluginContext } from './ctx';
 
 export function createResolver(resolveOptions: ResolveOptions) {
   return ResolverFactory.createResolver(resolveOptions);
