@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.1](https://github.com/planjs/stan/compare/proto-gen-dts@0.8.0...proto-gen-dts@0.8.1) (2021-07-20)
+
+**Note:** Version bump only for package proto-gen-dts
+
+
+
+
+
 # [0.8.0](https://github.com/planjs/stan/compare/proto-gen-dts@0.7.10...proto-gen-dts@0.8.0) (2021-07-15)
 
 

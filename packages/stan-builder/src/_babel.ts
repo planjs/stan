@@ -235,6 +235,8 @@ async function babelBuild(opts: BabelOptions) {
   return new Promise<void>((resolve) => {
     const patterns = [
       path.join(srcPath, '**/*'),
+      `!${path.join(srcPath, '**/fixtures{,/**}')}`,
+      `!${path.join(srcPath, '**/__fixtures__{,/**}')}`,
       `!${path.join(srcPath, '**/demos{,/**}')}`,
       `!${path.join(srcPath, '**/__test__{,/**}')}`,
       `!${path.join(srcPath, '**/*.mdx')}`,
