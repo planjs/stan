@@ -147,7 +147,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
       }),
       aliasOpts && alias(aliasOpts),
       url(),
-      json(),
+      json({ compact: true }),
       postcss({
         extract: extractCSS,
         inject: injectCSS,
@@ -206,7 +206,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   }
 
   function getExternal(): (string | RegExp)[] {
-    let PKGs: ExternalOption = [...extraExternals];
+    const PKGs: ExternalOption = [...extraExternals];
     PKGs.push(...Object.keys(pkg?.peerDependencies! || {}));
     if (format !== 'umd') {
       if (!externalPeerDependenciesOnly) {

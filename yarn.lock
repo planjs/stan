@@ -12230,11 +12230,6 @@ rsvp@^4.8.4:
   resolved "https://registry.nlark.com/rsvp/download/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"
   integrity sha1-yPFVMR0Wf2jyHhaN9x7FsIMRNzQ=
 
-rsync@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.npm.taobao.org/rsync/download/rsync-0.6.1.tgz#3681a0098bd8750448f8bf9da1fee09f7763742b"
-  integrity sha1-NoGgCYvYdQRI+L+dof7gn3djdCs=
-
 run-async@^2.2.0:
   version "2.4.1"
   resolved "https://registry.nlark.com/run-async/download/run-async-2.4.1.tgz#8440eccf99ea3e70bd409d49aab88e10c189a455"
