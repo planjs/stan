@@ -3,6 +3,7 @@ import { Enum, MapField, Namespace, ReflectionObject, Service, Type } from 'prot
 import {
   formatTS,
   getFieldIsRequired,
+  getNamespaceRoot,
   getParentLookup,
   getReflectionParentName,
   isNamespace,
@@ -60,19 +61,18 @@ function parseNamespace(namespace: Namespace, filename?: string): string {
   // construct the name of the message embedded in the message
   function replaceNamespacePrefix(name: string, field?: ReflectionObject) {
     const _filename = namespace.lookup(name)?.filename;
-    // 不是当前文件不处理
+    // not current namespace types
     if (_filename !== filename) {
       const arr = name.split('.');
+      // other files, search from the GoogleProtoFilesRoot
       const lastNamespaceIndex = arr.findIndex(
-        (_, index) => !isNamespace(namespace.lookup(arr.slice(0, index + 1).join('.'))!),
+        (_, index) =>
+          !isNamespace(getNamespaceRoot(namespace).lookup(arr.slice(0, index + 1).join('.'))!),
       );
-      if (!~lastNamespaceIndex) {
+      if (!lastNamespaceIndex) {
         return name;
       }
-      return [
-        arr.slice(0, lastNamespaceIndex + 1).join('.'),
-        arr.slice(lastNamespaceIndex + 1).join('_'),
-      ]
+      return [arr.slice(0, lastNamespaceIndex).join('.'), arr.slice(lastNamespaceIndex).join('_')]
         .filter(String)
         .join('.');
     }
@@ -171,14 +171,15 @@ function parseNamespace(namespace: Namespace, filename?: string): string {
 
   // parse proto reflection obj
   function processNested(nested: ReflectionObject) {
-    // 不是当前文件内的内容不生成，因为相关依赖的模块会生成单独的文件
+    // it's not that the content in the current file is not generated
+    // because the dependent modules will generate separate files
     if (nested.filename && nested.filename !== filename) return;
     const messageName = replaceNamespacePrefix(nested.name, nested);
     if (nested instanceof Type) {
       if (hasGenMap.interfaces.has(messageName)) return;
       hasGenMap.interfaces.add(messageName);
       processType(messageName, nested);
-      // 处理嵌套 message
+      // nested message
       eachNested(nested.nested!);
     } else if (nested instanceof Enum) {
       if (hasGenMap.enums.has(messageName)) return;
@@ -188,7 +189,7 @@ function parseNamespace(namespace: Namespace, filename?: string): string {
       if (hasGenMap.services.has(messageName)) return;
       hasGenMap.services.add(messageName);
       processService(messageName, nested);
-      // 处理嵌套 message
+      // nested message
       eachNested(nested.nested!);
     } else if (nested instanceof Namespace) {
       const parsed = parseNamespace(nested, filename);

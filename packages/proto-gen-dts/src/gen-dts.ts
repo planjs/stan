@@ -41,10 +41,9 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
       });
       parsedFiles.push(...dts);
       if (dts.length) {
+        const spendMS = Date.now() - startTime;
         console.log(
-          `Created ${chalk.cyan(relativeNormalize(_file.output!))} in ${chalk.bold(
-            pms(Date.now() - startTime),
-          )}`,
+          `Created ${chalk.cyan(relativeNormalize(_file.output!))} in ${chalk.bold(pms(spendMS))}`,
         );
       }
       if (dts.length > 1) {

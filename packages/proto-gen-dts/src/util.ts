@@ -1,6 +1,7 @@
 import path from 'path';
 import { prettier } from 'stan-utils';
 import type { Field, Namespace, ReflectionObject } from 'protobufjs';
+import { NamespaceBase } from 'protobufjs';
 
 const { name, bugs } = require('../package.json');
 
@@ -11,6 +12,18 @@ const { name, bugs } = require('../package.json');
 export function isNamespace(nested: ReflectionObject) {
   // @ts-ignore
   return nested?.__proto__?.constructor?.name === 'Namespace';
+}
+
+/**
+ * get namespace root
+ * @param nested
+ */
+export function getNamespaceRoot(nested: NamespaceBase): NamespaceBase {
+  let parent = nested;
+  while (!!parent.parent) {
+    parent = parent.parent!;
+  }
+  return parent;
 }
 
 /**
