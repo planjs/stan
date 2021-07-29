@@ -8,6 +8,7 @@ import type { GenProtoFile } from './type';
 
 import { writeBanner, reportIssues, replaceSamePath } from './util';
 import parseNamespace from './parse-namespace';
+import { Visitor } from './type';
 
 /**
  * record parsed files
@@ -18,9 +19,14 @@ const parsedFiles: string[] = [];
  * generate dts file
  * @param proto
  * @param opts
+ * @param visitor
  * @returns generate files
  */
-export default function writeDTS(proto: GenProtoFile, opts?: IParseOptions): string[] {
+export default function writeDTS(
+  proto: GenProtoFile,
+  opts?: IParseOptions,
+  visitor?: Visitor,
+): string[] {
   const { generateDependentModules = true } = proto;
 
   if (parsedFiles.includes(proto.file)) {
@@ -62,7 +68,7 @@ export default function writeDTS(proto: GenProtoFile, opts?: IParseOptions): str
 
   if (checkCanCompile(reflection)) {
     const outPath = path.resolve(proto.output!);
-    const parsed = parseNamespace(reflection, root.files[0]);
+    const parsed = parseNamespace(reflection, root.files[0], visitor);
     fs.outputFileSync(outPath, writeBanner(parsed));
     generatedFiles.push(outPath);
     parsedFiles.push(proto.file);
@@ -84,7 +90,7 @@ export default function writeDTS(proto: GenProtoFile, opts?: IParseOptions): str
         const isLibFile = file.startsWith(protoLibDir);
 
         if (checkCanCompile(reflection)) {
-          const parsed = parseNamespace(reflection, file);
+          const parsed = parseNamespace(reflection, file, visitor);
           const { dir } = path.parse(proto.output!);
           // internal proto file, beautify the generation path
           if (file.startsWith(protoLibDir)) {

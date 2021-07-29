@@ -9,6 +9,7 @@ import {
   isNamespace,
   protoTypeToTSType,
 } from './util';
+import type { Visitor } from './type';
 
 const dtsTemplate = `<%= comment %>
 declare namespace <%= namespace %> {
@@ -42,11 +43,12 @@ const serviceFNExecutor = lodash.template(serviceFNTemplate);
 /**
  * Parsed proto content to dts content
  * @description Nested message names will be spliced by _
- * @param namespace
- * @param filename
+ * @param namespace {Namespace}
+ * @param filename {string}
+ * @param visitor {Visitor}
  * @returns dts content
  */
-function parseNamespace(namespace: Namespace, filename?: string): string {
+function parseNamespace(namespace: Namespace, filename?: string, visitor?: Visitor): string {
   const moduleName = namespace.name;
 
   const parsedNestedList: string[] = [];
@@ -154,6 +156,7 @@ function parseNamespace(namespace: Namespace, filename?: string): string {
         comment: genComment(nested.comment!),
         content: nested.methodsArray
           .reduce<string[]>((acc, field) => {
+            console.log(field.options);
             acc.push(
               serviceFNExecutor({
                 name: field.name,

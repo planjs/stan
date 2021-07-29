@@ -150,3 +150,13 @@ export function reportIssues(opt: { labels?: string; title?: string; template?: 
   }/new?assignees=&labels=${labels}&template=${template}&title=${encodeURIComponent(title)}`;
   return `${title}\nPlease report issues ${uri}`;
 }
+
+export function optionsToComment(options: ReflectionObject['options']) {
+  let str = '';
+  for (const k in options || {}) {
+    if (options?.[k]) {
+      str += `${k}=${options[k]}\n`;
+    }
+  }
+  return str;
+}
