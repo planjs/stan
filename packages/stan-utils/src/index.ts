@@ -34,6 +34,7 @@ export { updateNotifier };
 export { commander };
 export { chokidar };
 export { slash };
+export * from '@planjs/utils';
 export { prettier };
 export { fs };
 export { createDebug, Debugger };

@@ -34,11 +34,15 @@ function protoGenDTS(opts: ProtoGenDTSOptions): string[] {
       `Compile ${chalk.yellow(readablyFile)} → ${chalk.cyan(relativeNormalize(_file.output!))}...`,
     );
     try {
-      const dts = writeDTS(_file, {
-        alternateCommentMode: true,
-        ...opts.protoParseOptions,
-        ...file.protoParseOptions,
-      });
+      const dts = writeDTS(
+        _file,
+        {
+          alternateCommentMode: true,
+          ...opts.protoParseOptions,
+          ...file.protoParseOptions,
+        },
+        opts.visitor,
+      );
       parsedFiles.push(...dts);
       if (dts.length) {
         const spendMS = Date.now() - startTime;
