@@ -10,6 +10,7 @@ export type {
   TSEnumDeclarationContent,
   TSMessageDeclarationContent,
   TSServiceDeclarationContent,
+  TSNamespaceDeclarationContent,
 } from './type.d';
 
 export default protoGenDTS;

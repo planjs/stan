@@ -1,4 +1,5 @@
 import type { IParseOptions, Enum, Type, Service, Method, ReflectionObject } from 'protobufjs';
+import { Namespace } from 'protobufjs';
 
 export interface GenProtoFile {
   /**
@@ -82,6 +83,16 @@ export type TSServiceDeclarationContent = {
   fieldList: Array<TSServiceItemDeclarationContent>;
 };
 
+export type TSNamespaceDeclarationContent = {
+  namespace: Namespace;
+  filename?: string;
+  moduleName: string;
+  comment: string;
+  enums: Map<string, TSEnumDeclarationContent>;
+  services: Map<string, TSServiceDeclarationContent>;
+  interfaces: Map<string, TSMessageDeclarationContent>;
+};
+
 export interface Visitor {
   /**
    * enum processor
@@ -121,6 +132,12 @@ export interface Visitor {
     content: TSServiceItemDeclarationContent,
     reflection: Method,
   ) => VisitorFNReturnType;
+  /**
+   * emit namespace all types
+   * @param content
+   * @constructor
+   */
+  EmitTSNamespaceDeclaration?: (content: TSNamespaceDeclarationContent) => void;
 }
 
 export interface ProtoGenDTSOptions {

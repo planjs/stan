@@ -30,7 +30,7 @@ export default function writeDTS(
   const { generateDependentModules = true } = proto;
 
   if (parsedFiles.includes(proto.file)) {
-    return [proto.file];
+    return [];
   }
 
   function loadFile(file: string) {
@@ -58,6 +58,9 @@ export default function writeDTS(
 
   const root = loadFile(proto.file);
 
+  /**
+   * generated dts files path
+   */
   const generatedFiles: string[] = [];
 
   const reflection = root.nestedArray[0];
