@@ -1,4 +1,4 @@
-import type { IParseOptions, Enum, Type, Service } from 'protobufjs';
+import type { IParseOptions, Enum, Type, Service, Method, ReflectionObject } from 'protobufjs';
 
 export interface GenProtoFile {
   /**
@@ -24,28 +24,103 @@ export interface GenProtoFile {
   protoParseOptions?: IParseOptions;
 }
 
+export type VisitorFNReturnType = string | void | false;
+
+export type TSEnumDeclarationContent = {
+  name: string;
+  comment: string;
+  fieldList: Array<{
+    key: string;
+    value: number;
+    comment: string;
+  }>;
+};
+
+export type TSMessageDeclarationContent = {
+  name: string;
+  comment: string;
+  fieldList: Array<{
+    key: string;
+    /**
+     * Base type or proto message name
+     */
+    value: string;
+    isArray?: boolean;
+    isMap?: boolean;
+    /**
+     * @default false
+     */
+    isRequired?: boolean;
+    comment: string;
+    /**
+     * if value is proto message
+     */
+    reflection?: ReflectionObject | null;
+  }>;
+};
+
+export type TSServiceItemDeclarationContent = {
+  name: string;
+  /**
+   * Base type or proto message name
+   */
+  requestType: string;
+  /**
+   * Base type or proto message name
+   */
+  responseType: string;
+  comment: string;
+  /**
+   * rpc options
+   */
+  options?: Record<string, any>;
+};
+
+export type TSServiceDeclarationContent = {
+  name: string;
+  comment: string;
+  fieldList: Array<TSServiceItemDeclarationContent>;
+};
+
 export interface Visitor {
   /**
    * enum processor
-   * @param name
-   * @param reflection
+   * @param content {TSEnumDeclarationContent}
+   * @param reflection {Enum}
    * @constructor
    */
-  TSEnumDeclaration?: (name: string, reflection: Enum) => string;
+  TSEnumDeclaration?: (content: TSEnumDeclarationContent, reflection: Enum) => VisitorFNReturnType;
   /**
    * message processor
-   * @param name
-   * @param reflection
+   * @param content {TSMessageDeclarationContent}
+   * @param reflection {Type}
    * @constructor
    */
-  TSMessageDeclaration?: (name: string, reflection: Type) => string;
+  TSMessageDeclaration?: (
+    content: TSMessageDeclarationContent,
+    reflection: Type,
+  ) => VisitorFNReturnType;
   /**
    * service processor
-   * @param name
-   * @param reflection
+   * @param content {string}
+   * @param reflection {TSServiceDeclarationContent}
    * @constructor
    */
-  TSServiceDeclaration?: (name: string, reflection: Service) => string;
+  TSServiceDeclaration?: (
+    content: TSServiceDeclarationContent,
+    reflection: Service,
+  ) => VisitorFNReturnType;
+  /**
+   * services rpc item processor
+   * if TSServiceDeclaration return {string|false}, won't execute
+   * @param content {TSServiceItemDeclarationContent}
+   * @param reflection {Type}
+   * @constructor
+   */
+  TSServiceItemDeclaration?: (
+    content: TSServiceItemDeclarationContent,
+    reflection: Method,
+  ) => VisitorFNReturnType;
 }
 
 export interface ProtoGenDTSOptions {
