@@ -1,5 +1,5 @@
 import { lodash } from 'stan-utils';
-import { Enum, MapField, Namespace, ReflectionObject, Service, Type } from 'protobufjs';
+import { Enum, MapField, Method, Namespace, ReflectionObject, Service, Type } from 'protobufjs';
 import {
   formatTS,
   getFieldIsRequired,
@@ -9,6 +9,14 @@ import {
   isNamespace,
   protoTypeToTSType,
 } from './util';
+import type {
+  Visitor,
+  VisitorFNReturnType,
+  TSServiceItemDeclarationContent,
+  TSMessageDeclarationContent,
+  TSEnumDeclarationContent,
+  TSServiceDeclarationContent,
+} from './type';
 
 const dtsTemplate = `<%= comment %>
 declare namespace <%= namespace %> {
@@ -42,20 +50,21 @@ const serviceFNExecutor = lodash.template(serviceFNTemplate);
 /**
  * Parsed proto content to dts content
  * @description Nested message names will be spliced by _
- * @param namespace
- * @param filename
+ * @param namespace {Namespace}
+ * @param filename {string}
+ * @param visitor {Visitor}
  * @returns dts content
  */
-function parseNamespace(namespace: Namespace, filename?: string): string {
+function parseNamespace(namespace: Namespace, filename?: string, visitor?: Visitor): string {
   const moduleName = namespace.name;
 
   const parsedNestedList: string[] = [];
 
   // record generation history to prevent repeated generation
   const hasGenMap = {
-    enums: new Set<string>(),
-    services: new Set<string>(),
-    interfaces: new Set<string>(),
+    enums: new Map<string, TSEnumDeclarationContent>(),
+    services: new Map<string, TSServiceDeclarationContent>(),
+    interfaces: new Map<string, TSMessageDeclarationContent>(),
   };
 
   // construct the name of the message embedded in the message
@@ -93,11 +102,60 @@ function parseNamespace(namespace: Namespace, filename?: string): string {
   }
 
   // process interface
-  function processType(name: string, nested: Type) {
-    parsedNestedList.push(
-      interfaceExecutor({
+  function processType(name: string, nested: Type): TSMessageDeclarationContent {
+    const comment = genComment(nested.comment!);
+
+    const schema: TSMessageDeclarationContent = {
+      name,
+      comment,
+      fieldList: nested.fieldsArray.reduce<TSMessageDeclarationContent['fieldList']>(
+        (acc, field) => {
+          const childrenNested = getParentLookup({
+            field,
+            root: namespace,
+            type: field.type,
+          });
+          const endPrefix = field.repeated ? '[]' : '';
+
+          acc.push({
+            key: field.name,
+            reflection: childrenNested,
+            comment: genComment(field.comment),
+            isRequired: getFieldIsRequired(field),
+            isArray: field.repeated,
+            isMap: field instanceof MapField,
+            value:
+              field instanceof MapField
+                ? `Record<${protoTypeToTSType(field.keyType)}, ${
+                    childrenNested
+                      ? replaceNamespacePrefix(field.type, childrenNested)
+                      : protoTypeToTSType(field.type) || replaceNamespacePrefix(field.type)
+                  }>;`
+                : `${
+                    childrenNested
+                      ? replaceNamespacePrefix(field.type, childrenNested)
+                      : protoTypeToTSType(field.type) || replaceNamespacePrefix(field.type)
+                  }${endPrefix};`,
+          });
+          return acc;
+        },
+        [],
+      ),
+    };
+
+    function parse() {
+      let content: VisitorFNReturnType;
+
+      if (visitor?.TSMessageDeclaration) {
+        content = visitor.TSMessageDeclaration(schema, nested);
+      }
+
+      if (content === false) return '';
+      if (content) return content;
+
+      return interfaceExecutor({
         name,
-        comment: genComment(nested.comment!),
+        comment,
         content: nested.fieldsArray
           .reduce<string[]>((acc, field) => {
             const childrenNested = getParentLookup({ field, root: namespace, type: field.type });
@@ -123,16 +181,41 @@ function parseNamespace(namespace: Namespace, filename?: string): string {
             return acc;
           }, [])
           .join('\n'),
-      }),
-    );
+      });
+    }
+
+    parsedNestedList.push(parse());
+
+    return schema;
   }
 
   // process enum
-  function processEnum(name: string, nested: Enum) {
-    parsedNestedList.push(
-      enumExecutor({
+  function processEnum(name: string, nested: Enum): TSEnumDeclarationContent {
+    const comment = genComment(nested.comment!);
+
+    const schema = {
+      name,
+      comment,
+      fieldList: Object.keys(nested.values).map((key) => ({
+        key,
+        value: nested.values[key],
+        comment: genComment(nested.comments?.[key]),
+      })),
+    };
+
+    function parse() {
+      let content: VisitorFNReturnType;
+
+      if (visitor?.TSEnumDeclaration) {
+        content = visitor.TSEnumDeclaration!(schema, nested);
+      }
+
+      if (content === false) return '';
+      if (content) return content;
+
+      return enumExecutor({
         name,
-        comment: genComment(nested.comment!),
+        comment,
         content: Object.keys(nested.values)
           .reduce<string[]>((acc, field) => {
             if (nested.comments?.[field]) {
@@ -142,31 +225,104 @@ function parseNamespace(namespace: Namespace, filename?: string): string {
             return acc;
           }, [])
           .join('\n'),
-      }),
-    );
+      });
+    }
+
+    parsedNestedList.push(parse());
+
+    return schema;
   }
 
   // process service
-  function processService(name: string, nested: Service) {
-    parsedNestedList.push(
-      serviceExecutor({
+  function processService(name: string, nested: Service): TSServiceDeclarationContent {
+    const comment = genComment(nested.comment!);
+
+    function handleFieldItemObj(field: Method): TSServiceItemDeclarationContent {
+      return {
+        name: field.name,
+        requestType: replaceNamespacePrefix(field.requestType),
+        responseType: replaceNamespacePrefix(field.responseType),
+        options: field.options,
+        comment:
+          genComment(field.comment) +
+          // services options as remark
+          (field.options
+            ? Object.keys(field.options!)
+                .reduce<string[]>(
+                  (acc, k) => {
+                    acc.push(`// svr options: ${k} = ${field.options![k]}`);
+                    return acc;
+                  },
+                  ['\n'],
+                )
+                .join('\n')
+            : ''),
+      };
+    }
+
+    const schema: TSServiceDeclarationContent = {
+      name,
+      comment,
+      fieldList: nested.methodsArray.map(handleFieldItemObj),
+    };
+
+    function parse() {
+      let content: VisitorFNReturnType;
+
+      if (visitor?.TSServiceDeclaration) {
+        content = visitor.TSServiceDeclaration(schema, nested);
+      }
+
+      if (content === false) return '';
+      if (content) return content;
+
+      return serviceExecutor({
         name,
-        comment: genComment(nested.comment!),
+        comment,
         content: nested.methodsArray
           .reduce<string[]>((acc, field) => {
+            let content: VisitorFNReturnType;
+
+            if (visitor?.TSServiceItemDeclaration) {
+              content = visitor.TSServiceItemDeclaration(handleFieldItemObj(field), field);
+            }
+
+            if (content === false) return acc;
+            if (content) {
+              acc.push(content);
+              return acc;
+            }
+
             acc.push(
               serviceFNExecutor({
                 name: field.name,
                 requestType: replaceNamespacePrefix(field.requestType),
                 responseType: replaceNamespacePrefix(field.responseType),
-                comment: genComment(field.comment),
+                comment:
+                  genComment(field.comment) +
+                  // services options as remark
+                  (field.options
+                    ? Object.keys(field.options!)
+                        .reduce<string[]>(
+                          (acc, k) => {
+                            acc.push(`// svr options: ${k} = ${field.options![k]}`);
+                            return acc;
+                          },
+                          ['\n'],
+                        )
+                        .join('\n')
+                    : ''),
               }),
             );
             return acc;
           }, [])
           .join('\n'),
-      }),
-    );
+      });
+    }
+
+    parsedNestedList.push(parse());
+
+    return schema;
   }
 
   // parse proto reflection obj
@@ -177,22 +333,19 @@ function parseNamespace(namespace: Namespace, filename?: string): string {
     const messageName = replaceNamespacePrefix(nested.name, nested);
     if (nested instanceof Type) {
       if (hasGenMap.interfaces.has(messageName)) return;
-      hasGenMap.interfaces.add(messageName);
-      processType(messageName, nested);
+      hasGenMap.interfaces.set(messageName, processType(messageName, nested));
       // nested message
       eachNested(nested.nested!);
     } else if (nested instanceof Enum) {
       if (hasGenMap.enums.has(messageName)) return;
-      hasGenMap.enums.add(messageName);
-      processEnum(messageName, nested);
+      hasGenMap.enums.set(messageName, processEnum(messageName, nested));
     } else if (nested instanceof Service) {
       if (hasGenMap.services.has(messageName)) return;
-      hasGenMap.services.add(messageName);
-      processService(messageName, nested);
+      hasGenMap.services.set(messageName, processService(messageName, nested));
       // nested message
       eachNested(nested.nested!);
     } else if (nested instanceof Namespace) {
-      const parsed = parseNamespace(nested, filename);
+      const parsed = parseNamespace(nested, filename, visitor);
       parsedNestedList.push(parsed.replace('declare namespace', 'namespace'));
     }
   }
@@ -203,10 +356,20 @@ function parseNamespace(namespace: Namespace, filename?: string): string {
 
   eachNested(namespace.nested!);
 
+  const comment = genComment(namespace.comment);
+
+  visitor?.EmitTSNamespaceDeclaration?.({
+    namespace,
+    comment,
+    filename,
+    moduleName,
+    ...hasGenMap,
+  });
+
   return formatTS(
     dtsExecutor({
       namespace: moduleName!,
-      comment: genComment(namespace.comment),
+      comment,
       content: parsedNestedList.join('\n\n'),
     }),
   );

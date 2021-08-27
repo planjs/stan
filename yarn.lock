@@ -12211,10 +12211,17 @@ rollup-pluginutils@^2.8.2:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^2.42.3, rollup@^2.52.7:
+rollup@^2.42.3:
   version "2.52.8"
   resolved "https://registry.nlark.com/rollup/download/rollup-2.52.8.tgz#b6462f9c16ffe8995b9a2b313f2e4247fa75e4d9"
   integrity sha1-tkYvnBb/6JlbmisxPy5CR/p15Nk=
+  optionalDependencies:
+    fsevents "~2.3.2"
+
+rollup@^2.53.2:
+  version "2.53.2"
+  resolved "https://registry.nlark.com/rollup/download/rollup-2.53.2.tgz#3279f9bfba1fe446585560802e418c5fbcaefa51"
+  integrity sha1-Mnn5v7of5EZYVWCALkGMX7yu+lE=
   optionalDependencies:
     fsevents "~2.3.2"
 
@@ -12222,11 +12229,6 @@ rsvp@^4.8.4:
   version "4.8.5"
   resolved "https://registry.nlark.com/rsvp/download/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"
   integrity sha1-yPFVMR0Wf2jyHhaN9x7FsIMRNzQ=
-
-rsync@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.npm.taobao.org/rsync/download/rsync-0.6.1.tgz#3681a0098bd8750448f8bf9da1fee09f7763742b"
-  integrity sha1-NoGgCYvYdQRI+L+dof7gn3djdCs=
 
 run-async@^2.2.0:
   version "2.4.1"

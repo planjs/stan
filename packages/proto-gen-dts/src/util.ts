@@ -1,7 +1,7 @@
 import path from 'path';
 import { prettier } from 'stan-utils';
-import type { Field, Namespace, ReflectionObject } from 'protobufjs';
-import { NamespaceBase } from 'protobufjs';
+import type { Field, ReflectionObject } from 'protobufjs';
+import { NamespaceBase, Namespace } from 'protobufjs';
 
 const { name, bugs } = require('../package.json');
 
@@ -95,7 +95,8 @@ export function getParentLookup({
   let parent = field.parent;
   while (parent) {
     const res = parent.lookup(type);
-    if (res) return res;
+    // when field name same as type
+    if (res && res instanceof Namespace) return res;
     parent = parent.parent;
   }
   return root.lookup(type);
@@ -149,4 +150,14 @@ export function reportIssues(opt: { labels?: string; title?: string; template?: 
     bugs.url
   }/new?assignees=&labels=${labels}&template=${template}&title=${encodeURIComponent(title)}`;
   return `${title}\nPlease report issues ${uri}`;
+}
+
+export function optionsToComment(options: ReflectionObject['options']) {
+  let str = '';
+  for (const k in options || {}) {
+    if (options?.[k]) {
+      str += `${k}=${options[k]}\n`;
+    }
+  }
+  return str;
 }
