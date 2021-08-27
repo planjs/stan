@@ -1,0 +1,27 @@
+{
+  "packages": [
+    "packages/*",
+    "packages/*/*"
+  ],
+  "npmClient": "yarn",
+  "npmClientArgs": [
+    "--ignore-engines"
+  ],
+  "command": {
+    "publish": {
+      "allowBranch": "master",
+      "message": "chore(release): publish %s",
+      "conventionalCommits": true
+    },
+    "version": {
+      "conventionalCommits": true
+    }
+  },
+  "ignoreChanges": [
+    "**/fixtures/**",
+    "**/__tests__/**",
+    "**/*.md"
+  ],
+  "useWorkspaces": true,
+  "version": "independent"
+}

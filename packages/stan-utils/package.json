@@ -1,0 +1,76 @@
+{
+  "name": "stan-utils",
+  "version": "0.6.13",
+  "description": "stan internal utils",
+  "author": "fupeng <fupenglxy@gmail.com>",
+  "homepage": "https://github.com/planjs/stan#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "typings": "typings/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib",
+    "typings"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/planjs/stan.git",
+    "directory": "packages/stan-utils"
+  },
+  "scripts": {
+    "dev": "chokidar \"src/**\" -c \"yarn prepare\"",
+    "build": "babel src -d lib -x .ts,.js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "prepare": "yarn build && yarn build:types",
+    "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src",
+    "test": "jest --config ../../jest.config.ts --rootDir ."
+  },
+  "bugs": {
+    "url": "https://github.com/planjs/stan/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "@planjs/utils": "^1.8.4",
+    "@types/cross-spawn": "^6.0.2",
+    "@types/debug": "^4.1.5",
+    "@types/fs-extra": "^9.0.11",
+    "@types/globby": "^9.1.0",
+    "@types/lodash": "^4.14.161",
+    "@types/mkdirp": "^1.0.1",
+    "@types/node": "^14.11.1",
+    "@types/rimraf": "^3.0.0",
+    "@types/semver": "^7.3.4",
+    "@types/signale": "^1.4.1",
+    "@types/update-notifier": "^4.1.1",
+    "@types/yargs-parser": "^15.0.0",
+    "ajv": "^6.12.6",
+    "chalk": "^4.1.0",
+    "chokidar": "^3.4.2",
+    "clipboardy": "^2.3.0",
+    "color": "^3.1.2",
+    "commander": "^6.1.0",
+    "cross-spawn": "^7.0.3",
+    "debug": "^4.2.0",
+    "fs-extra": "^9.0.1",
+    "globby": "^11.0.3",
+    "joi": "^17.2.1",
+    "lodash": "^4.17.20",
+    "mkdirp": "^1.0.4",
+    "ora": "^5.1.0",
+    "prettier": "2.1.2",
+    "pretty-ms": "^7.0.1",
+    "rimraf": "^3.0.2",
+    "semver": "^7.3.2",
+    "signale": "^1.4.0",
+    "update-notifier": "^4.1.1",
+    "yargs": "^16.0.3",
+    "yargs-parser": "^20.2.0"
+  },
+  "gitHead": "7df4f17945b5dbe47183dc089748892266806586"
+}
