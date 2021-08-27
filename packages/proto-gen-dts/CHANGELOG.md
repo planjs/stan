@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/planjs/stan/compare/proto-gen-dts@0.7.12...proto-gen-dts@0.9.0) (2021-08-27)
+
+
+### Bug Fixes
+
+* **proto-gen-dts:** adjust export type ([14799d5](https://github.com/planjs/stan/commit/14799d547721c71b13d9c89bde76143f5e07ea21))
+* **proto-gen-dts:** generate interface name error ([6eb9238](https://github.com/planjs/stan/commit/6eb92386996549641e02526edbdde3a8ba99aaa3))
+* **proto-gen-dts:** nested file compile error ([b2801d2](https://github.com/planjs/stan/commit/b2801d2c631fa87cda0f46a5a8a0ac8ed134f30d))
+* **proto-gen-dts:** nested message output name error ([d2124e3](https://github.com/planjs/stan/commit/d2124e312fb39468069b7ea8d8dc381d555253e8))
+* **proto-gen-dts:** output dir ([2eefab2](https://github.com/planjs/stan/commit/2eefab29659b5838c35ba5c04b875cec817739b5))
+
+
+### Features
+
+* **proto-gen-dts:** file add protoParseOptions ([4642f52](https://github.com/planjs/stan/commit/4642f5296aabdd24422895e19667f9f856911017))
+
+
+
+
+
 ## [0.8.1](https://github.com/planjs/stan/compare/proto-gen-dts@0.8.0...proto-gen-dts@0.8.1) (2021-07-20)
 
 **Note:** Version bump only for package proto-gen-dts
