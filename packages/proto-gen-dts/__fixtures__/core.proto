@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package core;
+
+message ListOptions {
+  message Option {
+    uint32 type = 1;
+    string value = 2;
+  }
+
+  string mode = 1;
+}
+
+message XXX {
+  uint32 id = 1;
+}
