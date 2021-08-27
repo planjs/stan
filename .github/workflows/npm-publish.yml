@@ -34,11 +34,6 @@ jobs:
       - run: yarn run publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
 
   publish-gpr:
     needs: build
@@ -50,6 +45,6 @@ jobs:
           node-version: 14
           registry-url: https://npm.pkg.github.com/
       - run: yarn
-      - run: yarn run publish
+      - run: yarn run publish:pkg
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
