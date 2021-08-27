@@ -9,8 +9,8 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "publish": "lerna publish --amend --yes",
-    "publish:pkg": "lerna publish from-package --no-push --yes",
+    "publish": "lerna publish --amend --yes --no-push",
+    "publish:pkg": "lerna publish from-package --yes",
     "prepare": "lerna run prepare",
     "lint:fix": "lerna run lint:fix --sort",
     "test": "jest --coverage -i"
