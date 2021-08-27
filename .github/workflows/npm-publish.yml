@@ -34,17 +34,3 @@ jobs:
       - run: yarn run publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14
-          registry-url: https://npm.pkg.github.com/
-      - run: yarn
-      - run: yarn run publish:pkg
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
