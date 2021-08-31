@@ -10,12 +10,19 @@ import { formatTS, writeBanner } from './util';
  */
 function writeReference(dts: string[], entryFilepath: string) {
   entryFilepath = path.resolve(entryFilepath);
-  const content = [...new Set(dts)]
-    .sort()
-    .map(
-      (d) => `/// <reference path="${slash(path.relative(path.parse(entryFilepath).dir, d))}" />`,
-    )
-    .join('\n');
+  let orgContent = '';
+  if (fs.existsSync(entryFilepath)) {
+    orgContent = fs.readFileSync(entryFilepath).toString();
+  }
+  const content: string =
+    orgContent +
+    [...new Set(dts)]
+      .sort()
+      .map(
+        (d) => `/// <reference path="${slash(path.relative(path.parse(entryFilepath).dir, d))}" />`,
+      )
+      .filter((v) => !content.includes(v))
+      .join('\n');
   fs.outputFileSync(entryFilepath, formatTS(writeBanner(content)));
 }
 

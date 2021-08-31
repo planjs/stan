@@ -137,7 +137,11 @@ export function replaceSamePath(base: string, file: string) {
  * @param content file text content
  */
 export function writeBanner(content: string) {
-  return `/** code generate by ${name} don't edit */\n\n${content}`;
+  const banner = `/** code generate by ${name} don't edit */`;
+  if (content.includes(banner)) {
+    return content;
+  }
+  return `${banner}\n\n${content}`;
 }
 
 /**
