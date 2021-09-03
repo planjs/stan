@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-module-resolve",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Module resolver plugin for Babel",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -47,5 +47,5 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "gitHead": "a3e774fa3966877b08c8682badfb1d78e1812789"
+  "gitHead": "2abcbff6fa53b8995bd728d386dd227fd6288938"
 }

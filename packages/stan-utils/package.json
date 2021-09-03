@@ -1,6 +1,6 @@
 {
   "name": "stan-utils",
-  "version": "0.6.17",
+  "version": "0.6.18",
   "description": "stan internal utils",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -73,5 +73,5 @@
     "yargs": "^16.0.3",
     "yargs-parser": "^20.2.0"
   },
-  "gitHead": "a3e774fa3966877b08c8682badfb1d78e1812789"
+  "gitHead": "2abcbff6fa53b8995bd728d386dd227fd6288938"
 }
