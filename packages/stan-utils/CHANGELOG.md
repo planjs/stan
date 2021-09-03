@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.17](https://github.com/planjs/stan/compare/stan-utils@0.6.12...stan-utils@0.6.17) (2021-09-03)
+
+
+### Bug Fixes
+
+* **stan-builder:** copy watch args lose ([79e3f06](https://github.com/planjs/stan/commit/79e3f06a50de60e6da76a6eb541a27494f5ae10a))
+
+
+
+
+
 ## [0.6.16](https://github.com/planjs/stan/compare/stan-utils@0.6.15...stan-utils@0.6.16) (2021-08-27)
 
 **Note:** Version bump only for package stan-utils

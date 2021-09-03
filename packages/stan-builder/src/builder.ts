@@ -1,6 +1,15 @@
 import path from 'path';
 import fs from 'fs';
-import { chalk, chokidar, copyFiles, lodash as _, relativeNormalize, rimraf } from 'stan-utils';
+import {
+  chalk,
+  chokidar,
+  copyFiles,
+  lodash as _,
+  relativeNormalize,
+  rimraf,
+  multimatch,
+  CopyTarget,
+} from 'stan-utils';
 
 import getStanConfig from './get-stan-config';
 import babel from './_babel';
@@ -109,11 +118,25 @@ async function builder(opts: BuildOptions) {
 
           const files: string[] = [];
 
-          const copyChangeFile = () =>
+          const copyChangeFile = () => {
+            const _files = files.slice();
             copyFiles({
-              ...opts,
-              targets: targets.map(({ src, ...o }) => ({ src: files, ...o })),
+              ...copy,
+              targets: targets.reduce<CopyTarget[]>((acc, { src, ...o }) => {
+                const matchFiles = multimatch(_files, src);
+                if (matchFiles.length) {
+                  acc.push({ src: matchFiles, ...o });
+                }
+                return acc;
+              }, []),
+            }).then(() => {
+              _.eachRight(files, (item, index) => {
+                if (_files.find((v) => v === item)) {
+                  files.splice(index, 1);
+                }
+              });
             });
+          };
 
           const debouncedCopyFiles = _.debounce(_.throttle(copyChangeFile, 500), 1000);
 

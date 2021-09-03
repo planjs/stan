@@ -153,7 +153,7 @@ export default async function copyFiles(options: CopyOptions = {}) {
 
       if (verbose) {
         let message = chalk.green(
-          `  copied: ${chalk.bold(slash(src))} → ${chalk.bold(slash(dest))}`,
+          `Copied: ${chalk.bold(slash(src))} → ${chalk.bold(slash(dest))}\n`,
         );
         const flags = Object.entries(copyTarget)
           .filter(([key, value]) => ['rename', 'transform'].includes(key) && value)

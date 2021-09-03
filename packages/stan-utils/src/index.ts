@@ -17,6 +17,7 @@ import pms from 'pretty-ms';
 import prettier from 'prettier';
 import fs from 'fs-extra';
 import { slash } from '@planjs/utils';
+import multimatch from 'multimatch';
 
 export { lodash };
 export { mkdirp };
@@ -37,6 +38,7 @@ export { slash };
 export * from '@planjs/utils';
 export { prettier };
 export { fs };
+export { multimatch };
 export { createDebug, Debugger };
 export * from './path';
 export { default as copyFiles, CopyOptions, CopyTarget } from './copy-files';

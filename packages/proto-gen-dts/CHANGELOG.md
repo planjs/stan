@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.4](https://github.com/planjs/stan/compare/proto-gen-dts@0.8.1...proto-gen-dts@0.9.4) (2021-09-03)
+
+
+### Bug Fixes
+
+* write-reference when is exist ([7331495](https://github.com/planjs/stan/commit/733149537a96adac36b50022af654c6e1b416f49))
+* **proto-gen-dts:** generate interface name error ([6eb9238](https://github.com/planjs/stan/commit/6eb92386996549641e02526edbdde3a8ba99aaa3))
+* **proto-gen-dts:** nested message output name error ([d2124e3](https://github.com/planjs/stan/commit/d2124e312fb39468069b7ea8d8dc381d555253e8))
+
+
+
+
+
 ## [0.9.3](https://github.com/planjs/stan/compare/proto-gen-dts@0.9.2...proto-gen-dts@0.9.3) (2021-08-27)
 
 **Note:** Version bump only for package proto-gen-dts

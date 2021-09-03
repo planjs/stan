@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.19](https://github.com/planjs/stan/compare/stan-builder@0.9.14...stan-builder@0.9.19) (2021-09-03)
+
+
+### Bug Fixes
+
+* **stan-builder:** copy watch args lose ([79e3f06](https://github.com/planjs/stan/commit/79e3f06a50de60e6da76a6eb541a27494f5ae10a))
+
+
+
+
+
 ## [0.9.18](https://github.com/planjs/stan/compare/stan-builder@0.9.17...stan-builder@0.9.18) (2021-08-27)
 
 **Note:** Version bump only for package stan-builder
