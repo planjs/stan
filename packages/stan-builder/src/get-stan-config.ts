@@ -4,6 +4,7 @@ import getBabelConfig from './get-babel-config';
 
 export const CONFIG_FILE = ['.stanrc.js', '.stanrc.ts'];
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default ({ cwd }: { cwd: string; rootPath?: string }): BundleOptions[] => {
   const configFile = getExistFile({ cwd, files: CONFIG_FILE });
 

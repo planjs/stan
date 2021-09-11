@@ -13,9 +13,7 @@ export type GetBabelConfigOptions = {
   lazy?: boolean;
 };
 
-export default function getBabelConfig(
-  opts: GetBabelConfigOptions,
-): {
+export default function getBabelConfig(opts: GetBabelConfigOptions): {
   presets: PluginItem[];
   plugins: PluginItem[];
 } {

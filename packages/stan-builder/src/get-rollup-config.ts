@@ -206,7 +206,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   }
 
   function getExternal(): (string | RegExp)[] {
-    let PKGs: ExternalOption = [...extraExternals];
+    const PKGs: ExternalOption = [...extraExternals];
     PKGs.push(...Object.keys(pkg?.peerDependencies! || {}));
     if (format !== 'umd') {
       if (!externalPeerDependenciesOnly) {
