@@ -8942,4 +8942,4 @@ __vue_render__._withStripped = true;
     undefined
   );
 
-export default __vue_component__;
+export { __vue_component__ as default };
