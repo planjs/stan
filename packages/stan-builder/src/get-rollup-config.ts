@@ -11,6 +11,7 @@ import {
 import { terser } from 'rollup-plugin-terser';
 import url from '@rollup/plugin-url';
 import alias from '@rollup/plugin-alias';
+import svgr from '@svgr/rollup';
 import json from '@rollup/plugin-json';
 import inject from '@rollup/plugin-inject';
 import babel, { RollupBabelInputPluginOptions } from '@rollup/plugin-babel';
@@ -20,6 +21,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import builtinModules from 'builtin-modules';
 import visualizer from 'rollup-plugin-visualizer';
 import postcss from 'rollup-plugin-postcss';
+import LessNpmImport from 'less-plugin-npm-import';
 import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
 import type { default as vue } from 'rollup-plugin-vue';
@@ -146,6 +148,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         ...vuePluginOpts,
       }),
       aliasOpts && alias(aliasOpts),
+      svgr(),
       url(),
       json(),
       postcss({
@@ -153,6 +156,17 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         inject: injectCSS,
         minimize: !!isMin,
         ...postcssOpts,
+        use: {
+          stylus: {},
+          sass: {},
+          ...postcssOpts?.use,
+          // less can't use ~
+          less: {
+            plugins: [new LessNpmImport({ prefix: '~' })],
+            javascriptEnabled: true,
+            ...postcssOpts?.use?.['less'],
+          },
+        },
         plugins: [
           ...(postcssOpts?.plugins || []),
           isMin &&

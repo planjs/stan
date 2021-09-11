@@ -108,7 +108,9 @@
     "stan-utils": "^0.6.19",
     "through2": "^4.0.2",
     "vinyl-fs": "^3.0.3",
-    "vue-template-compiler": "^2.6.12"
+    "@svgr/rollup": "^5.5.0",
+    "vue-template-compiler": "^2.6.12",
+    "less-plugin-npm-import": "^2.1.0"
   },
   "devDependencies": {
     "@types/autoprefixer": "^9.7.2",
@@ -125,6 +127,7 @@
     "@types/through2": "^2.0.36",
     "@types/vinyl-fs": "^2.4.11",
     "@vue/compiler-sfc": "^3.0.5",
+    "@types/svgr__rollup": "^4.3.1",
     "node-sass": "4.14.1",
     "postcss-less": "^3.1.4",
     "postcss-scss": "^3.0.2",

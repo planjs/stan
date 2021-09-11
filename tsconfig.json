@@ -21,7 +21,7 @@
     "lib",
     "**/*.spec.ts",
     "**/*.test.ts",
-    "fixtures",
-    "examples"
+    "__fixtures__",
+    "__tests__"
   ]
 }
