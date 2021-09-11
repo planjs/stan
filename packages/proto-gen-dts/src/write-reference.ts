@@ -21,7 +21,7 @@ function writeReference(dts: string[], entryFilepath: string) {
       .map(
         (d) => `/// <reference path="${slash(path.relative(path.parse(entryFilepath).dir, d))}" />`,
       )
-      .filter((v) => !content.includes(v))
+      .filter((v) => !orgContent.includes(v))
       .join('\n');
   fs.outputFileSync(entryFilepath, formatTS(writeBanner(content)));
 }

@@ -79,4 +79,4 @@ function index (args) {
   return (_args$name = args === null || args === void 0 ? void 0 : args.name) !== null && _args$name !== void 0 ? _args$name : 'stan';
 }
 
-export default index;
+export { index as default };

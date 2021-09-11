@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.7](https://github.com/planjs/stan/compare/proto-gen-dts@0.9.6...proto-gen-dts@0.9.7) (2021-09-12)
+
+
+### Bug Fixes
+
+* **proto-gen-dts:** write-reference error ([d19508a](https://github.com/planjs/stan/commit/d19508a972d7296f6045353b3c9f0b6acea4dc6f))
+
+
+
+
+
 ## [0.9.6](https://github.com/planjs/stan/compare/proto-gen-dts@0.9.5...proto-gen-dts@0.9.6) (2021-09-05)
 
 **Note:** Version bump only for package proto-gen-dts
