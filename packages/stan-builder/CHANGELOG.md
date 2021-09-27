@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.1](https://github.com/planjs/stan/compare/stan-builder@0.10.0...stan-builder@0.10.1) (2021-09-27)
+
+
+### Bug Fixes
+
+* **stan-builder:** support process.env.NODE_ENV ([be52e16](https://github.com/planjs/stan/commit/be52e164da13cb67f61d64e3f4b45391b055dc5d))
+
+
+
+
+
 # [0.10.0](https://github.com/planjs/stan/compare/stan-builder@0.9.21...stan-builder@0.10.0) (2021-09-12)
 
 

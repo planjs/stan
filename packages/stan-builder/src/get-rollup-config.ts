@@ -177,7 +177,10 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         ].filter(Boolean),
       }),
       injectOpts && inject(injectOpts),
-      replaceOpts && replace(replaceOpts),
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production'),
+        ...replaceOpts,
+      }),
       isTypeScript &&
         require('rollup-plugin-typescript2')({
           cwd,
