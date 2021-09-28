@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.16](https://github.com/planjs/stan/compare/babel-plugin-ts-enum-iife@0.4.13...babel-plugin-ts-enum-iife@0.4.16) (2021-09-28)
+
+
+### Bug Fixes
+
+* **stan-builder:** copy watch args lose ([2abcbff](https://github.com/planjs/stan/commit/2abcbff6fa53b8995bd728d386dd227fd6288938))
+
+
+
+
+
 ## [0.4.15](https://github.com/planjs/stan/compare/babel-plugin-ts-enum-iife@0.4.14...babel-plugin-ts-enum-iife@0.4.15) (2021-09-03)
 
 **Note:** Version bump only for package babel-plugin-ts-enum-iife

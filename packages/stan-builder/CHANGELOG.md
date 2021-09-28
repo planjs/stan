@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/planjs/stan/compare/stan-builder@0.9.18...stan-builder@0.11.0) (2021-09-28)
+
+
+### Bug Fixes
+
+* **proto-gen-dts:** write-reference error ([3009d11](https://github.com/planjs/stan/commit/3009d118d46b3607b87f2351fdb85bd5b5f14b81))
+* **stan-builder:** copy watch args lose ([2abcbff](https://github.com/planjs/stan/commit/2abcbff6fa53b8995bd728d386dd227fd6288938))
+* **stan-builder:** support process.env.NODE_ENV ([c678525](https://github.com/planjs/stan/commit/c67852582e3721bbb54d882e248ef21551caf470))
+
+
+### Features
+
+* **less:** support ~ import ([9fc098c](https://github.com/planjs/stan/commit/9fc098c16db991d9b5dbbf59abc81ba6fe796ebf))
+
+
+
+
+
 ## [0.10.1](https://github.com/planjs/stan/compare/stan-builder@0.10.0...stan-builder@0.10.1) (2021-09-27)
 
 

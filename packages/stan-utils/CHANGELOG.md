@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.21](https://github.com/planjs/stan/compare/stan-utils@0.6.16...stan-utils@0.6.21) (2021-09-28)
+
+
+### Bug Fixes
+
+* **stan-builder:** copy watch args lose ([2abcbff](https://github.com/planjs/stan/commit/2abcbff6fa53b8995bd728d386dd227fd6288938))
+* **stan-builder:** support process.env.NODE_ENV ([c678525](https://github.com/planjs/stan/commit/c67852582e3721bbb54d882e248ef21551caf470))
+
+
+
+
+
 ## [0.6.20](https://github.com/planjs/stan/compare/stan-utils@0.6.19...stan-utils@0.6.20) (2021-09-27)
 
 **Note:** Version bump only for package stan-utils

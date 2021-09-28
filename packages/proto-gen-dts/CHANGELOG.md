@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.9](https://github.com/planjs/stan/compare/proto-gen-dts@0.9.3...proto-gen-dts@0.9.9) (2021-09-28)
+
+
+### Bug Fixes
+
+* **proto-gen-dts:** write-reference error ([3009d11](https://github.com/planjs/stan/commit/3009d118d46b3607b87f2351fdb85bd5b5f14b81))
+* **stan-builder:** copy watch args lose ([2abcbff](https://github.com/planjs/stan/commit/2abcbff6fa53b8995bd728d386dd227fd6288938))
+* **stan-builder:** support process.env.NODE_ENV ([c678525](https://github.com/planjs/stan/commit/c67852582e3721bbb54d882e248ef21551caf470))
+* write-reference when is exist ([7331495](https://github.com/planjs/stan/commit/733149537a96adac36b50022af654c6e1b416f49))
+
+
+
+
+
 ## [0.9.8](https://github.com/planjs/stan/compare/proto-gen-dts@0.9.7...proto-gen-dts@0.9.8) (2021-09-27)
 
 **Note:** Version bump only for package proto-gen-dts
