@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.1](https://github.com/planjs/stan/compare/stan-builder@0.11.0...stan-builder@0.11.1) (2021-10-09)
+
+
+### Bug Fixes
+
+* copy win32 path ([0f415ac](https://github.com/planjs/stan/commit/0f415ac9a18bbd5b574649db562bacc60317ef00))
+
+
+
+
+
 # [0.11.0](https://github.com/planjs/stan/compare/stan-builder@0.9.18...stan-builder@0.11.0) (2021-09-28)
 
 
