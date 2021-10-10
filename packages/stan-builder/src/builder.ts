@@ -5,6 +5,7 @@ import {
   chokidar,
   copyFiles,
   lodash as _,
+  slash,
   relativeNormalize,
   rimraf,
   multimatch,
@@ -119,7 +120,7 @@ async function builder(opts: BuildOptions) {
           const files: string[] = [];
 
           const copyChangeFile = () => {
-            const _files = files.slice();
+            const _files = files.slice().map(slash);
             copyFiles({
               ...copy,
               targets: targets.reduce<CopyTarget[]>((acc, { src, ...o }) => {
