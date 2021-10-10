@@ -12857,10 +12857,10 @@ rollup@^2.42.3:
   optionalDependencies:
     fsevents "~2.3.2"
 
-rollup@^2.56.3:
-  version "2.56.3"
-  resolved "https://registry.nlark.com/rollup/download/rollup-2.56.3.tgz#b63edadd9851b0d618a6d0e6af8201955a77aeff"
-  integrity sha1-tj7a3ZhRsNYYptDmr4IBlVp3rv8=
+rollup@^2.57.0:
+  version "2.57.0"
+  resolved "https://registry.nlark.com/rollup/download/rollup-2.57.0.tgz?cache=0&sync_timestamp=1632285934842&other_urls=https%3A%2F%2Fregistry.nlark.com%2Frollup%2Fdownload%2Frollup-2.57.0.tgz#c1694475eb22e1022477c0f4635fd0ac80713173"
+  integrity sha1-wWlEdesi4QIkd8D0Y1/QrIBxMXM=
   optionalDependencies:
     fsevents "~2.3.2"
 
