@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.11](https://github.com/planjs/stan/compare/proto-gen-dts@0.9.8...proto-gen-dts@0.9.11) (2021-10-17)
+
+
+### Bug Fixes
+
+* copy win32 path ([f501923](https://github.com/planjs/stan/commit/f501923f6de002e12feac2237fa5eaa9d0e09f67))
+
+
+
+
+
 ## [0.9.10](https://github.com/planjs/stan/compare/proto-gen-dts@0.9.9...proto-gen-dts@0.9.10) (2021-10-09)
 
 **Note:** Version bump only for package proto-gen-dts
