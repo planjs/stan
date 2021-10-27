@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/planjs/stan/compare/stan-builder@0.11.2...stan-builder@0.12.0) (2021-10-27)
+
+
+### Bug Fixes
+
+* valid config ([0c8ac72](https://github.com/planjs/stan/commit/0c8ac727e501b11471a10442b593f3e63df37fcf))
+
+
+### Features
+
+* add fixtures ([97aeba4](https://github.com/planjs/stan/commit/97aeba4d742cd93eb79a4ed79713eab723919ef4))
+
+
+
+
+
 ## [0.11.2](https://github.com/planjs/stan/compare/stan-builder@0.10.1...stan-builder@0.11.2) (2021-10-17)
 
 

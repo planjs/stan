@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/planjs/stan/compare/stan-utils@0.6.22...stan-utils@0.7.0) (2021-10-27)
+
+
+### Features
+
+* add fixtures ([97aeba4](https://github.com/planjs/stan/commit/97aeba4d742cd93eb79a4ed79713eab723919ef4))
+
+
+
+
+
 ## [0.6.22](https://github.com/planjs/stan/compare/stan-utils@0.6.20...stan-utils@0.6.22) (2021-10-17)
 
 **Note:** Version bump only for package stan-utils
