@@ -121,6 +121,7 @@ export interface BundleOptions extends BaseBundleOptions {
   externalsExclude?: (string | RegExp)[];
   /**
    * 只external peerDependencies
+   * @default false
    */
   externalPeerDependenciesOnly?: boolean;
   /**

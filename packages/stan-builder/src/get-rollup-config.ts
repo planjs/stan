@@ -135,8 +135,9 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   babelOptions.presets!.push(...extraBabelPresets);
   babelOptions.plugins!.push(...extraBabelPlugins);
 
-  function getPlugins(isMin?: boolean): Plugin[] {
+  function getPlugins(format: ModuleFormat, isMin?: boolean): Plugin[] {
     const RollupPluginVue = getNodeModulePKG<typeof vue>('rollup-plugin-vue');
+    const isUMD = format === 'umd';
     return [
       RollupPluginVue.default?.({
         css: true,
@@ -177,7 +178,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         ].filter(Boolean),
       }),
       injectOpts && inject(injectOpts),
-      replaceOpts &&
+      (replaceOpts || isUMD) &&
         replace({
           'process.env.NODE_ENV': JSON.stringify('production'),
           ...replaceOpts,
@@ -257,8 +258,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     freeze: false,
   };
 
-  const external = getExternal();
-  const plugins = getPlugins();
+  const externalArr = getExternal();
 
   if (format === 'cjs') {
     output.esModule = false;
@@ -268,7 +268,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   // process globals and name
   if (format === 'umd') {
     const _umd = umd as UMDOptions;
-    const global: GlobalsOption = external.reduce((globals, name) => {
+    const global: GlobalsOption = externalArr.reduce((globals, name) => {
       if (name instanceof RegExp) name = name.source;
       if (name.match(/^[a-z_$][a-z0-9_\-$]*$/)) {
         globals[name] = _.camelCase(name);
@@ -289,11 +289,23 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
 
   const onwarn: WarningHandlerWithDefault = (warning, next) => {};
 
+  const external = (source: string) => {
+    function test(arr: (string | RegExp)[], id: string) {
+      for (const exp of arr) {
+        if ((_.isRegExp(exp) && exp.test(id)) || exp === id) return true;
+      }
+      return false;
+    }
+    if (test(externalsExclude, source)) return false;
+    return test(externalArr, source);
+  };
+
   switch (format) {
     case 'system':
     case 'umd':
     case 'esm':
     case 'cjs':
+      const plugins = getPlugins(format);
       return [
         {
           input,
@@ -312,6 +324,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
           inlineDynamicImports: true,
           plugins,
           onwarn,
+          external,
         },
         _minify && {
           input,
@@ -320,7 +333,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
             file: getOutputFilePath(true),
           },
           inlineDynamicImports: true,
-          plugins: getPlugins(true),
+          plugins: getPlugins(format, true),
           external,
           onwarn,
         },
