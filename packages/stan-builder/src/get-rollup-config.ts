@@ -281,7 +281,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
       Object.assign(global, _umd?.globals || {});
     }
     output.globals = global;
-    output.name = (_umd?.name || (pkg.name && _.camelCase(path.basename(pkg.name)))).replace(
+    output.name = (_umd?.name || (pkg.name && _.camelCase(path.basename(pkg.name))) || '').replace(
       /^global\./,
       '',
     );
