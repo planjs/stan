@@ -13,10 +13,5 @@ export default {
     '^.+\\.tsx?$': 'ts-jest',
     '^.+\\.jsx?$': 'babel-jest',
   },
-  transformIgnorePatterns: [
-    '/node_modules/',
-    '\\.pnp\\.[^\\/]+$',
-    '<rootDir>/packages/stan-builder/lib/',
-    '<rootDir>/packages/stan-builder/__fixtures__/',
-  ],
+  transformIgnorePatterns: ['/node_modules/', '\\.pnp\\.[^\\/]+$'],
 };

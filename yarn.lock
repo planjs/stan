@@ -1292,6 +1292,18 @@
   dependencies:
     chalk "^4.0.0"
 
+"@cspotcode/source-map-consumer@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.nlark.com/@cspotcode/source-map-consumer/download/@cspotcode/source-map-consumer-0.8.0.tgz#33bf4b7b39c178821606f669bbc447a6a629786b"
+  integrity sha1-M79LeznBeIIWBvZpu8RHpqYpeGs=
+
+"@cspotcode/source-map-support@0.7.0":
+  version "0.7.0"
+  resolved "https://registry.npmmirror.com/@cspotcode/source-map-support/download/@cspotcode/source-map-support-0.7.0.tgz#4789840aa859e46d2f3173727ab707c66bf344f5"
+  integrity sha1-R4mECqhZ5G0vMXNyercHxmvzRPU=
+  dependencies:
+    "@cspotcode/source-map-consumer" "0.8.0"
+
 "@endemolshinegroup/cosmiconfig-typescript-loader@^3.0.2":
   version "3.0.2"
   resolved "https://registry.npm.taobao.org/@endemolshinegroup/cosmiconfig-typescript-loader/download/@endemolshinegroup/cosmiconfig-typescript-loader-3.0.2.tgz#eea4635828dde372838b0909693ebd9aafeec22d"
@@ -1434,13 +1446,6 @@
     slash "^3.0.0"
     strip-ansi "^6.0.0"
 
-"@jest/create-cache-key-function@^26.5.0":
-  version "26.6.2"
-  resolved "https://registry.npmmirror.com/@jest/create-cache-key-function/download/@jest/create-cache-key-function-26.6.2.tgz?cache=0&sync_timestamp=1634626914962&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40jest%2Fcreate-cache-key-function%2Fdownload%2F%40jest%2Fcreate-cache-key-function-26.6.2.tgz#04cf439207a4fd12418d8aee551cddc86f9ac5f5"
-  integrity sha1-BM9Dkgek/RJBjYruVRzdyG+axfU=
-  dependencies:
-    "@jest/types" "^26.6.2"
-
 "@jest/environment@^26.6.2":
   version "26.6.2"
   resolved "https://registry.npmmirror.com/@jest/environment/download/@jest/environment-26.6.2.tgz?cache=0&sync_timestamp=1634626739278&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40jest%2Fenvironment%2Fdownload%2F%40jest%2Fenvironment-26.6.2.tgz#ba364cc72e221e79cc8f0a99555bf5d7577cf92c"
@@ -1581,6 +1586,27 @@
     jest-regex-util "^26.0.0"
     jest-util "^26.6.2"
     micromatch "^4.0.2"
+    pirates "^4.0.1"
+    slash "^3.0.0"
+    source-map "^0.6.1"
+    write-file-atomic "^3.0.0"
+
+"@jest/transform@^27.3.1":
+  version "27.3.1"
+  resolved "https://registry.npmmirror.com/@jest/transform/download/@jest/transform-27.3.1.tgz?cache=0&sync_timestamp=1634626745117&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40jest%2Ftransform%2Fdownload%2F%40jest%2Ftransform-27.3.1.tgz#ff80eafbeabe811e9025e4b6f452126718455220"
+  integrity sha1-/4Dq++q+gR6QJeS29FISZxhFUiA=
+  dependencies:
+    "@babel/core" "^7.1.0"
+    "@jest/types" "^27.2.5"
+    babel-plugin-istanbul "^6.0.0"
+    chalk "^4.0.0"
+    convert-source-map "^1.4.0"
+    fast-json-stable-stringify "^2.0.0"
+    graceful-fs "^4.2.4"
+    jest-haste-map "^27.3.1"
+    jest-regex-util "^27.0.6"
+    jest-util "^27.3.1"
+    micromatch "^4.0.4"
     pirates "^4.0.1"
     slash "^3.0.0"
     source-map "^0.6.1"
@@ -2847,7 +2873,7 @@
   resolved "https://registry.nlark.com/@tsconfig/node14/download/@tsconfig/node14-1.0.1.tgz#95f2d167ffb9b8d2068b0b235302fafd4df711f2"
   integrity sha1-lfLRZ/+5uNIGiwsjUwL6/U33EfI=
 
-"@tsconfig/node16@^1.0.1":
+"@tsconfig/node16@^1.0.2":
   version "1.0.2"
   resolved "https://registry.nlark.com/@tsconfig/node16/download/@tsconfig/node16-1.0.2.tgz?cache=0&sync_timestamp=1626840702633&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40tsconfig%2Fnode16%2Fdownload%2F%40tsconfig%2Fnode16-1.0.2.tgz#423c77877d0569db20e1fc80885ac4118314010e"
   integrity sha1-Qjx3h30Fadsg4fyAiFrEEYMUAQ4=
@@ -3047,7 +3073,7 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@26.x", "@types/jest@^26.0.15":
+"@types/jest@^26.0.15":
   version "26.0.24"
   resolved "https://registry.nlark.com/@types/jest/download/@types/jest-26.0.24.tgz#943d11976b16739185913a1936e0de0c4a7d595a"
   integrity sha1-lD0Rl2sWc5GFkToZNuDeDEp9WVo=
@@ -3587,6 +3613,11 @@ acorn-walk@^7.1.1:
   resolved "https://registry.nlark.com/acorn-walk/download/acorn-walk-7.2.0.tgz#0de889a601203909b0fbe07b8938dc21d2e967bc"
   integrity sha1-DeiJpgEgOQmw++B7iTjcIdLpZ7w=
 
+acorn-walk@^8.1.1:
+  version "8.2.0"
+  resolved "https://registry.nlark.com/acorn-walk/download/acorn-walk-8.2.0.tgz#741210f2e2426454508853a2f44d0ab83b7f69c1"
+  integrity sha1-dBIQ8uJCZFRQiFOi9E0KuDt/acE=
+
 acorn@^6.4.1:
   version "6.4.2"
   resolved "https://registry.nlark.com/acorn/download/acorn-6.4.2.tgz#35866fd710528e92de10cf06016498e47e39e1e6"
@@ -3597,7 +3628,7 @@ acorn@^7.1.0, acorn@^7.1.1, acorn@^7.4.0:
   resolved "https://registry.nlark.com/acorn/download/acorn-7.4.1.tgz#feaed255973d2e77555b83dbc08851a6c63520fa"
   integrity sha1-/q7SVZc9LndVW4PbwIhRpsY1IPo=
 
-acorn@^8.2.4:
+acorn@^8.2.4, acorn@^8.4.1:
   version "8.5.0"
   resolved "https://registry.nlark.com/acorn/download/acorn-8.5.0.tgz#4512ccb99b3698c752591e9bb4472e38ad43cee2"
   integrity sha1-RRLMuZs2mMdSWR6btEcuOK1DzuI=
@@ -4029,6 +4060,20 @@ babel-jest@^26.6.3:
     graceful-fs "^4.2.4"
     slash "^3.0.0"
 
+babel-jest@^27.3.1:
+  version "27.3.1"
+  resolved "https://registry.npmmirror.com/babel-jest/download/babel-jest-27.3.1.tgz?cache=0&sync_timestamp=1634626713402&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fbabel-jest%2Fdownload%2Fbabel-jest-27.3.1.tgz#0636a3404c68e07001e434ac4956d82da8a80022"
+  integrity sha1-BjajQExo4HAB5DSsSVbYLaioACI=
+  dependencies:
+    "@jest/transform" "^27.3.1"
+    "@jest/types" "^27.2.5"
+    "@types/babel__core" "^7.1.14"
+    babel-plugin-istanbul "^6.0.0"
+    babel-preset-jest "^27.2.0"
+    chalk "^4.0.0"
+    graceful-fs "^4.2.4"
+    slash "^3.0.0"
+
 babel-plugin-dynamic-import-node@^2.3.3:
   version "2.3.3"
   resolved "https://registry.npm.taobao.org/babel-plugin-dynamic-import-node/download/babel-plugin-dynamic-import-node-2.3.3.tgz#84fda19c976ec5c6defef57f9427b3def66e17a3"
@@ -4051,6 +4096,16 @@ babel-plugin-jest-hoist@^26.6.2:
   version "26.6.2"
   resolved "https://registry.nlark.com/babel-plugin-jest-hoist/download/babel-plugin-jest-hoist-26.6.2.tgz?cache=0&sync_timestamp=1631520502500&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fbabel-plugin-jest-hoist%2Fdownload%2Fbabel-plugin-jest-hoist-26.6.2.tgz#8185bd030348d254c6d7dd974355e6a28b21e62d"
   integrity sha1-gYW9AwNI0lTG192XQ1Xmoosh5i0=
+  dependencies:
+    "@babel/template" "^7.3.3"
+    "@babel/types" "^7.3.3"
+    "@types/babel__core" "^7.0.0"
+    "@types/babel__traverse" "^7.0.6"
+
+babel-plugin-jest-hoist@^27.2.0:
+  version "27.2.0"
+  resolved "https://registry.nlark.com/babel-plugin-jest-hoist/download/babel-plugin-jest-hoist-27.2.0.tgz?cache=0&sync_timestamp=1631520502500&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fbabel-plugin-jest-hoist%2Fdownload%2Fbabel-plugin-jest-hoist-27.2.0.tgz#79f37d43f7e5c4fdc4b2ca3e10cc6cf545626277"
+  integrity sha1-efN9Q/flxP3Esso+EMxs9UViYnc=
   dependencies:
     "@babel/template" "^7.3.3"
     "@babel/types" "^7.3.3"
@@ -4119,6 +4174,14 @@ babel-preset-jest@^26.6.2:
   integrity sha1-dHhysRcd8DIlJCZYaIHWLTF5j+4=
   dependencies:
     babel-plugin-jest-hoist "^26.6.2"
+    babel-preset-current-node-syntax "^1.0.0"
+
+babel-preset-jest@^27.2.0:
+  version "27.2.0"
+  resolved "https://registry.nlark.com/babel-preset-jest/download/babel-preset-jest-27.2.0.tgz#556bbbf340608fed5670ab0ea0c8ef2449fba885"
+  integrity sha1-VWu780Bgj+1WcKsOoMjvJEn7qIU=
+  dependencies:
+    babel-plugin-jest-hoist "^27.2.0"
     babel-preset-current-node-syntax "^1.0.0"
 
 babel-preset-react-app@11.0.0-next.91+1465357b:
@@ -6928,7 +6991,7 @@ fs.realpath@^1.0.0:
   resolved "https://registry.nlark.com/fs.realpath/download/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
 
-fsevents@^2.1.2, fsevents@~2.3.2:
+fsevents@^2.1.2, fsevents@^2.3.2, fsevents@~2.3.2:
   version "2.3.2"
   resolved "https://registry.nlark.com/fsevents/download/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
   integrity sha1-ilJveLj99GI7cJ4Ll1xSwkwC/Ro=
@@ -8616,6 +8679,26 @@ jest-haste-map@^26.6.2:
   optionalDependencies:
     fsevents "^2.1.2"
 
+jest-haste-map@^27.3.1:
+  version "27.3.1"
+  resolved "https://registry.npmmirror.com/jest-haste-map/download/jest-haste-map-27.3.1.tgz#7656fbd64bf48bda904e759fc9d93e2c807353ee"
+  integrity sha1-dlb71kv0i9qQTnWfydk+LIBzU+4=
+  dependencies:
+    "@jest/types" "^27.2.5"
+    "@types/graceful-fs" "^4.1.2"
+    "@types/node" "*"
+    anymatch "^3.0.3"
+    fb-watchman "^2.0.0"
+    graceful-fs "^4.2.4"
+    jest-regex-util "^27.0.6"
+    jest-serializer "^27.0.6"
+    jest-util "^27.3.1"
+    jest-worker "^27.3.1"
+    micromatch "^4.0.4"
+    walker "^1.0.7"
+  optionalDependencies:
+    fsevents "^2.3.2"
+
 jest-jasmine2@^26.6.3:
   version "26.6.3"
   resolved "https://registry.npmmirror.com/jest-jasmine2/download/jest-jasmine2-26.6.3.tgz#adc3cf915deacb5212c93b9f3547cd12958f2edd"
@@ -8819,6 +8902,14 @@ jest-serializer@^26.6.2:
     "@types/node" "*"
     graceful-fs "^4.2.4"
 
+jest-serializer@^27.0.6:
+  version "27.0.6"
+  resolved "https://registry.nlark.com/jest-serializer/download/jest-serializer-27.0.6.tgz#93a6c74e0132b81a2d54623251c46c498bb5bec1"
+  integrity sha1-k6bHTgEyuBotVGIyUcRsSYu1vsE=
+  dependencies:
+    "@types/node" "*"
+    graceful-fs "^4.2.4"
+
 jest-snapshot@^26.6.2:
   version "26.6.2"
   resolved "https://registry.npmmirror.com/jest-snapshot/download/jest-snapshot-26.6.2.tgz?cache=0&sync_timestamp=1634626755909&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fjest-snapshot%2Fdownload%2Fjest-snapshot-26.6.2.tgz#f3b0af1acb223316850bd14e1beea9837fb39c84"
@@ -8898,6 +8989,15 @@ jest-worker@^26.2.1, jest-worker@^26.6.2:
     "@types/node" "*"
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
+
+jest-worker@^27.3.1:
+  version "27.3.1"
+  resolved "https://registry.npmmirror.com/jest-worker/download/jest-worker-27.3.1.tgz?cache=0&sync_timestamp=1634626737887&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fjest-worker%2Fdownload%2Fjest-worker-27.3.1.tgz#0def7feae5b8042be38479799aeb7b5facac24b2"
+  integrity sha1-De9/6uW4BCvjhHl5mut7X6ysJLI=
+  dependencies:
+    "@types/node" "*"
+    merge-stream "^2.0.0"
+    supports-color "^8.0.0"
 
 jest@^26.6.1:
   version "26.6.3"
@@ -9423,7 +9523,7 @@ lodash.map@^4.5.1:
   resolved "https://registry.nlark.com/lodash.map/download/lodash.map-4.6.0.tgz#771ec7839e3473d9c4cde28b19394c3562f4f6d3"
   integrity sha1-dx7Hg540c9nEzeKLGTlMNWL09tM=
 
-lodash.memoize@4.x, lodash.memoize@^4.1.2:
+lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.nlark.com/lodash.memoize/download/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
@@ -9468,7 +9568,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.nlark.com/lodash.uniq/download/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.0.0, lodash@^4.17.12, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.4, lodash@^4.7.0, lodash@~4.17.10:
+lodash@4.x, lodash@^4.0.0, lodash@^4.17.12, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.4, lodash@^4.7.0, lodash@~4.17.10:
   version "4.17.21"
   resolved "https://registry.nlark.com/lodash/download/lodash-4.17.21.tgz?cache=0&sync_timestamp=1624543041613&other_urls=https%3A%2F%2Fregistry.nlark.com%2Flodash%2Fdownload%2Flodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha1-Z5WRxWTDv/quhFTPCz3zcMPWkRw=
@@ -13444,7 +13544,7 @@ sugarss@^2.0.0:
   dependencies:
     postcss "^7.0.2"
 
-supports-color@8.1.1:
+supports-color@8.1.1, supports-color@^8.0.0:
   version "8.1.1"
   resolved "https://registry.nlark.com/supports-color/download/supports-color-8.1.1.tgz?cache=0&sync_timestamp=1626703414084&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fsupports-color%2Fdownload%2Fsupports-color-8.1.1.tgz#cd6fc17e28500cff56c1b86c0a7fd4a54a73005c"
   integrity sha1-zW/BfihQDP9WwbhsCn/UpUpzAFw=
@@ -13843,38 +13943,38 @@ trough@^1.0.0:
   dependencies:
     glob "^7.1.2"
 
-ts-jest@26.4.3:
-  version "26.4.3"
-  resolved "https://registry.npmmirror.com/ts-jest/download/ts-jest-26.4.3.tgz#d153a616033e7ec8544b97ddbe2638cbe38d53db"
-  integrity sha1-0VOmFgM+fshUS5fdviY4y+ONU9s=
+ts-jest@^26.4.3:
+  version "26.5.6"
+  resolved "https://registry.npmmirror.com/ts-jest/download/ts-jest-26.5.6.tgz#c32e0746425274e1dfe333f43cd3c800e014ec35"
+  integrity sha1-wy4HRkJSdOHf4zP0PNPIAOAU7DU=
   dependencies:
-    "@jest/create-cache-key-function" "^26.5.0"
-    "@types/jest" "26.x"
     bs-logger "0.x"
     buffer-from "1.x"
     fast-json-stable-stringify "2.x"
     jest-util "^26.1.0"
     json5 "2.x"
-    lodash.memoize "4.x"
+    lodash "4.x"
     make-error "1.x"
     mkdirp "1.x"
     semver "7.x"
     yargs-parser "20.x"
 
-ts-node@10.0.0:
-  version "10.0.0"
-  resolved "https://registry.npmmirror.com/ts-node/download/ts-node-10.0.0.tgz?cache=0&sync_timestamp=1634967008919&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fts-node%2Fdownload%2Fts-node-10.0.0.tgz#05f10b9a716b0b624129ad44f0ea05dac84ba3be"
-  integrity sha1-BfELmnFrC2JBKa1E8OoF2shLo74=
+ts-node@^10.0.0:
+  version "10.4.0"
+  resolved "https://registry.npmmirror.com/ts-node/download/ts-node-10.4.0.tgz?cache=0&sync_timestamp=1634967008919&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fts-node%2Fdownload%2Fts-node-10.4.0.tgz#680f88945885f4e6cf450e7f0d6223dd404895f7"
+  integrity sha1-aA+IlFiF9ObPRQ5/DWIj3UBIlfc=
   dependencies:
+    "@cspotcode/source-map-support" "0.7.0"
     "@tsconfig/node10" "^1.0.7"
     "@tsconfig/node12" "^1.0.7"
     "@tsconfig/node14" "^1.0.0"
-    "@tsconfig/node16" "^1.0.1"
+    "@tsconfig/node16" "^1.0.2"
+    acorn "^8.4.1"
+    acorn-walk "^8.1.1"
     arg "^4.1.0"
     create-require "^1.1.0"
     diff "^4.0.1"
     make-error "^1.1.1"
-    source-map-support "^0.5.17"
     yn "3.1.1"
 
 ts-node@^9:
