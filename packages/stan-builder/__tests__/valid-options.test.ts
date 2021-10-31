@@ -9,7 +9,7 @@ const successValidates: Partial<Record<keyof BundleOptions, any[]>> = {
 };
 
 it('valid-options', () => {
-  for (let k in successValidates) {
+  for (const k in successValidates) {
     successValidates[k].forEach((v: any) => {
       expect(
         validOptions.validate({

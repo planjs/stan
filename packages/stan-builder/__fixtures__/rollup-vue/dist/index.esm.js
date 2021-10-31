@@ -97,7 +97,7 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
 const __vue_script__ = RollupVue;
 
 /* template */
-var __vue_render__ = function() {
+var __vue_render__ = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;

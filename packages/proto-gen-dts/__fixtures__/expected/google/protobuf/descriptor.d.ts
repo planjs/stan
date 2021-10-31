@@ -12,7 +12,6 @@ declare namespace google {
     export interface FileDescriptorProto {
       // file name, relative to root of source tree
       name?: string;
-      // file name, relative to root of source tree
       package?: string;
       // Names of files imported by this file.
       dependency?: string[];
@@ -56,7 +55,7 @@ declare namespace google {
     export interface google_protobuf_DescriptorProto_ExtensionRange {
       // Inclusive.
       start?: number;
-      // Inclusive.
+      // Exclusive.
       end?: number;
       options?: ExtensionRangeOptions;
     }
@@ -67,7 +66,7 @@ declare namespace google {
     export interface google_protobuf_DescriptorProto_ReservedRange {
       // Inclusive.
       start?: number;
-      // Inclusive.
+      // Exclusive.
       end?: number;
     }
 
@@ -240,16 +239,16 @@ declare namespace google {
       // inappropriate because proto packages do not normally start with backwards
       // domain names.
       javaPackage?: string;
-      // If set, all the classes from the .proto file are wrapped in a single
-      // outer class with the given name.  This applies to both Proto1
-      // (equivalent to the old "--one_java_file" option) and Proto2 (where
-      // a .proto always translates to a single class, but you may want to
-      // explicitly choose the class name).
+      // Controls the name of the wrapper Java class generated for the .proto file.
+      // That class will always contain the .proto file's getDescriptor() method as
+      // well as any top-level extensions defined in the .proto file.
+      // If java_multiple_files is disabled, then all the other classes from the
+      // .proto file will be nested inside the single wrapper outer class.
       javaOuterClassname?: string;
-      // If set true, then the Java code generator will generate a separate .java
+      // If enabled, then the Java code generator will generate a separate .java
       // file for each top-level message, enum, and service defined in the .proto
-      // file.  Thus, these types will *not* be nested inside the outer class
-      // named by java_outer_classname.  However, the outer class will still be
+      // file.  Thus, these types will *not* be nested inside the wrapper class
+      // named by java_outer_classname.  However, the wrapper class will still be
       // generated to contain the file's getDescriptor() method as well as any
       // top-level extensions defined in the file.
       javaMultipleFiles?: boolean;
@@ -326,10 +325,9 @@ declare namespace google {
       // Generate complete code for parsing, serialization,
       // etc.
       SPEED = 1,
-      // Generate complete code for parsing, serialization,
-      // etc.
-      CODE_SIZE = 2,
       // Use ReflectionOps to implement these methods.
+      CODE_SIZE = 2,
+      // Generate code using MessageLite and the lite runtime.
       LITE_RUNTIME = 3,
     }
 
@@ -524,7 +522,7 @@ declare namespace google {
       IDEMPOTENCY_UNKNOWN = 0,
       // implies idempotent
       NO_SIDE_EFFECTS = 1,
-      // implies idempotent
+      // idempotent, but may have side effects
       IDEMPOTENT = 2,
     }
 

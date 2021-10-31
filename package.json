@@ -21,6 +21,7 @@
     "@commitlint/config-conventional": "^11.0.0",
     "@planjs/fabric": "^0.0.88",
     "@types/jest": "^26.0.15",
+    "@jest/globals": "^27.3.1",
     "@types/node": "^15.0.2",
     "chokidar-cli": "^2.1.0",
     "commitizen": "^4.2.2",

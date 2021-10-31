@@ -23,24 +23,22 @@ export function getBundleOpts(opts: BuildOptions): BundleOptions[] {
   const { cwd, args = {} } = opts;
   const entry = getExistFile({
     cwd,
-    files: ['src/index.tsx', 'src/index.ts', 'src/index.jsx', 'src/index.js', 'src/index.vue'],
+    files: [
+      'src/index.tsx',
+      'src/index.ts',
+      'src/index.jsx',
+      'src/index.js',
+      'src/index.mjs',
+      'src/index.vue',
+    ],
     returnRelative: true,
   });
   const bundleOpts = getStanConfig({ cwd });
   if (!bundleOpts.length) {
-    return [_.merge({ entry }, args)].filter((v) => !!v.entry);
+    bundleOpts.push({});
   }
   return bundleOpts
-    .map((stanConfig) => {
-      const bundleOpts: BundleOptions = _.merge(
-        {
-          entry,
-        },
-        args,
-        stanConfig,
-      );
-      return bundleOpts;
-    })
+    .map((stanConfig) => _.merge({ entry }, args, stanConfig))
     .filter((v) => !!v.entry);
 }
 
@@ -74,16 +72,6 @@ async function builder(opts: BuildOptions) {
       const isBabel = (b: BundleOptions['esm'] | BundleOptions['cjs']) =>
         b === 'babel' || (b as BaseBundleOptions)?.bundler === 'babel' || bundler === 'babel';
 
-      // bundle umd
-      if (umd) {
-        await rollup({ cwd, watch, type: 'umd', bundleOpt });
-      }
-
-      // bundle system
-      if (system) {
-        await rollup({ cwd, watch, type: 'system', bundleOpt });
-      }
-
       // bundle esm
       if (esm) {
         if (isBabel(esm)) {
@@ -100,6 +88,16 @@ async function builder(opts: BuildOptions) {
         } else {
           await rollup({ cwd, watch, type: 'cjs', bundleOpt });
         }
+      }
+
+      // bundle umd
+      if (umd) {
+        await rollup({ cwd, watch, type: 'umd', bundleOpt });
+      }
+
+      // bundle system
+      if (system) {
+        await rollup({ cwd, watch, type: 'system', bundleOpt });
       }
 
       // copy file

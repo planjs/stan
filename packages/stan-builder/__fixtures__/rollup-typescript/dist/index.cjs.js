@@ -47,7 +47,7 @@ function index (args) {
   var _args$name;
 
   args.name;
-      var o = _objectWithoutProperties__default['default'](args, _excluded);
+      var o = _objectWithoutProperties__default["default"](args, _excluded);
 
   console.log(o);
   return (_args$name = args === null || args === void 0 ? void 0 : args.name) !== null && _args$name !== void 0 ? _args$name : 'stan';

@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.pkg = factory());
-}(this, (function () { 'use strict';
+})(this, (function () { 'use strict';
 
   //
   //
@@ -103,7 +103,7 @@
   const __vue_script__ = RollupVue;
 
   /* template */
-  var __vue_render__ = function() {
+  var __vue_render__ = function () {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -143,4 +143,4 @@
 
   return __vue_component__;
 
-})));
+}));

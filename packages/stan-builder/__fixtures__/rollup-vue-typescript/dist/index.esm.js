@@ -122,12 +122,12 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
 const __vue_script__ = script;
 
 /* template */
-var __vue_render__ = function() {
+var __vue_render__ = function () {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
   return _c("div", { on: { click: _vm.handleNameClick } }, [
-    _vm._v("hello " + _vm._s(_vm.name) + "}")
+    _vm._v("hello " + _vm._s(_vm.name) + "}"),
   ])
 };
 var __vue_staticRenderFns__ = [];

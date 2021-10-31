@@ -4,12 +4,19 @@
  */
 
 export default {
+  verbose: true,
   clearMocks: true,
   coverageDirectory: 'coverage',
   testEnvironment: 'node',
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.jsx?$': 'babel-jest',
   },
-  transformIgnorePatterns: ['/node_modules/', '\\.pnp\\.[^\\/]+$'],
+  transformIgnorePatterns: [
+    '/node_modules/',
+    '\\.pnp\\.[^\\/]+$',
+    '<rootDir>/packages/stan-builder/lib/',
+    '<rootDir>/packages/stan-builder/__fixtures__/',
+  ],
 };
