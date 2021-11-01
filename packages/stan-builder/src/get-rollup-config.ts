@@ -108,7 +108,8 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
 
   const _target = moduleOpts?.target ?? target;
   const _sourcemap = moduleOpts?.sourcemap ?? sourcemap;
-  const _minify = minifyOnly || (moduleOpts?.minify ?? minify);
+  const _minifyOnly = moduleOpts?.minifyOnly || minifyOnly;
+  const _minify = _minifyOnly || moduleOpts?.minify || minify;
   const _file = moduleOpts?.file ?? file;
 
   let browser = _target === 'browser';
@@ -307,7 +308,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     case 'cjs':
       const plugins = getPlugins(format);
       return [
-        !minifyOnly && {
+        !_minifyOnly && {
           input,
           output,
           inlineDynamicImports: true,
@@ -315,7 +316,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
           external,
           onwarn,
         },
-        !minifyOnly &&
+        !_minifyOnly &&
           (moduleOpts as ESMOptions)?.mjs && {
             input,
             output: {
@@ -327,7 +328,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
             onwarn,
             external,
           },
-        (minifyOnly || _minify) && {
+        (_minifyOnly || _minify) && {
           input,
           output: {
             ...output,
