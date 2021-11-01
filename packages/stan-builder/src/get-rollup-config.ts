@@ -247,7 +247,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
       return ['', ...[format, isMin && 'min', isMJS ? 'mjs' : 'js'].filter((v) => v)].join('.');
     }
     const fileName = _file || path.basename(entry!, entryExt);
-    return path.join(cwd, `dist/${path.extname(fileName) ? fileName : fileName + getExt()}`);
+    return path.join(cwd, `dist/${fileName + getExt()}`);
   }
 
   const output: OutputOptions = {

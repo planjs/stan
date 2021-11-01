@@ -31,7 +31,7 @@ jobs:
           git config --local user.email "fupenglxy@gmail.com"
           git config --local user.name "fupengl"
       - run: yarn
-      - run: npm run publish
+      - run: npm run release
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
       - name: Push changes

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.4](https://github.com/planjs/stan/compare/stan-builder@0.12.3...stan-builder@0.12.4) (2021-11-01)
+
+
+### Bug Fixes
+
+* file ext ([71d4125](https://github.com/planjs/stan/commit/71d41255b9c3a710de20f1d841ec3139673c994f))
+
+
+
+
+
 ## [0.12.3](https://github.com/planjs/stan/compare/stan-builder@0.12.2...stan-builder@0.12.3) (2021-11-01)
 
 
