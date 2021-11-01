@@ -172,3 +172,4 @@ async function builder(opts: BuildOptions) {
 }
 
 export default builder;
+module.exports = exports = builder;
