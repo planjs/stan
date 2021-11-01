@@ -66,6 +66,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     analyze,
     disableTypeCheck,
     minify,
+    minifyOnly,
     runtimeHelpers: _runtimeHelpers,
     sourcemap,
     babelPlugins = [],
@@ -107,7 +108,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
 
   const _target = moduleOpts?.target ?? target;
   const _sourcemap = moduleOpts?.sourcemap ?? sourcemap;
-  const _minify = moduleOpts?.minify ?? minify;
+  const _minify = minifyOnly || (moduleOpts?.minify ?? minify);
   const _file = moduleOpts?.file ?? file;
 
   let browser = _target === 'browser';
@@ -306,7 +307,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
     case 'cjs':
       const plugins = getPlugins(format);
       return [
-        {
+        !minifyOnly && {
           input,
           output,
           inlineDynamicImports: true,
@@ -314,18 +315,19 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
           external,
           onwarn,
         },
-        (moduleOpts as ESMOptions)?.mjs && {
-          input,
-          output: {
-            ...output,
-            file: getOutputFilePath(false, true),
+        !minifyOnly &&
+          (moduleOpts as ESMOptions)?.mjs && {
+            input,
+            output: {
+              ...output,
+              file: getOutputFilePath(false, true),
+            },
+            inlineDynamicImports: true,
+            plugins,
+            onwarn,
+            external,
           },
-          inlineDynamicImports: true,
-          plugins,
-          onwarn,
-          external,
-        },
-        _minify && {
+        (minifyOnly || _minify) && {
           input,
           output: {
             ...output,

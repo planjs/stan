@@ -30,6 +30,11 @@ export interface BaseBundleOptions {
    */
   minify?: boolean;
   /**
+   * 只生成压缩的代码
+   * @default false
+   */
+  minifyOnly?: boolean;
+  /**
    * 输出sourcemap
    * @default false
    */
