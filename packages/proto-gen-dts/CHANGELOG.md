@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.15](https://github.com/planjs/stan/compare/proto-gen-dts@0.9.14...proto-gen-dts@0.9.15) (2021-11-01)
+
+
+### Bug Fixes
+
+* jest error ([90b04b9](https://github.com/planjs/stan/commit/90b04b95fbb5a49fbc44793f8b4489ab0c79135c))
+
+
+
+
+
 ## [0.9.14](https://github.com/planjs/stan/compare/proto-gen-dts@0.9.13...proto-gen-dts@0.9.14) (2021-10-28)
 
 **Note:** Version bump only for package proto-gen-dts

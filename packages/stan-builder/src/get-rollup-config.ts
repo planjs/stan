@@ -243,12 +243,11 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   }
 
   function getOutputFilePath(isMin = false, isMJS = false): string {
-    const fileName =
-      _file ||
-      [path.basename(entry!, entryExt), format, isMin && 'min', isMJS ? 'mjs' : 'js']
-        .filter((v) => v)
-        .join('.');
-    return path.join(cwd, `dist/${fileName}`);
+    function getExt() {
+      return ['', ...[format, isMin && 'min', isMJS ? 'mjs' : 'js'].filter((v) => v)].join('.');
+    }
+    const fileName = _file || path.basename(entry!, entryExt);
+    return path.join(cwd, `dist/${path.extname(fileName) ? fileName : fileName + getExt()}`);
   }
 
   const output: OutputOptions = {

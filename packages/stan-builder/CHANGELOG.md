@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.3](https://github.com/planjs/stan/compare/stan-builder@0.12.2...stan-builder@0.12.3) (2021-11-01)
+
+
+### Bug Fixes
+
+* auto suffix file ext ([48dd105](https://github.com/planjs/stan/commit/48dd105b6dcf5f84bc06a54ba171fd4991125a2b))
+* jest error ([90b04b9](https://github.com/planjs/stan/commit/90b04b95fbb5a49fbc44793f8b4489ab0c79135c))
+* rollup config error ([cf6cdc3](https://github.com/planjs/stan/commit/cf6cdc3eb41a44535d77459c14321f00d8006d05))
+
+
+
+
+
 ## [0.12.2](https://github.com/planjs/stan/compare/stan-builder@0.12.1...stan-builder@0.12.2) (2021-10-28)
 
 
