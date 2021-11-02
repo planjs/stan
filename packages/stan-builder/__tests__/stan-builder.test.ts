@@ -11,9 +11,10 @@ const dirs = (p: string, isFullPath = false) =>
     .filter((f) => fs.statSync(path.join(p, f)).isDirectory())
     .map((v) => (isFullPath ? path.join(p, v) : v));
 
-test('tests fixtures', async () => {
-  const fixtures = dirs(path.join(__dirname, '../__fixtures__'), true);
-  for (const cwd of fixtures) {
+const fixtures = dirs(path.join(__dirname, '../__fixtures__'), true);
+
+for (const cwd of fixtures) {
+  test(`tests ${path.basename(cwd)}`, async () => {
     await stanLibBuilder({ cwd });
-  }
-}, 30000);
+  }, 30000);
+}
