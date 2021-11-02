@@ -10,6 +10,8 @@ describe('babel-plugin-typescript-enum-iife', () => {
 }`,
       {
         plugins: [babelPluginTypescriptEnumIife, '@babel/plugin-transform-typescript'],
+        babelrc: false,
+        configFile: false,
       },
     )?.code;
 
