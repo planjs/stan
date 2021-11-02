@@ -39,7 +39,7 @@ export function getBundleOpts(opts: BuildOptions): BundleOptions[] {
   }
   return bundleOpts
     .map((stanConfig) => _.merge({ entry }, args, stanConfig))
-    .filter((v) => !!v.entry);
+    .filter((v) => !!v.entry && (v.esm || v.cjs || v.umd || v.system));
 }
 
 async function builder(opts: BuildOptions) {

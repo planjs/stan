@@ -25,6 +25,11 @@ commander.version(pkg.version);
 export default function parseArgv(args: string[]): BuildOptions | void {
   commander.parse(args);
 
+  if (commander.args.length) {
+    commander.outputHelp();
+    return;
+  }
+
   const errors: string[] = [];
 
   if (errors.length) {
