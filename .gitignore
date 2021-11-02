@@ -6,3 +6,4 @@ packages/*/*/lib/
 packages/*/typings/
 packages/*/*/typings/
 /coverage/
+*-debug.log

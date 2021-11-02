@@ -1,6 +1,6 @@
 {
   "name": "stan-builder",
-  "version": "0.13.2",
+  "version": "0.13.3",
   "description": "build js library",
   "author": "fupeng <fupenglxy@gmail.com> (https://github.com/fupengl)",
   "homepage": "https://github.com/planjs/stan/blob/master/packages/stan-builder/README.md",
@@ -155,5 +155,5 @@
   "optionalDependencies": {
     "fsevents": "~2.3.2"
   },
-  "gitHead": "75ef27f5418e0772fd8f5e723a1fed4f47b84292"
+  "gitHead": "cfacb450c8587d0b47ed58135531075c64115567"
 }
