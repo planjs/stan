@@ -15,6 +15,11 @@ Front-end related tools to improve development efficiency.
 - [babel-plugin-ts-enum-iife](./packages/babel-plugin-ts-enum-iife/README.md) enum better `tree-shaking`
 - [babel-plugin-module-resolve](./packages/babel-plugin-module-resolve/README.md) support `alias` import
 
+## Special thanks
+> Thanks to jetbrains for providing great IDEs and open source licensing
+
+[<img src="docs/assets/jetbrains-variant.png" alt="ad_anim_none.gif" width="160">](https://www.jetbrains.com/)
+
 ## License
 
 [MIT](LICENSE)
