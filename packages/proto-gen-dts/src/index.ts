@@ -3,6 +3,7 @@ import protoGenDTS from './gen-dts';
 export { default as writeDTS } from './write-dts';
 export { default as parseNamespace } from './parse-namespace';
 export { default as writeReference } from './write-reference';
+export { protoTypeToTSType } from './util';
 export type {
   GenProtoFile,
   ProtoGenDTSOptions,

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.13](https://github.com/planjs/stan/compare/babel-plugin-module-resolve@0.0.9...babel-plugin-module-resolve@0.0.13) (2021-12-28)
+
+
+### Bug Fixes
+
+* valid config ([75ef27f](https://github.com/planjs/stan/commit/75ef27f5418e0772fd8f5e723a1fed4f47b84292))
+
+
+
+
+
 ## [0.0.12](https://github.com/planjs/stan/compare/babel-plugin-module-resolve@0.0.11...babel-plugin-module-resolve@0.0.12) (2021-10-27)
 
 **Note:** Version bump only for package babel-plugin-module-resolve

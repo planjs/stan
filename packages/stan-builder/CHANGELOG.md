@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/planjs/stan/compare/stan-builder@0.11.1...stan-builder@0.14.0) (2021-12-28)
+
+
+### Bug Fixes
+
+* auto suffix file ext ([a7b931c](https://github.com/planjs/stan/commit/a7b931c6662fedd9476cff9310a181f1b715364a))
+* cjs export ([c779de9](https://github.com/planjs/stan/commit/c779de95795843ff03a4272a028dfc4b183aeeb3))
+* cli error ([0eefa22](https://github.com/planjs/stan/commit/0eefa226f74baef44fe2f24abaf91403e48a4fbb))
+* externalsExclude ([14f0628](https://github.com/planjs/stan/commit/14f0628ae3629f5d7b1ba5a8cf94d9da1733d9b5))
+* file ext ([21ed94a](https://github.com/planjs/stan/commit/21ed94a36bc17ee19a4315ea7350a3a35c5262cf))
+* jest error ([cfacb45](https://github.com/planjs/stan/commit/cfacb450c8587d0b47ed58135531075c64115567))
+* jest error ([90b04b9](https://github.com/planjs/stan/commit/90b04b95fbb5a49fbc44793f8b4489ab0c79135c))
+* minifyOnly ([c24522f](https://github.com/planjs/stan/commit/c24522faaf163786c095d12469cd6fc3a06db09f))
+* rollup config error ([cf6cdc3](https://github.com/planjs/stan/commit/cf6cdc3eb41a44535d77459c14321f00d8006d05))
+* valid config ([75ef27f](https://github.com/planjs/stan/commit/75ef27f5418e0772fd8f5e723a1fed4f47b84292))
+
+
+### Features
+
+* add fixtures ([97aeba4](https://github.com/planjs/stan/commit/97aeba4d742cd93eb79a4ed79713eab723919ef4))
+* add minifyOnly ([c6485af](https://github.com/planjs/stan/commit/c6485afc272f0ef39304ffd2784d35f0211ff991))
+
+
+
+
+
 ## [0.13.3](https://github.com/planjs/stan/compare/stan-builder@0.13.2...stan-builder@0.13.3) (2021-11-02)
 
 **Note:** Version bump only for package stan-builder
