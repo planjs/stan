@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.1](https://github.com/planjs/stan/compare/stan-utils@0.7.1...stan-utils@0.8.1) (2022-01-14)
+
+**Note:** Version bump only for package stan-utils
+
+
+
+
+
 # [0.8.0](https://github.com/planjs/stan/compare/stan-utils@0.6.21...stan-utils@0.8.0) (2021-12-28)
 
 

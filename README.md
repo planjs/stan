@@ -1,8 +1,4 @@
 # stan
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 [![](https://img.shields.io/npm/dt/stan-builder.svg?style=flat-square)](https://www.npmjs.com/package/stan-builder)
 
 > Collection of front-end engineering tools
@@ -19,6 +15,10 @@ Front-end related tools to improve development efficiency.
 - [babel-plugin-module-resolve](./packages/babel-plugin-module-resolve/README.md) support `alias` import
 
 ## Contributors
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
