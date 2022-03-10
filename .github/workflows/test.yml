@@ -7,9 +7,10 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
         node: [ '12', '14', '16' ]
     name: Use Node.js ${{ matrix.node-version }}
     steps:

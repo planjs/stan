@@ -2,7 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "src",
-    "module": "commonjs"
+    "lib": ["ES2019"],
+    "module": "commonjs",
+    "target": "ES2019"
   },
   "include": ["src"]
 }
