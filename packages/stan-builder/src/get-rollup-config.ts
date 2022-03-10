@@ -25,7 +25,7 @@ import LessNpmImport from 'less-plugin-npm-import';
 import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
 import type { default as vue } from 'rollup-plugin-vue';
-import { lodash as _ } from 'stan-utils';
+import { chalk, lodash as _ } from 'stan-utils';
 
 import type { BundleOptions, CJSOptions, ESMOptions, SYSOptions, UMDOptions } from './types';
 import getBabelConfig from './get-babel-config';
@@ -291,14 +291,27 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   const onwarn: WarningHandlerWithDefault = (warning, next) => {};
 
   const external = (source: string) => {
-    function test(arr: (string | RegExp)[], id: string) {
-      for (const exp of arr) {
-        if ((_.isRegExp(exp) && exp.test(id)) || exp === id) return true;
+    const isMatch = (() => {
+      function test(arr: (string | RegExp)[], id: string) {
+        for (const exp of arr) {
+          if ((_.isRegExp(exp) && exp.test(id)) || exp === id) return true;
+        }
+        return false;
       }
+      if (test(externalsExclude, source)) return false;
+      return test(externalArr, source);
+    })();
+
+    if (isMatch && source === input) {
+      console.log(
+        chalk.red(
+          `The parameter "externalArr" matches the entry file, force mismatch, please check configuration`,
+        ),
+      );
       return false;
     }
-    if (test(externalsExclude, source)) return false;
-    return test(externalArr, source);
+
+    return isMatch;
   };
 
   switch (format) {

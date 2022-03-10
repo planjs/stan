@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.2](https://github.com/planjs/stan/compare/stan-builder@0.14.0...stan-builder@0.14.2) (2022-03-10)
+
+
+### Bug Fixes
+
+* workdir match external regexp ([f16e5df](https://github.com/planjs/stan/commit/f16e5dfde165ed20b57dc99980796906f09f237b))
+
+
+
+
+
 ## [0.14.1](https://github.com/planjs/stan/compare/stan-builder@0.13.3...stan-builder@0.14.1) (2022-01-14)
 
 **Note:** Version bump only for package stan-builder
