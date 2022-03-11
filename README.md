@@ -17,27 +17,36 @@ Front-end related tools to improve development efficiency.
 | [babel-plugin-ts-enum-iife](./packages/babel-plugin-ts-enum-iife/README.md)     | [![](https://img.shields.io/npm/dt/babel-plugin-ts-enum-iife.svg?style=flat-square)](https://www.npmjs.com/package/babel-plugin-ts-enum-iife)     | enum better `tree-shaking`                                  |
 | [babel-plugin-module-resolve](./packages/babel-plugin-module-resolve/README.md) | [![](https://img.shields.io/npm/dt/babel-plugin-module-resolve.svg?style=flat-square)](https://www.npmjs.com/package/babel-plugin-module-resolve) | support `alias` import                                      |
 
+## Contributing
+
+This repository is a [monorepo](https://en.wikipedia.org/wiki/Monorepo) which leverages [yarn](https://yarnpkg.com/) for dependency management.
+
+To begin, please install `yarn`:
+
+```sh
+npm install yarn -g
+```
+
+### Working with Packages
+
+All packages are kept in the `/packages` directory.
+
+#### Publishing:
+
+```shell
+yarn release
+```
+
+#### Running Tests:
+
+To run tests on all packages which have changes:
+
+```shell
+yarn test
+```
 
 ## Contributors
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/fupengl"><img src="https://avatars.githubusercontent.com/u/20211964?v=4?s=100" width="100px;" alt=""/><br /><sub><b>傅鹏</b></sub></a><br /><a href="https://github.com/planjs/stan/commits?author=fupengl" title="Code">💻</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
+[CONTRIBUTING](./CONTRIBUTING.md)
 
 ## Special thanks
 > Thanks to jetbrains for providing great IDEs and open source licensing
