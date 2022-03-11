@@ -15,17 +15,17 @@ jobs:
     name: Use Node.js ${{ matrix.node-version }}
     steps:
       - name: Check out Git repository
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
       - name: Setup node
-      - uses: actions/setup-node@v1
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
       - name: Setup yarn cache
-      - uses: actions/cache@v2
+        uses: actions/cache@v2
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install dependencies
-      - run: yarn
+        run: yarn
       - name: Jest
-      - run: yarn test
+        run: yarn test

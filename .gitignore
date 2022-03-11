@@ -7,3 +7,4 @@ packages/*/typings/
 packages/*/*/typings/
 /coverage/
 *-debug.log
+.vscode/
