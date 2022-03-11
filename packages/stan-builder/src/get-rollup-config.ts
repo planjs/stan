@@ -25,7 +25,7 @@ import LessNpmImport from 'less-plugin-npm-import';
 import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
 import type { default as vue } from 'rollup-plugin-vue';
-import { chalk, lodash as _ } from 'stan-utils';
+import { chalk, lodash as _, relativeNormalize } from 'stan-utils';
 
 import type { BundleOptions, CJSOptions, ESMOptions, SYSOptions, UMDOptions } from './types';
 import getBabelConfig from './get-babel-config';
@@ -292,13 +292,23 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
 
   const external = (source: string) => {
     const isMatch = (() => {
-      function test(arr: (string | RegExp)[], id: string) {
+      function test(arr: (string | RegExp)[], id: string, generated: boolean = false) {
         for (const exp of arr) {
-          if ((_.isRegExp(exp) && exp.test(id)) || exp === id) return true;
+          if (exp === id) return true;
+          if (_.isRegExp(exp) && exp.test(id)) {
+            console.log(
+              chalk.cyan(
+                `WARN The rule "${exp}" takes effect and the file "${relativeNormalize(id)}" ${
+                  generated ? 'will be compiled' : 'will not be compiled'
+                }.`,
+              ),
+            );
+            return true;
+          }
         }
         return false;
       }
-      if (test(externalsExclude, source)) return false;
+      if (test(externalsExclude, source, true)) return false;
       return test(externalArr, source);
     })();
 
