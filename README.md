@@ -16,6 +16,7 @@ Front-end related tools to improve development efficiency.
 | [proto-gen-dts](./packages/proto-gen-dts/README.md)                             | [![](https://img.shields.io/npm/dt/proto-gen-dts.svg?style=flat-square)](https://www.npmjs.com/package/proto-gen-dts)                             | `protobuf` generate `typescript` dictionary type file       |
 | [babel-plugin-ts-enum-iife](./packages/babel-plugin-ts-enum-iife/README.md)     | [![](https://img.shields.io/npm/dt/babel-plugin-ts-enum-iife.svg?style=flat-square)](https://www.npmjs.com/package/babel-plugin-ts-enum-iife)     | enum better `tree-shaking`                                  |
 | [babel-plugin-module-resolve](./packages/babel-plugin-module-resolve/README.md) | [![](https://img.shields.io/npm/dt/babel-plugin-module-resolve.svg?style=flat-square)](https://www.npmjs.com/package/babel-plugin-module-resolve) | support `alias` import                                      |
+| [oss-upload-tool](./packages/oss-upload-tool/README.md) | [![](https://img.shields.io/npm/dt/oss-upload-tool.svg?style=flat-square)](https://www.npmjs.com/package/oss-upload-tool) | Integrated oss upload                                       |
 
 ## Contributing
 

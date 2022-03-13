@@ -18,6 +18,7 @@ import prettier from 'prettier';
 import fs from 'fs-extra';
 import { slash } from '@planjs/utils';
 import multimatch from 'multimatch';
+import execa from 'execa';
 
 export { lodash };
 export { mkdirp };
@@ -39,6 +40,8 @@ export * from '@planjs/utils';
 export { prettier };
 export { fs };
 export { multimatch };
+export { execa };
 export { createDebug, Debugger };
 export * from './path';
+export * from './git';
 export { default as copyFiles, CopyOptions, CopyTarget } from './copy-files';

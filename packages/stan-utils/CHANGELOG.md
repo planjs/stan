@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/planjs/stan/compare/stan-utils@0.8.1...stan-utils@0.9.0) (2022-03-13)
+
+
+### Bug Fixes
+
+* workdir match external regexp ([90cd2a9](https://github.com/planjs/stan/commit/90cd2a933f6499830fee6c1c5b3720bcad3adab3))
+
+
+### Features
+
+* add oss-upload tool ([0d52519](https://github.com/planjs/stan/commit/0d52519c2301ef8b1e623b8e91623b6338678017))
+
+
+
+
+
 ## [0.8.2](https://github.com/planjs/stan/compare/stan-utils@0.8.0...stan-utils@0.8.2) (2022-03-10)
 
 **Note:** Version bump only for package stan-utils

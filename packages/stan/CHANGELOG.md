@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.30](https://github.com/planjs/stan/compare/@planjs/stan@0.0.28...@planjs/stan@0.0.30) (2022-03-13)
+
+
+### Bug Fixes
+
+* workdir match external regexp ([90cd2a9](https://github.com/planjs/stan/commit/90cd2a933f6499830fee6c1c5b3720bcad3adab3))
+
+
+
+
+
 ## [0.0.29](https://github.com/planjs/stan/compare/@planjs/stan@0.0.27...@planjs/stan@0.0.29) (2022-03-10)
 
 **Note:** Version bump only for package @planjs/stan

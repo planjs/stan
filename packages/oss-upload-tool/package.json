@@ -1,0 +1,47 @@
+{
+  "name": "oss-upload-tool",
+  "version": "0.1.0",
+  "description": "Integrated oss upload",
+  "keywords": [
+    "cos",
+    "oss",
+    "ali-oss",
+    "oss-upload-tool",
+    "oss-upload"
+  ],
+  "homepage": "https://github.com/planjs/stan/blob/master/packages/oss-upload-tool/README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/planjs/oss-upload-tool.git",
+    "directory": "packages/oss-upload-tool"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "author": "fupeng <fupenglxy@gmail.com>",
+  "main": "lib/index.js",
+  "bin": {
+    "oss-tool": "./bin/oss.js"
+  },
+  "files": [
+    "lib",
+    "bin"
+  ],
+  "scripts": {
+    "prepare": "stan-builder --cjs --bundler babel",
+    "start": "yarn prepare -- -w",
+    "test": "jest --config ../../jest.config.ts --rootDir ."
+  },
+  "dependencies": {
+    "@planjs/utils": "^1.5.1",
+    "@types/ali-oss": "^6.16.3",
+    "ali-oss": "^6.17.1",
+    "cos-nodejs-sdk-v5": "^2.8.6",
+    "stan-utils": "^0.9.0"
+  },
+  "devDependencies": {
+    "stan-builder": "latest"
+  }
+}

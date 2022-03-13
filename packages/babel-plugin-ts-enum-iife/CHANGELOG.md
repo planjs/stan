@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.21](https://github.com/planjs/stan/compare/babel-plugin-ts-enum-iife@0.4.19...babel-plugin-ts-enum-iife@0.4.21) (2022-03-13)
+
+
+### Bug Fixes
+
+* workdir match external regexp ([90cd2a9](https://github.com/planjs/stan/commit/90cd2a933f6499830fee6c1c5b3720bcad3adab3))
+
+
+
+
+
 ## [0.4.20](https://github.com/planjs/stan/compare/babel-plugin-ts-enum-iife@0.4.18...babel-plugin-ts-enum-iife@0.4.20) (2022-03-10)
 
 **Note:** Version bump only for package babel-plugin-ts-enum-iife

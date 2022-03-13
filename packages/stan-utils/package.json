@@ -1,6 +1,6 @@
 {
   "name": "stan-utils",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "description": "stan internal utils",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -55,6 +55,7 @@
     "commander": "^6.1.0",
     "cross-spawn": "^7.0.3",
     "debug": "^4.2.0",
+    "execa": "4.1.0",
     "fs-extra": "^9.0.1",
     "globby": "^11.0.3",
     "joi": "^17.2.1",

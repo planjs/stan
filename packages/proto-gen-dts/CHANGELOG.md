@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/planjs/stan/compare/proto-gen-dts@0.10.1...proto-gen-dts@0.11.0) (2022-03-13)
+
+
+### Bug Fixes
+
+* workdir match external regexp ([90cd2a9](https://github.com/planjs/stan/commit/90cd2a933f6499830fee6c1c5b3720bcad3adab3))
+
+
+### Features
+
+* add oss-upload tool ([0d52519](https://github.com/planjs/stan/commit/0d52519c2301ef8b1e623b8e91623b6338678017))
+
+
+
+
+
 ## [0.10.2](https://github.com/planjs/stan/compare/proto-gen-dts@0.10.0...proto-gen-dts@0.10.2) (2022-03-10)
 
 **Note:** Version bump only for package proto-gen-dts
