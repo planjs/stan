@@ -3,6 +3,21 @@
 > Integrated oss upload   
 > Complete integration [COS](https://cloud.tencent.com/document/product/436/6474) / [ALI-OSS](https://help.aliyun.com/document_detail/32068.htm?spm=a2c4g.11186623.0.0.3e8ff2eeVjYbKz#concept-32068-zh), Welcome to improve together.
 
+## Install
+
+Using npm:
+
+```console
+npm install oss-upload-tool --save-dev
+```
+
+Using yarn:
+
+```console
+yarn add oss-upload-tool -D
+```
+
+
 ## Usage
 
 The tool will prioritize the identification of environment variables for easy invocation.   
