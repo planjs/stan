@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://github.com/planjs/stan/compare/proto-gen-dts@0.11.0...proto-gen-dts@0.13.0) (2022-03-14)
+
+
+### Bug Fixes
+
+* del console ([eacbaf1](https://github.com/planjs/stan/commit/eacbaf1ca4181701597cf9d527ce715f52f4edac))
+
+
+### Features
+
+* 修改proto-gen-dts enum生成的模板 ([662dec8](https://github.com/planjs/stan/commit/662dec87b480ff0ad9d723be4c4a71bbb7a2bb5a))
+
+
+
+
+
+# [0.12.0](https://github.com/planjs/stan/compare/proto-gen-dts@0.11.0...proto-gen-dts@0.12.0) (2022-03-14)
+
+
+### Features
+
+* 修改proto-gen-dts enum生成的模板 ([662dec8](https://github.com/planjs/stan/commit/662dec87b480ff0ad9d723be4c4a71bbb7a2bb5a))
+
+
+
+
+
 # [0.11.0](https://github.com/planjs/stan/compare/proto-gen-dts@0.10.1...proto-gen-dts@0.11.0) (2022-03-13)
 
 
