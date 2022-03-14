@@ -29,7 +29,7 @@ export interface <%= name %> {
 }`;
 
 const enumTemplate = `<%= comment %>
-export const enum <%= name %> {
+export enum <%= name %> {
 <%= content %>
 }`;
 
@@ -46,7 +46,7 @@ const interfaceExecutor = lodash.template(interfaceTemplate);
 const enumExecutor = lodash.template(enumTemplate);
 const serviceExecutor = lodash.template(serviceTemplate);
 const serviceFNExecutor = lodash.template(serviceFNTemplate);
-
+console.log(enumExecutor);
 /**
  * Parsed proto content to dts content
  * @description Nested message names will be spliced by _
