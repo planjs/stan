@@ -1,6 +1,10 @@
 import { OSSUploadOptions, OSSUploadLocalItem } from './types';
 
-export abstract class Client<Options = {}, UploadOptions = {}> {
+export type UploadOptions = {
+  onProgress: (loaded: number, total: number, speed: number) => void;
+};
+
+export abstract class Client<Options = {}, UploadParams = {}> {
   opt: OSSUploadOptions;
 
   protected constructor(options: OSSUploadOptions) {
@@ -11,8 +15,13 @@ export abstract class Client<Options = {}, UploadOptions = {}> {
    * 上传单个文件
    * @param item
    * @param params
+   * @param options
    */
-  abstract upload(item: OSSUploadLocalItem, params?: Partial<UploadOptions>): Promise<any>;
+  abstract upload(
+    item: OSSUploadLocalItem,
+    params?: Partial<UploadParams>,
+    options?: UploadOptions,
+  ): Promise<{ url: string }>;
 
   /**
    * 检查系统默认的配置
@@ -23,5 +32,5 @@ export abstract class Client<Options = {}, UploadOptions = {}> {
   /**
    * 通用上传参数
    */
-  abstract get globalUploadParams(): Partial<UploadOptions>;
+  abstract get globalUploadParams(): Partial<UploadParams>;
 }

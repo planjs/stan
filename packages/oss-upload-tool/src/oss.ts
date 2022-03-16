@@ -1,5 +1,5 @@
-import { chalk, globby } from 'stan-utils';
-import { isPlanObject, asyncPool, settleAll } from '@planjs/utils';
+import { chalk, globby, Listr, slash } from 'stan-utils';
+import { isPlanObject } from '@planjs/utils';
 
 import COSClient from './client/cos';
 import AOSSClient from './client/ali-oss';
@@ -7,6 +7,7 @@ import AOSSClient from './client/ali-oss';
 import getUploadList from './get-upload-list';
 import type { OSSUploadOptions, OSSUploadTarget, OSSUploadLocalItem } from './types';
 import type { Client } from './oss_client';
+import { relative } from 'path';
 
 async function ossUpload(options: OSSUploadOptions) {
   const { targets, cwd = process.cwd(), parallelLimit = 3, uploadParams } = options;
@@ -53,8 +54,6 @@ async function ossUpload(options: OSSUploadOptions) {
       );
     }
 
-    const pool = asyncPool({ maxConcurrency: parallelLimit });
-
     let oss: Client;
 
     switch (type) {
@@ -74,17 +73,41 @@ async function ossUpload(options: OSSUploadOptions) {
       return Promise.reject(new Error('No items to upload'));
     }
 
-    const { errors } = await settleAll(
-      uploadFiles.map((item) => pool.executor(() => oss.upload(item, uploadParams))),
-    );
-    if (errors.length) {
-      console.log(chalk.red(`Upload failed`));
-      throw errors;
-    } else {
-      console.log(chalk.green(`Upload successfully`));
-    }
+    const tasks = new Listr(undefined, {
+      concurrent: parallelLimit,
+    });
 
-    return;
+    uploadFiles.forEach((item) => {
+      const title = `Upload ${chalk.yellow(slash(relative(cwd, item.filePath)))} to ${chalk.green(
+        item.path,
+      )}`;
+      tasks.add({
+        title,
+        task: (ctx: any[], task) => {
+          return oss
+            .upload(item, uploadParams, {
+              onProgress(loaded: number, total: number) {
+                task.output = `${((loaded / total) * 100).toFixed(2)}%`;
+              },
+            })
+            .then((res) => {
+              const { url } = res;
+              task.title = title + ` -> ${chalk.greenBright(url)}`;
+              ctx.push(res);
+              return res;
+            });
+        },
+      });
+    });
+
+    try {
+      const result = await tasks.run([]);
+      console.log(chalk.green(`Upload successfully`));
+      return result;
+    } catch (e) {
+      console.log(chalk.red(`Upload failed`));
+      return Promise.reject(e);
+    }
   }
 
   console.log(chalk.yellow('No items to upload'));

@@ -1,7 +1,7 @@
 import AOSS from 'ali-oss';
 
-import { Client } from '../oss_client';
-import { isStatusCodeOK, createUploadSpinner, getGlobalValue } from '../utils';
+import { Client, UploadOptions } from '../oss_client';
+import { isStatusCodeOK, getGlobalValue } from '../utils';
 import {
   ALIOSS_BUCKET_KEY,
   ALIOSS_ENDPOINT_KEY,
@@ -26,19 +26,20 @@ class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
     });
   }
 
-  async upload(item: OSSUploadLocalItem, params?: Partial<AOSS.PutObjectOptions>) {
-    const { start, success, fail } = createUploadSpinner(item.filePath, item.path);
+  async upload(
+    item: OSSUploadLocalItem,
+    params?: Partial<AOSS.PutObjectOptions>,
+    options?: UploadOptions,
+  ) {
     try {
-      start();
       const { res, url } = await this.#client.put(item.path, item.content || item.filePath, params);
       if (!isStatusCodeOK(res.status)) {
-        fail();
         return Promise.reject(res);
       }
-      success(url);
-      return res;
+      return {
+        url,
+      };
     } catch (e) {
-      fail(e?.message || e);
       return Promise.reject(e);
     }
   }

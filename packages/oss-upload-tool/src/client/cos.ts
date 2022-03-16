@@ -1,8 +1,8 @@
 import COS from 'cos-nodejs-sdk-v5';
 import { REG_URI } from '@planjs/utils';
 
-import { Client } from '../oss_client';
-import { isStatusCodeOK, createUploadSpinner, getGlobalValue } from '../utils';
+import { Client, UploadOptions } from '../oss_client';
+import { isStatusCodeOK, getGlobalValue } from '../utils';
 import {
   BUCKET_KEY,
   COS_BUCKET_KEY,
@@ -26,59 +26,29 @@ class COSClient extends Client<Partial<COS.COSOptions>, COS.SliceUploadFileParam
     });
   }
 
-  async upload(item: OSSUploadLocalItem, params?: Partial<COS.SliceUploadFileParams>) {
-    const { start, process, success, fail } = createUploadSpinner(item.filePath, item.path);
+  async upload(
+    item: OSSUploadLocalItem,
+    params?: Partial<COS.SliceUploadFileParams>,
+    options?: UploadOptions,
+  ) {
     try {
-      start();
       const res = await this.#client.sliceUploadFile({
         FilePath: item.filePath,
         Key: item.path,
         onProgress(info) {
-          process(info.loaded, info.total, info.speed);
+          options?.onProgress?.(info.loaded, info.total, info.speed);
         },
         ...this.globalUploadParams,
         ...params,
       } as COS.SliceUploadFileParams);
       const { statusCode } = res;
       if (!isStatusCodeOK(statusCode!)) {
-        fail();
         return Promise.reject(res);
       }
-      success(!REG_URI.test(res.Location) ? `http://${res.Location}` : res.Location);
-      return res;
+      return {
+        url: !REG_URI.test(res.Location) ? `http://${res.Location}` : res.Location,
+      };
     } catch (e) {
-      fail(e?.message || e);
-      return Promise.reject(e);
-    }
-  }
-
-  async uploadBuffer(
-    buffer: Buffer | string,
-    path: string,
-    filePath?: string,
-    params?: Partial<COS.PutObjectParams> | undefined,
-  ): Promise<any> {
-    const { start, process, success, fail } = createUploadSpinner(`buffer:${filePath}`, path);
-    try {
-      start();
-      const res = await this.#client.putObject({
-        Body: buffer,
-        Key: path,
-        onProgress(info) {
-          process(info.loaded, info.total, info.speed);
-        },
-        ...this.globalUploadParams,
-        ...params,
-      } as COS.PutObjectParams);
-      const { statusCode } = res;
-      if (!isStatusCodeOK(statusCode!)) {
-        fail();
-        return Promise.reject(res);
-      }
-      success(!REG_URI.test(res.Location) ? `http://${res.Location}` : res.Location);
-      return res;
-    } catch (e) {
-      fail(e?.message || e);
       return Promise.reject(e);
     }
   }

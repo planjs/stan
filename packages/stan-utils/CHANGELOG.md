@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://github.com/planjs/stan/compare/stan-utils@0.9.0...stan-utils@0.9.1) (2022-03-16)
+
+
+### Bug Fixes
+
+* **oss-upload-tool:** some optimizations ([01ee302](https://github.com/planjs/stan/commit/01ee302dbb0d91ae1246f534234ebcc5ae1191e2))
+
+
+
+
+
 # [0.9.0](https://github.com/planjs/stan/compare/stan-utils@0.8.1...stan-utils@0.9.0) (2022-03-13)
 
 

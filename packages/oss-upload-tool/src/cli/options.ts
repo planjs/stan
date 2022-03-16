@@ -1,6 +1,7 @@
 import { commander } from 'stan-utils';
 import { OSSUploadOptions } from '../types';
 import { BUCKET_KEY, REGION_KEY, SECRET_ID, SECRET_KEY } from '../consts';
+import { safeSetEnv } from '../utils';
 
 const pkg = require('../../package.json');
 
@@ -39,10 +40,10 @@ export default function parseArgv(args: string[]): OSSUploadOptions | void {
   const { secret_id, secret_key, bucket, region } = opts;
 
   // setup env
-  process.env[SECRET_ID] = secret_id;
-  process.env[SECRET_KEY] = secret_key;
-  process.env[BUCKET_KEY] = bucket;
-  process.env[REGION_KEY] = region;
+  safeSetEnv(SECRET_ID, secret_id);
+  safeSetEnv(SECRET_KEY, secret_key);
+  safeSetEnv(BUCKET_KEY, bucket);
+  safeSetEnv(REGION_KEY, region);
 
   return {
     cwd: process.cwd(),
