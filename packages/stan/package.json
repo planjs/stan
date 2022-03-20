@@ -21,7 +21,8 @@
     "url": "git+https://github.com/planjs/stan.git"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
@@ -29,5 +30,5 @@
   "bugs": {
     "url": "https://github.com/planjs/stan/issues"
   },
-  "gitHead": "2abcbff6fa53b8995bd728d386dd227fd6288938"
+  "gitHead": "c73c9427e7bf21b68d27f72aff60581cc71f26e4"
 }

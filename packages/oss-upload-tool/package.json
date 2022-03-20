@@ -43,5 +43,6 @@
   },
   "devDependencies": {
     "stan-builder": "latest"
-  }
+  },
+  "gitHead": "c73c9427e7bf21b68d27f72aff60581cc71f26e4"
 }
