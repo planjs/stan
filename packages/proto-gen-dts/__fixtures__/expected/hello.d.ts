@@ -21,7 +21,7 @@ declare namespace hello {
     firstName?: string;
   }
 
-  export const enum Direct {
+  export enum Direct {
     Nil = 0,
     Up = 1,
     Down = 2,
@@ -42,7 +42,7 @@ declare namespace hello {
     avatar?: string;
   }
 
-  export const enum SayNameReq_User_Role {
+  export enum SayNameReq_User_Role {
     RoleNil = 0,
     // admin
     RoleAdmin = 1,

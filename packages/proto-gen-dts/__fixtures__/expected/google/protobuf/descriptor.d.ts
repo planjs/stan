@@ -131,7 +131,7 @@ declare namespace google {
       proto3Optional?: boolean;
     }
 
-    export const enum google_protobuf_FieldDescriptorProto_Type {
+    export enum google_protobuf_FieldDescriptorProto_Type {
       // 0 is reserved for errors.
       // Order is weird for historical reasons.
       TYPE_DOUBLE = 1,
@@ -165,7 +165,7 @@ declare namespace google {
       TYPE_SINT64 = 18,
     }
 
-    export const enum google_protobuf_FieldDescriptorProto_Label {
+    export enum google_protobuf_FieldDescriptorProto_Label {
       // 0 is reserved for errors
       LABEL_OPTIONAL = 1,
       LABEL_REQUIRED = 2,
@@ -321,7 +321,7 @@ declare namespace google {
     }
 
     // Generated classes can be optimized for speed or code size.
-    export const enum google_protobuf_FileOptions_OptimizeMode {
+    export enum google_protobuf_FileOptions_OptimizeMode {
       // Generate complete code for parsing, serialization,
       // etc.
       SPEED = 1,
@@ -450,14 +450,14 @@ declare namespace google {
       uninterpretedOption?: UninterpretedOption[];
     }
 
-    export const enum google_protobuf_FieldOptions_CType {
+    export enum google_protobuf_FieldOptions_CType {
       // Default mode.
       STRING = 0,
       CORD = 1,
       STRING_PIECE = 2,
     }
 
-    export const enum google_protobuf_FieldOptions_JSType {
+    export enum google_protobuf_FieldOptions_JSType {
       // Use the default type.
       JS_NORMAL = 0,
       // Use JavaScript strings.
@@ -518,7 +518,7 @@ declare namespace google {
     // Is this method side-effect-free (or safe in HTTP parlance), or idempotent,
     // or neither? HTTP based RPC implementation may choose GET verb for safe
     // methods, and PUT verb for idempotent methods instead of the default POST.
-    export const enum google_protobuf_MethodOptions_IdempotencyLevel {
+    export enum google_protobuf_MethodOptions_IdempotencyLevel {
       IDEMPOTENCY_UNKNOWN = 0,
       // implies idempotent
       NO_SIDE_EFFECTS = 1,

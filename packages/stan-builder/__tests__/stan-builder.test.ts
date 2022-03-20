@@ -3,8 +3,6 @@ import * as fs from 'fs';
 
 import stanLibBuilder from '../src';
 
-jest.useFakeTimers();
-
 const dirs = (p: string, isFullPath = false) =>
   fs
     .readdirSync(p)
@@ -14,7 +12,7 @@ const dirs = (p: string, isFullPath = false) =>
 const fixtures = dirs(path.join(__dirname, '../__fixtures__'), true);
 
 for (const cwd of fixtures) {
-  test(`tests ${path.basename(cwd)}`, async () => {
+  test(`test ${path.basename(cwd)} build`, async () => {
     await stanLibBuilder({ cwd });
   }, 30000);
 }

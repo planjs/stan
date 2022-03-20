@@ -114,7 +114,7 @@ async function babelBuild(opts: BabelOptions) {
     const tsFilter = filter('**/*.{ts,tsx}', { restore: true });
     const dtsFilter = filter('**/*.d.ts', { restore: true });
 
-    const main = vfs
+    let main = vfs
       .src(globs, {
         allowEmpty: true,
         base: srcPath,
@@ -177,12 +177,11 @@ async function babelBuild(opts: BabelOptions) {
       .pipe(vfs.dest(targetPath));
 
     if (minify) {
-      main
+      main = main
         .pipe(jsFilter)
         .pipe(terser())
         .pipe(
           through.obj((file, enc, cb) => {
-            file.path = file.path.replace(path.extname(file.path), '.min.js');
             cb(null, file);
           }),
         )
