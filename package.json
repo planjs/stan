@@ -9,7 +9,7 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "release": "lerna publish --amend --yes",
+    "release": "lerna publish --no-verify-access --yes",
     "publish:pkg": "lerna publish from-package --yes",
     "prepare": "lerna run prepare",
     "lint:fix": "lerna run lint:fix --sort",
