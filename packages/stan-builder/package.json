@@ -1,0 +1,159 @@
+{
+  "name": "stan-builder",
+  "version": "0.14.6",
+  "description": "build js library",
+  "author": "fupeng <fupenglxy@gmail.com> (https://github.com/fupengl)",
+  "homepage": "https://github.com/planjs/stan/blob/master/packages/stan-builder/README.md",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "typings/index.d.ts",
+  "keywords": [
+    "stan",
+    "@planjs",
+    "builder",
+    "react",
+    "react-compoments",
+    "vue",
+    "vue-compoments",
+    "node",
+    "node-library",
+    "lib",
+    "library",
+    "babel",
+    "rollup",
+    "stan-builder"
+  ],
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__",
+    "example": "fixtures",
+    "doc": "README.md"
+  },
+  "files": [
+    "lib",
+    "bin",
+    "typings",
+    "template"
+  ],
+  "bin": {
+    "stan-builder": "./bin/stan-builder.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/planjs/stan.git",
+    "directory": "packages/stan-builder"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "dev": "yarn prepare && chokidar \"src/**\" -c \"yarn build && yarn build:types\"",
+    "build": "babel src -d lib -x .ts,.js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "prepare": "yarn clear && yarn build && yarn build:types",
+    "clear": "rimraf lib/ typings/",
+    "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src",
+    "test": "jest --config ../../jest.config.ts --rootDir ."
+  },
+  "bugs": {
+    "url": "https://github.com/planjs/stan/issues"
+  },
+  "dependencies": {
+    "@babel/core": "^7.14.2",
+    "@babel/plugin-proposal-decorators": "^7.14.2",
+    "@babel/plugin-proposal-do-expressions": "^7.14.0",
+    "@babel/plugin-proposal-export-default-from": "^7.12.13",
+    "@babel/plugin-proposal-export-namespace-from": "^7.14.2",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.14.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.14.2",
+    "@babel/plugin-proposal-optional-chaining": "^7.14.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.14.0",
+    "@babel/plugin-transform-runtime": "^7.14.2",
+    "@babel/plugin-transform-spread": "^7.13.0",
+    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-react": "^7.13.13",
+    "@babel/preset-typescript": "^7.13.0",
+    "@babel/register": "^7.13.16",
+    "@babel/runtime": "^7.15.4",
+    "@rollup/plugin-alias": "^3.1.2",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-inject": "^4.0.2",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-replace": "^2.4.2",
+    "@rollup/plugin-url": "^6.0.0",
+    "@rollup/pluginutils": "^4.1.0",
+    "@svgr/rollup": "^5.5.0",
+    "@types/rollup-plugin-visualizer": "^4.2.0",
+    "autoprefixer": "^9.8.6",
+    "builtin-modules": "^3.2.0",
+    "cssnano": "^4.1.10",
+    "escalade": "^3.1.1",
+    "gulp-filter": "^7.0.0",
+    "gulp-if": "^3.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^9.0.1",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-terser": "^2.1.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "less-plugin-npm-import": "^2.1.0",
+    "merge2": "^1.4.1",
+    "postcss-load-config": "^2.1.2",
+    "rollup": "^2.64.0",
+    "rollup-plugin-postcss": "^3.1.8",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.31.1",
+    "rollup-plugin-visualizer": "^5.5.2",
+    "stan-utils": "^0.9.2",
+    "through2": "^4.0.2",
+    "vinyl-fs": "^3.0.3",
+    "vue-template-compiler": "^2.6.12"
+  },
+  "devDependencies": {
+    "@types/autoprefixer": "^9.7.2",
+    "@types/babel__core": "^7.1.14",
+    "@types/cssnano": "^4.0.0",
+    "@types/gulp-filter": "^3.0.33",
+    "@types/gulp-if": "^0.0.33",
+    "@types/gulp-plumber": "^0.0.32",
+    "@types/gulp-postcss": "^8.0.0",
+    "@types/gulp-sourcemaps": "^0.0.32",
+    "@types/gulp-terser": "^1.2.1",
+    "@types/merge2": "^1.3.0",
+    "@types/postcss-load-config": "^2.0.1",
+    "@types/svgr__rollup": "^4.3.1",
+    "@types/through2": "^2.0.36",
+    "@types/vinyl-fs": "^2.4.11",
+    "@vue/compiler-sfc": "^3.0.5",
+    "node-sass": "7.0.0",
+    "postcss-less": "^3.1.4",
+    "postcss-scss": "^3.0.2",
+    "postcss-styl": "^0.7.2",
+    "rollup-plugin-vue": "5.1.9",
+    "vue": "^2.6.12",
+    "vue-class-component": "^7.2.6"
+  },
+  "peerDependencies": {
+    "@vue/compiler-sfc": "*",
+    "rollup-plugin-vue": "^6.0.0 || ^5.1.9",
+    "typescript": "^4.0.3"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    },
+    "@vue/compiler-sfc": {
+      "optional": true
+    },
+    "rollup-plugin-vue": {
+      "optional": true
+    }
+  },
+  "optionalDependencies": {
+    "fsevents": "~2.3.2"
+  },
+  "gitHead": "cfacb450c8587d0b47ed58135531075c64115567"
+}

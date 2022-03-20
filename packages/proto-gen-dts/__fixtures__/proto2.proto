@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+package proto2;
+
+message Req {
+  required string name = 1;
+}
+
+message Rsp {
+  optional string txt = 1;
+}
