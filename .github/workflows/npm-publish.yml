@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: restore node_modules
+      - name: Restore node_modules
         uses: actions/cache@v2
         with:
           path: '**/node_modules'
