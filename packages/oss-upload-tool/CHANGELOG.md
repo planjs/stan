@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/planjs/oss-upload-tool/compare/oss-upload-tool@0.1.1...oss-upload-tool@0.2.0) (2022-03-20)
+
+
+### Features
+
+* add verbose opts ([60a3c6a](https://github.com/planjs/oss-upload-tool/commit/60a3c6ad4eb67bbab451a1d6a5c9aedacc6aa9ce))
+
+
+
+
+
 ## [0.1.1](https://github.com/planjs/oss-upload-tool/compare/oss-upload-tool@0.1.0...oss-upload-tool@0.1.1) (2022-03-16)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.5](https://github.com/planjs/stan/compare/stan-builder@0.14.4...stan-builder@0.14.5) (2022-03-20)
+
+
+### Bug Fixes
+
+* **stan-builder:** babel minify can\'t minify all file ([bcf386d](https://github.com/planjs/stan/commit/bcf386d15a4ae7fb242930a76b53655569d1ca4a))
+
+
+
+
+
 ## [0.14.4](https://github.com/planjs/stan/compare/stan-builder@0.14.3...stan-builder@0.14.4) (2022-03-16)
 
 **Note:** Version bump only for package stan-builder

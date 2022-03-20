@@ -10,7 +10,7 @@ import type { Client } from './oss_client';
 import { relative } from 'path';
 
 async function ossUpload(options: OSSUploadOptions) {
-  const { targets, cwd = process.cwd(), parallelLimit = 3, uploadParams } = options;
+  const { targets, cwd = process.cwd(), parallelLimit = 3, uploadParams, verbose } = options;
   const type =
     options.type || options?.COSOptions !== undefined
       ? 'COS'
@@ -73,8 +73,9 @@ async function ossUpload(options: OSSUploadOptions) {
       return Promise.reject(new Error('No items to upload'));
     }
 
-    const tasks = new Listr(undefined, {
+    const tasks = new Listr({
       concurrent: parallelLimit,
+      renderer: verbose ? 'verbose' : 'default',
     });
 
     uploadFiles.forEach((item) => {
