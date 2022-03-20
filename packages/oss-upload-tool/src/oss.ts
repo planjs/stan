@@ -36,22 +36,16 @@ async function ossUpload(options: OSSUploadOptions) {
         ...tar,
       });
 
-      uploadFiles.push(
-        ...(Array.isArray(dest)
-          ? dest.reduce<OSSUploadLocalItem[]>(
-              (acc, v) => [
-                ...acc,
-                ...getUploadList(matchedPaths, v, {
-                  flatten: target.flatten,
-                  rename,
-                  transform,
-                  cwd,
-                }),
-              ],
-              [],
-            )
-          : getUploadList(matchedPaths, dest, { flatten: target.flatten, rename, transform, cwd })),
-      );
+      (Array.isArray(dest) ? dest : [dest]).forEach((v) => {
+        uploadFiles.push(
+          ...getUploadList(matchedPaths, v, {
+            flatten: target.flatten,
+            rename,
+            transform,
+            cwd,
+          }),
+        );
+      });
     }
 
     let oss: Client;
