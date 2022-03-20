@@ -56,4 +56,4 @@ yarn test
 
 ## License
 
-[MIT](LICENSE)
+MIT © [fupengl](https://github.com/fupengl)

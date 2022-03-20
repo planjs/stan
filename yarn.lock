@@ -13117,6 +13117,13 @@ rollup@^2.64.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
+rollup@^2.70.1:
+  version "2.70.1"
+  resolved "https://registry.npmmirror.com/rollup/-/rollup-2.70.1.tgz#824b1f1f879ea396db30b0fc3ae8d2fead93523e"
+  integrity sha512-CRYsI5EuzLbXdxC6RnYhOuRdtz4bhejPMSWjsFLfVM/7w/85n2szZv6yExqUXsBdz5KT8eoubeyDUDjhLHEslA==
+  optionalDependencies:
+    fsevents "~2.3.2"
+
 rsvp@^4.8.4:
   version "4.8.5"
   resolved "https://registry.nlark.com/rsvp/download/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"
@@ -13745,6 +13752,49 @@ stan-utils@^0.8.2:
     fs-extra "^9.0.1"
     globby "^11.0.3"
     joi "^17.2.1"
+    lodash "^4.17.20"
+    mkdirp "^1.0.4"
+    multimatch "5.0.0"
+    ora "^5.1.0"
+    prettier "2.1.2"
+    pretty-ms "^7.0.1"
+    rimraf "^3.0.2"
+    semver "^7.3.2"
+    signale "^1.4.0"
+    update-notifier "^5.1.0"
+    yargs "^16.0.3"
+    yargs-parser "^20.2.0"
+
+stan-utils@latest:
+  version "0.9.4"
+  resolved "https://registry.npmmirror.com/stan-utils/-/stan-utils-0.9.4.tgz#454fcd93b9efc5a9110d3b7d2c1925ccfc6d198d"
+  integrity sha512-ZbuoPrZMdTWc1j8YWMII1FwFwKLBa+ZFnVVfwhg0DBiMcYcoIG4+iSe+yncYm0L4OwZuLJwa+UtlkdQXsi2GjQ==
+  dependencies:
+    "@planjs/utils" "^1.11.7"
+    "@types/cross-spawn" "^6.0.2"
+    "@types/debug" "^4.1.5"
+    "@types/fs-extra" "^9.0.11"
+    "@types/listr" "^0.14.4"
+    "@types/lodash" "^4.14.161"
+    "@types/mkdirp" "^1.0.1"
+    "@types/node" "^14.11.1"
+    "@types/rimraf" "^3.0.0"
+    "@types/semver" "^7.3.4"
+    "@types/signale" "^1.4.1"
+    "@types/update-notifier" "^4.1.1"
+    "@types/yargs-parser" "^15.0.0"
+    chalk "^4.1.0"
+    chokidar "^3.4.2"
+    clipboardy "^2.3.0"
+    color "^3.1.2"
+    commander "^6.1.0"
+    cross-spawn "^7.0.3"
+    debug "^4.2.0"
+    execa "4.1.0"
+    fs-extra "^9.0.1"
+    globby "^11.0.3"
+    joi "^17.2.1"
+    listr "0.14.3"
     lodash "^4.17.20"
     mkdirp "^1.0.4"
     multimatch "5.0.0"
