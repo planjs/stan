@@ -1,6 +1,6 @@
 {
   "name": "stan-utils",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "stan internal utils",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
