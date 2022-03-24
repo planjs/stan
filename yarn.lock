@@ -5520,9 +5520,9 @@ core-util-is@^1.0.2, core-util-is@~1.0.0:
   resolved "https://registry.nlark.com/core-util-is/download/core-util-is-1.0.3.tgz#a6042d3634c2b27e9328f837b965fac83808db85"
   integrity sha1-pgQtNjTCsn6TKPg3uWX6yDgI24U=
 
-cos-nodejs-sdk-v5@^2.8.6:
+cos-nodejs-sdk-v5@^2.11.6:
   version "2.11.6"
-  resolved "https://registry.npmmirror.com/cos-nodejs-sdk-v5/-/cos-nodejs-sdk-v5-2.11.6.tgz#54aa9cd9e2ccaefeade826a9e7eacf360b2e7a9a"
+  resolved "https://registry.yarnpkg.com/cos-nodejs-sdk-v5/-/cos-nodejs-sdk-v5-2.11.6.tgz#54aa9cd9e2ccaefeade826a9e7eacf360b2e7a9a"
   integrity sha512-K5z9g6yQns1h5tVUUt0T+x9SYrB6QYXslIi5bh8FLVtV4U/Gdv3zpedYSU5IvG+ly23ko9u6usdaKvb+x7Bm7Q==
   dependencies:
     "@types/node" "^14.14.20"

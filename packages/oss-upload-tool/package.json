@@ -38,7 +38,7 @@
     "@planjs/utils": "^1.5.1",
     "@types/ali-oss": "^6.16.3",
     "ali-oss": "^6.17.1",
-    "cos-nodejs-sdk-v5": "^2.8.6",
+    "cos-nodejs-sdk-v5": "^2.11.6",
     "stan-utils": "latest"
   },
   "devDependencies": {

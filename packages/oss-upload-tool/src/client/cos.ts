@@ -21,6 +21,7 @@ class COSClient extends Client<Partial<COS.COSOptions>, COS.SliceUploadFileParam
   constructor(options: OSSUploadOptions) {
     super(options);
     this.#client = new COS({
+      ProgressInterval: 500,
       ...this.globalOptions,
       ...this.opt?.COSOptions,
     });
