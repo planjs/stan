@@ -1,4 +1,5 @@
-import { chalk, globby, Listr, slash } from 'stan-utils';
+import { relative } from 'path';
+import { chalk, globby, Listr, slash, pms } from 'stan-utils';
 import { isPlanObject } from '@planjs/utils';
 
 import COSClient from './client/cos';
@@ -6,11 +7,17 @@ import AOSSClient from './client/ali-oss';
 
 import getUploadList from './get-upload-list';
 import type { OSSUploadOptions, OSSUploadTarget, OSSUploadLocalItem } from './types';
-import type { Client } from './oss_client';
-import { relative } from 'path';
+import type { Client, UploadResp } from './oss_client';
 
 async function ossUpload(options: OSSUploadOptions) {
-  const { targets, cwd = process.cwd(), parallelLimit = 3, uploadParams, verbose } = options;
+  const {
+    targets,
+    cwd = process.cwd(),
+    parallelLimit = 3,
+    uploadParams,
+    verbose,
+    timeout,
+  } = options;
   const type =
     options.type || options?.COSOptions !== undefined
       ? 'COS'
@@ -67,18 +74,19 @@ async function ossUpload(options: OSSUploadOptions) {
       return Promise.reject(new Error('No items to upload'));
     }
 
-    const tasks = new Listr({
+    const tasks = new Listr<UploadResp[]>({
       concurrent: parallelLimit,
       renderer: verbose ? 'verbose' : 'default',
     });
 
     uploadFiles.forEach((item) => {
-      const title = `Upload ${chalk.yellow(slash(relative(cwd, item.filePath)))} to ${chalk.green(
-        item.path,
-      )}`;
+      const title = `Uploading ${chalk.yellow(
+        slash(relative(cwd, item.filePath)),
+      )} to ${chalk.green(item.path)}`;
       tasks.add({
         title,
-        task: (ctx: any[], task) => {
+        task: (ctx, task) => {
+          const start = Date.now();
           return oss
             .upload(item, uploadParams, {
               onProgress(loaded: number, total: number) {
@@ -87,20 +95,22 @@ async function ossUpload(options: OSSUploadOptions) {
             })
             .then((res) => {
               const { url } = res;
-              task.title = title + ` -> ${chalk.greenBright(url)}`;
+              task.title =
+                title.replace('Uploading', 'Uploaded') +
+                ` ${pms(Date.now() - start)} -> ${chalk.greenBright(url)}`;
               ctx.push(res);
-              return res;
             });
         },
       });
     });
 
     try {
+      const start = Date.now();
       const result = await tasks.run([]);
-      console.log(chalk.green(`Upload successfully`));
+      console.log(chalk.green(` Upload successfully ${pms(Date.now() - start)}.`));
       return result;
     } catch (e) {
-      console.log(chalk.red(`Upload failed`));
+      console.log(chalk.red(` Upload failed`));
       return Promise.reject(e);
     }
   }

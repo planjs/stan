@@ -116,9 +116,12 @@ Upload configuration
 * Type: `object` https://github.com/ali-sdk/ali-oss#node-usage 
 
 #### parallelLimit
-* Type: `number` default 3
-
+* Type: `number` default `5`   
 Number of parallel uploads
+
+#### timeout
+* Type: `number` default `1000 * 60 * 30`     
+Single file upload timeout
 
 #### cwd
 * Type: `string` default `process.cwd()`

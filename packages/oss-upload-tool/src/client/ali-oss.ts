@@ -12,6 +12,8 @@ import {
   REGION_KEY,
   SECRET_ID,
   SECRET_KEY,
+  UPLOAD_TIMEOUT_KEY,
+  DEFAULT_TIMEOUT,
 } from '../consts';
 import type { OSSUploadOptions, OSSUploadLocalItem } from '../types';
 
@@ -23,6 +25,7 @@ class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
     this.#client = new AOSS({
       ...this.globalOptions,
       ...this.opt?.AOSSOptions!,
+      ...(options.timeout ? { Timeout: options.timeout } : {}),
     });
   }
 
@@ -32,7 +35,10 @@ class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
     options?: UploadOptions,
   ) {
     try {
-      const { res, url } = await this.#client.put(item.path, item.content || item.filePath, params);
+      const { res, url } = await this.#client.put(item.path, item.content || item.filePath, {
+        ...this.globalUploadParams,
+        ...params,
+      });
       if (!isStatusCodeOK(res.status)) {
         return Promise.reject(res);
       }
@@ -45,12 +51,14 @@ class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
   }
 
   get globalOptions() {
+    const timeout = getGlobalValue(UPLOAD_TIMEOUT_KEY);
     return {
       accessKeyId: getGlobalValue(ALIOSS_SECRET_ID, SECRET_ID),
       accessKeySecret: getGlobalValue(ALIOSS_SECRET_KEY, SECRET_KEY),
       bucket: getGlobalValue(ALIOSS_BUCKET_KEY, BUCKET_KEY),
       region: getGlobalValue(ALIOSS_REGION_KEY, REGION_KEY),
       endpoint: getGlobalValue(ALIOSS_ENDPOINT_KEY),
+      timeout: Number.isNaN(+timeout!) ? DEFAULT_TIMEOUT : +timeout!,
     };
   }
 

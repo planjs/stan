@@ -12,36 +12,40 @@ import {
   REGION_KEY,
   SECRET_ID,
   SECRET_KEY,
+  UPLOAD_TIMEOUT_KEY,
+  DEFAULT_TIMEOUT,
 } from '../consts';
 import type { OSSUploadOptions, OSSUploadLocalItem } from '../types';
 
-class COSClient extends Client<Partial<COS.COSOptions>, COS.SliceUploadFileParams> {
+class COSClient extends Client<Partial<COS.COSOptions>, COS.UploadFileParams> {
   #client!: COS;
 
   constructor(options: OSSUploadOptions) {
     super(options);
     this.#client = new COS({
-      ProgressInterval: 500,
+      ProgressInterval: 100,
       ...this.globalOptions,
       ...this.opt?.COSOptions,
+      ...(options.timeout ? { Timeout: options.timeout } : {}),
     });
   }
 
   async upload(
     item: OSSUploadLocalItem,
-    params?: Partial<COS.SliceUploadFileParams>,
+    params?: Partial<COS.UploadFileParams>,
     options?: UploadOptions,
   ) {
     try {
-      const res = await this.#client.sliceUploadFile({
+      const res = await this.#client.uploadFile({
         FilePath: item.filePath,
         Key: item.path,
+        SliceSize: 1024 * 1024 * 5,
         onProgress(info) {
           options?.onProgress?.(info.loaded, info.total, info.speed);
         },
         ...this.globalUploadParams,
         ...params,
-      } as COS.SliceUploadFileParams);
+      } as COS.UploadFileParams);
       const { statusCode } = res;
       if (!isStatusCodeOK(statusCode!)) {
         return Promise.reject(res);
@@ -57,9 +61,11 @@ class COSClient extends Client<Partial<COS.COSOptions>, COS.SliceUploadFileParam
   get globalOptions() {
     const SecretId = getGlobalValue(COS_SECRET_ID, SECRET_ID);
     const SecretKey = getGlobalValue(COS_SECRET_KEY, SECRET_KEY);
+    const Timeout = getGlobalValue(UPLOAD_TIMEOUT_KEY);
     return {
       SecretId,
       SecretKey,
+      Timeout: Number.isNaN(+Timeout!) ? DEFAULT_TIMEOUT : +Timeout!,
     };
   }
 

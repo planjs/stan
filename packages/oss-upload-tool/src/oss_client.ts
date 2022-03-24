@@ -1,8 +1,10 @@
 import { OSSUploadOptions, OSSUploadLocalItem } from './types';
 
 export type UploadOptions = {
-  onProgress: (loaded: number, total: number, speed: number) => void;
+  onProgress?: (loaded: number, total: number, speed: number) => void;
 };
+
+export type UploadResp = { url: string };
 
 export abstract class Client<Options = {}, UploadParams = {}> {
   opt: OSSUploadOptions;
@@ -21,7 +23,7 @@ export abstract class Client<Options = {}, UploadParams = {}> {
     item: OSSUploadLocalItem,
     params?: Partial<UploadParams>,
     options?: UploadOptions,
-  ): Promise<{ url: string }>;
+  ): Promise<UploadResp>;
 
   /**
    * 检查系统默认的配置

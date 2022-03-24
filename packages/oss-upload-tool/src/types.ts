@@ -4,7 +4,7 @@ import type AOSS from 'ali-oss';
 /**
  * 上传参数
  */
-type UploadParams = Partial<COS.SliceUploadFileParams> | Partial<AOSS.PutObjectOptions>;
+type UploadParams = Partial<COS.UploadFileParams> | Partial<AOSS.PutObjectOptions>;
 
 /**
  * 对象存储类型
@@ -87,6 +87,10 @@ export interface OSSUploadOptions {
    * @default 3
    */
   parallelLimit?: number;
+  /**
+   * 上传超时时间
+   */
+  timeout?: number;
   /**
    * 匹配执行目录
    * @default process.cwd()

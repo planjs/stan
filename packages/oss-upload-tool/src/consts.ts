@@ -1,3 +1,6 @@
+export const DEFAULT_TIMEOUT = 1000 * 60 * 30;
+export const UPLOAD_TIMEOUT_KEY = 'oss_upload_tool_timeout';
+
 /**
  * 各个 oss 都有的参数
  */
