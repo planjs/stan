@@ -10,14 +10,7 @@ import type { OSSUploadOptions, OSSUploadTarget, OSSUploadLocalItem } from './ty
 import type { Client, UploadResp } from './oss_client';
 
 async function ossUpload(options: OSSUploadOptions) {
-  const {
-    targets,
-    cwd = process.cwd(),
-    parallelLimit = 3,
-    uploadParams,
-    verbose,
-    timeout,
-  } = options;
+  const { targets, cwd = process.cwd(), parallelLimit = 3, uploadParams, verbose } = options;
   const type =
     options.type || options?.COSOptions !== undefined
       ? 'COS'
