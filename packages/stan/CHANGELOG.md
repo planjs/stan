@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.36 (2022-03-24)
+
+
+### Bug Fixes
+
+* fix cos process update slow and update deps ([e0ce506](https://github.com/planjs/stan/commit/e0ce506e21bf3044753d2ae081a094bdd3adf68a))
+
+
+
+
+
 ## 0.0.35 (2022-03-20)
 
 **Note:** Version bump only for package @planjs/stan
