@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.4.29 (2022-03-25)
+
+
+### Bug Fixes
+
+* **stan-builder:** warn log ([f2df1fe](https://github.com/planjs/stan/commit/f2df1fe56bfd81d561f5267e9f8d0c6a69e9402f))
+
+
+
+
+
 ## 0.4.28 (2022-03-24)
 
 **Note:** Version bump only for package babel-plugin-ts-enum-iife
