@@ -41,7 +41,7 @@ export interface OSSUploadTarget {
   /**
    * 更改输出文件名
    */
-  rename?: ((path: string, ext: string) => string) | string;
+  rename?: ((name: string, ext: string) => string) | string;
   /**
    * 更改输出目录
    * @param path

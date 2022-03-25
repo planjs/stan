@@ -4,19 +4,37 @@ import { isPlanObject } from '@planjs/utils';
 
 import COSClient from './client/cos';
 import AOSSClient from './client/ali-oss';
-
 import getUploadList from './get-upload-list';
 import type { OSSUploadOptions, OSSUploadTarget, OSSUploadLocalItem } from './types';
+import { OSSToolClientType } from './types';
 import type { Client, UploadResp } from './oss_client';
+import {
+  COS_SECRET_ID,
+  ALIOSS_SECRET_ID,
+  COS_SECRET_KEY,
+  ALIOSS_SECRET_KEY,
+  SECRET_ID,
+  SECRET_KEY,
+} from './consts';
+import { getGlobalValue } from './utils';
+
+function getUploadType(options: OSSUploadOptions): keyof typeof OSSToolClientType | void {
+  if (options?.type) return options.type!;
+
+  const map: Array<[any, string[], keyof typeof OSSToolClientType]> = [
+    [options?.COSOptions, [COS_SECRET_ID, COS_SECRET_KEY, SECRET_ID, SECRET_KEY], 'COS'],
+    [options?.AOSSOptions, [ALIOSS_SECRET_ID, ALIOSS_SECRET_KEY], 'AOSS'],
+  ];
+  for (const [o, k, t] of map) {
+    if (o !== undefined || getGlobalValue(...k)) {
+      return t;
+    }
+  }
+}
 
 async function ossUpload(options: OSSUploadOptions) {
   const { targets, cwd = process.cwd(), parallelLimit = 3, uploadParams, verbose } = options;
-  const type =
-    options.type || options?.COSOptions !== undefined
-      ? 'COS'
-      : options?.AOSSOptions !== undefined
-      ? 'AOSS'
-      : 'COS';
+  const type = getUploadType(options);
 
   const _targets: OSSUploadTarget[] = Array.isArray(targets)
     ? targets

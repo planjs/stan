@@ -11,11 +11,11 @@ function getUploadList(
 ): OSSUploadLocalItem[] {
   const { flatten, rename, transform, cwd = process.cwd() } = opt || {};
   return matchPaths.reduce<OSSUploadLocalItem[]>((acc, src) => {
-    const { base, dir, ext } = path.parse(src);
+    const { name, base, dir, ext } = path.parse(src);
     const destinationFolder = flatten || (!flatten && !dir) ? dest : path.join(dest, dir);
     const outDir = path.join(
       destinationFolder,
-      !isUndefined(rename) ? (isString(rename) ? rename : rename(base, ext)) : base,
+      !isUndefined(rename) ? (isString(rename) ? rename : rename(name, ext.slice(1))) : base,
     );
     const filePath = path.resolve(cwd, src);
     if (fs.statSync(filePath).isFile()) {

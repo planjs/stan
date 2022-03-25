@@ -30,7 +30,7 @@
     "bin"
   ],
   "scripts": {
-    "prepare": "stan-builder --cjs --bundler babel",
+    "prepare": "stan-builder --cjs --bundler babel --minify",
     "dev": "yarn prepare -- -w",
     "test": "jest --config ../../jest.config.ts --rootDir ."
   },
