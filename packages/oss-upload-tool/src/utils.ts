@@ -19,3 +19,8 @@ export function safeSetEnv(k: string, v: string, f = false) {
     process.env[k] = v;
   }
 }
+
+export function defaultVal<T>(v: T | undefined, d: T) {
+  if (v !== undefined) return v;
+  return d;
+}

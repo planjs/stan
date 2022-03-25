@@ -26,6 +26,7 @@ export interface BabelOptions {
   type: 'esm' | 'cjs';
   target?: 'browser' | 'node';
   watch?: boolean;
+  verbose?: boolean;
   bundleOpt: BundleOptions;
 }
 

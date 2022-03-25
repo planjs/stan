@@ -296,13 +296,15 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
         for (const exp of arr) {
           if (exp === id) return true;
           if (_.isRegExp(exp) && exp.test(id)) {
-            console.log(
-              chalk.cyan(
-                `WARN The rule "${exp}" takes effect and the file "${relativeNormalize(id)}" ${
-                  generated ? 'will be compiled' : 'will not be compiled'
-                }.`,
-              ),
-            );
+            if (verbose) {
+              console.log(
+                chalk.yellow(
+                  `WARN The rule "${exp}" takes effect and the file "${relativeNormalize(id)}" ${
+                    generated ? 'will be compiled' : 'will not be compiled'
+                  }.`,
+                ),
+              );
+            }
             return true;
           }
         }

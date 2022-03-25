@@ -1,7 +1,7 @@
 import AOSS from 'ali-oss';
 
 import { Client, UploadOptions } from '../oss_client';
-import { isStatusCodeOK, getGlobalValue } from '../utils';
+import { isStatusCodeOK, getGlobalValue, defaultVal } from '../utils';
 import {
   ALIOSS_BUCKET_KEY,
   ALIOSS_ENDPOINT_KEY,
@@ -9,11 +9,11 @@ import {
   ALIOSS_SECRET_ID,
   ALIOSS_SECRET_KEY,
   BUCKET_KEY,
+  DEFAULT_TIMEOUT,
   REGION_KEY,
   SECRET_ID,
   SECRET_KEY,
   UPLOAD_TIMEOUT_KEY,
-  DEFAULT_TIMEOUT,
 } from '../consts';
 import type { OSSUploadOptions, OSSUploadLocalItem } from '../types';
 
@@ -25,7 +25,6 @@ class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
     this.#client = new AOSS({
       ...this.globalOptions,
       ...this.opt?.AOSSOptions!,
-      ...(options.timeout ? { Timeout: options.timeout } : {}),
     });
   }
 
@@ -58,7 +57,7 @@ class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
       bucket: getGlobalValue(ALIOSS_BUCKET_KEY, BUCKET_KEY),
       region: getGlobalValue(ALIOSS_REGION_KEY, REGION_KEY),
       endpoint: getGlobalValue(ALIOSS_ENDPOINT_KEY),
-      timeout: Number.isNaN(+timeout!) ? DEFAULT_TIMEOUT : +timeout!,
+      timeout: Number.isNaN(+timeout!) ? defaultVal(this.opt.timeout, DEFAULT_TIMEOUT) : +timeout!,
     };
   }
 

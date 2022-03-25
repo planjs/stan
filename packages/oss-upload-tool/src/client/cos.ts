@@ -2,18 +2,18 @@ import COS from 'cos-nodejs-sdk-v5';
 import { REG_URI } from '@planjs/utils';
 
 import { Client, UploadOptions } from '../oss_client';
-import { isStatusCodeOK, getGlobalValue } from '../utils';
+import { isStatusCodeOK, getGlobalValue, defaultVal } from '../utils';
 import {
   BUCKET_KEY,
   COS_BUCKET_KEY,
   COS_REGION_KEY,
   COS_SECRET_ID,
   COS_SECRET_KEY,
+  DEFAULT_TIMEOUT,
   REGION_KEY,
   SECRET_ID,
   SECRET_KEY,
   UPLOAD_TIMEOUT_KEY,
-  DEFAULT_TIMEOUT,
 } from '../consts';
 import type { OSSUploadOptions, OSSUploadLocalItem } from '../types';
 
@@ -26,7 +26,6 @@ class COSClient extends Client<Partial<COS.COSOptions>, COS.UploadFileParams> {
       ProgressInterval: 100,
       ...this.globalOptions,
       ...this.opt?.COSOptions,
-      ...(options.timeout ? { Timeout: options.timeout } : {}),
     });
   }
 
@@ -65,7 +64,7 @@ class COSClient extends Client<Partial<COS.COSOptions>, COS.UploadFileParams> {
     return {
       SecretId,
       SecretKey,
-      Timeout: Number.isNaN(+Timeout!) ? DEFAULT_TIMEOUT : +Timeout!,
+      Timeout: Number.isNaN(+Timeout!) ? defaultVal(this.opt.timeout, DEFAULT_TIMEOUT) : +Timeout!,
     };
   }
 

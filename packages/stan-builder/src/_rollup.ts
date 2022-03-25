@@ -10,11 +10,12 @@ export interface RollupOptions {
   type: OutputModule;
   target?: 'browser' | 'node';
   bundleOpt: BundleOptions;
+  verbose?: boolean;
 }
 
 export default async function rollupBuild(opts: RollupOptions): Promise<void> {
-  const { cwd, type, bundleOpt, target } = opts;
-  const rollupConfigs = getRollupConfig({ cwd, bundleOpt, type, target });
+  const { cwd, type, bundleOpt, target, verbose = false } = opts;
+  const rollupConfigs = getRollupConfig({ cwd, bundleOpt, type, target, verbose });
   for (const rollupConfig of rollupConfigs) {
     if (opts.watch) {
       const watcher = watch([

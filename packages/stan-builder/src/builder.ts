@@ -75,29 +75,29 @@ async function builder(opts: BuildOptions) {
       // bundle esm
       if (esm) {
         if (isBabel(esm)) {
-          await babel({ cwd, rootPath, watch, type: 'esm', bundleOpt });
+          await babel({ cwd, rootPath, watch, type: 'esm', bundleOpt, verbose });
         } else {
-          await rollup({ cwd, watch, type: 'esm', bundleOpt });
+          await rollup({ cwd, watch, type: 'esm', bundleOpt, verbose });
         }
       }
 
       // bundle cjs
       if (cjs) {
         if (isBabel(esm)) {
-          await babel({ cwd, rootPath, watch, type: 'cjs', bundleOpt });
+          await babel({ cwd, rootPath, watch, type: 'cjs', bundleOpt, verbose });
         } else {
-          await rollup({ cwd, watch, type: 'cjs', bundleOpt });
+          await rollup({ cwd, watch, type: 'cjs', bundleOpt, verbose });
         }
       }
 
       // bundle umd
       if (umd) {
-        await rollup({ cwd, watch, type: 'umd', bundleOpt });
+        await rollup({ cwd, watch, type: 'umd', bundleOpt, verbose });
       }
 
       // bundle system
       if (system) {
-        await rollup({ cwd, watch, type: 'system', bundleOpt });
+        await rollup({ cwd, watch, type: 'system', bundleOpt, verbose });
       }
 
       // copy file
