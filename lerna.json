@@ -9,20 +9,17 @@
   ],
   "command": {
     "publish": {
-      "allowBranch": "master",
-      "message": "chore(release): publish %s",
-      "conventionalCommits": true,
-      "ignoreChanges": ["**/__fixtures__/**", "**/__tests__/**", "**/*.md"],
       "registry": "https://registry.npmjs.org/"
     },
     "version": {
-      "allowBranch": "master",
-      "signGitTag": false,
-      "signGitCommit": false
+      "exact": true,
+      "conventionalCommits": true,
+      "message": "chore(release): publish %s",
+      "allowBranch": "master"
     }
   },
   "ignoreChanges": [
-    "**/fixtures/**",
+    "**/__fixtures__/**",
     "**/__tests__/**",
     "**/*.md"
   ],
