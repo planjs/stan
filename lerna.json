@@ -15,8 +15,7 @@
       "exact": true,
       "conventionalCommits": true,
       "message": "chore(release): publish %s",
-      "allowBranch": "master",
-      "createRelease": "github"
+      "allowBranch": "master"
     }
   },
   "ignoreChanges": [
