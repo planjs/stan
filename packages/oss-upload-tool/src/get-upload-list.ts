@@ -1,5 +1,5 @@
 import path from 'path';
-import { isString, isUndefined } from '@planjs/utils';
+import { isString, isUndefined, slash } from '@planjs/utils';
 import { fs } from 'stan-utils';
 
 import { OSSUploadOptions, OSSUploadLocalItem, OSSUploadTarget } from './types';
@@ -21,7 +21,7 @@ function getUploadList(
     if (fs.statSync(filePath).isFile()) {
       acc.push({
         filePath,
-        path: outDir,
+        path: slash(outDir),
         content: transform?.(fs.readFileSync(filePath)),
       });
     }
