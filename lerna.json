@@ -14,7 +14,7 @@
     "version": {
       "exact": true,
       "conventionalCommits": true,
-      "message": "chore(release): publish %s",
+      "message": "chore(release): publish",
       "allowBranch": "master"
     }
   },
