@@ -15,6 +15,7 @@ import {
   ALIOSS_SECRET_KEY,
   SECRET_ID,
   SECRET_KEY,
+  ALIOSS_ENDPOINT_KEY,
 } from './consts';
 import { getGlobalValue } from './utils';
 
@@ -23,10 +24,15 @@ function getUploadType(options: OSSUploadOptions): keyof typeof OSSToolClientTyp
 
   const map: Array<[any, string[], keyof typeof OSSToolClientType]> = [
     [options?.COSOptions, [COS_SECRET_ID, COS_SECRET_KEY, SECRET_ID, SECRET_KEY], 'COS'],
-    [options?.AOSSOptions, [ALIOSS_SECRET_ID, ALIOSS_SECRET_KEY], 'AOSS'],
+    [options?.AOSSOptions, [ALIOSS_ENDPOINT_KEY, ALIOSS_SECRET_ID, ALIOSS_SECRET_KEY], 'AOSS'],
   ];
-  for (const [o, k, t] of map) {
-    if (o !== undefined || getGlobalValue(...k)) {
+  for (const [o, , t] of map) {
+    if (o !== undefined) {
+      return t;
+    }
+  }
+  for (const [, k, t] of map) {
+    if (getGlobalValue(...k)) {
       return t;
     }
   }

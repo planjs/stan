@@ -1,6 +1,6 @@
 import { commander } from 'stan-utils';
 import { OSSUploadOptions } from '../types';
-import { BUCKET_KEY, REGION_KEY, SECRET_ID, SECRET_KEY } from '../consts';
+import { ALIOSS_ENDPOINT_KEY, BUCKET_KEY, REGION_KEY, SECRET_ID, SECRET_KEY } from '../consts';
 import { safeSetEnv } from '../utils';
 
 const pkg = require('../../package.json');
@@ -14,6 +14,7 @@ commander.option('--secret_id [string]', 'OSS SecretId params');
 commander.option('--secret_key [string]', 'OSS SecretKey params');
 commander.option('--bucket [string]', 'OSS Bucket params');
 commander.option('--region [string]', 'OSS Region params');
+commander.option('--endpoint [string]', 'Ali OSS endpoint params');
 
 commander.version(pkg.version);
 
@@ -37,13 +38,14 @@ export default function parseArgv(args: string[]): OSSUploadOptions | void {
 
   const opts = commander.opts();
 
-  const { secret_id, secret_key, bucket, region } = opts;
+  const { secret_id, secret_key, bucket, region, endpoint } = opts;
 
   // setup env
   safeSetEnv(SECRET_ID, secret_id);
   safeSetEnv(SECRET_KEY, secret_key);
   safeSetEnv(BUCKET_KEY, bucket);
   safeSetEnv(REGION_KEY, region);
+  safeSetEnv(ALIOSS_ENDPOINT_KEY, endpoint);
 
   return {
     cwd: process.cwd(),
