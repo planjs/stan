@@ -1,6 +1,6 @@
 {
   "name": "oss-upload-tool",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Integrated oss upload",
   "keywords": [
     "cos",
