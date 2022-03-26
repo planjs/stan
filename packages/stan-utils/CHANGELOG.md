@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.9.11 (2022-03-26)
+
+**Note:** Version bump only for package stan-utils
+
+
+
+
+
 ## 0.9.10 (2022-03-25)
 
 **Note:** Version bump only for package stan-utils

@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-ts-enum-iife",
-  "version": "0.4.30",
+  "version": "0.4.31",
   "description": "Transform typescript wrapper enum in IIFE",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
