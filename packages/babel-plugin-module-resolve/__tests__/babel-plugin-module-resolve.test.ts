@@ -9,7 +9,7 @@ describe('babel-plugin-module-resolve', () => {
     it(`test ${fixture}`, () => {
       const cwd = path.join(fixturesDir, fixture);
       execa.sync('babel', ['src', '-d', 'lib'], { cwd, stdin: 'inherit' });
-      // expect(require(path.join(cwd, 'lib'))).toEqual(`You passed [${fixture}]`);
+      expect(require(path.join(cwd, 'lib')).default).toEqual(`You passed [${fixture}]`);
     });
   });
 });

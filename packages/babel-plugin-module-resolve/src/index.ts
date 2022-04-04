@@ -12,25 +12,25 @@ const plugin = ({ types: t }: typeof babel): PluginObj => {
       this.resolver = createResolver(normalizeOptions.call(this));
     },
     visitor: {
-      ImportDeclaration(nodePath) {
+      ImportDeclaration(nodePath, state) {
         if (!t.isStringLiteral(nodePath.node.source)) {
           return;
         }
-        resolvePath.call(this, nodePath.node.source);
+        resolvePath.call(this, nodePath.node.source, state);
       },
-      ExportNamedDeclaration(nodePath) {
+      ExportNamedDeclaration(nodePath, state) {
         if (!t.isStringLiteral(nodePath.node.source)) {
           return;
         }
-        resolvePath.call(this, nodePath.node.source);
+        resolvePath.call(this, nodePath.node.source, state);
       },
-      ExportAllDeclaration(nodePath) {
+      ExportAllDeclaration(nodePath, state) {
         if (!t.isStringLiteral(nodePath.node.source)) {
           return;
         }
-        resolvePath.call(this, nodePath.node.source);
+        resolvePath.call(this, nodePath.node.source, state);
       },
-      CallExpression(nodePath) {
+      CallExpression(nodePath, state) {
         if (!t.isImport(nodePath.node.callee)) {
           return;
         }
@@ -39,7 +39,7 @@ const plugin = ({ types: t }: typeof babel): PluginObj => {
           return;
         }
 
-        resolvePath.call(this, nodePath.node.arguments[0]);
+        resolvePath.call(this, nodePath.node.arguments[0], state);
       },
     },
   };

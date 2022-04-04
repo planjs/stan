@@ -5,10 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _index = _interopRequireDefault(require("services/index.js"));
+var _services = _interopRequireDefault(require("./services"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var _default = (0, _index["default"])('require');
+var _default = (0, _services["default"])('import');
 
 exports["default"] = _default;
