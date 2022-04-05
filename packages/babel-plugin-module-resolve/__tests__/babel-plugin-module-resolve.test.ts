@@ -8,7 +8,7 @@ describe('babel-plugin-module-resolve', () => {
   fixtures.forEach((fixture) => {
     it(`test ${fixture}`, () => {
       const cwd = path.join(fixturesDir, fixture);
-      execa.sync('babel', ['src', '-d', 'lib'], { cwd, stdin: 'inherit' });
+      execa.sync('babel', ['src', '-d', 'lib', '-x', '".ts,.js"'], { cwd, stdin: 'inherit' });
       expect(require(path.join(cwd, 'lib')).default).toEqual(`You passed [${fixture}]`);
     });
   });

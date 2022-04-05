@@ -4,6 +4,27 @@ import { PluginContext } from './ctx';
 import resolvePath, { createResolver } from './resolve-path';
 import normalizeOptions from './normalize-options';
 
+const defaultTransformedFunctions = [
+  'require',
+  'require.resolve',
+  'System.import',
+  'import',
+
+  // Jest methods
+  'jest.genMockFromModule',
+  'jest.mock',
+  'jest.unmock',
+  'jest.doMock',
+  'jest.dontMock',
+  'jest.setMock',
+  'jest.requireActual',
+  'jest.requireMock',
+
+  // Older Jest methods
+  'require.requireActual',
+  'require.requireMock',
+];
+
 const plugin = ({ types: t }: typeof babel): PluginObj => {
   return {
     name: 'module-resolve',
@@ -31,11 +52,11 @@ const plugin = ({ types: t }: typeof babel): PluginObj => {
         resolvePath.call(this, nodePath.node.source, state);
       },
       CallExpression(nodePath, state) {
-        if (!t.isImport(nodePath.node.callee)) {
-          return;
-        }
+        const callee = nodePath.get('callee');
 
-        if (!t.isStringLiteral(nodePath.node.arguments[0])) {
+        const isNormalCall = defaultTransformedFunctions.some((v) => matchesPattern(t, callee, v));
+
+        if (!isNormalCall && !t.isImport(callee)) {
           return;
         }
 
@@ -44,5 +65,21 @@ const plugin = ({ types: t }: typeof babel): PluginObj => {
     },
   };
 };
+
+function matchesPattern(t, calleePath, pattern) {
+  const { node } = calleePath;
+
+  if (t.isMemberExpression(node)) {
+    return calleePath.matchesPattern(pattern);
+  }
+
+  if (!t.isIdentifier(node) || pattern.includes('.')) {
+    return false;
+  }
+
+  const name = pattern.split('.')[0];
+
+  return node.name === name;
+}
 
 export default plugin;

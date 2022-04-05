@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "baseUrl": "src",
+    "outDir": "lib",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
