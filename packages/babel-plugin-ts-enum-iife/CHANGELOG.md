@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.4.36 (2022-04-04)
+
+
+### Bug Fixes
+
+* **babel-plugin-module-resolve:** resolve path ([cbfbaba](https://github.com/planjs/stan/commit/cbfbaba0344576d893365d6923df0758ce59ad1d))
+
+
+
+
+
 ## 0.4.35 (2022-03-28)
 
 **Note:** Version bump only for package babel-plugin-ts-enum-iife
