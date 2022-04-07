@@ -1,6 +1,6 @@
 import { relative } from 'path';
 import { chalk, globby, Listr, slash, pms } from 'stan-utils';
-import { isPlanObject } from '@planjs/utils';
+import { isPlanObject, retry } from '@planjs/utils';
 
 import COSClient from './client/cos';
 import AOSSClient from './client/ali-oss';
@@ -39,7 +39,14 @@ function getUploadType(options: OSSUploadOptions): keyof typeof OSSToolClientTyp
 }
 
 async function ossUpload(options: OSSUploadOptions) {
-  const { targets, cwd = process.cwd(), parallelLimit = 3, uploadParams, verbose } = options;
+  const {
+    targets,
+    cwd = process.cwd(),
+    parallelLimit = 3,
+    uploadParams,
+    maxAttempts = 0,
+    verbose,
+  } = options;
   const type = getUploadType(options);
 
   const _targets: OSSUploadTarget[] = Array.isArray(targets)
@@ -104,19 +111,17 @@ async function ossUpload(options: OSSUploadOptions) {
         title,
         task: (ctx, task) => {
           const start = Date.now();
-          return oss
-            .upload(item, uploadParams, {
-              onProgress(loaded: number, total: number) {
-                task.output = `${((loaded / total) * 100).toFixed(2)}%`;
-              },
-            })
-            .then((res) => {
-              const { url } = res;
-              task.title =
-                title.replace('Uploading', 'Uploaded') +
-                ` ${pms(Date.now() - start)} -> ${chalk.greenBright(url)}`;
-              ctx.push(res);
-            });
+          return retry(oss.upload, { maxAttempts: maxAttempts + 1 })(item, uploadParams, {
+            onProgress(loaded: number, total: number) {
+              task.output = `${((loaded / total) * 100).toFixed(2)}%`;
+            },
+          }).then((res) => {
+            const { url } = res;
+            task.title =
+              title.replace('Uploading', 'Uploaded') +
+              ` ${pms(Date.now() - start)} -> ${chalk.greenBright(url)}`;
+            ctx.push(res);
+          });
         },
       });
     });

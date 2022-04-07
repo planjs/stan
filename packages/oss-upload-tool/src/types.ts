@@ -92,6 +92,10 @@ export interface OSSUploadOptions {
    */
   timeout?: number;
   /**
+   * 重试次数
+   */
+  maxAttempts?: number;
+  /**
    * 匹配执行目录
    * @default process.cwd()
    */

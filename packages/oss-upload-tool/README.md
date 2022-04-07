@@ -123,5 +123,9 @@ Number of parallel uploads
 * Type: `number` default `1000 * 60 * 30`     
 Single file upload timeout
 
+#### maxAttempts
+* Type: `number` default `0`     
+Maximum number of failed retries   
+
 #### cwd
 * Type: `string` default `process.cwd()`
