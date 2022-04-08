@@ -29,11 +29,11 @@ class COSClient extends Client<Partial<COS.COSOptions>, COS.UploadFileParams> {
     });
   }
 
-  async upload(
+  upload = async (
     item: OSSUploadLocalItem,
     params?: Partial<COS.UploadFileParams>,
     options?: UploadOptions,
-  ) {
+  ) => {
     try {
       const res = await this.#client.uploadFile({
         FilePath: item.filePath,
@@ -55,7 +55,7 @@ class COSClient extends Client<Partial<COS.COSOptions>, COS.UploadFileParams> {
     } catch (e) {
       return Promise.reject(e);
     }
-  }
+  };
 
   get globalOptions() {
     const SecretId = getGlobalValue(COS_SECRET_ID, SECRET_ID);

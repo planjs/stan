@@ -28,11 +28,11 @@ class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
     });
   }
 
-  async upload(
+  upload = async (
     item: OSSUploadLocalItem,
     params?: Partial<AOSS.PutObjectOptions>,
     options?: UploadOptions,
-  ) {
+  ) => {
     try {
       const { res, url } = await this.#client.put(item.path, item.content || item.filePath, {
         ...this.globalUploadParams,
@@ -47,7 +47,7 @@ class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
     } catch (e) {
       return Promise.reject(e);
     }
-  }
+  };
 
   get globalOptions() {
     const timeout = getGlobalValue(UPLOAD_TIMEOUT_KEY);

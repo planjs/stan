@@ -1,6 +1,6 @@
 import { relative } from 'path';
 import { chalk, globby, Listr, slash, pms } from 'stan-utils';
-import { isPlanObject, retry } from '@planjs/utils';
+import { isPlanObject, retry, asyncPool } from '@planjs/utils';
 
 import COSClient from './client/cos';
 import AOSSClient from './client/ali-oss';
@@ -103,26 +103,41 @@ async function ossUpload(options: OSSUploadOptions) {
       renderer: verbose ? 'verbose' : 'default',
     });
 
+    const pool = asyncPool({
+      maxConcurrency: parallelLimit,
+    });
+
     uploadFiles.forEach((item) => {
-      const title = `Uploading ${chalk.yellow(
-        slash(relative(cwd, item.filePath)),
-      )} to ${chalk.green(item.path)}`;
-      tasks.add({
-        title,
-        task: (ctx, task) => {
-          const start = Date.now();
-          return retry(oss.upload, { maxAttempts: maxAttempts + 1 })(item, uploadParams, {
-            onProgress(loaded: number, total: number) {
-              task.output = `${((loaded / total) * 100).toFixed(2)}%`;
+      pool.executor(() => {
+        return new Promise<void>((resolve, reject) => {
+          const title = `Uploading ${chalk.yellow(
+            slash(relative(cwd, item.filePath)),
+          )} to ${chalk.green(item.path)}`;
+          tasks.add({
+            title,
+            task: (ctx, task) => {
+              const start = Date.now();
+              return retry(oss.upload, { maxAttempts: maxAttempts + 1 })(item, uploadParams, {
+                onProgress(loaded: number, total: number) {
+                  task.output = `${((loaded / total) * 100).toFixed(2)}%`;
+                },
+              }).then(
+                (res) => {
+                  const { url } = res;
+                  task.title =
+                    title.replace('Uploading', 'Uploaded') +
+                    ` ${pms(Date.now() - start)} -> ${chalk.greenBright(url)}`;
+                  ctx.push(res);
+                  resolve();
+                },
+                (err) => {
+                  reject();
+                  return Promise.reject(err);
+                },
+              );
             },
-          }).then((res) => {
-            const { url } = res;
-            task.title =
-              title.replace('Uploading', 'Uploaded') +
-              ` ${pms(Date.now() - start)} -> ${chalk.greenBright(url)}`;
-            ctx.push(res);
           });
-        },
+        });
       });
     });
 
