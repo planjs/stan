@@ -12,7 +12,7 @@
   "homepage": "https://github.com/planjs/stan/blob/master/packages/oss-upload-tool/README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/planjs/oss-upload-tool.git",
+    "url": "git+https://github.com/planjs/stan.git",
     "directory": "packages/oss-upload-tool"
   },
   "publishConfig": {
