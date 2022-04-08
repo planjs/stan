@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.9.19 (2022-04-08)
+
+
+### Bug Fixes
+
+* **oss-upload-tool:** retry call error ([8970d79](https://github.com/planjs/stan/commit/8970d79f00b29ae98b3e513dec716357c15918c5))
+
+
+
+
+
 ## 0.9.18 (2022-04-07)
 
 **Note:** Version bump only for package stan-utils
