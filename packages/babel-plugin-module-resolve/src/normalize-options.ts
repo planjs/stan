@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 
 import type { ResolveOptions } from 'enhanced-resolve';
 import { CachedInputFileSystem } from 'enhanced-resolve';
@@ -22,7 +23,35 @@ function getAdditionalModulePaths(this: PluginContext): {
 
   if (hasTsConfig) {
     const ts = require('typescript');
-    config = ts.readConfigFile(tsConfigPath, ts.sys.readFile).config;
+    const result = ts.readConfigFile(tsConfigPath, ts.sys.readFile);
+    const formatDiagnosticHost = {
+      getCanonicalFileName: (fileName: string) => fileName,
+      getCurrentDirectory: ts.sys.getCurrentDirectory,
+      getNewLine: () => os.EOL,
+    };
+    if (result?.error) {
+      console.log(ts.formatDiagnostic(result.error, formatDiagnosticHost));
+    } else {
+      const parsed = ts.parseJsonConfigFileContent(
+        result.config,
+        {
+          useCaseSensitiveFileNames: false,
+          readDirectory: ts.sys.readDirectory,
+          fileExists: ts.sys.fileExists,
+          readFile: ts.sys.readFile,
+        },
+        path.dirname(tsConfigPath),
+      );
+      if (parsed?.errors?.length) {
+        console.log(ts.formatDiagnostic(parsed?.errors?.[0], formatDiagnosticHost));
+      } else {
+        config = {
+          compilerOptions: {
+            ...parsed.options,
+          },
+        };
+      }
+    }
   } else if (hasJsConfig) {
     config = require(jsConfigPath);
   }
