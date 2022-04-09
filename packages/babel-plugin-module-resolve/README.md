@@ -3,6 +3,21 @@
 > A [Babel](http://babeljs.io) plugin to import similar to webpack alias.   
 > Implemented based on plugin [enhanced-resolve](http://github.com/webpack/enhanced-resolve).
 
+## Example
+
+Simplify the `require` `import` `System.import` `System.import` path.
+
+```js
+// simple @utils -> <root dir>/utils
+import t from '@utils';
+// instead
+import t from '../../utils/index';
+
+const t = require('@utils');
+// instead
+const t = require('../../utils/index');
+```
+
 ## Usage
 
 Install the plugin

@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
+require("./services");
+
 var _default = require("./services")('require');
 
 exports["default"] = _default;

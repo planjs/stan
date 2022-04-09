@@ -1,4 +1,4 @@
-function isRelativePath(nodePath) {
+export function isRelativePath(nodePath) {
   return nodePath.match(/^\.?\.\//);
 }
 

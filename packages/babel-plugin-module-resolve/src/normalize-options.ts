@@ -1,9 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import resolve from 'resolve';
-import { CachedInputFileSystem } from 'enhanced-resolve';
 
 import type { ResolveOptions } from 'enhanced-resolve';
+import { CachedInputFileSystem } from 'enhanced-resolve';
 
 import type { ModuleResolveOptions, AliasOptions, TSConfigType } from './types';
 import type { PluginContext } from './ctx';
@@ -22,9 +21,7 @@ function getAdditionalModulePaths(this: PluginContext): {
   const hasJsConfig = fs.existsSync(jsConfigPath);
 
   if (hasTsConfig) {
-    const ts = require(resolve.sync('typescript', {
-      basedir: this.cwd,
-    }));
+    const ts = require('typescript');
     config = ts.readConfigFile(tsConfigPath, ts.sys.readFile).config;
   } else if (hasJsConfig) {
     config = require(jsConfigPath);
@@ -32,11 +29,11 @@ function getAdditionalModulePaths(this: PluginContext): {
 
   const options = config?.compilerOptions || {};
 
-  const baseUrl = options.baseUrl;
-
-  if (!baseUrl) {
+  if (!options.baseUrl) {
     return {};
   }
+
+  const baseUrl = path.resolve(this.cwd, options.baseUrl);
 
   const paths = options.paths || {};
   const alias = {};
@@ -53,7 +50,7 @@ function getAdditionalModulePaths(this: PluginContext): {
   }
 
   return {
-    baseUrl: path.resolve(this.cwd, baseUrl),
+    baseUrl,
     alias,
   };
 }
@@ -71,8 +68,8 @@ function normalizeOptions(this: PluginContext): ModuleResolveOptions {
   return {
     roots: [this.cwd, baseUrl],
     extensions: defaultExtensions,
+    fileSystem: new CachedInputFileSystem(fs),
     ...this.opts,
-    fileSystem: new CachedInputFileSystem(fs, 4000),
     alias,
   };
 }
