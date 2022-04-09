@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-module-resolve",
-  "version": "0.0.35",
+  "version": "1.0.0",
   "description": "Module resolver plugin for Babel",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",
-    "enhanced-resolve": "^5.8.2",
-    "deasync": "^0.1.23"
+    "deasync": "^0.1.23",
+    "enhanced-resolve": "^5.8.2"
   },
   "peerDependencies": {
     "@babel/core": "7.x"
