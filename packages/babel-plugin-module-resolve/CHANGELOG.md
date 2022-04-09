@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.2 (2022-04-09)
+
+
+### Bug Fixes
+
+* **babel-plugin-module-resolve:** add parse tsconfig ([173b491](https://github.com/planjs/stan/commit/173b491f40758b1097bdede4d0bd97b0eb9805bf))
+
+
+
+
+
 ## 1.0.1 (2022-04-09)
 
 **Note:** Version bump only for package babel-plugin-module-resolve
