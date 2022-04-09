@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-module-resolve",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Module resolver plugin for Babel",
   "author": "fupeng <fupenglxy@gmail.com>",
   "homepage": "https://github.com/planjs/stan#readme",
