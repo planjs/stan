@@ -12691,6 +12691,11 @@ parse5@6.0.1:
   resolved "https://registry.nlark.com/parse5/download/parse5-6.0.1.tgz#e1a1c085c569b3dc08321184f19a39cc27f7c30b"
   integrity sha1-4aHAhcVps9wIMhGE8Zo5zCf3wws=
 
+parsed-tsconfig@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.npmmirror.com/parsed-tsconfig/-/parsed-tsconfig-0.0.5.tgz#a9d5318e61a6662c104cf548d524a686ca9a6cc0"
+  integrity sha512-F4aOMU+AZjYvH8nzSMTGilO2QYUdZF8kXXu7ESTLuvY2RN9L5UiA3O/Wqmzl8XA6qpsVJt5hOKJ4swASe87QYg==
+
 pascalcase@^0.1.1:
   version "0.1.1"
   resolved "https://registry.npm.taobao.org/pascalcase/download/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
