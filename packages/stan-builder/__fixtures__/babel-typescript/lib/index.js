@@ -9,11 +9,11 @@ exports.default = _default;
 
 var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
 
-var _utils = require("@/utils");
+var _utils = require("./utils");
 
-require("@/index.css");
+require("./index.css");
 
-require("@/sass.scss");
+require("./sass.scss");
 
 var _excluded = ["name"];
 

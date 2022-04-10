@@ -89,7 +89,6 @@
     "@svgr/rollup": "^5.5.0",
     "@types/rollup-plugin-visualizer": "^4.2.0",
     "autoprefixer": "^9.8.6",
-    "babel-plugin-module-resolve": "1.2.1",
     "builtin-modules": "^3.2.0",
     "cssnano": "^4.1.10",
     "escalade": "^3.1.1",

@@ -1,6 +1,7 @@
+import { log } from './utils';
 import './index.css';
 import './sass.scss';
-import '@/styles/index.scss';
+import './styles/index.scss';
 
 interface Args {
   name?: boolean;
@@ -8,6 +9,6 @@ interface Args {
 
 export default function (args: Args) {
   const { name, ...o } = args;
-  console.log(o);
+  log(o);
   return args?.name ?? 'stan';
 }

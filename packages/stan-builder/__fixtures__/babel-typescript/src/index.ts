@@ -1,7 +1,7 @@
-import { log } from '@/utils';
+import { log } from './utils';
 
-import '@/index.css';
-import '@/sass.scss';
+import './index.css';
+import './sass.scss';
 
 interface Args {
   name?: boolean;

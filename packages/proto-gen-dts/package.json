@@ -31,7 +31,7 @@
   },
   "scripts": {
     "prepare": "stan-builder --cjs --bundler babel",
-    "start": "yarn prepare -- -w",
+    "dev": "yarn prepare -- -w",
     "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src",
     "test": "jest --config ../../jest.config.ts --rootDir .",
     "debug": "./bin/proto-gen-dts.js -d __fixtures__ -o __fixtures__/expected"

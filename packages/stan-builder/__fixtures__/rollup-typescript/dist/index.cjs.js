@@ -1,11 +1,18 @@
 'use strict';
 
 var _objectWithoutProperties = require('@babel/runtime/helpers/objectWithoutProperties');
-require('@/styles/index.scss');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var _objectWithoutProperties__default = /*#__PURE__*/_interopDefaultLegacy(_objectWithoutProperties);
+
+function log() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  return console.log.apply(null, args);
+}
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -34,10 +41,13 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$1 = ".body {\n  font-size: 0;\n}\n";
+var css_248z$2 = ".body {\n  font-size: 0;\n}\n";
+styleInject(css_248z$2);
+
+var css_248z$1 = ".scss {\n  font-size: 13px; }\n  .scss .scss-gray {\n    color: red; }\n";
 styleInject(css_248z$1);
 
-var css_248z = ".scss {\n  font-size: 13px; }\n  .scss .scss-gray {\n    color: red; }\n";
+var css_248z = ".index {\n  color: red;\n  font-size: 20px;\n  display: block; }\n";
 styleInject(css_248z);
 
 var _excluded = ["name"];
@@ -47,7 +57,7 @@ function index (args) {
   args.name;
       var o = _objectWithoutProperties__default["default"](args, _excluded);
 
-  console.log(o);
+  log(o);
   return (_args$name = args === null || args === void 0 ? void 0 : args.name) !== null && _args$name !== void 0 ? _args$name : 'stan';
 }
 
