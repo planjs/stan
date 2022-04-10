@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.16.0 (2022-04-10)
+
+
+### Features
+
+* **babel-plugin-module-resolve:** add pkg ([56673ce](https://github.com/planjs/stan/commit/56673cedfa443942d9f9c63f5ddbdef72931ca0d))
+
+
+
+
+
 # 0.15.0 (2022-04-10)
 
 
