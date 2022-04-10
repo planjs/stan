@@ -12,6 +12,7 @@ export default ({ cwd }: { cwd: string; rootPath?: string }): BundleOptions[] =>
     ...getBabelConfig({
       target: 'node',
       typescript: true,
+      cwd,
     }),
     extensions: ['.jsx', '.js', '.mjs', '.ts', '.tsx'],
     babelrc: false,

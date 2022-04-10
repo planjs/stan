@@ -110,7 +110,8 @@
     "stan-utils": "0.9.22",
     "through2": "^4.0.2",
     "vinyl-fs": "^3.0.3",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.6.12",
+    "babel-plugin-module-resolve": "^1.0.1"
   },
   "devDependencies": {
     "@types/autoprefixer": "^9.7.2",

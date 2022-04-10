@@ -68,6 +68,7 @@ async function babelBuild(opts: BabelOptions) {
       typescript: true,
       runtimeHelpers,
       lazy: cjs && (cjs as CJSOptions)?.lazy,
+      cwd,
     });
     babelOpts.presets.push(...extraBabelPresets);
     babelOpts.plugins.push(...extraBabelPlugins);

@@ -11,6 +11,7 @@ export type GetBabelConfigOptions = {
   runtimeHelpers?: boolean;
   verbose?: boolean;
   lazy?: boolean;
+  cwd?: string;
 };
 
 export default function getBabelConfig(opts: GetBabelConfigOptions): {
@@ -51,6 +52,7 @@ export default function getBabelConfig(opts: GetBabelConfigOptions): {
       require.resolve('@babel/plugin-transform-spread'),
       require.resolve('@babel/plugin-proposal-nullish-coalescing-operator'),
       require.resolve('@babel/plugin-proposal-optional-chaining'),
+      [require.resolve('babel-plugin-module-resolve')],
       runtimeHelpers && [
         require.resolve('@babel/plugin-transform-runtime'),
         {

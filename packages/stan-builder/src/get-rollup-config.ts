@@ -125,6 +125,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
       typescript: true,
       target: _target,
       runtimeHelpers: runtimeHelpers,
+      cwd,
     }),
     babelrc: false,
     configFile: false,

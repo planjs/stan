@@ -1,6 +1,6 @@
 import './index.css';
 import './sass.scss';
-import './styles/index.scss';
+import '@/styles/index.scss';
 
 interface Args {
   name?: boolean;
