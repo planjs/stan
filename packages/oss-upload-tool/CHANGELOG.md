@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.3.0 (2022-04-10)
+
+
+### Features
+
+* **stan-builder:** add babel-plugin-module-resolve ([5196218](https://github.com/planjs/stan/commit/519621891f17082c6bce7a6b39ac3cf74081b0b4))
+
+
+
+
+
 ## 0.2.21 (2022-04-09)
 
 
