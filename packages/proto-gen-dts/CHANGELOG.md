@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.15.1 (2022-04-10)
+
+
+### Bug Fixes
+
+* **babel-plugin-module-resolve:** window path ([0208765](https://github.com/planjs/stan/commit/0208765200968775c7ec5279c7a48bd23265c152))
+
+
+
+
+
 # 0.15.0 (2022-04-10)
 
 
