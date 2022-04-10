@@ -1,4 +1,5 @@
 import _objectWithoutProperties from '@babel/runtime/helpers/esm/objectWithoutProperties';
+import '@/styles/index.scss';
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -27,13 +28,10 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$2 = ".body {\n  font-size: 0;\n}\n";
-styleInject(css_248z$2);
-
-var css_248z$1 = ".scss {\n  font-size: 13px; }\n  .scss .scss-gray {\n    color: red; }\n";
+var css_248z$1 = ".body {\n  font-size: 0;\n}\n";
 styleInject(css_248z$1);
 
-var css_248z = ".index {\n  color: red;\n  font-size: 20px;\n  display: block; }\n";
+var css_248z = ".scss {\n  font-size: 13px; }\n  .scss .scss-gray {\n    color: red; }\n";
 styleInject(css_248z);
 
 var _excluded = ["name"];

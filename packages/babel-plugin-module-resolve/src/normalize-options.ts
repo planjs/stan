@@ -7,6 +7,7 @@ import { CachedInputFileSystem } from 'enhanced-resolve';
 
 import type { ModuleResolveOptions, AliasOptions, TSConfigType } from './types';
 import type { PluginContext } from './ctx';
+import { toPosixPath } from './utils';
 
 const defaultExtensions = ['.js', '.jsx', '.es', '.es6', '.mjs', '.ts', '.tsx'];
 
@@ -38,7 +39,7 @@ function getAdditionalModulePaths(this: PluginContext): {
     return {};
   }
 
-  const baseUrl = path.resolve(this.cwd, options.baseUrl);
+  const baseUrl = toPosixPath(path.resolve(this.cwd, options.baseUrl));
 
   const paths = options.paths || {};
   const alias = {};
@@ -47,10 +48,10 @@ function getAdditionalModulePaths(this: PluginContext): {
     const val = paths[key];
     const k = key.replace('/*', '');
     if (typeof val === 'string') {
-      alias[k] = path.resolve(baseUrl, val).replace('/*', '');
+      alias[k] = toPosixPath(path.resolve(baseUrl, val)).replace('/*', '');
     }
     if (Array.isArray(val)) {
-      alias[k] = val.map((v) => path.resolve(baseUrl, v).replace('/*', ''));
+      alias[k] = val.map((v) => toPosixPath(path.resolve(baseUrl, v)).replace('/*', ''));
     }
   }
 

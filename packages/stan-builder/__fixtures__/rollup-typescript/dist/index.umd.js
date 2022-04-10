@@ -1,6 +1,6 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@/styles/index.scss')) :
+	typeof define === 'function' && define.amd ? define(['@/styles/index.scss'], factory) :
 	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.pkg = factory());
 })(this, (function () { 'use strict';
 
@@ -87,13 +87,10 @@
 	  }
 	}
 
-	var css_248z$2 = ".body {\n  font-size: 0;\n}\n";
-	styleInject(css_248z$2);
-
-	var css_248z$1 = ".scss {\n  font-size: 13px; }\n  .scss .scss-gray {\n    color: red; }\n";
+	var css_248z$1 = ".body {\n  font-size: 0;\n}\n";
 	styleInject(css_248z$1);
 
-	var css_248z = ".index {\n  color: red;\n  font-size: 20px;\n  display: block; }\n";
+	var css_248z = ".scss {\n  font-size: 13px; }\n  .scss .scss-gray {\n    color: red; }\n";
 	styleInject(css_248z);
 
 	var _excluded = ["name"];
