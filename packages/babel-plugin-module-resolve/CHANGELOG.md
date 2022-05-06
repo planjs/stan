@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.2.3 (2022-05-06)
+
+
+### Bug Fixes
+
+* add keepalive ([7880473](https://github.com/planjs/stan/commit/788047373a2d9eb265bcd56e6f584d63e6ffda6a))
+
+
+
+
+
 ## 1.2.2 (2022-04-10)
 
 **Note:** Version bump only for package babel-plugin-module-resolve
