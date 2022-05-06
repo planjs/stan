@@ -24,6 +24,7 @@ class COSClient extends Client<Partial<COS.COSOptions>, COS.UploadFileParams> {
     super(options);
     this.#client = new COS({
       ProgressInterval: 100,
+      KeepAlive: true,
       ...this.globalOptions,
       ...this.opt?.COSOptions,
     });

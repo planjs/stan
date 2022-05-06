@@ -42,7 +42,7 @@ async function ossUpload(options: OSSUploadOptions) {
   const {
     targets,
     cwd = process.cwd(),
-    parallelLimit = 3,
+    parallelLimit = 5,
     uploadParams,
     maxAttempts = 0,
     verbose,

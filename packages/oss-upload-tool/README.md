@@ -50,7 +50,7 @@ Get parameter priority `parameters` > `process.env.[key]` > `npm config get [key
 ### Usage in CLI
 
 ```shell
-oss -t "./lib/**" -d "./__xxx","__xxx1/" --bucket "***" --region "***"
+oss-upload-tool -t "./lib/**" -d "./__xxx","__xxx1/" --bucket "***" --region "***"
 ```
 
 ### Usage in Node
