@@ -11,8 +11,10 @@ const dirs = (p: string, isFullPath = false) =>
 
 const fixtures = dirs(path.join(__dirname, '../__fixtures__'), true);
 
-for (const cwd of fixtures) {
-  test(`test ${path.basename(cwd)} build`, async () => {
-    await stanLibBuilder({ cwd });
-  }, 30000);
-}
+describe('stan-builder', () => {
+  for (const cwd of fixtures) {
+    test(`test ${path.basename(cwd)} build`, async () => {
+      await stanLibBuilder({ cwd });
+    }, 30000);
+  }
+});

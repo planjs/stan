@@ -9,11 +9,11 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "release": "lerna publish --no-verify-access --yes",
+    "release": "lerna publish from-git --yes",
     "publish:pkg": "lerna publish from-package --yes",
     "prepare": "lerna run prepare",
     "lint:fix": "lerna run lint:fix --sort",
-    "test": "jest --coverage -i"
+    "test": "jest --coverage"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.16",

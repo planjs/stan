@@ -9,8 +9,6 @@ const files = (p: string, isFullPath = false) =>
     .filter((f) => fs.statSync(path.join(p, f)).isFile())
     .map((v) => (isFullPath ? path.join(p, v) : v));
 
-jest.useFakeTimers();
-
 const fixtureDir = path.join(__dirname, '../__fixtures__');
 const expectedDir = 'expected';
 
