@@ -1,3 +1,15 @@
+[npm]: https://img.shields.io/npm/v/oss-upload-tool
+[npm-url]: https://www.npmjs.com/package/oss-upload-tool
+[download]: http://img.shields.io/npm/dm/oss-upload-tool.svg?style=flat
+[test]: https://github.com/planjs/stan/actions/workflows/test.yml/badge.svg
+[size]: https://packagephobia.now.sh/badge?p=oss-upload-tool
+[size-url]: https://packagephobia.now.sh/result?p=oss-upload-tool
+
+[![npm][npm]][npm-url]
+[![size][size]][size-url]
+[![test][test]][test]
+[![NPM downloads][download]][npm-url]
+
 # `oss-upload-tool`
 
 > Integrated oss upload   

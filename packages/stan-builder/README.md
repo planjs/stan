@@ -1,13 +1,14 @@
 [npm]: https://img.shields.io/npm/v/stan-builder
-[travis]: https://api.travis-ci.org/planjs/stan.svg?branch=master
 [npm-url]: https://www.npmjs.com/package/stan-builder
+[download]: http://img.shields.io/npm/dm/stan-builder.svg?style=flat
+[test]: https://github.com/planjs/stan/actions/workflows/test.yml/badge.svg
 [size]: https://packagephobia.now.sh/badge?p=stan-builder
 [size-url]: https://packagephobia.now.sh/result?p=stan-builder
 
 [![npm][npm]][npm-url]
 [![size][size]][size-url]
-[![travis][travis]][travis]
-[![NPM downloads](http://img.shields.io/npm/dm/stan-builder.svg?style=flat)][npm-url]
+[![test][test]][test]
+[![NPM downloads][download]][npm-url]
 
 # `stan-builder`
 

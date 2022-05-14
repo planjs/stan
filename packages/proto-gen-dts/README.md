@@ -1,3 +1,15 @@
+[npm]: https://img.shields.io/npm/v/proto-gen-dts
+[npm-url]: https://www.npmjs.com/package/proto-gen-dts
+[download]: http://img.shields.io/npm/dm/proto-gen-dts.svg?style=flat
+[test]: https://github.com/planjs/stan/actions/workflows/test.yml/badge.svg
+[size]: https://packagephobia.now.sh/badge?p=proto-gen-dts
+[size-url]: https://packagephobia.now.sh/result?p=proto-gen-dts
+
+[![npm][npm]][npm-url]
+[![size][size]][size-url]
+[![test][test]][test]
+[![NPM downloads][download]][npm-url]
+
 # `proto-gen-dts`
 
 > Convert `proto` file to `typescript` type definition file;   
