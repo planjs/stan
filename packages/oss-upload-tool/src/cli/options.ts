@@ -13,6 +13,7 @@ commander.option('--flatten', 'Delete the directory structure of uploaded files'
 commander.option('--secret_id [string]', 'OSS SecretId params');
 commander.option('--secret_key [string]', 'OSS SecretKey params');
 commander.option('--bucket [string]', 'OSS Bucket params');
+commander.option('--existCheck [string]', 'If the file exists, skip uploading');
 commander.option('--region [string]', 'OSS Region params');
 commander.option('--endpoint [string]', 'Ali OSS endpoint params');
 
@@ -38,7 +39,7 @@ export default function parseArgv(args: string[]): OSSUploadOptions | void {
 
   const opts = commander.opts();
 
-  const { secret_id, secret_key, bucket, region, endpoint } = opts;
+  const { secret_id, secret_key, bucket, region, endpoint, existCheck } = opts;
 
   // setup env
   safeSetEnv(SECRET_ID, secret_id);
@@ -58,6 +59,7 @@ export default function parseArgv(args: string[]): OSSUploadOptions | void {
         flatten: opts.flatten,
       };
     }),
+    existCheck,
   };
 }
 

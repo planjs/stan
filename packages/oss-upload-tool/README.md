@@ -38,7 +38,7 @@ Before use, please register environment variables in advance to facilitate use. 
 npm config set oss_upload_tool_secret_id "your secret_id"
 npm config get oss_upload_tool_secret_key "your secret_key"
 ```
-There are environment variables that have been downloaded.
+There are the following environment variables.
 ```shell
 # General parameters
 npm config get oss_upload_tool_secret_id
@@ -134,6 +134,10 @@ Number of parallel uploads
 #### timeout
 * Type: `number` default `1000 * 60 * 30`     
 Single file upload timeout
+
+#### existCheck
+* Type: `boolean | patterns` default `false`     
+Specify the file, if the file exists, skip uploading
 
 #### maxAttempts
 * Type: `number` default `0`     

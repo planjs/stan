@@ -14,7 +14,7 @@ const opts = parseArgv(process.argv);
 
 if (opts) {
   ossUpload(opts).catch((e) => {
-    signale.error(e);
+    signale.error(e.message || e);
     process.exitCode = (typeof e?.code === 'number' && e.code) || 1;
     process.exit();
   });

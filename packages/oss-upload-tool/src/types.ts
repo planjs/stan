@@ -96,6 +96,12 @@ export interface OSSUploadOptions {
    */
   maxAttempts?: number;
   /**
+   * 存在则跳过
+   * string 为 globby 匹配中的做检查
+   * @default false
+   */
+  existCheck?: boolean | string | string[];
+  /**
    * 匹配执行目录
    * @default process.cwd()
    */

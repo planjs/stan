@@ -26,6 +26,16 @@ export abstract class Client<Options = {}, UploadParams = {}> {
   ): Promise<UploadResp>;
 
   /**
+   * 获取上传后的文件地址
+   * @param item
+   * @param params
+   */
+  abstract getUploadedUrl(
+    item: OSSUploadLocalItem,
+    params?: Partial<UploadParams>,
+  ): Promise<UploadResp>;
+
+  /**
    * 检查系统默认的配置
    * 敏感配置建议通过环境或者系统配置获取，不要直接暴露到项目中
    */

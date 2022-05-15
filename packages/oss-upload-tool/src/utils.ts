@@ -1,3 +1,6 @@
+import http from 'http';
+import https from 'https';
+
 import { execa } from 'stan-utils';
 
 export function isStatusCodeOK(code: number) {
@@ -23,4 +26,27 @@ export function safeSetEnv(k: string, v: string, f = false) {
 export function defaultVal<T>(v: T | undefined, d: T) {
   if (v !== undefined) return v;
   return d;
+}
+
+export function checkOSSFileExits(url: string): Promise<string> {
+  const request = url.startsWith('https:') ? https : http;
+  return new Promise<string>((resolve, reject) => {
+    request
+      .get(url, (res) => {
+        let body = '';
+        res.on('data', (data) => {
+          body += data;
+        });
+        res.on('end', () => {
+          if (isStatusCodeOK(res.statusCode!)) {
+            resolve(body);
+          } else {
+            reject(res);
+          }
+        });
+      })
+      .on('error', (e) => {
+        reject(e.message);
+      });
+  });
 }

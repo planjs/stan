@@ -1,4 +1,5 @@
 import AOSS from 'ali-oss';
+import { join } from 'path';
 
 import { Client, UploadOptions } from '../oss_client';
 import { isStatusCodeOK, getGlobalValue, defaultVal } from '../utils';
@@ -18,7 +19,7 @@ import {
 import type { OSSUploadOptions, OSSUploadLocalItem } from '../types';
 
 class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
-  #client!: AOSS;
+  readonly #client!: AOSS;
 
   constructor(options: OSSUploadOptions) {
     super(options);
@@ -49,6 +50,20 @@ class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
     }
   };
 
+  getUploadedUrl = async (item: OSSUploadLocalItem, params?: Partial<AOSS.PutObjectOptions>) => {
+    return {
+      url:
+        'http://' +
+        join(
+          `${this.opt?.AOSSOptions?.bucket || this.globalOptions.bucket}.${this.globalOptions
+            .endpoint!}`,
+          item.path,
+        ),
+    };
+  };
+
+  // https://sscan.oss-cn-shanghai.aliyuncs.com/latest.yml
+
   get globalOptions() {
     const timeout = getGlobalValue(UPLOAD_TIMEOUT_KEY);
     return {
@@ -63,6 +78,10 @@ class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
 
   get globalUploadParams() {
     return {};
+  }
+
+  get client() {
+    return this.#client;
   }
 }
 

@@ -1,5 +1,5 @@
 import { relative } from 'path';
-import { chalk, globby, Listr, slash, pms } from 'stan-utils';
+import { chalk, globby, Listr, slash, pms, multimatch } from 'stan-utils';
 import { isPlanObject, retry, asyncPool } from '@planjs/utils';
 
 import COSClient from './client/cos';
@@ -17,7 +17,7 @@ import {
   SECRET_KEY,
   ALIOSS_ENDPOINT_KEY,
 } from './consts';
-import { getGlobalValue } from './utils';
+import { getGlobalValue, checkOSSFileExits } from './utils';
 
 function getUploadType(options: OSSUploadOptions): keyof typeof OSSToolClientType | void {
   if (options?.type) return options.type!;
@@ -46,6 +46,7 @@ async function ossUpload(options: OSSUploadOptions) {
     uploadParams,
     maxAttempts = 0,
     verbose,
+    existCheck = false,
   } = options;
   const type = getUploadType(options);
 
@@ -115,8 +116,27 @@ async function ossUpload(options: OSSUploadOptions) {
           )} to ${chalk.green(item.path)}`;
           tasks.add({
             title,
-            task: (ctx, task) => {
+            task: async (ctx, task) => {
               const start = Date.now();
+
+              if (
+                (typeof existCheck === 'boolean' && existCheck) ||
+                ((typeof existCheck === 'string' || Array.isArray(existCheck)) &&
+                  multimatch(item.path, existCheck).length)
+              ) {
+                const res = await oss.getUploadedUrl(item, uploadParams);
+                try {
+                  await checkOSSFileExits(res.url);
+                  const { url } = res;
+                  task.title =
+                    title.replace('Uploading', 'File exists') +
+                    ` ${pms(Date.now() - start)} -> ${chalk.greenBright(url)}`;
+                  ctx.push(res);
+                  resolve();
+                  return;
+                } catch (e) {}
+              }
+
               return retry(oss.upload, { maxAttempts: maxAttempts + 1 })(item, uploadParams, {
                 onProgress(loaded: number, total: number) {
                   task.output = `${((loaded / total) * 100).toFixed(2)}%`;

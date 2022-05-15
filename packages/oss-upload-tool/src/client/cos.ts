@@ -1,4 +1,5 @@
 import COS from 'cos-nodejs-sdk-v5';
+import { join } from 'path';
 import { REG_URI } from '@planjs/utils';
 
 import { Client, UploadOptions } from '../oss_client';
@@ -18,7 +19,7 @@ import {
 import type { OSSUploadOptions, OSSUploadLocalItem } from '../types';
 
 class COSClient extends Client<Partial<COS.COSOptions>, COS.UploadFileParams> {
-  #client!: COS;
+  readonly #client!: COS;
 
   constructor(options: OSSUploadOptions) {
     super(options);
@@ -58,6 +59,18 @@ class COSClient extends Client<Partial<COS.COSOptions>, COS.UploadFileParams> {
     }
   };
 
+  // @see https://github.com/tencentyun/cos-nodejs-sdk-v5/blob/master/sdk/base.js
+  getUploadedUrl = async (item: OSSUploadLocalItem, params?: Partial<COS.UploadFileParams>) => {
+    return {
+      url:
+        'http://' +
+        join(
+          `${params?.Bucket || this.globalUploadParams.Bucket}.cos.${params?.Region}.myqcloud.com`,
+          item.path,
+        ),
+    };
+  };
+
   get globalOptions() {
     const SecretId = getGlobalValue(COS_SECRET_ID, SECRET_ID);
     const SecretKey = getGlobalValue(COS_SECRET_KEY, SECRET_KEY);
@@ -74,6 +87,10 @@ class COSClient extends Client<Partial<COS.COSOptions>, COS.UploadFileParams> {
       Bucket: getGlobalValue(COS_BUCKET_KEY, BUCKET_KEY),
       Region: getGlobalValue(COS_REGION_KEY, REGION_KEY),
     };
+  }
+
+  get client() {
+    return this.#client;
   }
 }
 
