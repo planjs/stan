@@ -137,7 +137,9 @@ Single file upload timeout
 
 #### existCheck
 * Type: `boolean | patterns` default `false`     
-Specify the file, if the file exists, skip uploading
+Specify the file. If the file exists, skip the upload. 
+The judgment is to use `etag` first. 
+If there is no `etag`, as long as the request returns 200, it will be skipped.
 
 #### maxAttempts
 * Type: `number` default `0`     

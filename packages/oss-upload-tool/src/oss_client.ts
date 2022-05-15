@@ -10,7 +10,7 @@ export abstract class Client<Options = {}, UploadParams = {}> {
   opt: OSSUploadOptions;
 
   protected constructor(options: OSSUploadOptions) {
-    this.opt = options;
+    this.opt = options || {};
   }
 
   /**

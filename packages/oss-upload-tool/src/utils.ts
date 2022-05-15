@@ -1,7 +1,8 @@
-import http from 'http';
+import http, { IncomingHttpHeaders } from 'http';
 import https from 'https';
 
 import { execa } from 'stan-utils';
+import { convertObjectKeysCase } from '@planjs/utils';
 
 export function isStatusCodeOK(code: number) {
   return code >= 200 && code <= 300;
@@ -28,9 +29,13 @@ export function defaultVal<T>(v: T | undefined, d: T) {
   return d;
 }
 
-export function checkOSSFileExits(url: string): Promise<string> {
+export function getRemoteFileInfo(url: string) {
   const request = url.startsWith('https:') ? https : http;
-  return new Promise<string>((resolve, reject) => {
+  return new Promise<{
+    body: string;
+    headers: IncomingHttpHeaders;
+    etag?: string;
+  }>((resolve, reject) => {
     request
       .get(url, (res) => {
         let body = '';
@@ -39,7 +44,13 @@ export function checkOSSFileExits(url: string): Promise<string> {
         });
         res.on('end', () => {
           if (isStatusCodeOK(res.statusCode!)) {
-            resolve(body);
+            const headers = convertObjectKeysCase(res.headers! || {});
+            const etag = headers['etag'] || headers['if-none-match'];
+            resolve({
+              body,
+              headers,
+              etag,
+            });
           } else {
             reject(res);
           }

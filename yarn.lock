@@ -4099,11 +4099,6 @@
   resolved "https://registry.npmmirror.com/@types/node/download/@types/node-14.17.32.tgz#2ca61c9ef8c77f6fa1733be9e623ceb0d372ad96"
   integrity sha1-LKYcnvjHf2+hczvp5iPOsNNyrZY=
 
-"@types/node@^14.14.20":
-  version "14.18.12"
-  resolved "https://registry.npmmirror.com/@types/node/-/node-14.18.12.tgz#0d4557fd3b94497d793efd4e7d92df2f83b4ef24"
-  integrity sha512-q4jlIR71hUpWTnGhXWcakgkZeHa3CCjcQcnuzU8M891BAWA2jHiziiWEPEkdS5pFsz7H9HJiy8BrK7tBRNrY7A==
-
 "@types/node@^15.0.2":
   version "15.14.9"
   resolved "https://registry.npmmirror.com/@types/node/download/@types/node-15.14.9.tgz#bc43c990c3c9be7281868bbc7b8fdd6e2b57adfa"
@@ -6511,12 +6506,11 @@ core-util-is@^1.0.2, core-util-is@~1.0.0:
   resolved "https://registry.nlark.com/core-util-is/download/core-util-is-1.0.3.tgz#a6042d3634c2b27e9328f837b965fac83808db85"
   integrity sha1-pgQtNjTCsn6TKPg3uWX6yDgI24U=
 
-cos-nodejs-sdk-v5@^2.11.6:
-  version "2.11.6"
-  resolved "https://registry.yarnpkg.com/cos-nodejs-sdk-v5/-/cos-nodejs-sdk-v5-2.11.6.tgz#54aa9cd9e2ccaefeade826a9e7eacf360b2e7a9a"
-  integrity sha512-K5z9g6yQns1h5tVUUt0T+x9SYrB6QYXslIi5bh8FLVtV4U/Gdv3zpedYSU5IvG+ly23ko9u6usdaKvb+x7Bm7Q==
+cos-nodejs-sdk-v5@^2.11.9:
+  version "2.11.9"
+  resolved "https://registry.npmmirror.com/cos-nodejs-sdk-v5/-/cos-nodejs-sdk-v5-2.11.9.tgz#0e3750feb6dead02deaf701cec66a5ed2a48bce9"
+  integrity sha512-szsUw/8hx1RWUfMNwgErzYcdPM3EwcmgbylqQf82HPZALMCAcaa7qCeAxVQHNvCumWYeQLy7EEloZjMUyjg7Ug==
   dependencies:
-    "@types/node" "^14.14.20"
     conf "^9.0.0"
     mime-types "^2.1.24"
     request "^2.88.2"

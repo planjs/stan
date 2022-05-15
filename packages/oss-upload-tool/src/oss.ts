@@ -1,5 +1,5 @@
 import { relative } from 'path';
-import { chalk, globby, Listr, slash, pms, multimatch } from 'stan-utils';
+import { chalk, globby, Listr, slash, pms, multimatch, getFileEtag } from 'stan-utils';
 import { isPlanObject, retry, asyncPool } from '@planjs/utils';
 
 import COSClient from './client/cos';
@@ -17,7 +17,7 @@ import {
   SECRET_KEY,
   ALIOSS_ENDPOINT_KEY,
 } from './consts';
-import { getGlobalValue, checkOSSFileExits } from './utils';
+import { getGlobalValue, getRemoteFileInfo } from './utils';
 
 function getUploadType(options: OSSUploadOptions): keyof typeof OSSToolClientType | void {
   if (options?.type) return options.type!;
@@ -126,14 +126,16 @@ async function ossUpload(options: OSSUploadOptions) {
               ) {
                 const res = await oss.getUploadedUrl(item, uploadParams);
                 try {
-                  await checkOSSFileExits(res.url);
-                  const { url } = res;
-                  task.title =
-                    title.replace('Uploading', 'File exists') +
-                    ` ${pms(Date.now() - start)} -> ${chalk.greenBright(url)}`;
-                  ctx.push(res);
-                  resolve();
-                  return;
+                  const { etag } = await getRemoteFileInfo(res.url);
+                  if (etag ? etag.includes(getFileEtag(item.filePath)) : true) {
+                    const { url } = res;
+                    task.title =
+                      title.replace('Uploading', 'File exists') +
+                      ` ${pms(Date.now() - start)} -> ${chalk.greenBright(url)}`;
+                    ctx.push(res);
+                    resolve();
+                    return;
+                  }
                 } catch (e) {}
               }
 
