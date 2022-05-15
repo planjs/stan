@@ -45,7 +45,10 @@ export function getRemoteFileInfo(url: string) {
         res.on('end', () => {
           if (isStatusCodeOK(res.statusCode!)) {
             const headers = convertObjectKeysCase(res.headers! || {});
-            const etag = headers['etag'] || headers['if-none-match'];
+            let etag = headers['etag'] || headers['if-none-match'];
+            if (etag && typeof etag === 'string') {
+              etag = etag.toLowerCase();
+            }
             resolve({
               body,
               headers,
