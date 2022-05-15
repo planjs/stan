@@ -2,9 +2,7 @@ import { checkOSSFileExits } from '../src/utils';
 
 describe('utils', () => {
   it('checkOSSFileExits', async () => {
-    const res = await checkOSSFileExits(
-      'http://quan-admin-web-1259287960.cos.ap-guangzhou.myqcloud.com/__test__/index.d.ts',
-    );
+    const res = await checkOSSFileExits('https://www.baidu.com');
     expect(typeof res).toBe('string');
   });
 
