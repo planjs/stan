@@ -5,7 +5,7 @@ describe('utils', () => {
     const res = await getRemoteFileInfo(
       'https://avatars.githubusercontent.com/u/44866728?s=200&v=4',
     );
-    expect(typeof res).toBe('string');
+    expect(typeof res.body).toBe('string');
   }, 5000);
 
   it('getRemoteFileInfo ali-oss', async () => {
@@ -13,18 +13,18 @@ describe('utils', () => {
       const res = await getRemoteFileInfo(
         'http://oss-cn-shanghai.aliyuncs.com/__test__/get-upload-list.d.ts',
       );
-      expect(typeof res).toBe('string');
+      expect(typeof res.body).toBe('string');
     } catch (e) {
-      expect(e).not.toBeDefined();
+      expect(e).not.toBeNull();
     }
   });
 
   it('getRemoteFileInfo failed', async () => {
     try {
       const res = await getRemoteFileInfo('http://xxxx/index.d.ts');
-      expect(typeof res).toBe('string');
+      expect(typeof res.body).toBe('string');
     } catch (e) {
-      expect(e).not.toBeDefined();
+      expect(e).not.toBeNull();
     }
   });
 });
