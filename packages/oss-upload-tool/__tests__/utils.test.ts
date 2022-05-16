@@ -3,7 +3,7 @@ import { checkOSSFileExits } from '../src/utils';
 describe('utils', () => {
   it('checkOSSFileExits', async () => {
     const res = await checkOSSFileExits(
-      'https://quan-admin-web-1259287960.cos.ap-guangzhou.myqcloud.com/logo.png',
+      'https://avatars.githubusercontent.com/u/44866728?s=200&v=4',
     );
     expect(typeof res).toBe('string');
   }, 5000);
@@ -15,7 +15,7 @@ describe('utils', () => {
       );
       expect(typeof res).toBe('string');
     } catch (e) {
-      expect(e).not.toBeNaN();
+      expect(e).not.toBeDefined();
     }
   });
 
@@ -24,7 +24,7 @@ describe('utils', () => {
       const res = await checkOSSFileExits('http://xxxx/index.d.ts');
       expect(typeof res).toBe('string');
     } catch (e) {
-      expect(e).not.toBeNaN();
+      expect(e).not.toBeDefined();
     }
   });
 });
