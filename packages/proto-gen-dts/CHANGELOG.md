@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.16.0 (2022-05-17)
+
+
+### Features
+
+* **stan-builder:** add compile time ([1f9d1e8](https://github.com/planjs/stan/commit/1f9d1e831b4201d3cd939a442bea6175667f7671))
+
+
+
+
+
 ## 0.15.7 (2022-05-16)
 
 **Note:** Version bump only for package proto-gen-dts
