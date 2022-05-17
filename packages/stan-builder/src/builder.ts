@@ -10,6 +10,7 @@ import {
   rimraf,
   multimatch,
   CopyTarget,
+  pms,
 } from 'stan-utils';
 
 import getStanConfig from './get-stan-config';
@@ -66,9 +67,10 @@ async function builder(opts: BuildOptions) {
       }
     } catch (e) {}
 
+    const start = Date.now();
+
     for (const bundleOpt of bundleOptions) {
       const { bundler = 'rollup', entry, esm, umd, cjs, system, copy } = bundleOpt;
-
       const isBabel = (b: BundleOptions['esm'] | BundleOptions['cjs']) =>
         b === 'babel' || (b as BaseBundleOptions)?.bundler === 'babel' || bundler === 'babel';
 
@@ -163,7 +165,7 @@ async function builder(opts: BuildOptions) {
     }
 
     if (!watch) {
-      console.log(chalk.cyan('Build complete.'));
+      console.log(chalk.cyan(`Build complete ${pms(Date.now() - start)}.`));
     }
     return;
   }
