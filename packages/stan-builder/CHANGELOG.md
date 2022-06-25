@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.18.0 (2022-06-25)
+
+
+### Features
+
+* **stan-utils:** add npm utils ([28fa4d4](https://github.com/planjs/stan/commit/28fa4d44dce9403d92c854867088d45c7e85967c))
+
+
+
+
+
 ## 0.17.1 (2022-06-14)
 
 **Note:** Version bump only for package stan-builder
