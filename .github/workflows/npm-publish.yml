@@ -7,7 +7,7 @@ on:
   pull_request:
     types: [closed]
     branches:
-      - development
+      - develop
       - master
 
 jobs:
