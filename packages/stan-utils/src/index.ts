@@ -48,3 +48,4 @@ export * from './path';
 export * from './git';
 export { default as copyFiles, CopyOptions, CopyTarget } from './copy-files';
 export { default as getFileEtag } from './get-file-etag';
+export { getNpmClient, checkIsWorkspace, installWithNpmClient, installDeps } from './npm';
