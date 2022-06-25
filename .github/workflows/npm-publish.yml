@@ -4,8 +4,11 @@
 name: publish
 
 on:
-  push:
-    branches: [master]
+  pull_request:
+    types: [closed]
+    branches:
+      - development
+      - master
 
 jobs:
   build:
@@ -59,4 +62,10 @@ jobs:
           echo "registry=https://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
           npm whoami
-      - run: yarn release --create-release github
+      - run: |
+          if [ ${{ github.base_ref }} = develop ]; then
+            yarn version:beta
+          else
+            yarn version
+          fi
+          yarn release:pkg --create-release github

@@ -9,8 +9,9 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "release": "lerna publish --yes --no-verify-access",
-    "publish:pkg": "lerna publish from-package --yes",
+    "version": "lerna version",
+    "version:beta": "yarn version -- --preid beta",
+    "release:pkg": "lerna publish from-git --yes",
     "prepare": "lerna run prepare",
     "lint:fix": "lerna run lint:fix --sort",
     "test": "jest --coverage"
