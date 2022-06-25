@@ -16,6 +16,17 @@ function checkIsNpmProject(cwd: string) {
   }
 }
 
+export function isYarn(cwd: string) {
+  return tryExistsSync(['yarn.lock', '.yarnrc', path.join('node_modules', '.yarn-integrity')], cwd);
+}
+
+export function isPnpm(cwd: string) {
+  return tryExistsSync(
+    ['pnpm-lock.yaml', '.pnpmfile.cjs', 'pnpm-workspace.yaml', path.join('node_modules', '.pnpm')],
+    cwd,
+  );
+}
+
 /**
  * 检查是否是npm workspace
  * @param cwd
@@ -41,26 +52,18 @@ export function checkIsWorkspace(cwd: string, client: NpmClientType) {
 export function getNpmClient(args?: { cwd?: string }): GetNpmClientReturnType {
   const { cwd = process.cwd() } = args || {};
   checkIsNpmProject(cwd);
+
   const result: GetNpmClientReturnType = {
     client: 'npm',
-    isWorkspace: false,
+    isWorkspace: checkIsWorkspace(cwd, 'npm'),
   };
-  if (
-    tryExistsSync(
-      [
-        'pnpm-lock.yaml',
-        '.pnpmfile.cjs',
-        'pnpm-workspace.yaml',
-        path.join('node_modules', '.pnpm'),
-      ],
-      cwd,
-    )
-  ) {
+
+  if (isPnpm(cwd)) {
     result.client = 'pnpm';
     result.isWorkspace = checkIsWorkspace(cwd, 'pnpm');
   }
 
-  if (tryExistsSync(['yarn.lock', '.yarnrc', path.join('node_modules', '.yarn-integrity')], cwd)) {
+  if (isYarn(cwd)) {
     result.client = 'yarn';
     result.isWorkspace = checkIsWorkspace(cwd, 'yarn');
   }
