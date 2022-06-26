@@ -12,6 +12,7 @@
     "version:release": "lerna version --yes",
     "version:beta": "yarn version:release -- --preid beta",
     "release:pkg": "lerna publish from-git --yes",
+    "release": "yarn version:release && yarn release:pkg",
     "prepare": "lerna run prepare",
     "lint:fix": "lerna run lint:fix --sort",
     "test": "jest --coverage"
