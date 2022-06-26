@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/planjs/stan/compare/stan-utils@0.13.0...stan-utils@0.14.0) (2022-06-26)
+
+
+### Features
+
+* done ([27ad002](https://github.com/planjs/stan/commit/27ad0028651f3ec5e8c59b5635ac6d6994d41717))
+
+
+
+
+
 # 0.13.0 (2022-06-25)
 
 
