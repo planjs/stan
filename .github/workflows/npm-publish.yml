@@ -67,6 +67,6 @@ jobs:
           if [ ${{ github.base_ref }} = develop ]; then
             yarn version:beta
           else
-            yarn run version
+            yarn version:release
           fi
-          yarn run release:pkg --create-release github
+          yarn release:pkg --create-release github
