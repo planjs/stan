@@ -20,6 +20,10 @@ export function isRelative(path: string) {
   return relativePath.test(path);
 }
 
+/**
+ * 获取相对 cwd 的 linux 文件路径
+ * @param id
+ */
 export function relativeId(id: string) {
   if (typeof process === 'undefined' || !isAbsolute(id)) return id;
   return relative(process.cwd(), id);
@@ -33,6 +37,10 @@ export function relativeNormalize(id: string) {
   return slash(relativeId(id));
 }
 
+/**
+ * 获取文件名
+ * @param id
+ */
 export function getAliasName(id: string) {
   const base = basename(id);
   return base.substr(0, base.length - extname(id).length);

@@ -16,10 +16,18 @@ function checkIsNpmProject(cwd: string) {
   }
 }
 
+/**
+ * 是否使用yarn
+ * @param cwd
+ */
 export function isYarn(cwd: string) {
   return tryExistsSync(['yarn.lock', '.yarnrc', path.join('node_modules', '.yarn-integrity')], cwd);
 }
 
+/**
+ * 是否使用pnpm
+ * @param cwd
+ */
 export function isPnpm(cwd: string) {
   return tryExistsSync(
     ['pnpm-lock.yaml', '.pnpmfile.cjs', 'pnpm-workspace.yaml', path.join('node_modules', '.pnpm')],
