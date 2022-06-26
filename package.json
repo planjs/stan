@@ -24,6 +24,7 @@
     "@planjs/fabric": "^0.0.91",
     "@types/jest": "^26.0.15",
     "@types/node": "^15.0.2",
+    "@types/shelljs": "^0.8.11",
     "all-contributors-cli": "^6.20.0",
     "babel-jest": "^27.3.1",
     "chokidar-cli": "^2.1.0",
@@ -35,12 +36,11 @@
     "jest": "^26.6.1",
     "lerna": "^4.0.0",
     "lint-staged": "^11.0.0",
+    "shelljs": "^0.8.5",
     "sort-package-json": "^1.50.0",
     "standard-version": "^9.0.0",
     "ts-node": "^10.0.0",
-    "typescript": "4.1.5",
-    "shelljs": "^0.8.5",
-    "@types/shelljs": "^0.8.11"
+    "typescript": "4.1.5"
   },
   "resolutions": {
     "source-map": "^0.8.0-beta.0"
@@ -54,5 +54,6 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
-  }
+  },
+  "version": "0.0.0"
 }
