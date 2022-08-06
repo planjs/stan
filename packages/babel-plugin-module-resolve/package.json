@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",
-    "deasync": "^0.1.23",
+    "deasync": "^0.1.27",
     "enhanced-resolve": "^5.8.2",
     "parsed-tsconfig": "^0.0.5"
   },
