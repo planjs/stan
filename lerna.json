@@ -1,12 +1,7 @@
 {
-  "packages": [
-    "packages/*",
-    "packages/*/*"
-  ],
+  "packages": ["packages/*", "packages/*/*"],
   "npmClient": "yarn",
-  "npmClientArgs": [
-    "--ignore-engines"
-  ],
+  "npmClientArgs": ["--ignore-engines"],
   "command": {
     "publish": {
       "registry": "https://registry.npmjs.org/"
@@ -18,11 +13,7 @@
       "allowBranch": "master"
     }
   },
-  "ignoreChanges": [
-    "**/__fixtures__/**",
-    "**/__tests__/**",
-    "**/*.md"
-  ],
+  "ignoreChanges": ["**/__fixtures__/**", "**/__tests__/**", "**/*.md"],
   "useWorkspaces": true,
   "version": "independent"
 }
