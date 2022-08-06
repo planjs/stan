@@ -90,16 +90,16 @@ async function babelBuild(opts: BabelOptions) {
     }
   }
 
-  function getPossCSSConfig(): { plugins?: any[]; [key: string]: any } {
+  async function getPossCSSConfig(): Promise<{ plugins?: any[]; [key: string]: any }> {
     try {
-      return postcssrc.sync({});
+      return await postcssrc({});
     } catch (e) {
       return {};
     }
   }
 
   const tsConfig = getParsedTSConfig(cwd, rootPath);
-  const { plugins: postcssPlugin = [], ...postcssConfig } = getPossCSSConfig();
+  const { plugins: postcssPlugin = [], ...postcssConfig } = await getPossCSSConfig();
 
   function createStream(globs: string[] | string) {
     const babelTransformRegexp = /\.(t|j)sx?$/;
