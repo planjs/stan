@@ -1,17 +1,11 @@
 function _typeof(obj) {
   "@babel/helpers - typeof";
 
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, _typeof(obj);
 }
 
 var check = function check(it) {
@@ -43,20 +37,11 @@ var _globalThis = check((typeof globalThis === "undefined" ? "undefined" : _type
 
 var _self = check((typeof self === "undefined" ? "undefined" : _typeof(self)) == 'object' && self);
 /**
- * func this
- */
-
-
-var _fnThis = function () {
-  // @ts-ignore
-  return this; // eslint-disable-next-line no-new-func
-}() || Function('return this')();
-/**
  * 全局对象
  */
 
 
-var root = _globalThis || _window || _global || _self || _fnThis;
+var root = _globalThis || _window || _global || _self || Function('return this')();
 var global$1 = root;
 
 console.log(global$1);

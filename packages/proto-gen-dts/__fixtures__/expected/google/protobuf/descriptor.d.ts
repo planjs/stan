@@ -96,7 +96,6 @@ declare namespace google {
       // For booleans, "true" or "false".
       // For strings, contains the default text contents (not escaped in any way).
       // For bytes, contains the C escaped value.  All bytes >= 128 are escaped.
-      // TODO(kenton):  Base-64 encode?
       defaultValue?: string;
       // If set, gives the index of a oneof in the containing type's oneof_decl
       // list.  This field is a member of that oneof.
@@ -438,7 +437,17 @@ declare namespace google {
       // implementation must either *always* check its required fields, or *never*
       // check its required fields, regardless of whether or not the message has
       // been parsed.
+      //
+      // As of 2021, lazy does no correctness checks on the byte stream during
+      // parsing.  This may lead to crashes if and when an invalid byte stream is
+      // finally parsed upon access.
+      //
+      // TODO(b/211906113):  Enable validation on lazy fields.
       lazy?: boolean;
+      // unverified_lazy does no correctness checks on the byte stream. This should
+      // only be used where lazy with verification is prohibitive for performance
+      // reasons.
+      unverifiedLazy?: boolean;
       // Is this field deprecated?
       // Depending on the target platform, this can emit Deprecated annotations
       // for accessors, or it will be completely ignored; in the very least, this
@@ -547,8 +556,8 @@ declare namespace google {
     // The name of the uninterpreted option.  Each string represents a segment in
     // a dot-separated name.  is_extension is true iff a segment represents an
     // extension (denoted with parentheses in options specs in .proto files).
-    // E.g.,{ ["foo", false], ["bar.baz", true], ["qux", false] } represents
-    // "foo.(bar.baz).qux".
+    // E.g.,{ ["foo", false], ["bar.baz", true], ["moo", false] } represents
+    // "foo.(bar.baz).moo".
     export interface google_protobuf_UninterpretedOption_NamePart {
       namePart: string;
       isExtension: boolean;
@@ -608,8 +617,8 @@ declare namespace google {
       // location.
       //
       // Each element is a field number or an index.  They form a path from
-      // the root FileDescriptorProto to the place where the definition.  For
-      // example, this path:
+      // the root FileDescriptorProto to the place where the definition occurs.
+      // For example, this path:
       // [ 4, 3, 2, 7, 1 ]
       // refers to:
       // file.message_type(3)  // 4, 3
@@ -661,13 +670,13 @@ declare namespace google {
       // // Comment attached to baz.
       // // Another line attached to baz.
       //
-      // // Comment attached to qux.
+      // // Comment attached to moo.
       // //
-      // // Another line attached to qux.
-      // optional double qux = 4;
+      // // Another line attached to moo.
+      // optional double moo = 4;
       //
       // // Detached comment for corge. This is not leading or trailing comments
-      // // to qux or corge because there are blank lines separating it from
+      // // to moo or corge because there are blank lines separating it from
       // // both.
       //
       // // Detached comment for corge paragraph 2.

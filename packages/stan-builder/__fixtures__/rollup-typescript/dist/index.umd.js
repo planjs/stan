@@ -28,8 +28,7 @@
 	  return target;
 	}
 
-	module.exports = _objectWithoutPropertiesLoose;
-	module.exports["default"] = module.exports, module.exports.__esModule = true;
+	module.exports = _objectWithoutPropertiesLoose, module.exports.__esModule = true, module.exports["default"] = module.exports;
 	}(objectWithoutPropertiesLoose));
 
 	(function (module) {
@@ -54,8 +53,7 @@
 	  return target;
 	}
 
-	module.exports = _objectWithoutProperties;
-	module.exports["default"] = module.exports, module.exports.__esModule = true;
+	module.exports = _objectWithoutProperties, module.exports.__esModule = true, module.exports["default"] = module.exports;
 	}(objectWithoutProperties));
 
 	var _objectWithoutProperties = /*@__PURE__*/getDefaultExportFromCjs(objectWithoutProperties.exports);

@@ -9,7 +9,7 @@
     var Vue__default = /*#__PURE__*/_interopDefaultLegacy(Vue);
     var Component__default = /*#__PURE__*/_interopDefaultLegacy(Component);
 
-    /*! *****************************************************************************
+    /******************************************************************************
     Copyright (c) Microsoft Corporation.
 
     Permission to use, copy, modify, and/or distribute this software for any
