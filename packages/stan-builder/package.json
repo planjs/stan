@@ -101,7 +101,7 @@
     "gulp-typescript": "^6.0.0-alpha.1",
     "less-plugin-npm-import": "^2.1.0",
     "merge2": "^1.4.1",
-    "postcss-load-config": "^4.0.1",
+    "postcss-load-config": "^3.0.0",
     "rollup": "^2.70.1",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-terser": "^7.0.2",
