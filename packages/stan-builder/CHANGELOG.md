@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://github.com/planjs/stan/compare/stan-builder@0.18.2...stan-builder@0.19.0) (2022-08-07)
+
+
+### Bug Fixes
+
+* node 12 support ([4fdd626](https://github.com/planjs/stan/commit/4fdd626891c5a7848126b57dbdbc713cd9d0fdf1))
+
+
+### Features
+
+* upgrade postcss8 ([1395770](https://github.com/planjs/stan/commit/1395770fd0d5d48c001e281a05b396fe1597ff31))
+
+
+
+
+
 ## 0.18.2 (2022-06-26)
 
 **Note:** Version bump only for package stan-builder

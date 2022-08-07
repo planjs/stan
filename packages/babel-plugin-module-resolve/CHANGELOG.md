@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.2](https://github.com/planjs/stan/compare/babel-plugin-module-resolve@1.4.1...babel-plugin-module-resolve@1.4.2) (2022-08-07)
+
+**Note:** Version bump only for package babel-plugin-module-resolve
+
+
+
+
+
 ## 1.4.1 (2022-06-26)
 
 **Note:** Version bump only for package babel-plugin-module-resolve

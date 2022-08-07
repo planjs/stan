@@ -1,6 +1,6 @@
 {
   "name": "stan-builder",
-  "version": "0.18.2",
+  "version": "0.19.0",
   "description": "build js library",
   "author": "fupeng <fupenglxy@gmail.com> (https://github.com/fupengl)",
   "homepage": "https://github.com/planjs/stan/blob/master/packages/stan-builder/README.md",
@@ -101,16 +101,16 @@
     "gulp-typescript": "^6.0.0-alpha.1",
     "less-plugin-npm-import": "^2.1.0",
     "merge2": "^1.4.1",
+    "postcss": "^8.2.7",
     "postcss-load-config": "^3.0.0",
     "rollup": "^2.70.1",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.31.1",
     "rollup-plugin-visualizer": "^5.5.2",
-    "stan-utils": "0.14.1",
+    "stan-utils": "0.14.2",
     "through2": "^4.0.2",
     "vinyl-fs": "^3.0.3",
-    "postcss": "^8.2.7",
     "vue-template-compiler": "^2.6.12"
   },
   "devDependencies": {
