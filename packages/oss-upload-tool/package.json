@@ -1,6 +1,6 @@
 {
   "name": "oss-upload-tool",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "Integrated oss upload",
   "keywords": [
     "cos",
@@ -43,7 +43,7 @@
     "stan-utils": "0.14.2"
   },
   "devDependencies": {
-    "stan-builder": "0.19.0"
+    "stan-builder": "0.19.1"
   },
   "gitHead": "c73c9427e7bf21b68d27f72aff60581cc71f26e4"
 }

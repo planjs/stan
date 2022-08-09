@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.3](https://github.com/planjs/stan/compare/babel-plugin-module-resolve@1.4.2...babel-plugin-module-resolve@1.4.3) (2022-08-09)
+
+
+### Bug Fixes
+
+* deasync node 18 error ([0d9d033](https://github.com/planjs/stan/commit/0d9d0337578c999704212371966758976ed75484))
+
+
+
+
+
 ## [1.4.2](https://github.com/planjs/stan/compare/babel-plugin-module-resolve@1.4.1...babel-plugin-module-resolve@1.4.2) (2022-08-07)
 
 **Note:** Version bump only for package babel-plugin-module-resolve

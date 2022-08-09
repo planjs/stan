@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.4](https://github.com/planjs/stan/compare/oss-upload-tool@0.6.3...oss-upload-tool@0.6.4) (2022-08-09)
+
+**Note:** Version bump only for package oss-upload-tool
+
+
+
+
+
 ## [0.6.3](https://github.com/planjs/stan/compare/oss-upload-tool@0.6.2...oss-upload-tool@0.6.3) (2022-08-07)
 
 
