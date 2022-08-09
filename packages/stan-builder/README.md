@@ -161,6 +161,12 @@ export default {
 
 > - `external` 中的包默认会 camelCase 作为默认值。
 
+#### system 
+
+输出`systemjs`规范的代码，默认使用`rollup`。
+
+* Type：`boolean`
+
 #### target
 
 配置是 node 库还是 browser 库，只作用于语法层。

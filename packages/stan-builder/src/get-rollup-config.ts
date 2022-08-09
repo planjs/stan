@@ -177,7 +177,9 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
             cssnano({
               preset: 'default',
             }),
-          autoprefixer(),
+          autoprefixer({
+            remove: false,
+          }),
         ].filter(Boolean),
       }),
       injectOpts && inject(injectOpts),

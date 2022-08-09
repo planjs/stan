@@ -11,7 +11,7 @@ describe('utils', () => {
   it('getRemoteFileInfo ali-oss', async () => {
     try {
       const res = await getRemoteFileInfo(
-        'http://oss-cn-shanghai.aliyuncs.com/__test__/get-upload-list.d.ts',
+        'https://pkg.aquanliang.com/microfrontends.app/npm.importmap.json',
       );
       expect(typeof res.body).toBe('string');
     } catch (e) {
