@@ -92,7 +92,7 @@ export default function getRollupConfig(opts: GetRollupConfigOptions): IRollupOp
   const input = path.join(cwd, entry!);
   const entryExt = path.extname(entry!);
   const isTypeScript = entryExt === '.ts' || entryExt === '.tsx' || checkTSConfigIsExist(cwd);
-  const extensions = ['.js', '.jsx', '.ts', '.tsx', '.es6', '.es', '.mjs'];
+  const extensions = ['.js', '.jsx', '.ts', '.tsx', '.es6', '.es', '.mjs', '.vue'];
 
   const moduleOpts: UMDOptions | ESMOptions | CJSOptions | SYSOptions | null = {
     umd,
