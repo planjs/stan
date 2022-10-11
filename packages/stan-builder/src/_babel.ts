@@ -191,7 +191,7 @@ async function babelBuild(opts: BabelOptions) {
         .pipe(vfs.dest(targetPath));
     }
 
-    if (!(tsConfig?.declaration || tsConfig?.declarationDir)) {
+    if (!(tsConfig?.declaration || (tsConfig?.declaration !== false && tsConfig?.declarationDir))) {
       return merge(main);
     }
 
