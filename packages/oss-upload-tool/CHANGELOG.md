@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.6.5 (2022-10-11)
+
+
+### Bug Fixes
+
+* **stan-builder:** declaration false ([c3aa14a](https://github.com/planjs/stan/commit/c3aa14aa7c3c1b63afcf20b20865458333dc4cd9))
+
+
+
+
+
 ## [0.6.4](https://github.com/planjs/stan/compare/oss-upload-tool@0.6.3...oss-upload-tool@0.6.4) (2022-08-09)
 
 **Note:** Version bump only for package oss-upload-tool
