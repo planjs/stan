@@ -40,7 +40,8 @@
     "@types/ali-oss": "^6.16.3",
     "ali-oss": "^6.17.1",
     "cos-nodejs-sdk-v5": "^2.11.9",
-    "stan-utils": "0.14.3"
+    "stan-utils": "0.14.3",
+    "aws-sdk": "^2.1294.0"
   },
   "devDependencies": {
     "stan-builder": "0.19.2"

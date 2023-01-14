@@ -1,4 +1,5 @@
 import { commander } from 'stan-utils';
+
 import { OSSUploadOptions } from '../types';
 import { ALIOSS_ENDPOINT_KEY, BUCKET_KEY, REGION_KEY, SECRET_ID, SECRET_KEY } from '../consts';
 import { safeSetEnv } from '../utils';

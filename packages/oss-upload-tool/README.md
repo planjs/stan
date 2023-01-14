@@ -13,7 +13,7 @@
 # `oss-upload-tool`
 
 > Integrated oss upload   
-> Complete integration [COS](https://cloud.tencent.com/document/product/436/6474) / [ALI-OSS](https://help.aliyun.com/document_detail/32068.htm?spm=a2c4g.11186623.0.0.3e8ff2eeVjYbKz#concept-32068-zh), Welcome to improve together.
+> Complete integration [COS-OSS](https://cloud.tencent.com/document/product/436/6474) / [ALI-OSS](https://help.aliyun.com/document_detail/32068.htm?spm=a2c4g.11186623.0.0.3e8ff2eeVjYbKz#concept-32068-zh) / [S3-OSS](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/index.html), Welcome to improve together.
 
 ## Install
 
@@ -33,29 +33,38 @@ yarn add oss-upload-tool -D
 ## Usage
 
 The tool will prioritize the identification of environment variables for easy invocation.   
-Before use, please register environment variables in advance to facilitate use. In CI/Action, you can set environment variables to prevent exposure of OSS parameters.
+Before use, please register environment variables in advance to facilitate use. In CI/Action, you can set environment variables to prevent exposure of OSS parameters.   
 ```shell
-npm config set oss_upload_tool_secret_id "your secret_id"
-npm config get oss_upload_tool_secret_key "your secret_key"
+# General parameters
+npm config --global set oss_upload_tool_secret_id "your secret_id"
+npm config --global get oss_upload_tool_secret_key "your secret_key"
+npm config --global get oss_upload_tool_bucket "your bucket"
+npm config --global get oss_upload_tool_region "your region"
 ```
-There are the following environment variables.
+There are the following environment variables.   
+It is recommended to set environment variables corresponding to oss first.
 ```shell
 # General parameters
 npm config get oss_upload_tool_secret_id
 npm config get oss_upload_tool_secret_key
 npm config get oss_upload_tool_bucket
 npm config get oss_upload_tool_region
-# COS
+# cos-oss
 npm config get oss_upload_tool_cos_secret_id
 npm config get oss_upload_tool_cos_secret_key
 npm config get oss_upload_tool_cos_bucket
 npm config get oss_upload_tool_cos_region
-# Ali-oss
+# ali-oss
 npm config get oss_upload_tool_alioss_secret_id
 npm config get oss_upload_tool_alioss_secret_key
 npm config get oss_upload_tool_alioss_bucket
 npm config get oss_upload_tool_alioss_region
 npm config get oss_upload_tool_alioss_endpoint
+# s3-oss
+npm config get oss_upload_tool_s3_secret_id
+npm config get oss_upload_tool_s3_secret_key
+npm config get oss_upload_tool_s3_bucket
+npm config get oss_upload_tool_s3_region
 ```
 Get parameter priority `parameters` > `process.env.[key]` > `npm config get [key]`.
 
@@ -69,7 +78,7 @@ oss-upload-tool -t "./lib/**" -d "./__xxx","__xxx1/" --bucket "***" --region "**
 ```ts
 const ossUpload = require('oss-upload-tool');
 
-// upload cos
+// upload cos-oss
 await ossUpload({
   targets: {
     src: './lib/**/*',
@@ -99,6 +108,24 @@ await ossUpload({
     endpoint: '***',
   },
 });
+
+// upload s3-oss
+ossUpload({
+  targets: {
+    src: './lib/**/*',
+    dest: ['__xxx/', '__xxx1/'],
+  },
+  uploadParams: {
+    Bucket: '***',
+  },
+  S3Options: {
+    credentials: {
+      accessKeyId: '***',
+      secretAccessKey: '***',
+    },
+    region: '***',
+  },
+})
 ```
 
 ## Options
@@ -126,6 +153,9 @@ Upload configuration
 
 #### AOSSOptions
 * Type: `object` https://github.com/ali-sdk/ali-oss#node-usage 
+
+#### S3Options
+* Type: `object` https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/index.html 
 
 #### parallelLimit
 * Type: `number` default `5`   

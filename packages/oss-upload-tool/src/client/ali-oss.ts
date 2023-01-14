@@ -1,7 +1,11 @@
-import AOSS from 'ali-oss';
 import { join } from 'path';
 
-import { Client, UploadOptions } from '../oss_client';
+import AOSS from 'ali-oss';
+import { lodash } from 'stan-utils';
+
+import { Client } from '../oss_client';
+import type { UploadOptions } from '../oss_client';
+import type { OSSUploadOptions, OSSUploadLocalItem } from '../types';
 import { isStatusCodeOK, getGlobalValue, defaultVal } from '../utils';
 import {
   ALIOSS_BUCKET_KEY,
@@ -16,17 +20,13 @@ import {
   SECRET_KEY,
   UPLOAD_TIMEOUT_KEY,
 } from '../consts';
-import type { OSSUploadOptions, OSSUploadLocalItem } from '../types';
 
 class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
   readonly #client!: AOSS;
 
   constructor(options: OSSUploadOptions) {
     super(options);
-    this.#client = new AOSS({
-      ...this.globalOptions,
-      ...this.opt?.AOSSOptions!,
-    });
+    this.#client = new AOSS(lodash.defaultsDeep(this.globalOptions, this.opt?.AOSSOptions!));
   }
 
   upload = async (

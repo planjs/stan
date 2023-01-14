@@ -1,5 +1,6 @@
 import type COS from 'cos-nodejs-sdk-v5';
 import type AOSS from 'ali-oss';
+import type { S3 } from 'aws-sdk';
 
 /**
  * 上传参数
@@ -12,6 +13,7 @@ type UploadParams = Partial<COS.UploadFileParams> | Partial<AOSS.PutObjectOption
 export enum OSSToolClientType {
   COS,
   AOSS,
+  S3,
 }
 
 export interface OSSUploadLocalItem {
@@ -66,6 +68,10 @@ export interface OSSUploadOptions {
    */
   AOSSOptions?: AOSS.Options;
   /**
+   * S3 初始化参数
+   */
+  S3Options?: S3.Types.ClientConfiguration;
+  /**
    * 上传参数
    */
   uploadParams?: UploadParams;
@@ -84,7 +90,7 @@ export interface OSSUploadOptions {
   verbose?: boolean;
   /**
    * 并行上传数量
-   * @default 3
+   * @default 5
    */
   parallelLimit?: number;
   /**

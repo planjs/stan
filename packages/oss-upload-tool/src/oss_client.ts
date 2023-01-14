@@ -1,10 +1,10 @@
 import { OSSUploadOptions, OSSUploadLocalItem } from './types';
 
 export type UploadOptions = {
-  onProgress?: (loaded: number, total: number, speed: number) => void;
+  onProgress?: (loaded: number, total: number, speed?: number) => void;
 };
 
-export type UploadResp = { url: string };
+export type UploadResp<T = any> = { url: string } & T;
 
 export abstract class Client<Options = {}, UploadParams = {}> {
   opt: OSSUploadOptions;

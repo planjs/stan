@@ -9,9 +9,6 @@ export const SECRET_KEY = 'oss_upload_tool_secret_key';
 export const BUCKET_KEY = 'oss_upload_tool_bucket';
 export const REGION_KEY = 'oss_upload_tool_region';
 
-/**
- * 具体oss 参数
- */
 // COS
 export const COS_SECRET_ID = 'oss_upload_tool_cos_secret_id';
 export const COS_SECRET_KEY = 'oss_upload_tool_cos_secret_key';
@@ -24,3 +21,9 @@ export const ALIOSS_SECRET_KEY = 'oss_upload_tool_alioss_secret_key';
 export const ALIOSS_BUCKET_KEY = 'oss_upload_tool_alioss_bucket';
 export const ALIOSS_REGION_KEY = 'oss_upload_tool_alioss_region';
 export const ALIOSS_ENDPOINT_KEY = 'oss_upload_tool_alioss_endpoint';
+
+// s3
+export const S3_SECRET_ID = 'oss_upload_tool_s3_secret_id';
+export const S3_SECRET_KEY = 'oss_upload_tool_s3_secret_key';
+export const S3_BUCKET_KEY = 'oss_upload_tool_s3_bucket';
+export const S3_REGION_KEY = 'oss_upload_tool_s3_region';

@@ -1,8 +1,11 @@
-import COS from 'cos-nodejs-sdk-v5';
 import { join } from 'path';
-import { REG_URI } from '@planjs/utils';
 
-import { Client, UploadOptions } from '../oss_client';
+import COS from 'cos-nodejs-sdk-v5';
+import { REG_URI } from '@planjs/utils';
+import { lodash } from 'stan-utils';
+
+import { Client } from '../oss_client';
+import type { UploadOptions } from '../oss_client';
 import { isStatusCodeOK, getGlobalValue, defaultVal } from '../utils';
 import {
   BUCKET_KEY,
@@ -23,12 +26,16 @@ class COSClient extends Client<Partial<COS.COSOptions>, COS.UploadFileParams> {
 
   constructor(options: OSSUploadOptions) {
     super(options);
-    this.#client = new COS({
-      ProgressInterval: 100,
-      KeepAlive: true,
-      ...this.globalOptions,
-      ...this.opt?.COSOptions,
-    });
+    this.#client = new COS(
+      lodash.defaultsDeep(
+        {
+          ProgressInterval: 100,
+          KeepAlive: true,
+        },
+        this.globalOptions,
+        this.opt?.COSOptions,
+      ),
+    );
   }
 
   upload = async (
