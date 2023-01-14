@@ -5,14 +5,17 @@ import type { S3 } from 'aws-sdk';
 /**
  * 上传参数
  */
-type UploadParams = Partial<COS.UploadFileParams> | Partial<AOSS.PutObjectOptions>;
+type UploadParams =
+  | Partial<COS.UploadFileParams>
+  | Partial<AOSS.PutObjectOptions>
+  | Partial<S3.Types.PutObjectRequest>;
 
 /**
  * 对象存储类型
  */
 export enum OSSToolClientType {
   COS,
-  AOSS,
+  ALI,
   S3,
 }
 

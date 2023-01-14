@@ -4,7 +4,7 @@ import AOSS from 'ali-oss';
 import { lodash } from 'stan-utils';
 
 import { Client } from '../oss_client';
-import type { UploadOptions } from '../oss_client';
+import type { UploadResp, UploadOptions } from '../oss_client';
 import type { OSSUploadOptions, OSSUploadLocalItem } from '../types';
 import { isStatusCodeOK, getGlobalValue, defaultVal } from '../utils';
 import {
@@ -21,7 +21,7 @@ import {
   UPLOAD_TIMEOUT_KEY,
 } from '../consts';
 
-class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
+class ALIClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
   readonly #client!: AOSS;
 
   constructor(options: OSSUploadOptions) {
@@ -33,7 +33,7 @@ class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
     item: OSSUploadLocalItem,
     params?: Partial<AOSS.PutObjectOptions>,
     options?: UploadOptions,
-  ) => {
+  ): Promise<UploadResp> => {
     try {
       const { res, url } = await this.#client.put(item.path, item.content || item.filePath, {
         ...this.globalUploadParams,
@@ -85,4 +85,4 @@ class AOSSClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
   }
 }
 
-export default AOSSClient;
+export default ALIClient;

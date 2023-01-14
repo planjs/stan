@@ -5,7 +5,7 @@ import { REG_URI } from '@planjs/utils';
 import { lodash } from 'stan-utils';
 
 import { Client } from '../oss_client';
-import type { UploadOptions } from '../oss_client';
+import type { UploadResp, UploadOptions } from '../oss_client';
 import { isStatusCodeOK, getGlobalValue, defaultVal } from '../utils';
 import {
   BUCKET_KEY,
@@ -42,7 +42,7 @@ class COSClient extends Client<Partial<COS.COSOptions>, COS.UploadFileParams> {
     item: OSSUploadLocalItem,
     params?: Partial<COS.UploadFileParams>,
     options?: UploadOptions,
-  ) => {
+  ): Promise<UploadResp> => {
     try {
       const res = await this.#client.uploadFile({
         FilePath: item.filePath,

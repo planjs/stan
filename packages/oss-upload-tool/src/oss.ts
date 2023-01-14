@@ -3,12 +3,9 @@ import { chalk, globby, Listr, slash, pms, multimatch, getFileEtag } from 'stan-
 import { isPlanObject, retry, asyncPool } from '@planjs/utils';
 
 import COSClient from './client/cos';
-import AOSSClient from './client/ali-oss';
+import ALIClient from './client/ali';
 import S3Client from './client/s3';
 import getUploadList from './get-upload-list';
-import type { OSSUploadOptions, OSSUploadTarget, OSSUploadLocalItem } from './types';
-import { OSSToolClientType } from './types';
-import type { Client, UploadResp } from './oss_client';
 import {
   COS_SECRET_ID,
   ALIOSS_SECRET_ID,
@@ -19,13 +16,16 @@ import {
   S3_SECRET_KEY,
 } from './consts';
 import { getGlobalValue, getRemoteFileInfo } from './utils';
+import type { OSSUploadOptions, OSSUploadTarget, OSSUploadLocalItem } from './types';
+import type { OSSToolClientType } from './types';
+import type { Client, UploadResp } from './oss_client';
 
 function getUploadType(options: OSSUploadOptions): keyof typeof OSSToolClientType | void {
   if (options?.type) return options.type!;
 
   const map: Array<[any, string[], keyof typeof OSSToolClientType]> = [
     [options?.COSOptions, [COS_SECRET_ID, COS_SECRET_KEY], 'COS'],
-    [options?.AOSSOptions, [ALIOSS_ENDPOINT_KEY, ALIOSS_SECRET_ID, ALIOSS_SECRET_KEY], 'AOSS'],
+    [options?.AOSSOptions, [ALIOSS_ENDPOINT_KEY, ALIOSS_SECRET_ID, ALIOSS_SECRET_KEY], 'ALI'],
     [options?.S3Options, [S3_SECRET_ID, S3_SECRET_KEY], 'S3'],
   ];
   for (const [o, k, t] of map) {
@@ -87,8 +87,9 @@ async function ossUpload(options: OSSUploadOptions) {
       case 'COS':
         oss = new COSClient(options!);
         break;
+      case 'ALI':
       case 'AOSS':
-        oss = new AOSSClient(options!);
+        oss = new ALIClient(options!);
         break;
       case 'S3':
         oss = new S3Client(options!);

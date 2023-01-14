@@ -7,7 +7,7 @@ import { lodash } from 'stan-utils';
 
 import { Client } from '../oss_client';
 import type { OSSUploadOptions, OSSUploadLocalItem } from '../types';
-import type { UploadResp, UploadOptions } from '../../lib/oss_client';
+import type { UploadResp, UploadOptions } from '../oss_client';
 import { defaultVal, getGlobalValue } from '../utils';
 import {
   BUCKET_KEY,
