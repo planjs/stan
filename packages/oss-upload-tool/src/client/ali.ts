@@ -26,7 +26,7 @@ class ALIClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
 
   constructor(options: OSSUploadOptions) {
     super(options);
-    this.#client = new AOSS(lodash.defaultsDeep(this.globalOptions, this.opt?.AOSSOptions!));
+    this.#client = new AOSS(lodash.defaultsDeep(this.globalOptions, this.opt?.ALIOptions!));
   }
 
   upload = async (
@@ -55,7 +55,7 @@ class ALIClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
       url:
         'http://' +
         join(
-          `${this.opt?.AOSSOptions?.bucket || this.globalOptions.bucket}.${this.globalOptions
+          `${this.opt?.ALIOptions?.bucket || this.globalOptions.bucket}.${this.globalOptions
             .endpoint!}`,
           item.path,
         ),

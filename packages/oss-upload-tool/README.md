@@ -100,7 +100,7 @@ await ossUpload({
     src: './lib/**/*',
     dest: ['__xxx/', '__xxx1/'],
   },
-  AOSSOptions: {
+  ALIOptions: {
     accessKeyId: '***',
     accessKeySecret: '***',
     bucket: '***',
@@ -142,16 +142,17 @@ Upload configuration
   * transform: `(Buffer) => Buffer | string` Upload file content.
 
 #### type
-* Type: `COS | AOSS` default `COS`
+* Type: `COS | ALI | S3` default `COS`
 
 ### uploadParams
 * COS `import('cos-nodejs-sdk-v5').SliceUploadFileParams`
-* AOSS `import('ali-oss').PutObjectOptions`
+* ALI `import('ali-oss').PutObjectOptions`
+* S3 `import('aws-sdk').S3.Types.PutObjectRequest`
 
 #### COSOptions
 * Type: `object` https://github.com/tencentyun/cos-nodejs-sdk-v5
 
-#### AOSSOptions
+#### ALIOptions
 * Type: `object` https://github.com/ali-sdk/ali-oss#node-usage 
 
 #### S3Options

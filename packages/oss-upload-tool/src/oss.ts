@@ -25,7 +25,7 @@ function getUploadType(options: OSSUploadOptions): keyof typeof OSSToolClientTyp
 
   const map: Array<[any, string[], keyof typeof OSSToolClientType]> = [
     [options?.COSOptions, [COS_SECRET_ID, COS_SECRET_KEY], 'COS'],
-    [options?.AOSSOptions, [ALIOSS_ENDPOINT_KEY, ALIOSS_SECRET_ID, ALIOSS_SECRET_KEY], 'ALI'],
+    [options?.ALIOptions, [ALIOSS_ENDPOINT_KEY, ALIOSS_SECRET_ID, ALIOSS_SECRET_KEY], 'ALI'],
     [options?.S3Options, [S3_SECRET_ID, S3_SECRET_KEY], 'S3'],
   ];
   for (const [o, k, t] of map) {

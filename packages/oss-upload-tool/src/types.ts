@@ -69,7 +69,7 @@ export interface OSSUploadOptions {
    * 阿里云OSS初始化参数
    * https://github.com/ali-sdk/ali-oss#node-usage
    */
-  AOSSOptions?: AOSS.Options;
+  ALIOptions?: AOSS.Options;
   /**
    * S3 初始化参数
    */
