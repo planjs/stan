@@ -13,6 +13,7 @@ ossUpload({
     Bucket: 'shoplines3',
     CacheControl: 'public, max-age=31556952, immutable',
   },
+  origin: 'https://cdn.myshopline.com',
   existCheck: true,
   S3Options: {
     region: 'ap-southeast-1',

@@ -42,7 +42,7 @@ npm config --global get oss_upload_tool_bucket "your bucket"
 npm config --global get oss_upload_tool_region "your region"
 ```
 There are the following environment variables.   
-It is recommended to set environment variables corresponding to oss first.
+It is recommended to set the environment variable corresponding to oss first, then you do not need to specify the type of oss service provider.
 ```shell
 # General parameters
 npm config get oss_upload_tool_secret_id
@@ -71,7 +71,7 @@ Get parameter priority `parameters` > `process.env.[key]` > `npm config get [key
 ### Usage in CLI
 
 ```shell
-oss-upload-tool -t "./lib/**" -d "./__xxx","__xxx1/" --bucket "***" --region "***"
+oss-upload-tool -t "./lib/**" -d "./__xxx","__xxx1/" --bucket "***" --region "***" --oss "S3"
 ```
 
 ### Usage in Node
@@ -160,7 +160,12 @@ Upload configuration
 
 #### parallelLimit
 * Type: `number` default `5`   
-Number of parallel uploads
+Number of parallel uploads.
+
+#### origin
+* Type: `string`   
+The current CDN externally accesses the domain name, which needs to have an agreement.   
+> `existCheck` check, if the default cdn domain name cannot be accessed, use the open access cdn domain name to check   
 
 #### timeout
 * Type: `number` default `1000 * 60 * 30`     
@@ -170,11 +175,12 @@ Single file upload timeout
 * Type: `boolean | patterns` default `false`     
 Specify the file. If the file exists, skip the upload. 
 The judgment is to use `etag` first. 
-If there is no `etag`, as long as the request returns 200, it will be skipped.
+If there is no `etag`, as long as the request returns 200, it will be skipped.   
+By default, the official domain name of oss is used to access. If it cannot be accessed, please specify origin to set a custom domain name.   
 
 #### maxAttempts
 * Type: `number` default `0`     
-Maximum number of failed retries   
+Maximum number of failed retries.   
 
 #### cwd
 * Type: `string` default `process.cwd()`

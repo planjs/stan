@@ -75,6 +75,12 @@ export interface OSSUploadOptions {
    */
   S3Options?: S3.Types.ClientConfiguration;
   /**
+   * 当前 CDN 对外访问域名，需要带协议
+   * existCheck 检查，如果默认cdn域名无法访问，使用开放访问的 cdn 域名进行检查
+   * eg: https://your-customer-domain
+   */
+  origin?: string;
+  /**
    * 上传参数
    */
   uploadParams?: UploadParams;

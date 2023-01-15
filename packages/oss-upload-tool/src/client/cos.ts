@@ -20,6 +20,7 @@ import {
   UPLOAD_TIMEOUT_KEY,
 } from '../consts';
 import type { OSSUploadOptions, OSSUploadLocalItem } from '../types';
+import { URL } from 'url';
 
 class COSClient extends Client<Partial<COS.COSOptions>, COS.UploadFileParams> {
   readonly #client!: COS;
@@ -68,13 +69,15 @@ class COSClient extends Client<Partial<COS.COSOptions>, COS.UploadFileParams> {
 
   // @see https://github.com/tencentyun/cos-nodejs-sdk-v5/blob/master/sdk/base.js
   getUploadedUrl = async (item: OSSUploadLocalItem, params?: Partial<COS.UploadFileParams>) => {
+    const uri = new URL(
+      this.opt?.origin ||
+        `http://${params?.Bucket || this.globalUploadParams.Bucket}.cos.${
+          params?.Region
+        }.myqcloud.com`,
+    );
+    uri.pathname = item.path;
     return {
-      url:
-        'http://' +
-        join(
-          `${params?.Bucket || this.globalUploadParams.Bucket}.cos.${params?.Region}.myqcloud.com`,
-          item.path,
-        ),
+      url: uri.href,
     };
   };
 

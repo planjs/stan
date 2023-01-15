@@ -88,7 +88,7 @@ async function ossUpload(options: OSSUploadOptions) {
         oss = new COSClient(options!);
         break;
       case 'ALI':
-      case 'AOSS':
+      case 'AOSS': // compatible
         oss = new ALIClient(options!);
         break;
       case 'S3':

@@ -1,44 +1,50 @@
-import { commander } from 'stan-utils';
+import { commander, chalk } from 'stan-utils';
 
-import { OSSUploadOptions } from '../types';
+import type { OSSUploadOptions } from '../types';
 import { ALIOSS_ENDPOINT_KEY, BUCKET_KEY, REGION_KEY, SECRET_ID, SECRET_KEY } from '../consts';
 import { safeSetEnv } from '../utils';
 
 const pkg = require('../../package.json');
 
 commander.option('-V, --verbose', 'Output verbose messages on internal operations');
-commander.option('--oss [COS|AOSS]', 'OSS Type only supported COS|AOSS');
+commander.option('--oss [COS|ALI|S3]', 'OSS Type only supported COS|ALI|S3');
 commander.option('-t, --targets <list>', 'Upload targets local path', collect);
 commander.option('-d, --dest <list>', 'Upload remote directory', collect);
 commander.option('--flatten', 'Delete the directory structure of uploaded files', booleanify);
 commander.option('--secret_id [string]', 'OSS SecretId params');
 commander.option('--secret_key [string]', 'OSS SecretKey params');
 commander.option('--bucket [string]', 'OSS Bucket params');
+commander.option('--origin [string]', 'Accessible cdn address');
 commander.option('--existCheck [string]', 'If the file exists, skip uploading');
 commander.option('--region [string]', 'OSS Region params');
 commander.option('--endpoint [string]', 'Ali OSS endpoint params');
 
+commander.name(pkg.name);
 commander.version(pkg.version);
 
 export default function parseArgv(args: string[]): OSSUploadOptions | void {
   commander.parse(args);
 
-  if (commander.args.length) {
-    commander.outputHelp();
-    return;
-  }
+  // if (!commander.args.length) {
+  //   commander.outputHelp();
+  //   return;
+  // }
+
+  const opts = commander.opts();
 
   const errors: string[] = [];
 
+  if (!opts?.targets?.length) {
+    errors.push('Please specify the file to upload, use -t.');
+  }
+
   if (errors.length) {
-    console.error(`${pkg.name}:`);
+    console.error(chalk.red(`${pkg.name} error:`));
     errors.forEach(function (e) {
-      console.error('  ' + e);
+      console.error(chalk.redBright('  ' + e));
     });
     return;
   }
-
-  const opts = commander.opts();
 
   const { secret_id, secret_key, bucket, region, endpoint, existCheck } = opts;
 

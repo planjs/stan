@@ -1,4 +1,5 @@
 import { join } from 'path';
+import { URL } from 'url';
 
 import AOSS from 'ali-oss';
 import { lodash } from 'stan-utils';
@@ -51,14 +52,14 @@ class ALIClient extends Client<Partial<AOSS.Options>, AOSS.PutObjectOptions> {
   };
 
   getUploadedUrl = async (item: OSSUploadLocalItem, params?: Partial<AOSS.PutObjectOptions>) => {
+    const uri = new URL(
+      this.opt?.origin ||
+        `http://${this.opt?.ALIOptions?.bucket || this.globalOptions.bucket}.${this.globalOptions
+          .endpoint!}`,
+    );
+    uri.pathname = item.path;
     return {
-      url:
-        'http://' +
-        join(
-          `${this.opt?.ALIOptions?.bucket || this.globalOptions.bucket}.${this.globalOptions
-            .endpoint!}`,
-          item.path,
-        ),
+      url: uri.href,
     };
   };
 

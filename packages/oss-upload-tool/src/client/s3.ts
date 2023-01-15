@@ -1,5 +1,5 @@
-import { join } from 'path';
 import { createReadStream } from 'fs';
+import { URL } from 'url';
 
 import { S3 } from 'aws-sdk';
 import { defer } from '@planjs/utils';
@@ -34,15 +34,15 @@ class S3Client extends Client<Partial<S3.Types.ClientConfiguration>, S3.Types.Pu
     item: OSSUploadLocalItem,
     params: Partial<any> | undefined,
   ): Promise<UploadResp> => {
+    const uri = new URL(
+      this.opt?.origin ||
+        `http://${params?.Bucket || this.globalUploadParams.Bucket}.s3.${
+          this.opt?.S3Options?.region || this.globalOptions?.region
+        }.amazonaws.com`,
+    );
+    uri.pathname = item.path;
     return {
-      url:
-        'http://' +
-        join(
-          `${params?.Bucket || this.globalUploadParams.Bucket}.s3.${
-            this.opt?.S3Options?.region || this.globalOptions?.region
-          }.amazonaws.com`,
-          item.path,
-        ),
+      url: uri.href,
     };
   };
 
