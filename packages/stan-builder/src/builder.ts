@@ -36,7 +36,7 @@ export function getBundleOpts(opts: BuildOptions): BundleOptions[] {
   });
   const bundleOpts = getStanConfig({ cwd });
   if (!bundleOpts.length) {
-    bundleOpts.push({});
+    bundleOpts.push(args.esm || args.cjs || args.umd || args.system ? {} : { esm: true });
   }
   return bundleOpts
     .map((stanConfig) => _.merge({ entry }, args, stanConfig))
