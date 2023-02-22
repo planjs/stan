@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.9.0 (2023-02-22)
+
+
+### Features
+
+* add default to esm ([0bf8b85](https://github.com/planjs/stan/commit/0bf8b85d73c9aafb7c99d6309f6ad1424829663a))
+
+
+
+
+
 ## 0.8.3 (2023-01-16)
 
 **Note:** Version bump only for package babel-plugin-ts-enum-iife

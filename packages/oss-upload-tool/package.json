@@ -1,6 +1,6 @@
 {
   "name": "oss-upload-tool",
-  "version": "0.6.6",
+  "version": "0.7.0",
   "description": "Integrated oss upload",
   "keywords": [
     "cos",
@@ -41,10 +41,10 @@
     "ali-oss": "^6.17.1",
     "aws-sdk": "^2.1294.0",
     "cos-nodejs-sdk-v5": "^2.11.9",
-    "stan-utils": "0.14.4"
+    "stan-utils": "0.15.0"
   },
   "devDependencies": {
-    "stan-builder": "0.19.3"
+    "stan-builder": "0.20.0"
   },
   "gitHead": "c73c9427e7bf21b68d27f72aff60581cc71f26e4"
 }
