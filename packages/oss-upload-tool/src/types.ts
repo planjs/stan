@@ -1,6 +1,6 @@
 import type COS from 'cos-nodejs-sdk-v5';
 import type AOSS from 'ali-oss';
-import type { S3 } from 'aws-sdk';
+import type { S3ClientConfig, PutObjectCommandInput } from '@aws-sdk/client-s3';
 
 /**
  * 上传参数
@@ -8,7 +8,7 @@ import type { S3 } from 'aws-sdk';
 type UploadParams =
   | Partial<COS.UploadFileParams>
   | Partial<AOSS.PutObjectOptions>
-  | Partial<S3.Types.PutObjectRequest>;
+  | Partial<PutObjectCommandInput>;
 
 /**
  * 对象存储类型
@@ -73,7 +73,7 @@ export interface OSSUploadOptions {
   /**
    * S3 初始化参数
    */
-  S3Options?: S3.Types.ClientConfiguration;
+  S3Options?: S3ClientConfig;
   /**
    * 当前 CDN 对外访问域名，需要带协议
    * existCheck 检查，如果默认cdn域名无法访问，使用开放访问的 cdn 域名进行检查

@@ -1,8 +1,10 @@
 import { createReadStream } from 'fs';
 import { URL } from 'url';
 
-import { S3 } from 'aws-sdk';
-import { defer } from '@planjs/utils';
+import { S3Client as S3 } from '@aws-sdk/client-s3';
+import type { S3ClientConfig, PutObjectCommandInput } from '@aws-sdk/client-s3';
+import { Upload } from '@aws-sdk/lib-storage';
+import { AbortController } from '@smithy/abort-controller';
 import { lodash } from 'stan-utils';
 
 import { Client } from '../oss_client';
@@ -22,7 +24,7 @@ import {
   UPLOAD_TIMEOUT_KEY,
 } from '../consts';
 
-class S3Client extends Client<Partial<S3.Types.ClientConfiguration>, S3.Types.PutObjectRequest> {
+class S3Client extends Client<Partial<S3ClientConfig>, PutObjectCommandInput> {
   readonly #client!: S3;
 
   constructor(options: OSSUploadOptions) {
@@ -46,66 +48,73 @@ class S3Client extends Client<Partial<S3.Types.ClientConfiguration>, S3.Types.Pu
     };
   };
 
-  get globalOptions(): Partial<Partial<S3.ClientConfiguration>> {
+  get globalOptions(): Partial<Partial<S3ClientConfig>> {
     const accessKeyId = getGlobalValue(S3_SECRET_ID, SECRET_ID)!;
     const secretAccessKey = getGlobalValue(S3_SECRET_KEY, SECRET_KEY)!;
     const region = getGlobalValue(S3_REGION_KEY, BUCKET_KEY)!;
-    const timeout = getGlobalValue(UPLOAD_TIMEOUT_KEY);
     return {
       credentials: {
         accessKeyId,
         secretAccessKey,
       },
       region,
-      httpOptions: {
-        timeout: Number.isNaN(+timeout!)
-          ? defaultVal(this.opt.timeout, DEFAULT_TIMEOUT)
-          : +timeout!,
-      },
     };
   }
 
-  get globalUploadParams(): Partial<S3.Types.PutObjectRequest> {
+  get globalUploadParams(): Partial<PutObjectCommandInput> {
     const Bucket = getGlobalValue(S3_BUCKET_KEY, REGION_KEY)!;
     return {
       Bucket,
     };
   }
 
-  upload = (
+  getTimeout() {
+    const timeout = getGlobalValue(UPLOAD_TIMEOUT_KEY);
+
+    return Number.isNaN(+timeout!) ? defaultVal(this.opt.timeout, DEFAULT_TIMEOUT) : +timeout!;
+  }
+
+  upload = async (
     item: OSSUploadLocalItem,
-    params?: Partial<S3.Types.PutObjectRequest>,
+    params?: Partial<PutObjectCommandInput>,
     options?: UploadOptions,
   ): Promise<UploadResp> => {
-    const p = defer<UploadResp>();
-    this.#client
-      .upload(
-        {
-          Bucket: '',
-          Key: item.path,
-          Body: createReadStream(item.filePath),
-          ...this.globalUploadParams,
-          ...params,
-        },
-        {
-          partSize: 1024 * 1024 * 5,
-          ...options,
-        },
-        (err, data) => {
-          if (err) {
-            p.reject(err);
-            return;
-          }
-          p.resolve({
-            ...data,
-            url: data.Location,
-          });
-        },
-      )
-      .on('httpUploadProgress', (info) => {
-        options?.onProgress?.(info.loaded, info.total);
-      });
-    return p.promise;
+    const _params = {
+      Bucket: '',
+      Key: item.path,
+      Body: createReadStream(item.filePath),
+      ...this.globalUploadParams,
+      ...params,
+    };
+
+    const abortController = new AbortController();
+
+    const parallelUploads3 = new Upload({
+      client: this.#client,
+      params: _params,
+      queueSize: 4,
+      partSize: 1024 * 1024 * 5,
+      leavePartsOnError: false,
+      abortController,
+    });
+
+    const timer = setTimeout(() => {
+      abortController.abort();
+    }, this.getTimeout());
+
+    parallelUploads3.on('httpUploadProgress', (progress) => {
+      options?.onProgress?.(progress.loaded! || 0, progress.total! || 0);
+    });
+
+    try {
+      const res = await parallelUploads3.done();
+      return {
+        ...res,
+        ...(await this.getUploadedUrl(item, _params)),
+      } as UploadResp;
+    } finally {
+      clearTimeout(timer);
+    }
   };
 }
 
