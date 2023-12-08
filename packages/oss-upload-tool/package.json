@@ -1,6 +1,6 @@
 {
   "name": "oss-upload-tool",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Integrated oss upload",
   "keywords": [
     "cos",
@@ -36,16 +36,16 @@
     "test": "jest --config ../../jest.config.ts --rootDir ."
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "3.449.0",
+    "@aws-sdk/lib-storage": "3.449.0",
     "@planjs/utils": "^1.5.1",
     "@types/ali-oss": "^6.16.3",
     "ali-oss": "^6.17.1",
-    "@aws-sdk/client-s3": "3.449.0",
-    "@aws-sdk/lib-storage": "3.449.0",
     "cos-nodejs-sdk-v5": "^2.11.9",
-    "stan-utils": "0.15.0"
+    "stan-utils": "0.16.0"
   },
   "devDependencies": {
-    "stan-builder": "0.20.0"
+    "stan-builder": "0.21.0"
   },
   "gitHead": "c73c9427e7bf21b68d27f72aff60581cc71f26e4"
 }
