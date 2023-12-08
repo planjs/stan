@@ -1,4 +1,3 @@
-import { join } from 'path';
 import { URL } from 'url';
 
 import AOSS from 'ali-oss';

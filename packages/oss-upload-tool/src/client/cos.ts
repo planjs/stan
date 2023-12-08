@@ -1,5 +1,3 @@
-import { join } from 'path';
-
 import COS from 'cos-nodejs-sdk-v5';
 import { REG_URI } from '@planjs/utils';
 import { lodash } from 'stan-utils';
