@@ -3529,7 +3529,7 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@smithy/abort-controller@^2.0.1", "@smithy/abort-controller@^2.0.15":
+"@smithy/abort-controller@2.0.15", "@smithy/abort-controller@^2.0.1", "@smithy/abort-controller@^2.0.15":
   version "2.0.15"
   resolved "https://registry.yarnpkg.com/@smithy/abort-controller/-/abort-controller-2.0.15.tgz#fcec9193da8b86eef1eedc3e71139a99c061db32"
   integrity sha512-JkS36PIS3/UCbq/MaozzV7jECeL+BTt4R75bwY8i+4RASys4xOyUS1HsRyUNSqUXFP4QyCz5aNnh3ltuaxv+pw==

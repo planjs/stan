@@ -41,6 +41,9 @@
     "@planjs/utils": "^1.5.1",
     "@types/ali-oss": "^6.16.3",
     "ali-oss": "^6.17.1",
+    "@aws-sdk/client-s3": "3.449.0",
+    "@aws-sdk/lib-storage": "3.449.0",
+    "@smithy/abort-controller": "2.0.15",
     "cos-nodejs-sdk-v5": "^2.11.9",
     "stan-utils": "0.16.0"
   },
