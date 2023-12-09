@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.22.0 (2023-12-09)
+
+
+### Features
+
+* deps ([#32](https://github.com/planjs/stan/issues/32)) ([2c8591b](https://github.com/planjs/stan/commit/2c8591b073950174aaed960e55071deb5f63369d))
+
+
+
+
+
 # 0.21.0 (2023-12-08)
 
 
