@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.19.0 (2023-12-08)
+
+
+### Features
+
+* upgrade s3 to v3 ([#31](https://github.com/planjs/stan/issues/31)) ([e557def](https://github.com/planjs/stan/commit/e557def8297ca29cba4e637777b32c1e23ad4e6e))
+
+
+
+
+
 # 0.18.0 (2023-02-22)
 
 
